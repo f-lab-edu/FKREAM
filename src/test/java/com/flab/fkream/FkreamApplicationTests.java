@@ -12,7 +12,7 @@ class FkreamApplicationTests {
 
 	@Test
 	void test(){
-		System.out.println("test");
+		System.out.println("test branch");
 	}
 
 }
