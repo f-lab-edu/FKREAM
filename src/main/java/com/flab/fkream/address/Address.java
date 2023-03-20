@@ -1,10 +1,16 @@
 package com.flab.fkream.address;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@EqualsAndHashCode(of = "id")
+@ToString
 public class Address {
 
     private Long id;
@@ -19,14 +25,5 @@ public class Address {
     private final LocalDateTime createdAt;
 
 
-    public Address(Users users, String name, String phoneNumber, String zipcode, String detail1, String detail2, boolean defaultAddress, LocalDateTime createdAt) {
-        this.users = users;
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.zipcode = zipcode;
-        this.detail1 = detail1;
-        this.detail2 = detail2;
-        this.defaultAddress = defaultAddress;
-        this.createdAt = createdAt;
-    }
+
 }
