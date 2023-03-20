@@ -5,7 +5,7 @@
 <mapper namespace="com.flab.fkream.users.UsersMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.users.Users">
         insert into users (EMAIL, PASSWORD, FOURTEEN_AGREEMENT, GENDER, AD_AGREEMENT, PERSONAL_AUTHENTICATION, PHONE_NUMBER, PROFILE_NAME, NAME, `RANK`, PROFILE_IMG_NAME, PROFILE_IMG_URL, PROFILE_IMG_ORIGIN_NAME, CREATED_AT, MODIFIED_AT)
-        values ( #{email}, #{password} , #{gender}, #{phoneNumber}" +
+        values ( #{email}, #{password}, #{fourteenAgreement}, #{gender},#{adAgreement}, #{personalAuthentication}, #{phoneNumber}" +
             ",#{profileName}, #{name}, #{rank}, #{profileImgName},#{profileImgUrl}" +
             ", #{profileImgOriginName}, #{createdAt}, #{modifiedAt})
     </insert>
