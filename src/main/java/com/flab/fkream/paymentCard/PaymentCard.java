@@ -1,11 +1,17 @@
 package com.flab.fkream.paymentCard;
 
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
+@Builder
+@EqualsAndHashCode(of = "id")
+@ToString
 public class PaymentCard {
 
     private Long id;
@@ -16,12 +22,4 @@ public class PaymentCard {
     private final String cardPw;
     private final LocalDateTime createdAt;
 
-    public PaymentCard(Users users, String cardCompany, String cardNumber, LocalDate expiration, String cardPw, LocalDateTime createdAt) {
-        this.users = users;
-        this.cardCompany = cardCompany;
-        this.cardNumber = cardNumber;
-        this.expiration = expiration;
-        this.cardPw = cardPw;
-        this.createdAt = createdAt;
-    }
 }
