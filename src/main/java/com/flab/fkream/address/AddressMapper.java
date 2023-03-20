@@ -8,9 +8,9 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface AddressMapper {
 
-    String insert = "INSERT INTO ADDRESS(user_id, name, phone_number, zipcode, detail1, detail2, default_address,created_at) VALUES(" +
+    String insert = "INSERT INTO ADDRESS(user_id, name, phone_number, zipcode, detail1, detail2, default_address, created_at) VALUES(" +
             "#{address.users.id}, #{address.name}, #{address.phoneNumber}, #{address.zipcode}, #{address.detail1}, #{address.detail2}, " +
-            "#{address.defaultAddress}, #{address.created_at})";
+            "#{address.defaultAddress}, #{address.createdAt})";
 
     @Insert(insert)
     @Options(useGeneratedKeys = true, keyProperty = "id")
