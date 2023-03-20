@@ -1,4 +1,7 @@
 
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/fkream

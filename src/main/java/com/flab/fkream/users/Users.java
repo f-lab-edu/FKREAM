@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Users {
 
-    private int id;
+    private Long id;
     private final String email;
     private final String password;
 

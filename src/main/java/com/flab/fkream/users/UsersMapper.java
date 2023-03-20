@@ -10,10 +10,7 @@ public interface UsersMapper {
             "Values ( #{users.email}, #{users.password} , #{users.gender}, #{users.phoneNumber}" +
             ",#{users.profileName}, #{users.name}, #{users.rank}, #{users.profileImgName},#{users.profileImgUrl}" +
             ", #{users.profileImgOriginName}, #{users.createdAt}, #{users.modifiedAt})";
-
-    @Insert(insert)
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(@Param("users") Users users);
+    void save( Users users);
 
 
 }
