@@ -1,8 +1,8 @@
-package com.flab.fkream.brand;
+package com.flab.fkream.interestedItem;
 
 import java.util.List;
 
-import com.flab.fkream.item.Item;
+import com.flab.fkream.notification.Notification;
 
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,8 +15,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode(of = "id")
 @Builder
-public class Brand {
+public class InterestedItem {
 	private Long id;
-	private final String brandName;
-	private final String luxury;
+	private final Long userId;
+	private final Long itemSizePriceId;
 }
