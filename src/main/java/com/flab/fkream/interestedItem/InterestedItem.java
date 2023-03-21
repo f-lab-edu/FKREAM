@@ -19,5 +19,4 @@ public class InterestedItem {
 	private Long id;
 	private final Long userId;
 	private final Long itemSizePriceId;
-	private List<Notification> notificationList;
 }

@@ -23,5 +23,4 @@ public class ItemSizePrice {
 	private final int lowestSellingPrice;
 	private final int highestPurchasePrice;
 	private LocalDateTime modifiedAt;
-	private List<OwnedItem> ownedItemList;
 }

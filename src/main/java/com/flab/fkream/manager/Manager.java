@@ -25,5 +25,4 @@ public class Manager {
 	private final String agreement;
 	private final LocalDateTime createdAt;
 	private LocalDateTime modifiedAt;
-	private List<Item> itemList;
 }

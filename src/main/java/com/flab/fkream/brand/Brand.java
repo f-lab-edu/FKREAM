@@ -19,5 +19,4 @@ public class Brand {
 	private Long id;
 	private final String brandName;
 	private final String luxury;
-	private List<Item> itemList;
 }

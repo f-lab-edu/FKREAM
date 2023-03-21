@@ -30,7 +30,6 @@ public class Item {
 	private final Long managerId;
 	private final LocalDateTime created_at;
 	private LocalDateTime modified_at;
-	private List<ItemImg> itemImgList;
 }
 
 
