@@ -1,5 +1,5 @@
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
 
 spring:
   datasource:
@@ -11,4 +11,3 @@ spring:
 logging.level:
   org.hibernate.SQL: debug
 #  org.hibernate.type: trace
-
