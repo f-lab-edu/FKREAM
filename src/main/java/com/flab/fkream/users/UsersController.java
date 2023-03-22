@@ -10,7 +10,7 @@ import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UsersController {
 
