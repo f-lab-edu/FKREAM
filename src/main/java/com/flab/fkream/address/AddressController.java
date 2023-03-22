@@ -8,14 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("address")
+@RequestMapping("/address")
 @RequiredArgsConstructor
 public class AddressController {
 
-
-    @GetMapping("/default/{userId}")
-    public List<Address> findByAll(@PathVariable("userId") Long userId){
-        return null;
-    }
 
 }
