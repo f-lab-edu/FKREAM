@@ -1,5 +1,7 @@
 package com.flab.fkream.deal;
 
+import com.flab.fkream.item.Item;
+import com.flab.fkream.users.Users;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
