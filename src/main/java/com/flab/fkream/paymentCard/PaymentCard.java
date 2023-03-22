@@ -1,5 +1,6 @@
 package com.flab.fkream.paymentCard;
 
+import com.flab.fkream.users.Users;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
