@@ -1,5 +1,7 @@
 package com.flab.fkream.notification;
 
+import com.flab.fkream.interestedItem.InterestedItem;
+import com.flab.fkream.users.Users;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
