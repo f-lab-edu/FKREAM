@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.fkream.address.AddressMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.address.Address">
+        insert into address (USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT, DEFAULT_ADDRESS)
+        values (#{users.id}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2}, " +
+            "#{defaultAddress}, #{createdAt})
+    </insert>
+</mapper>

@@ -1,7 +1,5 @@
-package com.flab.fkream.notification;
+package com.flab.fkream.address;
 
-import com.flab.fkream.interestedItem.InterestedItem;
-import com.flab.fkream.users.Users;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -13,11 +11,19 @@ import java.time.LocalDateTime;
 @Builder
 @EqualsAndHashCode(of = "id")
 @ToString
-public class Notification {
+public class Address {
+
     private Long id;
     private final Users users;
-    private final InterestedItem interestedItem;
-    private final NotificationType notificationType;
+    private final String name;
+    private final String phoneNumber;
+    private final String zipcode;
+    private final String detail1;
+    private final String detail2;
+
+    private final boolean defaultAddress;
     private final LocalDateTime createdAt;
+
+
 
 }

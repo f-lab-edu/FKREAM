@@ -1,6 +1,5 @@
-package com.flab.fkream.notification;
+package com.flab.fkream.salesAccount;
 
-import com.flab.fkream.interestedItem.InterestedItem;
 import com.flab.fkream.users.Users;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -13,11 +12,13 @@ import java.time.LocalDateTime;
 @Builder
 @EqualsAndHashCode(of = "id")
 @ToString
-public class Notification {
+public class SalesAccount {
+
     private Long id;
     private final Users users;
-    private final InterestedItem interestedItem;
-    private final NotificationType notificationType;
+    private final String bankName;
+    private final String accountNumber;
+    private final String accountHolder;
     private final LocalDateTime createdAt;
 
 }

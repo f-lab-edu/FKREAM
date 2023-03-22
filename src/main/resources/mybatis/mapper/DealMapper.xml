@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.fkream.deal.DealMapper">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.deal.Deal">
+        insert into deal (ITEM_ID, BUY_OR_SELL, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY, SALES_CONDITION, STATUS, CREATED_AT, MODIFIED_AT)
+        VALUES (#{item.id}, #{kindOfDeal}, #{users.id}, #{price}, #{size}, #{period}, #{utilizationPolicy}, #{salesCondition}, #{status}, #{createAt}, #{modifiedAt})
+    </insert>
+
+</mapper>
