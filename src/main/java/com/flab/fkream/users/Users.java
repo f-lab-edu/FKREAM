@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
-
 @Getter
 @Builder
 @NoArgsConstructor
@@ -20,29 +19,21 @@ import javax.validation.constraints.NotNull;
 @ToString
 public class Users {
 
-    private Long id;
-    private final String email;
-    private final String password;
-
-    private final boolean fourteenAgreement;
-    private final boolean adAgreement;
-    private final boolean personalAuthentication;
-
-    private final String gender;
-    private final String phoneNumber;
-
-    private final String profileName;
-    private final String name;
-    private final String rank;
-
-
-
-    private final String profileImgName;
-
-    private final String profileImgUrl;
-    private final String profileImgOriginName;
-
-    private final LocalDateTime createdAt;
-    private final LocalDateTime modifiedAt;
+	private Long id;
+	private String email;
+	private String password;
+	private boolean fourteenAgreement;
+	private boolean adAgreement;
+	private boolean personalAuthentication;
+	private String gender;
+	private String phoneNumber;
+	private String profileName;
+	private String name;
+	private String rank;
+	private String profileImgName;
+	private String profileImgUrl;
+	private String profileImgOriginName;
+	private LocalDateTime createdAt;
+	private LocalDateTime modifiedAt;
 
 }

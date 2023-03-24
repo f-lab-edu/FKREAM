@@ -4,12 +4,12 @@
     <resultMap id="BrandResultMap" type="com.flab.fkream.brand.Brand">
         <result property="id" column="id"/>
         <result property="brandName" column="brand_name"/>
-        <result property="luxury" column="luxury"/>
+        <result property="isLuxury" column="is_luxury"/>
     </resultMap>
 
     <insert id="save" parameterType="com.flab.fkream.brand.Brand" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO BRAND(brand_name, luxury)
-        VALUES (#{brandName}, #{luxury})
+        INSERT INTO BRAND(brand_name, is_luxury)
+        VALUES (#{brandName}, #{isLuxury})
     </insert>
 
     <select id="findOne" resultType="com.flab.fkream.brand.Brand" resultMap="BrandResultMap">
