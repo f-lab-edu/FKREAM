@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.fkream.item.ItemMapper">
+    <resultMap id="ItemResultMap" type="com.flab.fkream.item.Item">
+        <id property="id" column="id"/>
+        <result property="itemName" column="item_name"/>
+        <result property="modelNumber" column="model_number"/>
+        <result property="category1" column="category1"/>
+        <result property="category2" column="category2"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="representativeColor" column="representative_color"/>
+        <result property="releasedPrice" column="released_price"/>
+        <result property="latestPrice" column="latest_price"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="modifiedAt" column="modified_at"/>
+    </resultMap>
+
+    <insert id="save">
+        INSERT INTO Item(item_name,
+                         model_number,
+                         category1,
+                         category2,
+                         release_date,
+                         representative_color,
+                         released_price,
+                         latest_price,
+                         brand_id,
+                         manager_id,
+                         created_at,
+                         modified_at)
+        VALUES (#{itemName},
+                #{modelNumber},
+                #{category1},
+                #{category2},
+                #{releaseDate},
+                #{representativeColor},
+                #{releasedPrice},
+                #{latestPrice},
+                #{brandId},
+                #{managerId},
+                #{createdAt},
+                #{modifiedAt})
+    </insert>
+
+    <select id="findOne" resultMap="ItemResultMap">
+        select *
+        from ITEM
+        where ID = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ItemResultMap">
+        select *
+        from ITEM
+    </select>
+</mapper>

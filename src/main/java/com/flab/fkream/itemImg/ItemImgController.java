@@ -1,4 +1,4 @@
-package com.flab.fkream.brand;
+package com.flab.fkream.itemImg;
 
 import java.util.List;
 
@@ -9,26 +9,27 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class BrandController {
-	private final BrandService brandService;
+public class ItemImgController {
+	private final ItemImgService itemImgService;
 
-	@PostMapping("/brand")
-	public HttpStatus addBrand(@RequestBody Brand brandInfo) {
-		brandService.addBrand(brandInfo);
+	@PostMapping("/itemImg")
+	public HttpStatus addItemImg(@RequestBody ItemImg itemImgInfo) {
+		itemImgService.addItemImg(itemImgInfo);
 		return HttpStatus.CREATED;
 	}
 
-	@GetMapping("/brands")
-	public List<Brand> findAll() {
-		return brandService.findAll();
+	@GetMapping("/itemImgs")
+	public List<ItemImg> findAll() {
+		return itemImgService.findAll();
 	}
 
-	@GetMapping("/brand/{id}")
-	public Brand findOne(@PathVariable Long id) {
-		return brandService.findOne(id);
+	@GetMapping("/itemImg/{id}")
+	public ItemImg findOne(@PathVariable Long id) {
+		return itemImgService.findOne(id);
 	}
 }

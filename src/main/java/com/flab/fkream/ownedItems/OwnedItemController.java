@@ -1,4 +1,4 @@
-package com.flab.fkream.brand;
+package com.flab.fkream.ownedItems;
 
 import java.util.List;
 
@@ -13,22 +13,22 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-public class BrandController {
-	private final BrandService brandService;
+public class OwnedItemController {
+	private final OwnedItemService ownedItemService;
 
-	@PostMapping("/brand")
-	public HttpStatus addBrand(@RequestBody Brand brandInfo) {
-		brandService.addBrand(brandInfo);
+	@PostMapping("/ownedItem")
+	public HttpStatus addOwnedItem(@RequestBody OwnedItem ownedItemInfo) {
+		ownedItemService.addOwnedItem(ownedItemInfo);
 		return HttpStatus.CREATED;
 	}
 
-	@GetMapping("/brands")
-	public List<Brand> findAll() {
-		return brandService.findAll();
+	@GetMapping("/ownedItems")
+	public List<OwnedItem> findAll() {
+		return ownedItemService.findAll();
 	}
 
-	@GetMapping("/brand/{id}")
-	public Brand findOne(@PathVariable Long id) {
-		return brandService.findOne(id);
+	@GetMapping("/ownedItem/{id}")
+	public OwnedItem findOne(@PathVariable Long id) {
+		return ownedItemService.findOne(id);
 	}
 }
