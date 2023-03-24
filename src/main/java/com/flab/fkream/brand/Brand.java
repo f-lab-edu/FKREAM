@@ -16,5 +16,5 @@ import lombok.ToString;
 public class Brand {
 	private Long id;
 	private String brandName;
-	private String luxury;
+	private boolean isLuxury;
 }
