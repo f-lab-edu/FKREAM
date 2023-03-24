@@ -1,5 +1,6 @@
 package com.flab.fkream.users;
 
+import com.flab.fkream.login.LoginForm;
 import org.apache.ibatis.annotations.*;
 
 @Mapper
@@ -7,8 +8,7 @@ public interface UsersMapper {
 
 	void save(Users users);
 
-	Users findOne(Long id);
+	Users findByLoginForm(LoginForm loginForm);
 
-	Users findOne(String email, String password);
-
+	int emailCheck(String email);
 }

@@ -3,12 +3,13 @@ package com.flab.fkream.login;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 public class LoginForm {
 
-	private final String email;
-	private final String password;
+	private String email;
+	private String password;
 }

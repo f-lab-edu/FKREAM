@@ -5,7 +5,7 @@
 <mapper namespace="com.flab.fkream.address.AddressMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.address.Address">
         insert into address (USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT, DEFAULT_ADDRESS)
-        values (#{users.id}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2}, " +
-            "#{defaultAddress}, #{createdAt})
+        values (#{users.id}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2},
+            #{defaultAddress}, #{createdAt})
     </insert>
 </mapper>
