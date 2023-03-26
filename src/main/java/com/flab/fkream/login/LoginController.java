@@ -36,7 +36,7 @@ public class LoginController {
 		}
 
 		loginResponse = LoginResponse.success(user);
-		SessionUtil.setLoginUserId(httpSession, user.getId());
+		SessionUtil.setLoginUserId(httpSession, user.getEmail());
 		return new ResponseEntity<>(loginResponse, HttpStatus.OK);
 	}
 
@@ -50,11 +50,12 @@ public class LoginController {
 
 		@NotNull
 		private LoginStatus result;
+		private String msg;
 		private Users users;
 
-		private static final LoginResponse FAIL = new LoginResponse(LoginStatus.FAIL, null);
+		private static final LoginResponse FAIL = new LoginResponse(LoginStatus.FAIL,"로그인 실패", null);
 		private static LoginResponse success(Users users){
-			return new LoginResponse(LoginStatus.SUCCESS, users);
+			return new LoginResponse(LoginStatus.SUCCESS, "로그인 성공",users);
 		}
 	}
 }

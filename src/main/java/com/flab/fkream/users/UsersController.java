@@ -1,5 +1,6 @@
 package com.flab.fkream.users;
 
+import com.flab.fkream.aop.LoginCheck;
 import com.flab.fkream.login.LoginForm;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,10 +32,23 @@ public class UsersController {
 
 	private final UsersService usersService;
 
-	@PostMapping("/new")
+	@PostMapping("")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void signUp(@RequestBody @NotNull Users user) {
-		Long id = usersService.addUser(user);
+		if(user.hasNullData()){
+			throw new NullPointerException("회원가입시 필수 데이터를 모두 입력해야 합니다.");
+		}
+		usersService.addUser(user);
+		if(user.getId()==null){
+
+		}
+	}
+
+	@GetMapping("/test")
+	@ResponseStatus(HttpStatus.OK)
+	@LoginCheck
+	public void test(){
+
 	}
 
 }
