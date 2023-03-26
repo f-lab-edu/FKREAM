@@ -29,7 +29,7 @@
             ,#{profileName}, #{name}, #{rank}, #{profileImgName}, #{profileImgUrl}, #{profileImgOriginName}, #{createdAt}, #{modifiedAt})
     </insert>
     
-    <select id="findOne" resultType="com.flab.fkream.users.Users" resultMap="UsersResultMap"
+    <select id="findByLoginForm" resultType="com.flab.fkream.users.Users" resultMap="UsersResultMap"
             parameterType="com.flab.fkream.login.LoginForm">
         select *
         from users
