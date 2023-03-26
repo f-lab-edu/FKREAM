@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode
 @ToString
 public class Users {
 
@@ -34,7 +34,7 @@ public class Users {
 	private String profileName;
 	@NonNull
 	private String name;
-	private String rank;
+	private Rank rank = Rank.BRONZE;
 	private String profileImgName;
 	private String profileImgUrl;
 	private String profileImgOriginName;
@@ -43,6 +43,13 @@ public class Users {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+	public void setModifiedAt(LocalDateTime modifiedAt) {
+		this.modifiedAt = modifiedAt;
 	}
 
 	public boolean hasNullData() {
@@ -55,4 +62,9 @@ public class Users {
 				phoneNumber == null ||
 				name == null;
 	}
+
+	public enum Rank {
+		BRONZE, SILVER, GOLD
+	}
+
 }

@@ -7,6 +7,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 
 @Service
 @Log4j2
@@ -20,6 +23,7 @@ public class UsersService {
 			throw new DuplicateEmailException("존재하는 이메일 입니다.");
 		}
 		users.setPassword(SHA256Util.encrypt(users.getPassword()));
+		users.setCreatedAt(LocalDateTime.now());
 		usersMapper.save(users);
 		if(users.getId()==null){
 			log.error("addUser Error{}", users);
