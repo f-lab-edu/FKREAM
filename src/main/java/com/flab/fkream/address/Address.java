@@ -7,6 +7,8 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+import com.flab.fkream.users.Users;
+
 @Getter
 @Builder
 @EqualsAndHashCode(of = "id")
