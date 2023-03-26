@@ -16,7 +16,7 @@ public class SessionUtil {
 		session.setAttribute(LOGIN_USERS_ID, id);
 	}
 
-	public static Long getLoginUserId(HttpSession session, Long id) {
+	public static Long getLoginUserId(HttpSession session) {
 		return (Long)session.getAttribute(LOGIN_USERS_ID);
 	}
 

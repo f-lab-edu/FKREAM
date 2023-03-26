@@ -41,7 +41,7 @@ public class LoginController {
 		}
 
 		loginResponse = LoginResponse.success(user);
-		SessionUtil.setLoginUserId(httpSession, user.getEmail());
+		SessionUtil.setLoginUserId(httpSession, user.getId());
 		return new ResponseEntity<>(loginResponse, HttpStatus.OK);
 	}
 

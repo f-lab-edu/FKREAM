@@ -20,16 +20,20 @@ import javax.servlet.http.HttpSession;
 @Log4j2
 public class AuthCheckAspect {
 
-    @Before("@annotation(com.flab.fkream.aop.LoginCheck)")
-    public void loginCheck(JoinPoint joinPoint) throws Throwable{
+    @Before("@annotation(com.flab.fkream.aop.LoginCheck) && @annotation(loginCheck)")
+    public void loginCheck(JoinPoint joinPoint, LoginCheck loginCheck) throws Throwable{
         log.debug("aop - login check");
 
         HttpSession session =((ServletRequestAttributes)(RequestContextHolder.currentRequestAttributes())).getRequest().getSession();
-        String loginUserEmail = SessionUtil.getLoginUserId(session);
 
-        if (loginUserEmail==null){
-            throw new NoLoginException("로그인이 필요합니다.");
+        if (LoginCheck.UserType.USER.equals(loginCheck.type())){
+            Long loginUserId = SessionUtil.getLoginUserId(session);
+            if (loginUserId==null){
+                throw new NoLoginException("로그인이 필요합니다.");
+            }
         }
+
+
 
     }
 
