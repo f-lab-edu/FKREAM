@@ -18,7 +18,7 @@ class BrandServiceTest {
 		//given
 		Brand brand = Brand.builder()
 			.brandName("Nike")
-			.luxury("n")
+			// .luxury("n")
 			.build();
 
 		//when
@@ -34,7 +34,7 @@ class BrandServiceTest {
 		//given
 		Brand brand = Brand.builder()
 			.brandName("Nike")
-			.luxury("n")
+			// .luxury("n")
 			.build();
 		Long brandId = brandService.addBrand(brand);
 		System.out.println("brand.getId() = " + brand.getId());
