@@ -2,12 +2,7 @@ package com.flab.fkream.item;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
@@ -17,12 +12,18 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Item {
 	private Long id;
+	@NonNull
 	private String itemName;
+	@NonNull
 	private String modelNumber;
+	@NonNull
 	private String category1;
+	@NonNull
 	private String category2;
 	private LocalDateTime releaseDate;
+	@NonNull
 	private String representativeColor;
+	@NonNull
 	private int releasedPrice;
 	private int latestPrice;
 	private Long brandId;
