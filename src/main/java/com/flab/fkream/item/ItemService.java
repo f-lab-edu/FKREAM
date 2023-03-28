@@ -14,7 +14,6 @@ import lombok.extern.log4j.Log4j2;
 public class ItemService {
 	private final ItemMapper itemMapper;
 
-	@Transactional(rollbackFor = RuntimeException.class)
 	public Long addItem(Item itemInfo) {
 		Long itemId = itemMapper.save(itemInfo);
 		if (itemId == null) {
