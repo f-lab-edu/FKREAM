@@ -21,6 +21,6 @@ public class ItemImg {
 	private String imgName;
 	private String imgUrl;
 	private String originName;
-	private String repImgYn;
+	private boolean isRepresentativeImg;
 	private LocalDateTime createdAt;
 }
