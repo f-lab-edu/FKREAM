@@ -109,8 +109,8 @@ CREATE TABLE `item_img`
     `img_name`    varchar(255),
     `img_url`     varchar(255),
     `origin_name` varchar(255),
-    `repImgYn`    boolean,
-    `create_at`   timestamp
+    `is_representative_img`    boolean,
+    `created_at`   timestamp
 );
 
 CREATE TABLE `deal`
