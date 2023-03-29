@@ -1,7 +1,7 @@
 insert into users (id, email, password, fourteen_agreement, gender, ad_agreement, personal_authentication, phone_number,
                    profile_name, name, rank, profile_img_name, profile_img_url, profile_img_origin_name, created_at,
                    modified_at)
-values (1, 'wbrighouse0@etsy.com', '60470c3a8b39e0b4405a9d97b722f32bf6d2c3dae2c82205dc457a33b88a016c', true, 'Bigender',
+values (1, 'wbrighouse0@etsy.com', '60470c3a8b39e0b4405a9d97b722f32bf6d2c3dae2c82205dc457a33b88a016c', true, 'Male',
         true, true, '257-345-3411', 'wbrighouse0', 'Winne Brighouse', 'GOLD', 'profile_img_namewbrighouse0',
         'http://dummyimage.com/243x100.png/5fa2dd/ffffff', 'profile_img_origin_namewbrighouse0', '2023-02-08 00:56:02',
         '2023-03-20 00:16:13');
@@ -22,7 +22,7 @@ values (3, 'skarpfen2@google.co.jp', '5cbb9bff2882b0246427aa60812332f1fe68e84a1b
 insert into users (id, email, password, fourteen_agreement, gender, ad_agreement, personal_authentication, phone_number,
                    profile_name, name, rank, profile_img_name, profile_img_url, profile_img_origin_name, created_at,
                    modified_at)
-values (4, 'troly3@free.fr', '4ec3c050bed7e2930e1d3a2839f505cc9db91d3e0cd8e7222a3764d2f672d5a7', true, 'Agender', true,
+values (4, 'troly3@free.fr', '4ec3c050bed7e2930e1d3a2839f505cc9db91d3e0cd8e7222a3764d2f672d5a7', true, 'Male', true,
         true, '601-833-2470', 'troly3', 'Timofei Roly', 'BRONZE', 'profile_img_nametroly3',
         'http://dummyimage.com/243x100.png/ff4444/ffffff', 'profile_img_origin_nametroly3', '2022-09-24 09:33:51',
         '2023-01-08 13:02:21');
@@ -708,3 +708,141 @@ insert into brand (id, brand_name, is_luxury) values (374, 'Yeti', false);
 insert into brand (id, brand_name, is_luxury) values (375, 'Yvmin', false);
 insert into brand (id, brand_name, is_luxury) values (376, 'Zara', false);
 
+
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (1, 'Jozef', '1477910689', 'shoes', 'sneakers', 'Male', '2022-06-13 09:02:40', 'Blue', 2500000, 4950000, 303, '2022-06-14 14:56:55', '2023-03-04 18:51:14', 4);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (2, 'Sigfrid', '7795658857', 'shoes', 'loafer', 'Male', '2022-07-11 14:47:16', 'Teal', 380000, 5470000, 132, '2022-10-30 16:16:50', '2022-10-04 12:50:03', 18);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (3, 'Veradis', '2286318654', 'shoes', 'derby', 'Female', '2022-12-12 23:55:14', 'Purple', 3020000, 7170000, 368, '2022-10-18 09:16:09', '2022-05-25 02:35:14', 7);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (4, 'Consuela', '4632484946', 'shoes', 'flat', 'Female', '2022-04-02 11:30:24', 'Khaki', 6790000, 2500000, 18, '2022-10-01 00:54:30', '2023-02-15 08:07:11', 16);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (5, 'Dwight', '0369869044', 'shoes', 'sandal', 'Male', '2023-01-15 06:01:55', 'Goldenrod', 9490000, 2990000, 39, '2022-07-10 05:38:32', '2022-06-07 06:55:58', 1);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (6, 'Jermaine', '3387619758', 'shoes', 'heels', 'Female', '2022-09-29 06:16:36', 'Turquoise', 2490000, 1280000, 306, '2022-08-10 18:21:12', '2022-09-26 10:32:35', 13);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (7, 'Pammi', '3308293250', 'shoes', 'boots', 'Female', '2023-03-04 10:55:44', 'Crimson', 7780000, 140000, 235, '2023-02-20 14:18:13', '2022-06-25 12:53:05', 20);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (8, 'Harris', '4415999123', 'shoes', 'other', 'Male', '2022-06-23 11:51:52', 'Violet', 5910000, 8220000, 367, '2022-08-07 15:41:46', '2023-01-02 21:25:12', 7);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (9, 'Merla', '3456804423', 'outer', 'jacket', 'Female', '2022-11-13 01:19:20', 'Indigo', 4990000, 940000, 308, '2022-03-30 11:41:36', '2022-08-29 23:50:01', 2);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (10, 'Pippo', '1360824766', 'outer', 'coat', 'Male', '2022-07-08 09:45:34', 'Goldenrod', 6400000, 6240000, 329, '2022-08-02 14:05:41', '2023-03-24 20:19:53', 7);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (11, 'Alys', '5613936439', 'outer', 'anorak', 'Female', '2022-04-15 11:49:58', 'Crimson', 4240000, 2070000, 113, '2022-05-12 07:26:15', '2023-03-02 16:27:09', 14);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (12, 'Dollie', '9143045839', 'outer', 'padding', 'Female', '2022-04-16 23:15:52', 'Violet', 7650000, 9370000, 338, '2023-01-05 23:54:17', '2022-08-02 07:06:46', 11);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (13, 'Melicent', '9977444773', 'outer', 'other', 'Female', '2022-11-18 17:27:02', 'Puce', 4520000, 7620000, 158, '2022-05-12 02:51:52', '2022-06-26 17:08:07', 19);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (14, 'Marta', '0462934888', 'outer', 'jacket', 'Female', '2022-07-17 17:44:42', 'Purple', 4510000, 9420000, 342, '2022-08-06 04:17:30', '2023-02-03 17:09:03', 5);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (15, 'Chloe', '7910553900', 'outer', 'jacket', 'Female', '2023-02-04 21:00:37', 'Green', 3500000, 2790000, 324, '2023-03-26 21:09:25', '2022-12-03 15:47:10', 4);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (16, 'Henriette', '8212822761', 'outer', 'coat', 'Female', '2022-11-03 08:58:14', 'Khaki', 870000, 5580000, 263, '2022-10-10 14:06:52', '2022-11-14 22:27:57', 9);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (17, 'Woodrow', '5102393030', 'outer', 'padding', 'Male', '2022-11-10 19:42:23', 'Fuscia', 4250000, 5400000, 355, '2022-08-12 13:26:11', '2022-09-04 08:20:23', 18);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (18, 'Toni', '2302577841', 'tops', 'cardigans', 'Female', '2023-03-17 06:21:48', 'Red', 7770000, 8510000, 237, '2022-05-20 18:46:13', '2022-09-29 17:06:52', 14);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (19, 'Tricia', '5755611890', 'tops', 'hoodies', 'Female', '2022-04-21 03:11:24', 'Puce', 7220000, 6530000, 273, '2023-03-13 13:47:46', '2022-08-10 18:46:00', 4);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (20, 'Huey', '4306633977', 'tops', 'hood zip-ups', 'Male', '2023-03-08 03:19:03', 'Orange', 2480000, 5930000, 361, '2022-07-01 20:40:52', '2023-02-07 11:18:14', 10);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (21, 'Ganny', '1925456161', 'tops', 'sweatshirts', 'Male', '2022-10-13 17:55:30', 'Teal', 2200000, 1990000, 300, '2022-10-12 04:04:42', '2023-03-14 09:01:04', 20);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (22, 'Nickolaus', '3232566138', 'tops', 'shirts', 'Male', '2022-11-30 06:30:21', 'Violet', 4370000, 5170000, 223, '2022-09-07 17:04:07', '2022-04-02 07:04:58', 19);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (23, 'Ariadne', '1062632540', 'tops', 'long-sleeved', 'Female', '2023-03-20 00:06:02', 'Crimson', 2710000, 9290000, 213, '2022-05-07 17:12:14', '2022-06-26 16:06:04', 8);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (24, 'Coralyn', '5235090268', 'tops', 'short-sleeved', 'Female', '2022-09-03 10:47:34', 'Orange', 9440000, 6950000, 365, '2022-10-03 18:24:08', '2022-04-17 14:18:58', 8);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (25, 'Orsola', '8104259660', 'tops', 'knitwear', 'Female', '2023-02-04 05:54:04', 'Aquamarine', 4250000, 920000, 233, '2022-05-25 01:36:18', '2022-07-28 11:36:08', 1);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (26, 'Osmund', '4622905795', 'tops', 'sleeveless', 'Male', '2022-05-26 12:19:10', 'Puce', 5570000, 5700000, 234, '2023-01-08 03:49:09', '2022-08-01 22:18:28', 10);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (27, 'Ardenia', '1833210441', 'tops', 'dresses', 'Female', '2022-03-28 16:58:24', 'Mauv', 9020000, 2060000, 266, '2022-06-08 14:30:35', '2022-04-03 16:38:43', 19);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (28, 'Dione', '2825613541', 'tops', 'other', 'Female', '2022-12-07 07:28:56', 'Green', 6120000, 2410000, 373, '2022-06-20 14:17:31', '2022-06-01 22:26:12', 4);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (29, 'Torey', '5970340081', 'tops', 'knitwear', 'Female', '2022-10-27 04:13:38', 'Crimson', 6180000, 1300000, 366, '2022-09-22 14:25:37', '2022-11-22 16:49:29', 11);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (30, 'Leesa', '5964019102', 'bottoms', 'pants', 'Female', '2022-12-02 10:25:28', 'Violet', 8370000, 3700000, 260, '2023-01-20 19:09:22', '2022-07-14 22:08:05', 5);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (31, 'Meir', '5890439219', 'bottoms', 'shorts', 'Male', '2022-10-24 14:19:28', 'Indigo', 830000, 8900000, 37, '2022-05-11 06:28:38', '2023-02-15 20:41:59', 19);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (32, 'Hilly', '7378673668', 'bottoms', 'skirts', 'Female', '2022-10-18 13:23:38', 'Red', 9170000, 7690000, 315, '2022-10-24 10:09:28', '2022-12-08 05:55:34', 10);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (33, 'Isaiah', '2691746305', 'bottoms', 'leggings', 'FeMale', '2022-12-24 13:55:19', 'Teal', 3770000, 1960000, 281, '2022-09-07 22:20:49', '2022-05-01 14:36:04', 13);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (34, 'Thaddus', '8862613075', 'bottoms', 'pants', 'Male', '2022-07-30 15:27:08', 'Orange', 2860000, 6890000, 355, '2023-01-29 16:59:23', '2022-05-26 23:44:52', 6);
+insert into item (id, item_name, model_number, category1, category2, gender, release_date, representative_color, released_price, latest_price, brand_id, created_at, modified_at, manager_id) values (35, 'Solly', '3726832564', 'bottoms', 'other', 'Male', '2022-12-09 10:53:37', 'Aquamarine', 670000, 710000, 296, '2022-08-31 21:18:20', '2023-01-16 23:07:43', 19);
+
+
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (1, 27, 'one size', 70000, 30000, '2022-11-13 22:07:20');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (2, 12, 'one size', 50000, 30000, '2022-09-17 05:10:48');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (3, 26, 'one size', 100000, 20000, '2023-01-03 20:13:30');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (4, 28, 'one size', 100000, 40000, '2022-10-14 12:53:33');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (5, 28, 'one size', 70000, 50000, '2022-09-28 06:33:05');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (6, 22, 'one size', 70000, 40000, '2023-01-06 20:21:52');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (7, 4, 260, 70000, 20000, '2022-08-27 22:23:01');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (8, 12, 'one size', 60000, 20000, '2022-12-18 22:43:47');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (9, 28, 'one size', 80000, 40000, '2022-04-25 14:47:40');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (10, 22, 'one size', 90000, 50000, '2022-08-31 08:19:30');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (11, 20, 'one size', 90000, 10000, '2023-01-25 03:46:26');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (12, 2, 260, 60000, 10000, '2022-09-17 07:38:06');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (13, 35, 'one size', 60000, 10000, '2023-02-20 22:50:28');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (14, 12, 'one size', 70000, 20000, '2022-07-25 00:08:52');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (15, 3, 260, 100000, 30000, '2022-08-19 12:45:10');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (16, 26, 'one size', 50000, 50000, '2023-03-20 11:06:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (17, 10, 'one size', 70000, 40000, '2022-12-04 15:02:21');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (18, 18, 'one size', 70000, 40000, '2022-10-20 21:17:40');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (19, 13, 'one size', 50000, 30000, '2022-07-14 19:36:27');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (20, 34, 'one size', 50000, 20000, '2022-08-12 17:06:45');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (21, 25, 'one size', 90000, 10000, '2022-12-22 23:26:30');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (22, 27, 'one size', 50000, 50000, '2022-12-01 07:51:23');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (23, 33, 'one size', 80000, 30000, '2022-10-14 22:11:39');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (24, 4, 260, 60000, 10000, '2022-08-10 06:26:35');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (25, 28, 'one size', 100000, 20000, '2022-11-21 21:19:53');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (26, 27, 'one size', 90000, 50000, '2022-08-07 08:35:01');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (27, 5, 260, 80000, 10000, '2023-01-07 00:14:15');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (28, 28, 'one size', 60000, 30000, '2022-07-30 12:59:14');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (29, 4, 260, 50000, 10000, '2022-09-12 02:03:07');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (30, 27, 'one size', 70000, 20000, '2022-04-17 11:23:30');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (31, 8, 260, 70000, 50000, '2022-05-08 07:50:34');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (32, 24, 'one size', 70000, 50000, '2022-12-21 10:56:52');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (33, 25, 'one size', 80000, 20000, '2022-05-02 06:10:00');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (34, 21, 'one size', 50000, 40000, '2022-04-13 10:11:54');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (35, 35, 'one size', 100000, 10000, '2022-09-26 01:09:03');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (36, 6, 260, 90000, 10000, '2022-12-05 00:35:19');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (37, 17, 'one size', 60000, 10000, '2022-08-22 03:40:17');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (38, 28, 'one size', 50000, 50000, '2023-03-11 19:25:37');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (39, 33, 'one size', 90000, 40000, '2022-05-08 06:28:26');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (40, 2, 260, 50000, 10000, '2022-06-28 23:28:35');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (41, 29, 'one size', 80000, 40000, '2022-07-17 12:50:07');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (42, 5, 260, 50000, 10000, '2023-03-27 05:13:42');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (43, 14, 'one size', 100000, 30000, '2022-12-05 17:38:49');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (44, 15, 'one size', 70000, 40000, '2022-08-29 08:37:40');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (45, 11, 'one size', 50000, 50000, '2022-12-11 15:50:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (46, 23, 'one size', 60000, 50000, '2022-12-17 10:29:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (47, 11, 'one size', 50000, 30000, '2022-05-06 01:01:43');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (48, 22, 'one size', 90000, 10000, '2022-06-22 15:00:04');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (49, 2, 260, 50000, 50000, '2022-12-30 19:51:24');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (50, 26, 'one size', 50000, 40000, '2022-11-23 17:52:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (51, 17, 'one size', 90000, 40000, '2023-02-22 17:12:40');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (52, 32, 'one size', 90000, 20000, '2023-03-10 16:53:56');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (53, 1, 260, 90000, 50000, '2022-09-30 21:49:28');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (54, 8, 260, 60000, 30000, '2022-11-15 18:07:51');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (55, 6, 260, 70000, 40000, '2022-07-09 10:26:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (56, 26, 'one size', 90000, 10000, '2022-06-29 13:55:07');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (57, 20, 'one size', 70000, 50000, '2022-06-01 22:47:47');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (58, 19, 'one size', 100000, 50000, '2022-11-21 23:33:20');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (59, 5, 260, 90000, 30000, '2023-03-26 02:37:27');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (60, 14, 'one size', 100000, 30000, '2022-07-26 19:13:05');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (61, 29, 'one size', 60000, 20000, '2022-08-16 21:14:09');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (62, 30, 'one size', 100000, 10000, '2022-07-21 23:40:50');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (63, 4, 260, 70000, 50000, '2022-07-02 14:07:53');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (64, 17, 'one size', 70000, 50000, '2022-12-07 02:59:33');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (65, 24, 'one size', 60000, 10000, '2023-03-03 09:27:42');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (66, 3, 260, 90000, 50000, '2023-01-01 05:13:19');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (67, 21, 'one size', 80000, 40000, '2022-05-10 19:47:05');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (68, 6, 260, 70000, 10000, '2022-11-13 18:04:59');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (69, 16, 'one size', 80000, 30000, '2022-11-09 04:33:30');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (70, 25, 'one size', 50000, 30000, '2022-11-06 07:03:41');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (71, 29, 'one size', 60000, 10000, '2022-09-23 23:50:47');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (72, 28, 'one size', 50000, 10000, '2022-12-07 10:46:32');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (73, 17, 'one size', 90000, 50000, '2022-05-23 14:41:07');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (74, 3, 260, 50000, 20000, '2023-03-26 01:38:09');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (75, 35, 'one size', 70000, 40000, '2022-12-26 03:56:11');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (76, 21, 'one size', 50000, 40000, '2022-05-26 19:34:49');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (77, 29, 'one size', 100000, 30000, '2022-09-20 18:25:12');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (78, 34, 'one size', 100000, 10000, '2022-08-11 16:56:36');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (79, 21, 'one size', 100000, 30000, '2023-02-12 02:41:12');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (80, 28, 'one size', 80000, 40000, '2022-07-31 16:57:42');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (81, 25, 'one size', 90000, 30000, '2022-06-10 14:10:57');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (82, 15, 'one size', 90000, 30000, '2023-03-03 23:05:45');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (83, 4, 260, 50000, 20000, '2022-08-25 09:05:49');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (84, 5, 260, 70000, 50000, '2022-07-19 00:55:41');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (85, 25, 'one size', 50000, 30000, '2022-12-03 19:12:21');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (86, 3, 260, 90000, 30000, '2022-12-13 04:23:13');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (87, 6, 260, 70000, 50000, '2022-07-17 17:31:14');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (88, 20, 'one size', 100000, 50000, '2022-05-05 16:01:07');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (89, 15, 'one size', 80000, 40000, '2022-07-16 20:21:00');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (90, 15, 'one size', 90000, 20000, '2023-03-20 00:03:59');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (91, 4, 260, 90000, 40000, '2022-11-10 23:00:25');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (92, 16, 'one size', 70000, 30000, '2023-03-15 17:16:47');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (93, 24, 'one size', 60000, 10000, '2022-08-19 22:14:56');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (94, 17, 'one size', 50000, 40000, '2022-08-31 13:40:31');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (95, 19, 'one size', 90000, 40000, '2023-02-02 11:06:59');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (96, 8, 260, 90000, 50000, '2022-05-29 05:40:12');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (97, 26, 'one size', 100000, 10000, '2022-06-04 08:19:24');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (98, 11, 'one size', 60000, 10000, '2022-11-25 10:31:11');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (99, 5, 260, 50000, 40000, '2023-02-03 10:31:39');
+insert into item_size_price (id, item_id, size, lowest_selling_price, highest_purchase_price, modified_at) values (100, 9, 'one size', 50000, 30000, '2023-01-29 19:15:40');
