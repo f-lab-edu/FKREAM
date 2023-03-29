@@ -7,6 +7,13 @@ spring:
     username: sa
     password:
     driver-class-name: org.h2.Driver
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db_sql/schema.sql
+      data-locations:
+        - classpath:db_sql/data.sql
 
 logging.level:
   org.hibernate.SQL: debug

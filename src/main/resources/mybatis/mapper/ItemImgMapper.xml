@@ -7,14 +7,14 @@
         <result property="imgName" column="img_name"/>
         <result property="imgUrl" column="img_url"/>
         <result property="originName" column="origin_name"/>
-        <result property="repImgYn" column="rep_img_yn"/>
+경        <result property="isRepresentativeImg" column="is_representative_img"/>
         <result property="createdAt" column="created_at"/>
     </resultMap>
 
 
     <insert id="save" parameterType="com.flab.fkream.itemImg.ItemImg" useGeneratedKeys="true" keyProperty="id">
-        insert into ITEM_IMG (IMG_NAME, IMG_URL, ORIGIN_NAME, REPIMGYN, CREATE_AT)
-        VALUES (#{imgName}, #{imgUrl}, #{originName}, #{repImgYn}, #{createdAt});
+        insert into ITEM_IMG (IMG_NAME, IMG_URL, ORIGIN_NAME, is_representative_img, CREATE_AT)
+        VALUES (#{imgName}, #{imgUrl}, #{originName}, #{isRepresentativeImg}, #{createdAt});
     </insert>
 
     <select id="findOne" resultMap="ItemImgResultMap">
