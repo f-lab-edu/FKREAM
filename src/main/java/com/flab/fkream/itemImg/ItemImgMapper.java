@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ItemImgMapper {
-	Long save(ItemImg itemImg);
+	int save(ItemImg itemImg);
 
-	ItemImg findOne(Long id);
+	List<ItemImg> findImagesByItemId(Long itemId);
 
-	List<ItemImg> findAll();
+	int delete(Long id);
 }

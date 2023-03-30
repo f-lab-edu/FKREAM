@@ -14,21 +14,28 @@ import lombok.extern.log4j.Log4j2;
 public class ItemImgService {
 	private final ItemImgMapper itemImgMapper;
 
-	@Transactional(rollbackFor = RuntimeException.class)
-	public Long addItemImg(ItemImg itemImgInfo) {
-		Long itemImgId = itemImgMapper.save(itemImgInfo);
-		if (itemImgId == null) {
+	public void addItemImg(ItemImg itemImgInfo) {
+		int result = itemImgMapper.save(itemImgInfo);
+		if (result != 1) {
 			log.error("insert ItemImg error! itemImgInfo : {}", itemImgInfo);
-			throw new NullPointerException("insert itemImg error!" + itemImgInfo);
+			throw new RuntimeException("insert itemImg error!" + itemImgInfo);
 		}
-		return itemImgId;
 	}
 
-	public ItemImg findOne(Long itemId) {
-		return itemImgMapper.findOne(itemId);
+	public List<ItemImg> findImagesByItemId(Long itemId) {
+		List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
+		if(itemImages==null){
+			log.error("find images by ItemId error itemId : {}", itemId);
+			throw new NullPointerException("find images by ItemId error itemId :" + itemId);
+		}
+		return itemImages;
 	}
 
-	public List<ItemImg> findAll() {
-		return itemImgMapper.findAll();
+	public void delete(Long id) {
+		int result = itemImgMapper.delete(id);
+		if (result != 1) {
+			log.error("delete itemImg error!");
+			throw new RuntimeException("delete ItemImg error");
+		}
 	}
 }
