@@ -11,10 +11,14 @@
         <result property="representativeColor" column="representative_color"/>
         <result property="releasedPrice" column="released_price"/>
         <result property="latestPrice" column="latest_price"/>
-        <result property="brandId" column="brand_id"/>
         <result property="managerId" column="manager_id"/>
         <result property="createdAt" column="created_at"/>
         <result property="modifiedAt" column="modified_at"/>
+        <association property="brand" javaType="com.flab.fkream.brand.Brand">
+            <id property="id" column="brand_id"/>
+            <result property="brandName" column="brand_name" />
+            <result property="isLuxury" column="is_luxury" />
+        </association>
     </resultMap>
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
@@ -38,7 +42,7 @@
                 #{representativeColor},
                 #{releasedPrice},
                 #{latestPrice},
-                #{brandId},
+                #{brand.id},
                 #{managerId},
                 #{createdAt},
                 #{modifiedAt})
@@ -46,13 +50,15 @@
 
     <select id="findOne" resultMap="ItemResultMap">
         select *
-        from ITEM
-        where ID = #{id}
+        from ITEM i
+        join BRAND b
+        where i.id = #{id}
     </select>
 
     <select id="findAll" resultMap="ItemResultMap">
         select *
         from ITEM
+        join BRAND
     </select>
 
     <update id="update">
@@ -64,7 +70,7 @@
             release_date         = #{releaseDate},
             representative_color = #{representativeColor},
             released_price       = #{releasedPrice},
-            brand_id             = #{brandId},
+            brand_id             = #{brand.id},
             manager_id           = #{managerId},
             modified_at          = #{modifiedAt}
         WHERE id = #{id}
