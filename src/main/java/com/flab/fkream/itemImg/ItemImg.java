@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import com.flab.fkream.item.Item;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @ToString
@@ -22,5 +23,10 @@ public class ItemImg {
 	@NonNull
 	private String originName;
 	private boolean isRepresentativeImg;
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	private LocalDateTime createdAt;
+
+	public void setCreatedAt() {
+		createdAt = LocalDateTime.now();
+	}
 }

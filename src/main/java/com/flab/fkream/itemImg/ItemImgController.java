@@ -20,12 +20,12 @@ public class ItemImgController {
 		return HttpStatus.CREATED;
 	}
 
-	@GetMapping("/itemImg/{itemId}")
+	@GetMapping("/itemImgs/{itemId}")
 	public List<ItemImg> findImagesByItemId(@PathVariable Long itemId) {
 		return itemImgService.findImagesByItemId(itemId);
 	}
 
-	@DeleteMapping("/brands/{id}")
+	@DeleteMapping("/itemImgs/{id}")
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(@PathVariable Long id){
 		itemImgService.delete(id);

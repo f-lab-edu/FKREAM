@@ -15,6 +15,7 @@ public class ItemImgService {
 	private final ItemImgMapper itemImgMapper;
 
 	public void addItemImg(ItemImg itemImgInfo) {
+		itemImgInfo.setCreatedAt();
 		int result = itemImgMapper.save(itemImgInfo);
 		if (result != 1) {
 			log.error("insert ItemImg error! itemImgInfo : {}", itemImgInfo);

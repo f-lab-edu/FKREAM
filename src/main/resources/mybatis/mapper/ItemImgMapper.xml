@@ -14,7 +14,7 @@
 
 
     <insert id="save" parameterType="com.flab.fkream.itemImg.ItemImg" useGeneratedKeys="true" keyProperty="id">
-        insert into ITEM_IMG (IMG_NAME, IMG_URL, ORIGIN_NAME, is_representative_img, CREATE_AT)
+        insert into ITEM_IMG (IMG_NAME, IMG_URL, ORIGIN_NAME, is_representative_img, CREATED_AT)
         VALUES (#{imgName}, #{imgUrl}, #{originName}, #{isRepresentativeImg}, #{createdAt});
     </insert>
 
