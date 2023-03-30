@@ -11,7 +11,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @MybatisTest
-@Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class BrandMapperTest {
 
