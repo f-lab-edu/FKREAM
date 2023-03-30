@@ -2,6 +2,7 @@ package com.flab.fkream.itemImg;
 
 import java.util.List;
 
+import com.flab.fkream.error.exception.MapperException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class ItemImgService {
 		int result = itemImgMapper.save(itemImgInfo);
 		if (result != 1) {
 			log.error("insert ItemImg error! itemImgInfo : {}", itemImgInfo);
-			throw new RuntimeException("insert itemImg error!" + itemImgInfo);
+			throw new MapperException("insert itemImg error!" + itemImgInfo);
 		}
 	}
 
@@ -27,7 +28,7 @@ public class ItemImgService {
 		List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
 		if(itemImages==null){
 			log.error("find images by ItemId error itemId : {}", itemId);
-			throw new NullPointerException("find images by ItemId error itemId :" + itemId);
+			throw new MapperException("find images by ItemId error itemId :" + itemId);
 		}
 		return itemImages;
 	}
@@ -36,7 +37,7 @@ public class ItemImgService {
 		int result = itemImgMapper.delete(id);
 		if (result != 1) {
 			log.error("delete itemImg error!");
-			throw new RuntimeException("delete ItemImg error");
+			throw new MapperException("delete ItemImg error");
 		}
 	}
 }

@@ -2,6 +2,7 @@ package com.flab.fkream.item;
 
 import java.util.List;
 
+import com.flab.fkream.error.exception.MapperException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class ItemService {
         int itemId = itemMapper.save(itemInfo);
         if (itemId != 1) {
             log.error("insert item error! itemInfo : {}", itemInfo);
-            throw new NullPointerException("insert item error!" + itemInfo);
+            throw new MapperException("insert item error!" + itemInfo);
         }
     }
 
@@ -29,7 +30,7 @@ public class ItemService {
         Item item = itemMapper.findOne(itemId);
         if (item == null) {
             log.error("find item error! itemId : {}", itemId);
-            throw new NullPointerException("find item error! itemId : " + itemId);
+            throw new MapperException("find item error! itemId : " + itemId);
         }
         return item;
     }
@@ -38,7 +39,7 @@ public class ItemService {
         List<Item> items = itemMapper.findAll();
         if(items == null){
             log.error("find all error!");
-            throw new NullPointerException("find all error!");
+            throw new MapperException("find all error!");
         }
         return items;
     }
@@ -49,7 +50,7 @@ public class ItemService {
         int result = itemMapper.update(itemInfo);
         if (result != 1) {
             log.error("update item error! {}", itemInfo);
-            throw new RuntimeException("update item error");
+            throw new MapperException("update item error");
         }
     }
 
@@ -57,7 +58,7 @@ public class ItemService {
         int result = itemMapper.delete(id);
         if (result != 1) {
             log.error("delete item error!");
-            throw new RuntimeException("delete item error");
+            throw new MapperException("delete item error");
         }
     }
 }

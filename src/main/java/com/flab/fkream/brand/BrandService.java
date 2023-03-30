@@ -2,6 +2,7 @@ package com.flab.fkream.brand;
 
 import java.util.List;
 
+import com.flab.fkream.error.exception.MapperException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +19,7 @@ public class BrandService {
         int result = brandMapper.save(brandInfo);
         if (result != 1) {
             log.error("insert brand error! brandInfo : {}", brandInfo);
-            throw new NullPointerException("insert brand error!" + brandInfo);
+            throw new MapperException("insert brand error!" + brandInfo);
         }
     }
 
@@ -26,7 +27,7 @@ public class BrandService {
         Brand brand = brandMapper.findOne(brandId);
         if (brand == null) {
             log.error("find brand error! brandId : {}", brandId);
-            throw new NullPointerException("find brand error! brandId :" + brandId);
+            throw new MapperException("find brand error! brandId :" + brandId);
         }
         return brand;
     }
@@ -35,7 +36,7 @@ public class BrandService {
         List<Brand> brands = brandMapper.findAll();
         if(brands==null){
             log.error("find all brand error!");
-            throw new NullPointerException("find all brand error!");
+            throw new MapperException("find all brand error!");
         }
         return brands;
     }
@@ -44,7 +45,7 @@ public class BrandService {
         int result = brandMapper.update(brandInfo);
         if (result != 1) {
             log.error("update brand error! {}", brandInfo);
-            throw new RuntimeException("update brand error");
+            throw new MapperException("update brand error");
         }
     }
 
@@ -52,7 +53,7 @@ public class BrandService {
         int result = brandMapper.delete(id);
         if (result != 1) {
             log.error("delete brand error!");
-            throw new RuntimeException("delete brand error");
+            throw new MapperException("delete brand error");
         }
     }
 }

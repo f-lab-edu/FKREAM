@@ -2,6 +2,7 @@ package com.flab.fkream.error;
 
 
 import com.flab.fkream.error.exception.DuplicateEmailException;
+import com.flab.fkream.error.exception.MapperException;
 import com.flab.fkream.error.exception.NoLoginException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +22,12 @@ public class ErrorController {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(NoLoginException.class)
     public ErrorMsg handleNoLogin(NoLoginException e){
+        return new ErrorMsg(e.getMessage(), e.getClass().getSimpleName());
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(MapperException.class)
+    public ErrorMsg handleMapperException(MapperException e){
         return new ErrorMsg(e.getMessage(), e.getClass().getSimpleName());
     }
 }
