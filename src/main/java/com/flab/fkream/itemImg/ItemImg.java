@@ -2,12 +2,8 @@ package com.flab.fkream.itemImg;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.flab.fkream.item.Item;
+import lombok.*;
 
 @Getter
 @ToString
@@ -17,9 +13,13 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ItemImg {
 	private Long id;
-	private Long itemId;
+	@NonNull
+	private Item item;
+	@NonNull
 	private String imgName;
+	@NonNull
 	private String imgUrl;
+	@NonNull
 	private String originName;
 	private boolean isRepresentativeImg;
 	private LocalDateTime createdAt;
