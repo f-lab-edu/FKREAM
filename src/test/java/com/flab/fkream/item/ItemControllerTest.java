@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.flab.fkream.brand.Brand;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -23,6 +24,11 @@ class ItemControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    Brand brand = Brand.builder()
+            .brandName("구찌")
+            .isLuxury(true)
+            .build();
+
     Item itemInfo = Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
@@ -31,6 +37,7 @@ class ItemControllerTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(brand)
             .build();
 
     @Test

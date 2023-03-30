@@ -1,5 +1,6 @@
 package com.flab.fkream.item;
 
+import com.flab.fkream.brand.Brand;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,11 @@ class ItemServiceTest {
     @InjectMocks
     ItemService itemService;
 
+    Brand brand = Brand.builder()
+            .brandName("구찌")
+            .isLuxury(true)
+            .build();
+
     Item itemInfo = Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
@@ -36,6 +42,7 @@ class ItemServiceTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(brand)
             .build();
 
     @Test

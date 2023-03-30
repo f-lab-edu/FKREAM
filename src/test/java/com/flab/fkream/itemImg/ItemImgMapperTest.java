@@ -1,5 +1,6 @@
 package com.flab.fkream.itemImg;
 
+import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +32,7 @@ class ItemImgMapperTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(new Brand())
             .build();
 
 

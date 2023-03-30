@@ -1,8 +1,8 @@
 package com.flab.fkream.item;
 
-import org.aspectj.lang.annotation.Before;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import com.flab.fkream.brand.Brand;
+import com.flab.fkream.brand.BrandMapper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,18 @@ import static org.assertj.core.api.Assertions.*;
 
 
 @MybatisTest
-@Transactional
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ItemMapperTest {
 
     @Autowired
     ItemMapper itemMapper;
+    @Autowired
+    BrandMapper brandMapper;
 
+    Brand brandInfo = Brand.builder()
+            .brandName("구찌")
+            .isLuxury(true)
+            .build();
 
     Item itemInfo = Item.builder()
             .itemName("나이키 에어포스")
@@ -32,8 +37,13 @@ class ItemMapperTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(brandInfo)
             .build();
 
+    @BeforeEach
+    void setUp(){
+        brandMapper.save(brandInfo);
+    }
     @Test
     void save() {
         assertThat(itemMapper.save(itemInfo)).isEqualTo(1);
@@ -66,6 +76,7 @@ class ItemMapperTest {
                 .releaseDate(LocalDateTime.now())
                 .representativeColor("Black")
                 .releasedPrice(10)
+                .brand(brandInfo)
                 .build();
         itemMapper.update(itemUpdated);
         assertThat(itemMapper.findOne(itemInfo.getId())).isEqualTo(itemUpdated);
