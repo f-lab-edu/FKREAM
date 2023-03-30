@@ -3,11 +3,7 @@ package com.flab.fkream.brand;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class BrandController {
 	private final BrandService brandService;
 
-	@PostMapping("/brand")
+	@PostMapping("/brands")
 	public HttpStatus addBrand(@RequestBody Brand brandInfo) {
 		brandService.addBrand(brandInfo);
 		return HttpStatus.CREATED;
@@ -27,8 +23,21 @@ public class BrandController {
 		return brandService.findAll();
 	}
 
-	@GetMapping("/brand/{id}")
+	@GetMapping("/brands/{id}")
 	public Brand findOne(@PathVariable Long id) {
 		return brandService.findOne(id);
+	}
+
+
+	@PatchMapping("/brands/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void update(@RequestBody Brand brandInfo){
+		brandService.update(brandInfo);
+	}
+
+	@DeleteMapping("/brands/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(@PathVariable Long id){
+		brandService.delete(id);
 	}
 }

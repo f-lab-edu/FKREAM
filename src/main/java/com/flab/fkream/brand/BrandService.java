@@ -12,23 +12,47 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class BrandService {
-	private final BrandMapper brandMapper;
+    private final BrandMapper brandMapper;
 
-	@Transactional(rollbackFor = RuntimeException.class)
-	public Long addBrand(Brand brandInfo) {
-		Long brandId = brandMapper.save(brandInfo);
-		if (brandId == null) {
-			log.error("insert brand error! brandInfo : {}", brandInfo);
-			throw new NullPointerException("insert brand error!" + brandInfo);
-		}
-		return brandId;
-	}
+    public void addBrand(Brand brandInfo) {
+        int result = brandMapper.save(brandInfo);
+        if (result != 1) {
+            log.error("insert brand error! brandInfo : {}", brandInfo);
+            throw new NullPointerException("insert brand error!" + brandInfo);
+        }
+    }
 
-	public Brand findOne(Long brandId) {
-		return brandMapper.findOne(brandId);
-	}
+    public Brand findOne(Long brandId) {
+        Brand brand = brandMapper.findOne(brandId);
+        if (brand == null) {
+            log.error("find brand error! brandId : {}", brandId);
+            throw new NullPointerException("find brand error! brandId :" + brandId);
+        }
+        return brand;
+    }
 
-	public List<Brand> findAll() {
-		return brandMapper.findAll();
-	}
+    public List<Brand> findAll() {
+        List<Brand> brands = brandMapper.findAll();
+        if(brands==null){
+            log.error("find all brand error!");
+            throw new NullPointerException("find all brand error!");
+        }
+        return brands;
+    }
+
+    public void update(Brand brandInfo) {
+        int result = brandMapper.update(brandInfo);
+        if (result != 1) {
+            log.error("update brand error! {}", brandInfo);
+            throw new RuntimeException("update brand error");
+        }
+    }
+
+    public void delete(Long id) {
+        int result = brandMapper.delete(id);
+        if (result != 1) {
+            log.error("delete brand error!");
+            throw new RuntimeException("delete brand error");
+        }
+    }
 }
