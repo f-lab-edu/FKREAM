@@ -1,11 +1,6 @@
 package com.flab.fkream.brand;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @ToString
@@ -15,6 +10,7 @@ import lombok.ToString;
 @AllArgsConstructor
 public class Brand {
 	private Long id;
+	@NonNull
 	private String brandName;
 	private boolean isLuxury;
 }
