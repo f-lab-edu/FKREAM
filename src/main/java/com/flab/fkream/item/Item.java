@@ -2,11 +2,8 @@ package com.flab.fkream.item;
 
 import java.time.LocalDateTime;
 
-import com.flab.fkream.brand.Brand;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.validation.constraints.NotNull;
 
 @Getter
 @ToString
@@ -33,9 +30,7 @@ public class Item {
     @NonNull
     private int releasedPrice;
     private int latestPrice;
-    @NonNull
-    private Brand brand;
-
+    private Long brandId;
     private Long managerId;
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
