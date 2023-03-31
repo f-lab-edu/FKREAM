@@ -19,71 +19,67 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ItemController.class)
 class ItemControllerTest {
 
-    @MockBean
-    ItemService itemService;
-    @Autowired
-    MockMvc mockMvc;
+  @MockBean ItemService itemService;
+  @Autowired MockMvc mockMvc;
 
-    Brand brand = Brand.builder()
-            .brandName("구찌")
-            .isLuxury(true)
-            .build();
+  Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
 
-    Item itemInfo = Item.builder()
-            .itemName("나이키 에어포스")
-            .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
-            .representativeColor("Black")
-            .releasedPrice(10000)
-            .brand(brand)
-            .build();
+  Item itemInfo =
+      Item.builder()
+          .itemName("나이키 에어포스")
+          .modelNumber("NK22035")
+          .category1("신발")
+          .category2("스니커즈")
+          .releaseDate(LocalDateTime.now())
+          .representativeColor("Black")
+          .releasedPrice(10000)
+          .brand(brand)
+          .build();
 
-    @Test
-    void 아이템_추가() throws Exception {
+  @Test
+  void 아이템_추가() throws Exception {
 
-        doNothing().when(itemService).addItem(itemInfo);
-        mockMvc.perform(post("/items")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(getContent(itemInfo)))
-                .andExpect(status().isOk());
-    }
+    doNothing().when(itemService).addItem(itemInfo);
+    mockMvc
+        .perform(
+            post("/items").contentType(MediaType.APPLICATION_JSON).content(getContent(itemInfo)))
+        .andExpect(status().isOk());
+  }
 
-    @Test
-    void 전체_조회() throws Exception {
-        given(itemService.findAll()).willReturn(List.of());
-        mockMvc.perform(get("/items")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void 전체_조회() throws Exception {
+    given(itemService.findAll()).willReturn(List.of());
+    mockMvc
+        .perform(get("/items").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 
-    @Test
-    void id_조회() throws Exception {
-        given(itemService.findOne(1L)).willReturn(itemInfo);
-        mockMvc.perform(get("/items/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void id_조회() throws Exception {
+    given(itemService.findOne(1L)).willReturn(itemInfo);
+    mockMvc
+        .perform(get("/items/1").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 
-    @Test
-    void 업데이트() throws Exception {
-        doNothing().when(itemService).update(itemInfo);
-        mockMvc.perform(patch("/items/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(getContent(itemInfo)))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void 업데이트() throws Exception {
+    doNothing().when(itemService).update(itemInfo);
+    mockMvc
+        .perform(
+            patch("/items/1").contentType(MediaType.APPLICATION_JSON).content(getContent(itemInfo)))
+        .andExpect(status().isOk());
+  }
 
-    @Test
-    void 삭제() throws Exception {
-        doNothing().when(itemService).delete(1L);
-        mockMvc.perform(delete("/items/1")
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
+  @Test
+  void 삭제() throws Exception {
+    doNothing().when(itemService).delete(1L);
+    mockMvc
+        .perform(delete("/items/1").contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk());
+  }
 
-    private String getContent(Item itemInfo) throws JsonProcessingException {
-        return new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(itemInfo);
-    }
+  private String getContent(Item itemInfo) throws JsonProcessingException {
+    return new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(itemInfo);
+  }
 }

@@ -6,14 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ItemMapper {
-    int save(Item item);
+  int save(Item item);
 
-    Item findOne(Long id);
+  Item findOne(Long id);
 
-    List<Item> findAll();
+  List<Item> findAll();
 
+  int update(Item itemInfo);
 
-    int update(Item itemInfo);
-
-    int delete(Long id);
+  int delete(Long id);
 }

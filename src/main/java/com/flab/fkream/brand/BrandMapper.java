@@ -6,13 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BrandMapper {
-	int save(Brand brand);
+  int save(Brand brand);
 
-	Brand findOne(Long id);
+  Brand findOne(Long id);
 
-	List<Brand> findAll();
+  List<Brand> findAll();
 
-	int update(Brand brandInfo);
+  int update(Brand brandInfo);
 
-	int delete(Long id);
+  int delete(Long id);
 }
