@@ -5,7 +5,7 @@
 <mapper namespace="com.flab.fkream.deal.DealMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.deal.Deal">
         insert into deal (ITEM_ID, BUY_OR_SELL, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY, SALES_CONDITION, STATUS, CREATED_AT, MODIFIED_AT)
-        VALUES (#{item.id}, #{kindOfDeal}, #{users.id}, #{price}, #{size}, #{period}, #{utilizationPolicy}, #{salesCondition}, #{status}, #{createAt}, #{modifiedAt})
+        VALUES (#{item.id}, #{kindOfDeal}, #{user.id}, #{price}, #{size}, #{period}, #{utilizationPolicy}, #{salesCondition}, #{status}, #{createAt}, #{modifiedAt})
     </insert>
 
 </mapper>

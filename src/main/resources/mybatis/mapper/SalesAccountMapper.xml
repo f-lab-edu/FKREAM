@@ -5,7 +5,7 @@
 <mapper namespace="com.flab.fkream.salesAccount.SalesAccountMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.salesAccount.SalesAccount">
         insert into sales_account (user_id, bank_name, account_number, account_holder, created_at)
-        values (#{users.id}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
+        values (#{user.id}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
     </insert>
 
 </mapper>

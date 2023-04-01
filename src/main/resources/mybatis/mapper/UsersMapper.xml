@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flab.fkream.users.UsersMapper">
+<mapper namespace="com.flab.fkream.user.UserMapper">
 
-    <resultMap id="UsersResultMap" type="com.flab.fkream.users.Users">
+    <resultMap id="UsersResultMap" type="com.flab.fkream.user.User">
         <id column="id" property="id" />
         <result column="email" property="email" />
         <result column="password" property="password" />
@@ -23,14 +23,13 @@
         <result column="modified_at" property="modifiedAt" />
     </resultMap>
 
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.users.Users">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.user.User">
         insert into users (EMAIL, PASSWORD, FOURTEEN_AGREEMENT, GENDER, AD_AGREEMENT, PERSONAL_AUTHENTICATION, PHONE_NUMBER, PROFILE_NAME, NAME, RANK, PROFILE_IMG_NAME, PROFILE_IMG_URL, PROFILE_IMG_ORIGIN_NAME, CREATED_AT, MODIFIED_AT)
         values ( #{email}, #{password}, #{fourteenAgreement}, #{gender}, #{adAgreement}, #{personalAuthentication}, #{phoneNumber}
             ,#{profileName}, #{name}, #{rank}, #{profileImgName}, #{profileImgUrl}, #{profileImgOriginName}, #{createdAt}, #{modifiedAt})
     </insert>
-    
-    <select id="findByLoginForm" resultType="com.flab.fkream.users.Users" resultMap="UsersResultMap"
-            parameterType="com.flab.fkream.login.LoginForm">
+
+    <select id="findByEmail" resultType="com.flab.fkream.user.User" resultMap="UsersResultMap">
         select *
         from users
         where

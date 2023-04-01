@@ -1,6 +1,6 @@
 package com.flab.fkream.salesAccount;
 
-import com.flab.fkream.users.Users;
+import com.flab.fkream.user.User;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class SalesAccount {
 
     private Long id;
-    private final Users users;
+    private final User user;
     private final String bankName;
     private final String accountNumber;
     private final String accountHolder;

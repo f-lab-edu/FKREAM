@@ -35,7 +35,7 @@ CREATE TABLE `manager`
 CREATE TABLE `address`
 (
     `id`           int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`      int,
+    `users_id`      int,
     `name`         varchar(255),
     `phone_number` varchar(255),
     `zipcode`      varchar(255),
@@ -47,7 +47,7 @@ CREATE TABLE `address`
 CREATE TABLE `payment_card`
 (
     `id`           int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`      int,
+    `users_id`      int,
     `card_company` varchar(255),
     `card_number`  varchar(255),
     `expiration`   timestamp,
@@ -58,7 +58,7 @@ CREATE TABLE `payment_card`
 CREATE TABLE `sales_account`
 (
     `id`             int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`        int,
+    `users_id`        int,
     `bank_name`      varchar(255),
     `account_number` varchar(255),
     `account_holder` varchar(255),
@@ -68,7 +68,7 @@ CREATE TABLE `sales_account`
 CREATE TABLE `notification`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`            int,
+    `users_id`            int,
     `interested_item_id` int,
     `type`               varchar(255),
     `created_at`         timestamp
@@ -118,7 +118,7 @@ CREATE TABLE `deal`
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `item_id`            int,
     `buy_or_sell`        varchar(255),
-    `user_id`            int,
+    `users_id`            int,
     `price`              int,
     `size`               varchar(255),
     `period`             varchar(255),
@@ -132,7 +132,7 @@ CREATE TABLE `deal`
 CREATE TABLE `interested_item`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`            int,
+    `users_id`            int,
     `item_size_price_id` int
 );
 
@@ -146,22 +146,22 @@ CREATE TABLE `brand`
 CREATE TABLE `owned_items`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`            int,
+    `users_id`            int,
     `item_size_price_id` int,
     `purchase_price`     int
 );
 
 ALTER TABLE `address`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `payment_card`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `sales_account`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `notification`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `notification`
     ADD FOREIGN KEY (`interested_item_id`) REFERENCES `interested_item` (`id`);
@@ -182,16 +182,16 @@ ALTER TABLE `deal`
     ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
 
 ALTER TABLE `deal`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `interested_item`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `interested_item`
     ADD FOREIGN KEY (`item_size_price_id`) REFERENCES `item_size_price` (`id`);
 
 ALTER TABLE `owned_items`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `owned_items`
     ADD FOREIGN KEY (`item_size_price_id`) REFERENCES `item_size_price` (`id`);
