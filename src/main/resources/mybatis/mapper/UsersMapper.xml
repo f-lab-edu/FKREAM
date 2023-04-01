@@ -34,14 +34,6 @@
         from users
         where
         email = #{email}
-        and password = #{password}
-
-    </select>
-    
-    <select id="emailCheck" resultType="int">
-        SELECT COUNT(EMAIL)
-        from USERS
-        where EMAIL= #{email}
     </select>
 </mapper>
 
