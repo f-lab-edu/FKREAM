@@ -7,7 +7,7 @@
         <result property="imgName" column="img_name"/>
         <result property="imgUrl" column="img_url"/>
         <result property="originName" column="origin_name"/>
-경        <result property="isRepresentativeImg" column="is_representative_img"/>
+        <result property="isRepresentativeImg" column="is_representative_img"/>
         <result property="createdAt" column="created_at"/>
     </resultMap>
 
