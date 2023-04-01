@@ -14,32 +14,39 @@ import org.springframework.format.annotation.DateTimeFormat;
 @AllArgsConstructor
 public class Item {
 
-  private Long id;
-  @NonNull private String itemName;
-  @NonNull private String modelNumber;
-  @NonNull private String category1;
-  @NonNull private String category2;
+    private Long id;
+    @NonNull
+    private String itemName;
+    @NonNull
+    private String modelNumber;
+    @NonNull
+    private String category1;
+    @NonNull
+    private String category2;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-  private LocalDateTime releaseDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDateTime releaseDate;
 
-  @NonNull private String representativeColor;
-  @NonNull private int releasedPrice;
-  private int latestPrice;
-  @NonNull private Brand brand;
-  private Long managerId;
+    @NonNull
+    private String representativeColor;
+    @NonNull
+    private int releasedPrice;
+    private int latestPrice;
+    @NonNull
+    private Brand brand;
+    private Long managerId;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private LocalDateTime createdAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createdAt;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private LocalDateTime modifiedAt;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime modifiedAt;
 
-  public void setCreatedAt() {
-    createdAt = LocalDateTime.now();
-  }
+    public void setCreatedAt() {
+        createdAt = LocalDateTime.now();
+    }
 
-  public void setModifiedAt() {
-    modifiedAt = LocalDateTime.now();
-  }
+    public void setModifiedAt() {
+        modifiedAt = LocalDateTime.now();
+    }
 }

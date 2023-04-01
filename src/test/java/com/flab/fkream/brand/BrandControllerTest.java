@@ -23,57 +23,60 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(BrandController.class)
 class BrandControllerTest {
 
-  @MockBean BrandService brandService;
+    @MockBean
+    BrandService brandService;
 
-  @Autowired MockMvc mockMvc;
+    @Autowired
+    MockMvc mockMvc;
 
-  Brand brandInfo = Brand.builder().brandName("샤넬").isLuxury(true).build();
+    Brand brandInfo = Brand.builder().brandName("샤넬").isLuxury(true).build();
 
-  @Test
-  void addBrand() throws Exception {
-    doNothing().when(brandService).addBrand(brandInfo);
-    mockMvc
-        .perform(
-            post("/brands").contentType(MediaType.APPLICATION_JSON).content(getContent(brandInfo)))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void addBrand() throws Exception {
+        doNothing().when(brandService).addBrand(brandInfo);
+        mockMvc
+            .perform(
+                post("/brands").contentType(MediaType.APPLICATION_JSON)
+                    .content(getContent(brandInfo)))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void findAll() throws Exception {
-    given(brandService.findAll()).willReturn(List.of());
-    mockMvc
-        .perform(get("/brands").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void findAll() throws Exception {
+        given(brandService.findAll()).willReturn(List.of());
+        mockMvc
+            .perform(get("/brands").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void findOne() throws Exception {
-    given(brandService.findOne(1L)).willReturn(brandInfo);
-    mockMvc
-        .perform(get("/brands/1").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void findOne() throws Exception {
+        given(brandService.findOne(1L)).willReturn(brandInfo);
+        mockMvc
+            .perform(get("/brands/1").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void update() throws Exception {
-    doNothing().when(brandService).update(brandInfo);
-    mockMvc
-        .perform(
-            patch("/brands/1")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(getContent(brandInfo)))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void update() throws Exception {
+        doNothing().when(brandService).update(brandInfo);
+        mockMvc
+            .perform(
+                patch("/brands/1")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(getContent(brandInfo)))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void deleteBrand() throws Exception {
-    doNothing().when(brandService).delete(1L);
-    mockMvc
-        .perform(delete("/brands/1").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void deleteBrand() throws Exception {
+        doNothing().when(brandService).delete(1L);
+        mockMvc
+            .perform(delete("/brands/1").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
 
-  private String getContent(Brand brandInfo) throws JsonProcessingException {
-    return new ObjectMapper().writeValueAsString(brandInfo);
-  }
+    private String getContent(Brand brandInfo) throws JsonProcessingException {
+        return new ObjectMapper().writeValueAsString(brandInfo);
+    }
 }

@@ -19,50 +19,53 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ItemImgMapperTest {
 
-  @Autowired ItemImgMapper itemImgMapper;
-  @Autowired ItemMapper itemMapper;
+    @Autowired
+    ItemImgMapper itemImgMapper;
+    @Autowired
+    ItemMapper itemMapper;
 
-  Item itemInfo =
-      Item.builder()
-          .itemName("나이키 에어포스")
-          .modelNumber("NK22035")
-          .category1("신발")
-          .category2("스니커즈")
-          .releaseDate(LocalDateTime.now())
-          .representativeColor("Black")
-          .releasedPrice(10000)
-          .brand(new Brand())
-          .build();
+    Item itemInfo =
+        Item.builder()
+            .itemName("나이키 에어포스")
+            .modelNumber("NK22035")
+            .category1("신발")
+            .category2("스니커즈")
+            .releaseDate(LocalDateTime.now())
+            .representativeColor("Black")
+            .releasedPrice(10000)
+            .brand(new Brand())
+            .build();
 
-  ItemImg itemImgInfo =
-      ItemImg.builder()
-          .item(itemInfo)
-          .imgUrl("test")
-          .imgName("test")
-          .originName("test_origin")
-          .isRepresentativeImg(true)
-          .build();
+    ItemImg itemImgInfo =
+        ItemImg.builder()
+            .item(itemInfo)
+            .imgUrl("test")
+            .imgName("test")
+            .originName("test_origin")
+            .isRepresentativeImg(true)
+            .build();
 
-  @BeforeEach
-  void setUp() {
-    itemMapper.save(itemInfo);
-  }
+    @BeforeEach
+    void setUp() {
+        itemMapper.save(itemInfo);
+    }
 
-  @Test
-  void save() {
-    assertThat(itemImgMapper.save(itemImgInfo)).isEqualTo(1);
-  }
+    @Test
+    void save() {
+        assertThat(itemImgMapper.save(itemImgInfo)).isEqualTo(1);
+    }
 
-  @Test
-  void findImagesByItemId() {
-    itemImgMapper.save(itemImgInfo);
-    assertThat(itemImgMapper.findImagesByItemId(itemInfo.getId()).get(0)).isEqualTo(itemImgInfo);
-  }
+    @Test
+    void findImagesByItemId() {
+        itemImgMapper.save(itemImgInfo);
+        assertThat(itemImgMapper.findImagesByItemId(itemInfo.getId()).get(0)).isEqualTo(
+            itemImgInfo);
+    }
 
-  @Test
-  void delete() {
-    itemImgMapper.save(itemImgInfo);
-    itemImgMapper.delete(itemImgInfo.getId());
-    assertThat(itemImgMapper.findImagesByItemId(itemInfo.getId())).hasSize(0);
-  }
+    @Test
+    void delete() {
+        itemImgMapper.save(itemImgInfo);
+        itemImgMapper.delete(itemImgInfo.getId());
+        assertThat(itemImgMapper.findImagesByItemId(itemInfo.getId())).hasSize(0);
+    }
 }

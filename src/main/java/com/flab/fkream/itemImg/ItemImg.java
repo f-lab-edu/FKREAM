@@ -13,17 +13,22 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemImg {
-  private Long id;
-  @NonNull private Item item;
-  @NonNull private String imgName;
-  @NonNull private String imgUrl;
-  @NonNull private String originName;
-  private boolean isRepresentativeImg;
 
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-  private LocalDateTime createdAt;
+    private Long id;
+    @NonNull
+    private Item item;
+    @NonNull
+    private String imgName;
+    @NonNull
+    private String imgUrl;
+    @NonNull
+    private String originName;
+    private boolean isRepresentativeImg;
 
-  public void setCreatedAt() {
-    createdAt = LocalDateTime.now();
-  }
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createdAt;
+
+    public void setCreatedAt() {
+        createdAt = LocalDateTime.now();
+    }
 }

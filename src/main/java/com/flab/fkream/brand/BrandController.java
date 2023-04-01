@@ -10,33 +10,34 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequiredArgsConstructor
 public class BrandController {
-  private final BrandService brandService;
 
-  @PostMapping("/brands")
-  public HttpStatus addBrand(@RequestBody Brand brandInfo) {
-    brandService.addBrand(brandInfo);
-    return HttpStatus.CREATED;
-  }
+    private final BrandService brandService;
 
-  @GetMapping("/brands")
-  public List<Brand> findAll() {
-    return brandService.findAll();
-  }
+    @PostMapping("/brands")
+    public HttpStatus addBrand(@RequestBody Brand brandInfo) {
+        brandService.addBrand(brandInfo);
+        return HttpStatus.CREATED;
+    }
 
-  @GetMapping("/brands/{id}")
-  public Brand findOne(@PathVariable Long id) {
-    return brandService.findOne(id);
-  }
+    @GetMapping("/brands")
+    public List<Brand> findAll() {
+        return brandService.findAll();
+    }
 
-  @PatchMapping("/brands/{id}")
-  @ResponseStatus(HttpStatus.OK)
-  public void update(@RequestBody Brand brandInfo) {
-    brandService.update(brandInfo);
-  }
+    @GetMapping("/brands/{id}")
+    public Brand findOne(@PathVariable Long id) {
+        return brandService.findOne(id);
+    }
 
-  @DeleteMapping("/brands/{id}")
-  @ResponseStatus(HttpStatus.OK)
-  public void delete(@PathVariable Long id) {
-    brandService.delete(id);
-  }
+    @PatchMapping("/brands/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void update(@RequestBody Brand brandInfo) {
+        brandService.update(brandInfo);
+    }
+
+    @DeleteMapping("/brands/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable Long id) {
+        brandService.delete(id);
+    }
 }

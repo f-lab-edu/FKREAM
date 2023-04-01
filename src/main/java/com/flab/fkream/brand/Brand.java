@@ -9,8 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Brand {
-  private Long id;
-	@NonNull
-	private String brandName;
-	private boolean isLuxury;
+
+    private Long id;
+    @NonNull
+    private String brandName;
+    private boolean isLuxury;
 }

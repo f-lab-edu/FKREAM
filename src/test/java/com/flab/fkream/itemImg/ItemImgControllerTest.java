@@ -27,58 +27,61 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ItemImgController.class)
 class ItemImgControllerTest {
 
-  @MockBean ItemImgService itemImgService;
+    @MockBean
+    ItemImgService itemImgService;
 
-  @Autowired MockMvc mockMvc;
+    @Autowired
+    MockMvc mockMvc;
 
-  Item itemInfo =
-      Item.builder()
-          .itemName("나이키 에어포스")
-          .modelNumber("NK22035")
-          .category1("신발")
-          .category2("스니커즈")
-          .releaseDate(LocalDateTime.now())
-          .representativeColor("Black")
-          .releasedPrice(10000)
-          .build();
+    Item itemInfo =
+        Item.builder()
+            .itemName("나이키 에어포스")
+            .modelNumber("NK22035")
+            .category1("신발")
+            .category2("스니커즈")
+            .releaseDate(LocalDateTime.now())
+            .representativeColor("Black")
+            .releasedPrice(10000)
+            .build();
 
-  ItemImg itemImgInfo =
-      ItemImg.builder()
-          .item(itemInfo)
-          .imgUrl("test")
-          .imgName("test")
-          .originName("test_origin")
-          .isRepresentativeImg(true)
-          .build();
+    ItemImg itemImgInfo =
+        ItemImg.builder()
+            .item(itemInfo)
+            .imgUrl("test")
+            .imgName("test")
+            .originName("test_origin")
+            .isRepresentativeImg(true)
+            .build();
 
-  @Test
-  void addItemImg() throws Exception {
-    doNothing().when(itemImgService).addItemImg(itemImgInfo);
-    mockMvc
-        .perform(
-            post("/itemImgs")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(getContent(itemImgInfo)))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void addItemImg() throws Exception {
+        doNothing().when(itemImgService).addItemImg(itemImgInfo);
+        mockMvc
+            .perform(
+                post("/itemImgs")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .content(getContent(itemImgInfo)))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void findImagesByItemId() throws Exception {
-    given(itemImgService.findImagesByItemId(1L)).willReturn(List.of(itemImgInfo));
-    mockMvc
-        .perform(get("/itemImgs/1").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void findImagesByItemId() throws Exception {
+        given(itemImgService.findImagesByItemId(1L)).willReturn(List.of(itemImgInfo));
+        mockMvc
+            .perform(get("/itemImgs/1").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
 
-  @Test
-  void deleteItemImg() throws Exception {
-    doNothing().when(itemImgService).delete(1L);
-    mockMvc
-        .perform(delete("/itemImgs/1").contentType(MediaType.APPLICATION_JSON))
-        .andExpect(status().isOk());
-  }
+    @Test
+    void deleteItemImg() throws Exception {
+        doNothing().when(itemImgService).delete(1L);
+        mockMvc
+            .perform(delete("/itemImgs/1").contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
 
-  private String getContent(ItemImg itemImgInfo) throws JsonProcessingException {
-    return new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(itemImgInfo);
-  }
+    private String getContent(ItemImg itemImgInfo) throws JsonProcessingException {
+        return new ObjectMapper().registerModule(new JavaTimeModule())
+            .writeValueAsString(itemImgInfo);
+    }
 }
