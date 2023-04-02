@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import java.time.LocalDateTime;
 
 import com.flab.fkream.brand.Brand;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,26 +16,28 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Item {
 
     private Long id;
-    @NonNull
+    @NotNull
     private String itemName;
-    @NonNull
+    @NotNull
     private String modelNumber;
-    @NonNull
+    @NotNull
     private String category1;
-    @NonNull
+    @NotNull
     private String category2;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime releaseDate;
 
-    @NonNull
+    @NotNull
     private String representativeColor;
-    @NonNull
+    @NotNull
     private int releasedPrice;
     private int latestPrice;
-    @NonNull
+    @NotNull
     private Brand brand;
     private Long managerId;
+
+    private boolean isOneSize;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
@@ -48,5 +51,9 @@ public class Item {
 
     public void setModifiedAt() {
         modifiedAt = LocalDateTime.now();
+    }
+
+    public void setBrand(Brand brand) {
+        this.brand = brand;
     }
 }

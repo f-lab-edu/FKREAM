@@ -3,6 +3,7 @@ package com.flab.fkream.itemImg;
 import java.time.LocalDateTime;
 
 import com.flab.fkream.item.Item;
+import javax.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -15,13 +16,13 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class ItemImg {
 
     private Long id;
-    @NonNull
+    @NotNull
     private Item item;
-    @NonNull
+    @NotNull
     private String imgName;
-    @NonNull
+    @NotNull
     private String imgUrl;
-    @NonNull
+    @NotNull
     private String originName;
     private boolean isRepresentativeImg;
 
