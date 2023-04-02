@@ -1,5 +1,6 @@
 package com.flab.fkream.itemImg;
 
+import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -22,6 +23,12 @@ class ItemImgServiceTest {
     @InjectMocks
     ItemImgService itemImgService;
 
+    Brand brand =
+        Brand.builder()
+            .brandName("구찌")
+            .isLuxury(true)
+            .build();
+
     Item itemInfo =
         Item.builder()
             .itemName("나이키 에어포스")
@@ -31,6 +38,7 @@ class ItemImgServiceTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(brand)
             .build();
 
     ItemImg itemImgInfo =
@@ -46,17 +54,20 @@ class ItemImgServiceTest {
     void addItemImg() {
         given(itemImgMapper.save(itemImgInfo)).willReturn(1);
         itemImgService.addItemImg(itemImgInfo);
+        then(itemImgMapper).should().save(itemImgInfo);
     }
 
     @Test
     void findImagesByItemId() {
         given(itemImgMapper.findImagesByItemId(1L)).willReturn(List.of());
         itemImgService.findImagesByItemId(1L);
+        then(itemImgMapper).should().findImagesByItemId(1L);
     }
 
     @Test
     void delete() {
         given(itemImgMapper.delete(1L)).willReturn(1);
         itemImgService.delete(1L);
+        then(itemImgMapper).should().delete(1L);
     }
 }

@@ -32,29 +32,34 @@ class BrandServiceTest {
 
         given(brandMapper.save(brandInfo)).willReturn(1);
         brandService.addBrand(brandInfo);
+        then(brandMapper).should().save(brandInfo);
     }
 
     @Test
     void 브랜드_조회() throws Exception {
         given(brandMapper.findOne(1L)).willReturn(brandInfo);
         brandService.findOne(1L);
+        then(brandMapper).should().findOne(1L);
     }
 
     @Test
     void 브랜드_리스팅() {
         given(brandMapper.findAll()).willReturn(List.of());
         brandService.findAll();
+        then(brandMapper).should().findAll();
     }
 
     @Test
     void 브랜드_업데이트() {
         given(brandMapper.update(brandInfo)).willReturn(1);
         brandService.update(brandInfo);
+        then(brandMapper).should().update(brandInfo);
     }
 
     @Test
     void 브랜드_삭제() {
         given(brandMapper.delete(1L)).willReturn(1);
         brandService.delete(1L);
+        then(brandMapper).should().delete(1L);
     }
 }

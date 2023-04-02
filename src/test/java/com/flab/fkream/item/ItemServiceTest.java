@@ -46,29 +46,34 @@ class ItemServiceTest {
     void 아이템_생성() {
         given(itemMapper.save(itemInfo)).willReturn(1);
         itemService.addItem(itemInfo);
+        then(itemMapper).should().save(itemInfo);
     }
 
     @Test
     void 아이템_조회() {
         given(itemMapper.findOne(1L)).willReturn(itemInfo);
         itemService.findOne(1L);
+        then(itemMapper).should().findOne(1L);
     }
 
     @Test
     void 아이템_리스팅() {
         given(itemMapper.findAll()).willReturn(List.of());
         itemService.findAll();
+        then(itemMapper).should().findAll();
     }
 
     @Test
     void 아이템_업데이트() {
         given(itemMapper.update(itemInfo)).willReturn(1);
         itemService.update(itemInfo);
+        then(itemMapper).should().update(itemInfo);
     }
 
     @Test
     void 아이템_삭제() {
         given(itemMapper.delete(1L)).willReturn(1);
         itemService.delete(1L);
+        then(itemMapper).should().delete(1L);
     }
 }
