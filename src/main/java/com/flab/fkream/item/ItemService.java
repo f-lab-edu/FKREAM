@@ -1,8 +1,13 @@
 package com.flab.fkream.item;
 
+import com.flab.fkream.brand.Brand;
+import com.flab.fkream.brand.BrandService;
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 
 import com.flab.fkream.error.exception.MapperException;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -14,48 +19,63 @@ import lombok.extern.log4j.Log4j2;
 public class ItemService {
 
     private final ItemMapper itemMapper;
+    private final BrandService brandService;
 
     public void addItem(Item itemInfo) {
-        itemInfo.setCreatedAt();
-        int itemId = itemMapper.save(itemInfo);
-        if (itemId != 1) {
-            log.error("insert item error! itemInfo : {}", itemInfo);
-            throw new MapperException("insert item error!" + itemInfo);
+        try {
+            itemInfo.setCreatedAt();
+            itemMapper.save(itemInfo);
+        } catch (DataAccessException e) {
+            log.error("[ItemService.addItem] insert item error! itemInfo : {}", itemInfo);
+            throw new MapperException(e);
         }
     }
 
     public Item findOne(Long itemId) {
-        Item item = itemMapper.findOne(itemId);
-        if (item == null) {
-            log.error("find item error! itemId : {}", itemId);
-            throw new MapperException("find item error! itemId : " + itemId);
+        try {
+            Item item = itemMapper.findOne(itemId);
+            Brand brand = brandService.findOne(item.getBrand().getId());
+            item.setBrand(brand);
+            if (item == null) {
+                throw new NoDataFoundException();
+            }
+            return item;
+        } catch (DataAccessException e) {
+            log.error("[ItemService.findOne] find item by id error!");
+            throw new MapperException(e);
         }
-        return item;
     }
 
+
     public List<Item> findAll() {
-        List<Item> items = itemMapper.findAll();
-        if (items == null) {
-            log.error("find all error!");
-            throw new MapperException("find all error!");
+        try {
+            List<Item> items = itemMapper.findAll();
+            if (items == null) {
+                throw new NoDataFoundException();
+            }
+            return items;
+        } catch (DataAccessException e) {
+            log.error("[ItemService.findAll] find all item error!");
+            throw new MapperException(e);
         }
-        return items;
     }
 
     public void update(Item itemInfo) {
-        itemInfo.setModifiedAt();
-        int result = itemMapper.update(itemInfo);
-        if (result != 1) {
-            log.error("update item error! {}", itemInfo);
-            throw new MapperException("update item error");
+        try {
+            itemInfo.setModifiedAt();
+            itemMapper.update(itemInfo);
+        } catch (DataAccessException e) {
+            log.error("[ItemService.update] update item by id error! itemInfo : {}", itemInfo);
+            throw new MapperException(e);
         }
     }
 
     public void delete(Long id) {
-        int result = itemMapper.delete(id);
-        if (result != 1) {
-            log.error("delete item error!");
-            throw new MapperException("delete item error");
+        try {
+            itemMapper.delete(id);
+        } catch (DataAccessException e) {
+            log.error("[ItemService.delete] delete item by id error!");
+            throw new MapperException(e);
         }
     }
 }

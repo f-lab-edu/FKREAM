@@ -1,8 +1,10 @@
 package com.flab.fkream.itemImg;
 
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 
 import com.flab.fkream.error.exception.MapperException;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,28 +19,35 @@ public class ItemImgService {
     private final ItemImgMapper itemImgMapper;
 
     public void addItemImg(ItemImg itemImgInfo) {
-        itemImgInfo.setCreatedAt();
-        int result = itemImgMapper.save(itemImgInfo);
-        if (result != 1) {
-            log.error("insert ItemImg error! itemImgInfo : {}", itemImgInfo);
-            throw new MapperException("insert itemImg error!" + itemImgInfo);
+        try {
+            itemImgInfo.setCreatedAt();
+            itemImgMapper.save(itemImgInfo);
+        } catch (DataAccessException e) {
+            log.error("[ItemImgService.addItemImg] insert itemImg error! itemImgInfo : {}",
+                itemImgInfo);
+            throw new MapperException(e);
         }
     }
 
     public List<ItemImg> findImagesByItemId(Long itemId) {
-        List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
-        if (itemImages == null) {
-            log.error("find images by ItemId error itemId : {}", itemId);
-            throw new MapperException("find images by ItemId error itemId :" + itemId);
+        try {
+            List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
+            if (itemImages == null) {
+                throw new NoDataFoundException();
+            }
+            return itemImages;
+        } catch (DataAccessException e) {
+            log.error("[ItemImgService.findImagesByItemId] find itemImg error!");
+            throw new MapperException(e);
         }
-        return itemImages;
     }
 
     public void delete(Long id) {
-        int result = itemImgMapper.delete(id);
-        if (result != 1) {
-            log.error("delete itemImg error!");
-            throw new MapperException("delete ItemImg error");
+        try {
+            itemImgMapper.delete(id);
+        } catch (DataAccessException e) {
+            log.error("[ItemImgService.delete] delete itemImg error!");
+            throw new MapperException(e);
         }
     }
 }
