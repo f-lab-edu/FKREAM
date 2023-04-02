@@ -3,6 +3,7 @@ package com.flab.fkream.itemImg;
 import java.util.List;
 
 import com.flab.fkream.brand.Brand;
+import javax.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,7 +16,7 @@ public class ItemImgController {
     private final ItemImgService itemImgService;
 
     @PostMapping("/itemImgs")
-    public HttpStatus addItemImg(@RequestBody ItemImg itemImgInfo) {
+    public HttpStatus addItemImg(@Valid @RequestBody ItemImg itemImgInfo) {
         itemImgService.addItemImg(itemImgInfo);
         return HttpStatus.CREATED;
     }
