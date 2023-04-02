@@ -1,8 +1,12 @@
 package com.flab.fkream.brand;
 
+import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.item.Item;
 import java.util.List;
 
 import com.flab.fkream.error.exception.MapperException;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,44 +21,56 @@ public class BrandService {
     private final BrandMapper brandMapper;
 
     public void addBrand(Brand brandInfo) {
-        int result = brandMapper.save(brandInfo);
-        if (result != 1) {
-            log.error("insert brand error! brandInfo : {}", brandInfo);
-            throw new MapperException("insert brand error!" + brandInfo);
+        try{
+            brandMapper.save(brandInfo);
+        }catch (DataAccessException e){
+            log.error("[BrandService.addBrand] insert brand error! brandInfo : {}", brandInfo);
+            throw new MapperException(e);
         }
     }
 
     public Brand findOne(Long brandId) {
-        Brand brand = brandMapper.findOne(brandId);
-        if (brand == null) {
-            log.error("find brand error! brandId : {}", brandId);
-            throw new MapperException("find brand error! brandId :" + brandId);
+        try{
+            Brand brand = brandMapper.findOne(brandId);
+            if (brand == null) {
+                throw new NoDataFoundException();
+            }
+            return brand;
+        }catch (DataAccessException e){
+            log.error("[BrandService.findOne] find brand by id error!");
+            throw new MapperException(e);
         }
-        return brand;
     }
 
     public List<Brand> findAll() {
-        List<Brand> brands = brandMapper.findAll();
-        if (brands == null) {
-            log.error("find all brand error!");
-            throw new MapperException("find all brand error!");
+        try{
+            List<Brand> brands = brandMapper.findAll();
+            if (brands == null) {
+                throw new NoDataFoundException();
+            }
+            return brands;
+        }catch (DataAccessException e){
+            log.error("[BrandService.findAll] find all brand error!}");
+            throw new MapperException(e);
         }
-        return brands;
+
     }
 
     public void update(Brand brandInfo) {
-        int result = brandMapper.update(brandInfo);
-        if (result != 1) {
-            log.error("update brand error! {}", brandInfo);
-            throw new MapperException("update brand error");
+        try{
+            brandMapper.update(brandInfo);
+        }catch (DataAccessException e){
+            log.error("[BrandService.update] update brand error! brandInfo : {}", brandInfo);
+            throw new MapperException(e);
         }
     }
 
     public void delete(Long id) {
-        int result = brandMapper.delete(id);
-        if (result != 1) {
-            log.error("delete brand error!");
-            throw new MapperException("delete brand error");
+        try{
+            brandMapper.delete(id);
+        }catch (DataAccessException e){
+            log.error("[BrandService.delete] delete brand error!");
+            throw new MapperException(e);
         }
     }
 }
