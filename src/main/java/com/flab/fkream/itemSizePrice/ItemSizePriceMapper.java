@@ -6,10 +6,13 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface ItemSizePriceMapper {
-	Long save(ItemSizePrice itemSizePrice);
+	int save(ItemSizePrice itemSizePrice);
 
 	ItemSizePrice findOne(Long id);
 
-	List<ItemSizePrice> findAll();
+	List<ItemSizePrice> findAllByItemId(Long itemId);
 
+	ItemSizePrice findByItemIdAndSize(Long itemId, String size);
+
+	int delete(Long id);
 }

@@ -1,7 +1,9 @@
 package com.flab.fkream.itemSizePrice;
 
+import com.flab.fkream.error.exception.MapperException;
 import java.util.List;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,23 +14,56 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class ItemSizePriceService {
-	private final ItemSizePriceMapper itemSizePriceMapper;
 
-	@Transactional(rollbackFor = RuntimeException.class)
-	public Long addItemSizePrice(ItemSizePrice itemSizePriceInfo) {
-		Long itemSizePriceId = itemSizePriceMapper.save(itemSizePriceInfo);
-		if (itemSizePriceId == null) {
-			log.error("insert ItemSizePrice error! itemSizePriceInfo : {}", itemSizePriceInfo);
-			throw new NullPointerException("insert itemSizePrice error!" + itemSizePriceInfo);
-		}
-		return itemSizePriceId;
-	}
+    private final ItemSizePriceMapper itemSizePriceMapper;
 
-	public ItemSizePrice findOne(Long id) {
-		return itemSizePriceMapper.findOne(id);
-	}
+    public void addItemSizePrice(ItemSizePrice itemSizePriceInfo) {
+        try {
+            itemSizePriceMapper.save(itemSizePriceInfo);
+        } catch (DataAccessException e) {
+            log.error(
+                "[ItemSizePriceService.addItemSizePrice] insert itemSizePrice error! itemSizePrice : {}",
+                itemSizePriceInfo);
+            throw new MapperException(e);
+        }
+    }
 
-	public List<ItemSizePrice> findAll() {
-		return itemSizePriceMapper.findAll();
-	}
+    public ItemSizePrice findOne(Long id) {
+        try {
+            return itemSizePriceMapper.findOne(id);
+        } catch (DataAccessException e) {
+            log.error(
+                "[ItemSizePriceService.findOne] find itemSizePrice error!");
+            throw new MapperException(e);
+        }
+    }
+
+    public List<ItemSizePrice> findAllByItemId(Long itemId) {
+        try {
+            return itemSizePriceMapper.findAllByItemId(itemId);
+        } catch (DataAccessException e) {
+            log.error("[ItemSizePriceService.findAllByItemId] find itemSizePrice by itemId error!");
+            throw new MapperException(e);
+        }
+    }
+
+    public ItemSizePrice findByItemIdAndSize(Long itemId, String size) {
+        try {
+            return itemSizePriceMapper.findByItemIdAndSize(itemId, size);
+        } catch (DataAccessException e) {
+            log.error(
+                "[ItemSizePriceService.findByItemIdAndSize] find itemSizePrice by itemId and size error! size: {}",
+                size);
+            throw new MapperException(e);
+        }
+    }
+
+    public void delete(Long id) {
+        try {
+            itemSizePriceMapper.delete(id);
+        } catch (DataAccessException e) {
+            log.error("[ItemSizePriceService.delete] delete itemSizePrice error!");
+            throw new MapperException(e);
+        }
+    }
 }
