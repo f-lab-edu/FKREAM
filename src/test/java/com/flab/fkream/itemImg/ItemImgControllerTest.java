@@ -3,6 +3,7 @@ package com.flab.fkream.itemImg;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
@@ -42,6 +43,7 @@ class ItemImgControllerTest {
             .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
+            .brand(new Brand())
             .build();
 
     ItemImg itemImgInfo =
