@@ -34,14 +34,15 @@ CREATE TABLE `manager`
 
 CREATE TABLE `address`
 (
-    `id`           int PRIMARY KEY AUTO_INCREMENT,
-    `user_id`      int,
-    `name`         varchar(255),
-    `phone_number` varchar(255),
-    `zipcode`      varchar(255),
-    `detail1`      varchar(255),
-    `detail2`      varchar(255),
-    `created_at`   timestamp
+    `id`              int PRIMARY KEY AUTO_INCREMENT,
+    `user_id`         int,
+    `name`            varchar(255),
+    `phone_number`    varchar(255),
+    `zipcode`         varchar(255),
+    `detail1`         varchar(255),
+    `detail2`         varchar(255),
+    `default_address` boolean,
+    `created_at`      timestamp
 );
 
 CREATE TABLE `payment_card`
@@ -104,13 +105,13 @@ CREATE TABLE `item_size_price`
 
 CREATE TABLE `item_img`
 (
-    `id`          int PRIMARY KEY AUTO_INCREMENT,
-    `item_id`     int,
-    `img_name`    varchar(255),
-    `img_url`     varchar(255),
-    `origin_name` varchar(255),
-    `is_representative_img`    boolean,
-    `created_at`   timestamp
+    `id`                    int PRIMARY KEY AUTO_INCREMENT,
+    `item_id`               int,
+    `img_name`              varchar(255),
+    `img_url`               varchar(255),
+    `origin_name`           varchar(255),
+    `is_representative_img` boolean,
+    `created_at`            timestamp
 );
 
 CREATE TABLE `deal`
