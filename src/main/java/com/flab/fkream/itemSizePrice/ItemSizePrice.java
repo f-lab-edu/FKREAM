@@ -19,7 +19,7 @@ import lombok.ToString;
 public class ItemSizePrice {
 	private Long id;
     @NotNull
-	private Long ItemId;
+	private Long itemId;
 	private String size;
 	private int lowestSellingPrice;
 	private int highestPurchasePrice;
