@@ -32,7 +32,7 @@ public class ItemImgService {
     public List<ItemImg> findImagesByItemId(Long itemId) {
         try {
             List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
-            if (itemImages == null) {
+            if (itemImages.size() == 0) {
                 throw new NoDataFoundException();
             }
             return itemImages;

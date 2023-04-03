@@ -1,6 +1,7 @@
 package com.flab.fkream.itemSizePrice;
 
 import com.flab.fkream.error.exception.MapperException;
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -30,7 +31,11 @@ public class ItemSizePriceService {
 
     public ItemSizePrice findOne(Long id) {
         try {
-            return itemSizePriceMapper.findOne(id);
+            ItemSizePrice itemSizePrice = itemSizePriceMapper.findOne(id);
+            if(itemSizePrice == null){
+                throw new NoDataFoundException();
+            }
+            return itemSizePrice;
         } catch (DataAccessException e) {
             log.error(
                 "[ItemSizePriceService.findOne] find itemSizePrice error!");
@@ -40,7 +45,11 @@ public class ItemSizePriceService {
 
     public List<ItemSizePrice> findAllByItemId(Long itemId) {
         try {
-            return itemSizePriceMapper.findAllByItemId(itemId);
+            List<ItemSizePrice> itemSizePrices = itemSizePriceMapper.findAllByItemId(itemId);
+            if(itemSizePrices.size()==0){
+                throw new NoDataFoundException();
+            }
+            return itemSizePrices;
         } catch (DataAccessException e) {
             log.error("[ItemSizePriceService.findAllByItemId] find itemSizePrice by itemId error!");
             throw new MapperException(e);

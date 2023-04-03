@@ -5,6 +5,7 @@ import com.flab.fkream.item.Item;
 import java.util.List;
 
 import com.flab.fkream.error.exception.MapperException;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -45,7 +46,7 @@ public class BrandService {
     public List<Brand> findAll() {
         try{
             List<Brand> brands = brandMapper.findAll();
-            if (brands == null) {
+            if (brands.size()==0) {
                 throw new NoDataFoundException();
             }
             return brands;
@@ -59,6 +60,7 @@ public class BrandService {
     public void update(Brand brandInfo) {
         try{
             brandMapper.update(brandInfo);
+            brandMapper.findOne(brandInfo.getId());
         }catch (DataAccessException e){
             log.error("[BrandService.update] update brand error! brandInfo : {}", brandInfo);
             throw new MapperException(e);

@@ -34,11 +34,11 @@ public class ItemService {
     public Item findOne(Long itemId) {
         try {
             Item item = itemMapper.findOne(itemId);
-            Brand brand = brandService.findOne(item.getBrand().getId());
-            item.setBrand(brand);
             if (item == null) {
                 throw new NoDataFoundException();
             }
+            Brand brand = brandService.findOne(item.getBrand().getId());
+            item.setBrand(brand);
             return item;
         } catch (DataAccessException e) {
             log.error("[ItemService.findOne] find item by id error!");
@@ -50,8 +50,11 @@ public class ItemService {
     public List<Item> findAll() {
         try {
             List<Item> items = itemMapper.findAll();
-            if (items == null) {
+            if (items.size()==0) {
                 throw new NoDataFoundException();
+            }
+            for (Item item : items) {
+                item.setBrand(brandService.findOne(item.getBrand().getId()));
             }
             return items;
         } catch (DataAccessException e) {
