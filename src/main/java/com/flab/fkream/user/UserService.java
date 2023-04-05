@@ -25,7 +25,7 @@ public class UserService {
     try {
       userMapper.save(user);
     } catch (Exception e) {
-      log.error("userMapper.save() 에러");
+      log.error("userMapper.save() 에러 error : {}", e);
       throw new SignUpFailureException();
     }
   }
