@@ -3,7 +3,7 @@
 <mapper namespace="com.flab.fkream.itemSizePrice.ItemSizePriceMapper">
     <resultMap id="ItemSizePriceResultMap" type="com.flab.fkream.itemSizePrice.ItemSizePrice">
         <id property="id" column="id"/>
-        <result property="ItemId" column="item_id"/>
+        <result property="itemId" column="item_id"/>
         <result property="size" column="size"/>
         <result property="lowestSellingPrice" column="lowest_selling_price"/>
         <result property="highestPurchasePrice" column="highest_purchase_price"/>
@@ -14,7 +14,7 @@
     <insert id="save" parameterType="com.flab.fkream.itemSizePrice.ItemSizePrice" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO item_size_price(item_id, size, lowest_selling_price, highest_purchase_price, modified_at)
-        VALUES (#{ItemId},
+        VALUES (#{itemId},
                 #{size},
                 #{lowestSellingPrice},
                 #{highestPurchasePrice},
@@ -27,8 +27,25 @@
         where ID = #{id}
     </select>
 
-    <select id="findAll" resultMap="ItemSizePriceResultMap">
+
+    <select id="findAllByItemId" resultMap="ItemSizePriceResultMap">
         select *
         from ITEM_SIZE_PRICE
+        where item_id = #{itemId}
     </select>
+
+    <select id="findByItemIdAndSize" resultMap="ItemSizePriceResultMap">
+        select *
+        from ITEM_SIZE_PRICE
+        where item_id = #{param1}
+        and size = #{param2}
+    </select>
+
+    <delete id="delete">
+        delete
+        from ITEM_SIZE_PRICE
+        where id = #{id}
+    </delete>
+
+
 </mapper>

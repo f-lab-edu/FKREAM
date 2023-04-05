@@ -16,6 +16,7 @@ import java.time.LocalDateTime;import java.util.List;
 @SuperBuilder
 public class ErrorMsg {
 
+
   private final LocalDateTime timestamp = LocalDateTime.now();
 
   private final String error;
@@ -32,5 +33,5 @@ public class ErrorMsg {
                 .message(e.getMessage())
                 .path(HttpRequestUtils.getRequest().getRequestURI())
                 .build());
-  }
+    }
 }

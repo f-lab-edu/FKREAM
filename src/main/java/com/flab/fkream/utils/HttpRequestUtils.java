@@ -6,7 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class HttpRequestUtils {
 
-  public static HttpServletRequest getRequest() {
-    return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-  }
+    public static HttpServletRequest getRequest() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+    }
 }

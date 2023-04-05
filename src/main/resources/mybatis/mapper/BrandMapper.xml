@@ -26,4 +26,17 @@
         select *
         from BRAND
     </select>
+
+    <update id="update">
+        update BRAND
+        set brand_name = #{brandName},
+            is_luxury  = #{isLuxury}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from BRAND
+        where id = #{id}
+    </delete>
 </mapper>

@@ -11,13 +11,14 @@
         <result property="representativeColor" column="representative_color"/>
         <result property="releasedPrice" column="released_price"/>
         <result property="latestPrice" column="latest_price"/>
-        <result property="brandId" column="brand_id"/>
         <result property="managerId" column="manager_id"/>
+        <result property="brand.id" column="brand_id"/>
         <result property="createdAt" column="created_at"/>
         <result property="modifiedAt" column="modified_at"/>
+
     </resultMap>
 
-    <insert id="save">
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Item(item_name,
                          model_number,
                          category1,
@@ -38,7 +39,7 @@
                 #{representativeColor},
                 #{releasedPrice},
                 #{latestPrice},
-                #{brandId},
+                #{brand.id},
                 #{managerId},
                 #{createdAt},
                 #{modifiedAt})
@@ -46,12 +47,33 @@
 
     <select id="findOne" resultMap="ItemResultMap">
         select *
-        from ITEM
-        where ID = #{id}
+        from ITEM i
+        where i.id = #{id}
     </select>
 
     <select id="findAll" resultMap="ItemResultMap">
         select *
         from ITEM
     </select>
+
+    <update id="update">
+        UPDATE ITEM
+        SET item_name            = #{itemName},
+            model_number         = #{modelNumber},
+            category1            = #{category1},
+            category2            = #{category2},
+            release_date         = #{releaseDate},
+            representative_color = #{representativeColor},
+            released_price       = #{releasedPrice},
+            brand_id             = #{brand.id},
+            manager_id           = #{managerId},
+            modified_at          = #{modifiedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM ITEM
+        WHERE id = #{id}
+    </delete>
 </mapper>

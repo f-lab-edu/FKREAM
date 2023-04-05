@@ -1,5 +1,8 @@
 package com.flab.fkream.error;
 
+
+
+import org.springframework.dao.DataAccessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flab.fkream.error.exception.DuplicatedEmailException;
 import com.flab.fkream.error.exception.LoginFailureException;
@@ -12,7 +15,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -22,37 +24,41 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ErrorController {
 
-  @ExceptionHandler(DuplicatedEmailException.class)
-  public ResponseEntity<ErrorMsg> handleDuplicatedEmailException(DuplicatedEmailException e) {
-    return ErrorMsg.toResponseEntity(HttpStatus.CONFLICT, e);
-  }
+    @ExceptionHandler(DataAccessException.class)
+    public ResponseEntity handleMapperException(DataAccessException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e);
+    }
+    @ExceptionHandler(DuplicatedEmailException.class)
+    public ResponseEntity<ErrorMsg> handleDuplicatedEmailException(DuplicatedEmailException e) {
+      return ErrorMsg.toResponseEntity(HttpStatus.CONFLICT, e);
+    }
 
-  @ExceptionHandler(LoginRequiredException.class)
-  public ResponseEntity<ErrorMsg> handleLoginRequiredException(LoginRequiredException e) {
-    return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
-  }
+    @ExceptionHandler(LoginRequiredException.class)
+    public ResponseEntity<ErrorMsg> handleLoginRequiredException(LoginRequiredException e) {
+      return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
 
-  @ExceptionHandler(LoginFailureException.class)
-  public ResponseEntity<ErrorMsg> handleLoginFailureException(LoginFailureException e) {
-    return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
-  }
+    @ExceptionHandler(LoginFailureException.class)
+    public ResponseEntity<ErrorMsg> handleLoginFailureException(LoginFailureException e) {
+      return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  public ResponseEntity processValidationError(MethodArgumentNotValidException e) {
-    List<String> errorMessage =
-        e.getBindingResult().getAllErrors().stream()
-            .map(
-                (error) ->
-                    "field: "
-                        + ((FieldError) error).getField()
-                        + ", ErrorMessage : "
-                        + error.getDefaultMessage())
-            .collect(Collectors.toList());
-    return ValidationErrorMsg.toResponseVEntity(HttpStatus.BAD_REQUEST, errorMessage);
-  }
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity processValidationError(MethodArgumentNotValidException e) {
+      List<String> errorMessage =
+          e.getBindingResult().getAllErrors().stream()
+              .map(
+                  (error) ->
+                      "field: "
+                          + ((FieldError) error).getField()
+                          + ", ErrorMessage : "
+                          + error.getDefaultMessage())
+              .collect(Collectors.toList());
+      return ValidationErrorMsg.toResponseVEntity(HttpStatus.BAD_REQUEST, errorMessage);
+    }
 
-  @ExceptionHandler(SignUpFailureException.class)
-  public ResponseEntity<ErrorMsg> handleLoginFailureException(SignUpFailureException e) {
-    return ErrorMsg.toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e);
-  }
+    @ExceptionHandler(SignUpFailureException.class)
+    public ResponseEntity<ErrorMsg> handleLoginFailureException(SignUpFailureException e) {
+      return ErrorMsg.toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e);
+    }
 }
