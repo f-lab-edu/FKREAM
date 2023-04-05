@@ -1,5 +1,7 @@
 package com.flab.fkream.salesAccount;
 
+
+import com.flab.fkream.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -25,5 +27,6 @@ public class SalesAccount {
 	private String accountNumber;
 	private String accountHolder;
 	private LocalDateTime createdAt;
+
 
 }

@@ -1,26 +1,58 @@
 package com.flab.fkream.error;
 
-
-import com.flab.fkream.error.exception.DuplicateEmailException;
-import com.flab.fkream.error.exception.NoLoginException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.flab.fkream.error.exception.DuplicatedEmailException;
+import com.flab.fkream.error.exception.LoginFailureException;
+import com.flab.fkream.error.exception.LoginRequiredException;
+import com.flab.fkream.error.exception.SignUpFailureException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.client.HttpStatusCodeException;
+import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorController {
 
-    @ResponseStatus(HttpStatus.CONFLICT)
-    @ExceptionHandler(DuplicateEmailException.class)
-    public ErrorMsg handleDuplicateEmailException(DuplicateEmailException e){
-        return new ErrorMsg(e.getMessage(), e.getClass().getSimpleName());
-    }
+  @ExceptionHandler(DuplicatedEmailException.class)
+  public ResponseEntity<ErrorMsg> handleDuplicatedEmailException(DuplicatedEmailException e) {
+    return ErrorMsg.toResponseEntity(HttpStatus.CONFLICT, e);
+  }
 
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(NoLoginException.class)
-    public ErrorMsg handleNoLogin(NoLoginException e){
-        return new ErrorMsg(e.getMessage(), e.getClass().getSimpleName());
-    }
+  @ExceptionHandler(LoginRequiredException.class)
+  public ResponseEntity<ErrorMsg> handleLoginRequiredException(LoginRequiredException e) {
+    return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+  }
+
+  @ExceptionHandler(LoginFailureException.class)
+  public ResponseEntity<ErrorMsg> handleLoginFailureException(LoginFailureException e) {
+    return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity processValidationError(MethodArgumentNotValidException e) {
+    List<String> errorMessage =
+        e.getBindingResult().getAllErrors().stream()
+            .map(
+                (error) ->
+                    "field: "
+                        + ((FieldError) error).getField()
+                        + ", ErrorMessage : "
+                        + error.getDefaultMessage())
+            .collect(Collectors.toList());
+    return ValidationErrorMsg.toResponseVEntity(HttpStatus.BAD_REQUEST, errorMessage);
+  }
+
+  @ExceptionHandler(SignUpFailureException.class)
+  public ResponseEntity<ErrorMsg> handleLoginFailureException(SignUpFailureException e) {
+    return ErrorMsg.toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e);
+  }
 }

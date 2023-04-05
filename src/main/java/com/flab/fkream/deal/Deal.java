@@ -1,7 +1,7 @@
 package com.flab.fkream.deal;
 
 import com.flab.fkream.item.Item;
-import com.flab.fkream.users.Users;
+import com.flab.fkream.user.User;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class Deal {
     private Long id;
     private final Item item;
     private final KindOfDeal kindOfDeal;
-    private final Users users;
+    private final User user;
     private final int price;
     private final String size;
     private final LocalDate period;

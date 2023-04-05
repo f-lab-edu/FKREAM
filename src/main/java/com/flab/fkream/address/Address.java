@@ -1,13 +1,12 @@
 package com.flab.fkream.address;
 
+import com.flab.fkream.user.User;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
-
-import com.flab.fkream.users.Users;
 
 @Getter
 @Builder
@@ -16,7 +15,7 @@ import com.flab.fkream.users.Users;
 public class Address {
 
     private Long id;
-    private final Users users;
+    private final User user;
     private final String name;
     private final String phoneNumber;
     private final String zipcode;
