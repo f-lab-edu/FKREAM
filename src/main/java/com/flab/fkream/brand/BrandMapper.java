@@ -20,6 +20,6 @@ public interface BrandMapper {
     @CacheEvict(cacheNames = "Brand", key = "#p0.id")
     int update(Brand brandInfo);
 
-    @CacheEvict(cacheNames = "Brand", key = "#p0.id")
+    @CacheEvict(cacheNames = "Brand", key = "#p0")
     int delete(Long id);
 }
