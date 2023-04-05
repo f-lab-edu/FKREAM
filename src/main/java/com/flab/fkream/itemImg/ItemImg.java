@@ -29,7 +29,7 @@ public class ItemImg {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
 
-    public void setCreatedAt() {
+    public void setCreatedAtToNow() {
         createdAt = LocalDateTime.now();
     }
 }

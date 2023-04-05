@@ -45,11 +45,11 @@ public class Item {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime modifiedAt;
 
-    public void setCreatedAt() {
+    public void setCreatedAtToNow() {
         createdAt = LocalDateTime.now();
     }
 
-    public void setModifiedAt() {
+    public void setModifiedAtToNow() {
         modifiedAt = LocalDateTime.now();
     }
 
