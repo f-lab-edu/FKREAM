@@ -1,11 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flab.fkream.address.AddressMapper">
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.address.Address">
-        insert into address (USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT, DEFAULT_ADDRESS)
-        values (#{user.id}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2},
-            #{defaultAddress}, #{createdAt})
-    </insert>
+
+  <resultMap id="AddressResultMap" type="com.flab.fkream.address.Address">
+    <id property="id" column="id"/>
+    <result property="userId" column="user_id"/>
+    <result property="name" column="name"/>
+    <result property="phoneNumber" column="phone_number"/>
+    <result property="zipcode" column="zipcode"/>
+    <result property="detail1" column="detail1"/>
+    <result property="detail2" column="detail2"/>
+    <result property="defaultAddress" column="default_address"/>
+    <result property="createdAt" column="created_at"/>
+  </resultMap>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.fkream.address.Address">
+    insert into address (USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT,
+                         DEFAULT_ADDRESS)
+    values (#{userId}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2}, #{createdAt},
+            #{defaultAddress})
+  </insert>
+  <select id="findByUserId" resultMap="AddressResultMap">
+    select *
+    from ADDRESS
+    where user_id = #{userId}
+  </select>
+  <select id="findOne" resultMap="AddressResultMap">
+    select *
+    from ADDRESS
+    where id = #{id}
+  </select>
+  <update id="update">
+    update ADDRESS
+    SET user_id        = #{userId},
+        name           = #{name},
+        phone_number    = #{phoneNumber},
+        zipcode        = #{zipcode},
+        detail1        = #{detail1},
+        detail2        = #{detail2},
+        default_address = #{defaultAddress},
+        created_at      = #{createdAt}
+    where id = #{id}
+  </update>
+  <delete id="delete">
+    delete
+    from ADDRESS
+    where id = #{id}
+  </delete>
 </mapper>
