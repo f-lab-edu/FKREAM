@@ -5,9 +5,6 @@ import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 
-import com.flab.fkream.error.exception.MapperException;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -22,63 +19,39 @@ public class ItemService {
     private final BrandService brandService;
 
     public void addItem(Item itemInfo) {
-        try {
-            itemInfo.setCreatedAt();
-            itemMapper.save(itemInfo);
-        } catch (DataAccessException e) {
-            log.error("[ItemService.addItem] insert item error! itemInfo : {}", itemInfo);
-            throw new MapperException(e);
-        }
+        itemInfo.setCreatedAtToNow();
+        itemMapper.save(itemInfo);
     }
 
     public Item findOne(Long itemId) {
-        try {
-            Item item = itemMapper.findOne(itemId);
-            if (item == null) {
-                throw new NoDataFoundException();
-            }
-            Brand brand = brandService.findOne(item.getBrand().getId());
-            item.setBrand(brand);
-            return item;
-        } catch (DataAccessException e) {
-            log.error("[ItemService.findOne] find item by id error!");
-            throw new MapperException(e);
+        Item item = itemMapper.findOne(itemId);
+        if (item == null) {
+            throw new NoDataFoundException();
         }
+        Brand brand = brandService.findOne(item.getBrand().getId());
+        item.setBrand(brand);
+        return item;
     }
 
 
     public List<Item> findAll() {
-        try {
-            List<Item> items = itemMapper.findAll();
-            if (items.size()==0) {
-                throw new NoDataFoundException();
-            }
-            for (Item item : items) {
-                item.setBrand(brandService.findOne(item.getBrand().getId()));
-            }
-            return items;
-        } catch (DataAccessException e) {
-            log.error("[ItemService.findAll] find all item error!");
-            throw new MapperException(e);
+        List<Item> items = itemMapper.findAll();
+        if (items.size() == 0) {
+            throw new NoDataFoundException();
         }
+        for (Item item : items) {
+            item.setBrand(brandService.findOne(item.getBrand().getId()));
+        }
+        return items;
     }
 
     public void update(Item itemInfo) {
-        try {
-            itemInfo.setModifiedAt();
-            itemMapper.update(itemInfo);
-        } catch (DataAccessException e) {
-            log.error("[ItemService.update] update item by id error! itemInfo : {}", itemInfo);
-            throw new MapperException(e);
-        }
+        itemInfo.setModifiedAtToNow();
+        itemMapper.update(itemInfo);
     }
 
     public void delete(Long id) {
-        try {
-            itemMapper.delete(id);
-        } catch (DataAccessException e) {
-            log.error("[ItemService.delete] delete item by id error!");
-            throw new MapperException(e);
-        }
+        itemMapper.delete(id);
+
     }
 }
