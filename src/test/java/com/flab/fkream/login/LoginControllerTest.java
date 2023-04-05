@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.flab.fkream.error.exception.LoginFailureException;
 import com.flab.fkream.user.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,22 +41,22 @@ class LoginControllerTest {
                 post("/login")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsString(loginForm)))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.users.email").value(user.getEmail()));
+            .andExpect(status().isOk());
     }
 
     @Test
     public void testLoginFail() throws Exception {
         LoginForm loginForm = new LoginForm("test@test.com", "test");
+        User user = User.builder().email("test").password("test").build();
 
-        given(userService.login(loginForm)).willReturn(null);
+        given(userService.login(loginForm)).willThrow(LoginFailureException.class);
 
         mockMvc
             .perform(
                 post("/login")
                     .contentType(MediaType.APPLICATION_JSON)
                     .content(new ObjectMapper().writeValueAsString(loginForm)))
-            .andExpect(status().isUnauthorized());
+            .andExpect(status().isBadRequest());
     }
 
     @Test

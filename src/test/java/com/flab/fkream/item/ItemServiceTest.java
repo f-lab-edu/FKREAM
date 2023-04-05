@@ -1,6 +1,8 @@
 package com.flab.fkream.item;
 
 import com.flab.fkream.brand.Brand;
+import com.flab.fkream.brand.BrandMapper;
+import com.flab.fkream.brand.BrandService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,6 +27,8 @@ class ItemServiceTest {
 
     @Mock
     ItemMapper itemMapper;
+    @Mock
+    BrandService brandService;
     @InjectMocks
     ItemService itemService;
 
@@ -52,13 +56,15 @@ class ItemServiceTest {
     @Test
     void 아이템_조회() {
         given(itemMapper.findOne(1L)).willReturn(itemInfo);
+        given(brandService.findOne(brand.getId())).willReturn(brand);
         itemService.findOne(1L);
         then(itemMapper).should().findOne(1L);
     }
 
     @Test
     void 아이템_리스팅() {
-        given(itemMapper.findAll()).willReturn(List.of());
+        given(itemMapper.findAll()).willReturn(List.of(itemInfo));
+        given(brandService.findOne(brand.getId())).willReturn(brand);
         itemService.findAll();
         then(itemMapper).should().findAll();
     }

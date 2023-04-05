@@ -15,9 +15,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 @SpringBootTest
+@Transactional
 public class ItemTest {
 
 

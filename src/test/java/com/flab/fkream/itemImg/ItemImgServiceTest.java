@@ -59,7 +59,7 @@ class ItemImgServiceTest {
 
     @Test
     void findImagesByItemId() {
-        given(itemImgMapper.findImagesByItemId(1L)).willReturn(List.of());
+        given(itemImgMapper.findImagesByItemId(1L)).willReturn(List.of(itemImgInfo));
         itemImgService.findImagesByItemId(1L);
         then(itemImgMapper).should().findImagesByItemId(1L);
     }

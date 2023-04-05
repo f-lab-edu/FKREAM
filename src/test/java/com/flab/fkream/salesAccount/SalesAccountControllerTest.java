@@ -50,7 +50,7 @@ class SalesAccountControllerTest {
 		given(salesAccountService.save(salesAccountInfo)).willReturn(1);
 
 		// When & Then
-		mockMvc.perform(post("/salesAccounts")
+		mockMvc.perform(post("/sales-accounts")
 				.content(new ObjectMapper().writeValueAsString(salesAccountInfo))
 				.contentType(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated());
@@ -62,7 +62,7 @@ class SalesAccountControllerTest {
 		given(salesAccountService.findAll()).willReturn(Collections.singletonList(salesAccountInfo));
 
 		// When & Then
-		mockMvc.perform(get("/salesAccounts"))
+		mockMvc.perform(get("/sales-accounts"))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
 			.andExpect(jsonPath("$[0].bankName").value(salesAccountInfo.getBankName()))
@@ -78,12 +78,12 @@ class SalesAccountControllerTest {
 		given(salesAccountService.findById(id)).willReturn(salesAccountInfo);
 
 		// When & Then
-		mockMvc.perform(get("/salesAccounts/{id}", id))
+		mockMvc.perform(get("/sales-accounts/{id}", id))
 			.andExpect(status().isOk())
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.users.name").value(users.getName()))
-			.andExpect(jsonPath("$.users.email").value(users.getEmail()))
-			.andExpect(jsonPath("$.users.password").value(users.getPassword()))
+			.andExpect(jsonPath("$.user.name").value(users.getName()))
+			.andExpect(jsonPath("$.user.email").value(users.getEmail()))
+			.andExpect(jsonPath("$.user.password").value(users.getPassword()))
 			.andExpect(jsonPath("$.bankName").value(salesAccountInfo.getBankName()))
 			.andExpect(jsonPath("$.accountNumber").value(salesAccountInfo.getAccountNumber()))
 			.andExpect(jsonPath("$.accountHolder").value(salesAccountInfo.getAccountHolder()));
@@ -103,7 +103,7 @@ class SalesAccountControllerTest {
 		given(salesAccountService.update(any(SalesAccount.class))).willReturn(1);
 
 		// When
-		mockMvc.perform(patch("/salesAccounts/{id}", id)
+		mockMvc.perform(patch("/sales-accounts/{id}", id)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(new ObjectMapper().writeValueAsString(salesAccountToUpdate)))
 			.andExpect(status().isOk());

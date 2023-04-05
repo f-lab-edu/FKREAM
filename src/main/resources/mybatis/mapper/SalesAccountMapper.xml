@@ -32,7 +32,7 @@
 
     <insert id="save" useGeneratedKeys="true" keyProperty="id"
             parameterType="com.flab.fkream.salesAccount.SalesAccount">
-        insert into sales_account (user_id, bank_name, account_number, account_holder, created_at)
+        insert into sales_account (users_id, bank_name, account_number, account_holder, created_at)
         values (#{user.id}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
     </insert>
 
@@ -52,7 +52,7 @@
 
     <update id="update">
         UPDATE sales_account
-        SET user_id        = #{users.id},
+        SET users_id        = #{user.id},
             bank_name      = #{bankName},
             account_number = #{accountNumber},
             account_holder = #{accountHolder},

@@ -44,7 +44,7 @@ class BrandServiceTest {
 
     @Test
     void 브랜드_리스팅() {
-        given(brandMapper.findAll()).willReturn(List.of());
+        given(brandMapper.findAll()).willReturn(List.of(brandInfo));
         brandService.findAll();
         then(brandMapper).should().findAll();
     }
