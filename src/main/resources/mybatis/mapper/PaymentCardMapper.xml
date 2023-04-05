@@ -5,7 +5,7 @@
 <mapper namespace="com.flab.fkream.paymentCard.PaymentCardMapper">
     <insert id = 'save' useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.paymentCard.PaymentCard">
         insert into payment_card (user_id, card_company, card_number, expiration, card_pw, created_at)
-        values (#{users.id}, #{cardCompany}, #{cardNumber}, #{expiration},
+        values (#{user.id}, #{cardCompany}, #{cardNumber}, #{expiration},
                 #{cardPw}, #{createdAt})
     </insert>
 </mapper>

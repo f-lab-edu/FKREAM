@@ -1,7 +1,7 @@
 package com.flab.fkream.notification;
 
 import com.flab.fkream.interestedItem.InterestedItem;
-import com.flab.fkream.users.Users;
+import com.flab.fkream.user.User;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @ToString
 public class Notification {
     private Long id;
-    private final Users users;
+  private final User user;
     private final InterestedItem interestedItem;
     private final NotificationType notificationType;
     private final LocalDateTime createdAt;

@@ -5,6 +5,6 @@
 <mapper namespace="com.flab.fkream.notification.NotificationMapper">
     <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.notification.Notification">
         insert into notification (USER_ID, INTERESTED_ITEM_ID, TYPE, CREATED_AT)
-        values (#{users.id}, #{iterestedItem.id}, #{type}, #{createdAt})
+        values (#{user.id}, #{iterestedItem.id}, #{type}, #{createdAt})
     </insert>
 </mapper>
