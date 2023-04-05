@@ -11,8 +11,6 @@ import lombok.ToString;
 
 import java.time.LocalDateTime;
 
-import com.flab.fkream.users.Users;
-
 @Getter
 @Builder
 @NoArgsConstructor
@@ -22,7 +20,7 @@ import com.flab.fkream.users.Users;
 public class SalesAccount {
 
 	private Long id;
-	private Users users;
+	private User user;
 	private String bankName;
 	private String accountNumber;
 	private String accountHolder;

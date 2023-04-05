@@ -1,8 +1,9 @@
 package com.flab.fkream.salesAccount;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
+import com.flab.fkream.user.User;
+import com.flab.fkream.user.UserMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -12,15 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.flab.fkream.users.Users;
-import com.flab.fkream.users.UsersMapper;
-
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 class SalesAccountMapperTest {
 	@Autowired
-	UsersMapper usersMapper;
+	UserMapper userMapper;
 
 	@Autowired
 	SalesAccountMapper salesAccountMapper;
@@ -28,7 +26,7 @@ class SalesAccountMapperTest {
 	@Test
 	public void testSave() {
 		// given
-		Users users = Users.builder()
+		User user = User.builder()
 			.email("test@test.com")
 			.password("testpassword")
 			.fourteenAgreement(true)
@@ -39,10 +37,10 @@ class SalesAccountMapperTest {
 			.name("testuser")
 			.build();
 
-		usersMapper.save(users);
+		userMapper.save(user);
 
 		SalesAccount salesAccount = SalesAccount.builder()
-			.users(users)
+			.user(user)
 			.bankName("Test Bank")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")
@@ -59,7 +57,7 @@ class SalesAccountMapperTest {
 	@Test
 	public void testFindById() {
 		// given
-		Users users = Users.builder()
+		User user = User.builder()
 			.email("test@test.com")
 			.password("testpassword")
 			.fourteenAgreement(true)
@@ -67,13 +65,13 @@ class SalesAccountMapperTest {
 			.personalAuthentication(true)
 			.gender("Male")
 			.phoneNumber("01012345678")
-			.rank(Users.Rank.BRONZE)
+			.rank(User.Rank.BRONZE)
 			.name("testuser")
 			.build();
-		usersMapper.save(users);
+		userMapper.save(user);
 
 		SalesAccount salesAccount = SalesAccount.builder()
-			.users(users)
+			.user(user)
 			.bankName("Test Bank")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")
@@ -91,7 +89,7 @@ class SalesAccountMapperTest {
 	@Test
 	public void testFindAll() {
 		// given
-		Users users1 = Users.builder()
+		User user1 = User.builder()
 			.email("test1@test.com")
 			.password("testpassword1")
 			.fourteenAgreement(true)
@@ -102,7 +100,7 @@ class SalesAccountMapperTest {
 			.name("testuser1")
 			.build();
 
-		Users users2 = Users.builder()
+		User user2 = User.builder()
 			.email("test2@test.com")
 			.password("testpassword2")
 			.fourteenAgreement(true)
@@ -113,18 +111,18 @@ class SalesAccountMapperTest {
 			.name("testuser2")
 			.build();
 
-		usersMapper.save(users1);
-		usersMapper.save(users2);
+		userMapper.save(user1);
+		userMapper.save(user2);
 
 		SalesAccount salesAccount1 = SalesAccount.builder()
-			.users(users1)
+			.user(user1)
 			.bankName("Test Bank1")
 			.accountNumber("123-456-7891")
 			.accountHolder("Test User1")
 			.build();
 
 		SalesAccount salesAccount2 = SalesAccount.builder()
-			.users(users2)
+			.user(user2)
 			.bankName("Test Bank2")
 			.accountNumber("123-456-7892")
 			.accountHolder("Test User2")
@@ -143,7 +141,7 @@ class SalesAccountMapperTest {
 	@Test
 	void testUpdate() {
 		//given
-		Users users = Users.builder()
+		User user = User.builder()
 			.email("test@test.com")
 			.password("testpassword")
 			.fourteenAgreement(true)
@@ -151,13 +149,13 @@ class SalesAccountMapperTest {
 			.personalAuthentication(true)
 			.gender("Male")
 			.phoneNumber("01012345678")
-			.rank(Users.Rank.BRONZE)
+			.rank(User.Rank.BRONZE)
 			.name("testuser")
 			.build();
-		usersMapper.save(users);
+		userMapper.save(user);
 
 		SalesAccount salesAccount = SalesAccount.builder()
-			.users(users)
+			.user(user)
 			.bankName("Test Bank")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")
@@ -167,7 +165,7 @@ class SalesAccountMapperTest {
 		//when
 		SalesAccount salesAccountUpdated = SalesAccount.builder()
 			.id(salesAccount.getId())
-			.users(users)
+			.user(user)
 			.bankName("New Test Bank")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")
@@ -182,7 +180,7 @@ class SalesAccountMapperTest {
 	@Test
 	void testDeleteById() {
 		//given
-		Users users = Users.builder()
+		User user = User.builder()
 			.email("test@test.com")
 			.password("testpassword")
 			.fourteenAgreement(true)
@@ -190,13 +188,13 @@ class SalesAccountMapperTest {
 			.personalAuthentication(true)
 			.gender("Male")
 			.phoneNumber("01012345678")
-			.rank(Users.Rank.BRONZE)
+			.rank(User.Rank.BRONZE)
 			.name("testuser")
 			.build();
-		usersMapper.save(users);
+		userMapper.save(user);
 
 		SalesAccount salesAccount = SalesAccount.builder()
-			.users(users)
+			.user(user)
 			.bankName("Test Bank")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")

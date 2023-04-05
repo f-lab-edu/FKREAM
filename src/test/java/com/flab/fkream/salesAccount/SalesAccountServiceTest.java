@@ -3,6 +3,7 @@ package com.flab.fkream.salesAccount;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.user.User;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.flab.fkream.users.Users;
-
 @ExtendWith(MockitoExtension.class)
 class SalesAccountServiceTest {
 	@Mock
@@ -25,7 +24,7 @@ class SalesAccountServiceTest {
 	@InjectMocks
 	SalesAccountService salesAccountService;
 
-	Users users = Users.builder()
+	User user = User.builder()
 		.email("test@test.com")
 		.password("testpassword")
 		.fourteenAgreement(true)
@@ -37,7 +36,7 @@ class SalesAccountServiceTest {
 		.build();
 
 	SalesAccount salesAccount = SalesAccount.builder()
-		.users(users)
+		.user(user)
 		.bankName("Test Bank")
 		.accountNumber("123-456-7890")
 		.accountHolder("Test User")
@@ -91,7 +90,7 @@ class SalesAccountServiceTest {
 		//given
 		SalesAccount updatedSalesAccount = SalesAccount.builder()
 			.id(1L)
-			.users(users)
+			.user(user)
 			.bankName("Test Bank2")
 			.accountNumber("123-456-7890")
 			.accountHolder("Test User")

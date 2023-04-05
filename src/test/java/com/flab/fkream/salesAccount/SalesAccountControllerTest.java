@@ -5,6 +5,7 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.flab.fkream.user.User;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
@@ -16,7 +17,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.flab.fkream.users.Users;
 
 @WebMvcTest(SalesAccountController.class)
 class SalesAccountControllerTest {
@@ -25,7 +25,7 @@ class SalesAccountControllerTest {
 	@Autowired
 	MockMvc mockMvc;
 
-	Users users = Users.builder()
+	User users = User.builder()
 		.email("test@test.com")
 		.password("testpassword")
 		.fourteenAgreement(true)
@@ -38,7 +38,7 @@ class SalesAccountControllerTest {
 
 	SalesAccount salesAccountInfo = SalesAccount.builder()
 		.id(1L)
-		.users(users)
+		.user(users)
 		.bankName("Test Bank")
 		.accountNumber("123-456-7890")
 		.accountHolder("Test User")

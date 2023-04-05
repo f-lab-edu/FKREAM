@@ -9,7 +9,7 @@
         <result column="account_number" property="accountNumber"/>
         <result column="account_holder" property="accountHolder"/>
         <result column="created_at" property="createdAt"/>
-        <association property="users" javaType="com.flab.fkream.users.Users">
+        <association property="user" javaType="com.flab.fkream.user.User">
             <id column="id" property="id"/>
             <result column="email" property="email"/>
             <result column="password" property="password"/>
