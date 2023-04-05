@@ -30,7 +30,7 @@ class AddressServiceTest {
 
     @Test
     void addAddress() {
-        doNothing().when(addressMapper).save(addressInfo);
+        given(addressMapper.save(addressInfo)).willReturn(1);
         addressService.addAddress(addressInfo);
         then(addressMapper).should().save(addressInfo);
     }
@@ -49,15 +49,15 @@ class AddressServiceTest {
 
     @Test
     void update() {
-        doNothing().when(addressMapper).update(addressInfo);
+        given(addressMapper.update(addressInfo)).willReturn(1);
         addressService.update(addressInfo);
         then(addressMapper).should().update(addressInfo);
     }
 
     @Test
     void delete() {
-        doNothing().when(addressMapper).delete(1L);
-        addressService.delete(1L);
-        then(addressMapper).should().delete(1L);
+        given(addressMapper.delete(addressInfo.getId())).willReturn(1);
+        addressService.delete(addressInfo.getId());
+        then(addressMapper).should().delete(addressInfo.getId());
     }
 }
