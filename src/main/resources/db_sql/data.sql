@@ -202,132 +202,132 @@ values ('01GWHVBTDWPP75KBJKVD85X3T7', 'cc46ff40a4244f6819eff61fe3faae6f9100d7ad6
         'Gifford Manger', '243-194-7348', true, '2023-01-25 10:08:13', '2023-03-11 20:15:17');
 
 
-insert into address (user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address (users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (1, 'Skelhorn', '223-225-2640', '13', 'Annamark', 'Junction', '2023-03-18 16:13:48');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (2, 'Lanchberry', '471-903-1400', '4914', 'Vernon', 'Point', '2022-07-14 13:59:39');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (3, 'Pawelczyk', '843-942-6370', '8462', 'Dwight', 'Alley', '2022-10-10 19:09:18');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (4, 'Tyas', '561-579-9568', '81', 'Commercial', 'Trail', '2022-08-28 10:30:06');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (5, 'Dearsley', '659-835-9508', '356', 'Golden Leaf', 'Pass', '2022-05-03 14:43:39');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (6, 'Plunket', '983-486-8374', '85', 'Sherman', 'Street', '2023-01-03 06:36:42');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (7, 'Chill', '261-269-4704', '2452', 'Erie', 'Alley', '2022-09-10 02:21:09');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (8, 'Staner', '967-739-0757', '06646', 'Almo', 'Plaza', '2022-05-11 04:12:04');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (9, 'Hubeaux', '568-355-7143', '53676', 'Canary', 'Trail', '2023-01-17 16:14:22');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (10, 'Denisot', '752-931-3884', '46', 'Charing Cross', 'Court', '2022-04-17 21:19:15');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (11, 'Scrinage', '559-465-4269', '592', 'Hayes', 'Avenue', '2022-08-22 16:48:58');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (12, 'Tideswell', '456-855-8059', '7674', 'Norway Maple', 'Lane', '2022-12-21 20:28:19');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (13, 'Gladdis', '778-693-2447', '228', 'Esch', 'Crossing', '2022-05-21 20:28:47');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (14, 'Goldingay', '532-838-4367', '6357', 'Hanover', 'Alley', '2023-01-03 15:00:13');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (15, 'Kiddle', '771-359-0295', '7410', 'Weeping Birch', 'Pass', '2023-01-12 13:50:57');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (16, 'Kauscher', '435-593-4915', '532', 'Reindahl', 'Alley', '2022-09-06 11:00:47');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (17, 'Boggon', '783-215-8154', '65', 'American', 'Way', '2022-05-14 14:03:29');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (18, 'Churn', '198-442-5821', '46904', 'Hooker', 'Court', '2022-10-16 02:00:29');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (19, 'Berrill', '795-939-5582', '06', 'Katie', 'Junction', '2022-11-26 13:04:27');
-insert into address ( user_id, name, phone_number, zipcode, detail1, detail2, created_at)
+insert into address ( users_id, name, phone_number, zipcode, detail1, detail2, created_at)
 values (20, 'Breton', '525-716-3029', '3150', 'Glacier Hill', 'Alley', '2022-04-04 00:29:08');
 
 
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (1, 'Morar-Gottlieb', '0604460137338071', '2024-07-11 22:28:15', '606yNzM', '2022-12-18 02:18:06');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (2, 'Stamm, O''Keefe and Beahan', '5602243928740981', '2025-03-01 17:03:27', '1Li1DtCNaYrk',
         '2022-10-31 17:13:04');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (3, 'Vandervort-Frami', '5100133641380479', '2024-04-03 01:58:35', 'F1Aky3hS8m1', '2022-08-29 08:13:30');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (4, 'Stoltenberg LLC', '4041379739303', '2024-11-27 22:02:55', 'jXaxsUaSe', '2022-12-28 06:13:26');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (5, 'Kris, Murray and Roberts', '4175000993618371', '2024-07-02 23:58:20', 'O2NjL7', '2023-03-12 12:31:42');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (6, 'Hoppe-Kirlin', '3531861721230230', '2024-07-08 06:58:06', 'VBwLnoV', '2022-05-03 05:58:25');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (7, 'Douglas Group', '5602236046612139516', '2024-10-27 12:30:55', 'aAB0q7dO', '2022-10-16 12:04:59');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (8, 'Koch, Littel and Gutmann', '4017954657564564', '2025-02-08 17:18:44', 'GcgDuNp9pb',
         '2022-10-22 19:26:38');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (9, 'Doyle, Cartwright and Renner', '3542742465147946', '2024-06-30 05:55:20', '167ektg',
         '2022-09-25 13:56:35');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (10, 'Abbott-Kub', '5602244323854328', '2025-01-05 20:38:50', '9l3NKT1', '2022-08-22 23:58:41');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (11, 'Marks Inc', '3567942869010845', '2024-05-03 06:52:54', 'uVKsjr', '2022-12-11 23:19:27');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (12, 'Nienow-Thompson', '56022209535134566', '2025-03-03 05:39:18', 'auHIRo', '2022-05-17 12:45:15');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (13, 'Bradtke-Deckow', '3583415897294749', '2024-11-05 17:46:12', 'l3IOwlllQ', '2022-04-03 06:33:13');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (14, 'Smitham-Stiedemann', '3558819235508267', '2024-04-29 19:12:26', '9io6NkS', '2022-08-26 05:21:50');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (15, 'Pfeffer-Herzog', '3555360180455199', '2024-07-07 06:57:40', '1cJaVmZk3N24', '2022-11-24 22:45:21');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (16, 'Luettgen LLC', '3544564427867678', '2024-03-29 22:31:15', 'K839cZp', '2022-08-14 12:27:07');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (17, 'Jakubowski LLC', '201606525512225', '2025-02-13 18:56:46', 'PBQD7F0TQl', '2022-06-10 10:45:36');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (18, 'Ferry-Larkin', '56022271497806342', '2024-07-20 21:03:45', 'n0pVoHyn', '2023-03-15 04:57:20');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (19, 'Bechtelar-Wisozk', '3574070664562959', '2024-04-20 03:37:06', 'lgzIED230fX', '2022-05-29 23:47:57');
-insert into payment_card ( user_id, card_company, card_number, expiration, card_pw, created_at)
+insert into payment_card ( users_id, card_company, card_number, expiration, card_pw, created_at)
 values (20, 'Kunde, Boyle and Treutel', '201712715251184', '2024-08-30 02:00:55', 'VyCiNMK', '2022-07-20 00:25:03');
 
 
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (1, 'KB', 'tz1VQNiikCxKZEpYTGz1bCSYhnqDbW8X4Py2', 'Fivey', '2023-01-02 06:44:21');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (2, '신한', 'tz1h5Ahji9ZrBFDBeRy6T1BYQTwHQFFuJ9wq', 'Mugg', '2022-04-23 10:47:18');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (3, 'KB', 'tz1PTAeqso648nbPjXAPCuWjWSFRBbWiXddY', 'Lideard', '2022-08-31 18:39:56');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (4, '신한', 'tz1iSYQrwTiK3DbpBQXkUppiPZRKGVQ9uZC6', 'Kobisch', '2023-02-21 19:07:46');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (5, '신한', 'tz1fKYxLukeLmtSwoRNLRs1wto361HdqzXbV', 'Hulson', '2023-01-10 01:41:57');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (6, '신한', 'tz1dXDKWXwCMU9uJUWpaCe7V5h66RDxiu8GM', 'Sansum', '2023-03-15 18:25:11');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (7, '농협', 'tz1QB1mxVs7YC785Ja8gdTE2btT8uL9YNkxH', 'Jencken', '2022-05-04 17:00:04');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (8, 'KB', 'tz1P534Zc4YDgxqYQtcimHShPnoVJ7VJLEd3', 'Boldt', '2022-09-11 08:55:29');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (9, '농협', 'tz1RvRPWbDV9EJXpKNGMkLJHEjijTKXa5sfJ', 'Doey', '2022-11-27 07:03:15');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (10, '농협', 'tz1RRDn24CZXV8kBr6AoZ3ELvnYysKumMV56', 'Whewell', '2022-07-10 09:26:27');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (11, 'KB', 'tz1evVAd4GhtmAcsvz5e85chFQyLDfPRvGVd', 'Woller', '2023-03-24 11:08:59');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (12, '신한', 'tz1ZeVimM51M5BbUobwS92bnxUoqLaXZGFqT', 'Karlolczak', '2022-10-09 16:02:24');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (13, 'KB', 'tz1bPxLGY4z9oHSMKRX8vnAvwhATvkZsNvmv', 'Ritchings', '2022-12-23 08:42:39');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (14, '신한', 'tz1QNCZaZWNBr6xxfnyEN4TvEn1upHgtfCW9', 'Delicate', '2023-03-26 13:18:24');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (15, '농협', 'tz1fmNgMeLMS21K7tzRPk6szQggRwVyCyqzc', 'Bedome', '2022-05-28 05:18:56');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (16, '신한', 'tz1QAB5sDCyZvjjAvRtCnYn7Z2DB8TftwdSM', 'Sprowles', '2022-10-23 23:02:35');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (17, '신한', 'tz1NJ1tjtUcHxaQ9naqFoUXj7eXNjkb87v6N', 'Margaritelli', '2022-05-04 03:13:15');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (18, '농협', 'tz1gALZgWMJzpMTN4sG6FMYiN6cLsmXWZWE6', 'Klimke', '2022-11-17 07:23:44');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (19, '신한', 'tz1fAoNBWrfQv1bL8nMYJthgoSXowNFnmUKz', 'Brabender', '2022-12-23 03:41:20');
-insert into sales_account ( user_id, bank_name, account_number, account_holder, created_at)
+insert into sales_account ( users_id, bank_name, account_number, account_holder, created_at)
 values (20, '신한', 'tz1iN6XbSPeasVQ7yhW6n7bPZ6gGU5QDKq5Q', 'Murrigan', '2022-09-12 08:28:47');
 
 

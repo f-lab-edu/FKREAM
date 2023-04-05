@@ -1,11 +1,8 @@
 package com.flab.fkream.brand;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @ToString
@@ -13,8 +10,10 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Brand {
-	private Long id;
-	private String brandName;
-	private boolean isLuxury;
+public class Brand implements Serializable{
+
+    private Long id;
+    @NotNull
+    private String brandName;
+    private boolean isLuxury;
 }

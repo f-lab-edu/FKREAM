@@ -1,6 +1,6 @@
 package com.flab.fkream.paymentCard;
 
-import com.flab.fkream.users.Users;
+import com.flab.fkream.user.User;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class PaymentCard {
 
     private Long id;
-    private final Users users;
+    private final User user;
     private final String cardCompany;
     private final String cardNumber;
     private final LocalDate  expiration;

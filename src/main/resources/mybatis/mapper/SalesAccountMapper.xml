@@ -3,9 +3,66 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flab.fkream.salesAccount.SalesAccountMapper">
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.salesAccount.SalesAccount">
-        insert into sales_account (user_id, bank_name, account_number, account_holder, created_at)
-        values (#{users.id}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
+    <resultMap id="salesAccountMap" type="com.flab.fkream.salesAccount.SalesAccount">
+        <id column="id" property="id"/>
+        <result column="bank_name" property="bankName"/>
+        <result column="account_number" property="accountNumber"/>
+        <result column="account_holder" property="accountHolder"/>
+        <result column="created_at" property="createdAt"/>
+        <association property="user" javaType="com.flab.fkream.user.User">
+            <id column="id" property="id"/>
+            <result column="email" property="email"/>
+            <result column="password" property="password"/>
+            <result column="fourteen_agreement" property="fourteenAgreement"/>
+            <result column="ad_agreement" property="adAgreement"/>
+            <result column="personal_authentication" property="personalAuthentication"/>
+            <result column="gender" property="gender"/>
+            <result column="phone_number" property="phoneNumber"/>
+            <result column="profile_name" property="profileName"/>
+            <result column="name" property="name"/>
+            <result column="rank" property="rank"/>
+            <result column="profile_img_name" property="profileImgName"/>
+            <result column="profile_img_url" property="profileImgUrl"/>
+            <result column="profile_img_origin_name" property="profileImgOriginName"/>
+            <result column="created_at" property="createdAt"/>
+            <result column="modified_at" property="modifiedAt"/>
+        </association>
+    </resultMap>
+
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id"
+            parameterType="com.flab.fkream.salesAccount.SalesAccount">
+        insert into sales_account (users_id, bank_name, account_number, account_holder, created_at)
+        values (#{user.id}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
     </insert>
 
+    <select id="findById" resultMap="salesAccountMap">
+        select *
+        from SALES_ACCOUNT sa
+                 join USERS u
+        WHERE sa.ID = #{id}
+    </select>
+
+
+    <select id="findAll" resultMap="salesAccountMap">
+        select *
+        from SALES_ACCOUNT sa
+                 join USERS u
+    </select>
+
+    <update id="update">
+        UPDATE sales_account
+        SET users_id        = #{user.id},
+            bank_name      = #{bankName},
+            account_number = #{accountNumber},
+            account_holder = #{accountHolder},
+            created_at     = #{createdAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM sales_account
+        WHERE id = #{id}
+    </delete>
 </mapper>

@@ -2,12 +2,10 @@ package com.flab.fkream.itemImg;
 
 import java.time.LocalDateTime;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.flab.fkream.item.Item;
+import javax.validation.constraints.NotNull;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @ToString
@@ -16,11 +14,22 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ItemImg {
-	private Long id;
-	private Long itemId;
-	private String imgName;
-	private String imgUrl;
-	private String originName;
-	private boolean isRepresentativeImg;
-	private LocalDateTime createdAt;
+
+    private Long id;
+    @NotNull
+    private Item item;
+    @NotNull
+    private String imgName;
+    @NotNull
+    private String imgUrl;
+    @NotNull
+    private String originName;
+    private boolean isRepresentativeImg;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    private LocalDateTime createdAt;
+
+    public void setCreatedAtToNow() {
+        createdAt = LocalDateTime.now();
+    }
 }
