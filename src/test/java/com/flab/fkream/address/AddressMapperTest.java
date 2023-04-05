@@ -2,8 +2,8 @@ package com.flab.fkream.address;
 
 import static org.assertj.core.api.Assertions.*;
 
-import com.flab.fkream.users.Users;
-import com.flab.fkream.users.UsersMapper;
+import com.flab.fkream.user.User;
+import com.flab.fkream.user.UserMapper;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,15 +20,15 @@ class AddressMapperTest {
     @Autowired
     AddressMapper addressMapper;
     @Autowired
-    UsersMapper usersMapper;
+    UserMapper usersMapper;
 
-    Users user;
+    User user;
 
     Address addressInfo;
 
     @BeforeEach
     void setUp() {
-        user = Users.builder()
+        user = User.builder()
             .email("test1")
             .password("000")
             .gender("aa")
