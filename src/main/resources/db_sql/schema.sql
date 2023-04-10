@@ -118,7 +118,7 @@ CREATE TABLE `deal`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `item_id`            int,
-    `buy_or_sell`        varchar(255),
+    `kind_of_deal`       varchar(255),
     `user_id`            int,
     `price`              int,
     `size`               varchar(255),
@@ -126,8 +126,8 @@ CREATE TABLE `deal`
     `utilization_policy` boolean,
     `sales_condition`    boolean,
     `status`             varchar(255),
-    `created_at`         timestamp,
-    `modified_at`        timestamp
+    `other_id`           int,
+    `created_at`         timestamp
 );
 
 CREATE TABLE `interested_item`
