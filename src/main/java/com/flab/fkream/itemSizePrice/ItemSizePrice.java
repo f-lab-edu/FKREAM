@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 @Getter
@@ -21,7 +22,14 @@ public class ItemSizePrice {
     @NotNull
 	private Long itemId;
 	private String size;
+	@Setter
 	private int lowestSellingPrice;
+	@Setter
 	private int highestPurchasePrice;
 	private LocalDateTime modifiedAt;
+
+	public void changePrice(int highestPurchasePrice, int lowestSalePrice) {
+		this.highestPurchasePrice= highestPurchasePrice;
+		this.lowestSellingPrice = lowestSalePrice;
+	}
 }
