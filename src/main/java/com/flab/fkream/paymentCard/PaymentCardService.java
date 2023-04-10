@@ -1,5 +1,6 @@
 package com.flab.fkream.paymentCard;
 
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,11 +20,20 @@ public class PaymentCardService {
     }
 
     public List<PaymentCard> findByUserId(Long id) {
-        return paymentCardMapper.findByUserId(id);
+        List<PaymentCard> paymentCards = paymentCardMapper.findByUserId(id);
+        if (paymentCards.size() == 0) {
+            throw new NoDataFoundException();
+        }
+        return paymentCards;
+
     }
 
     public PaymentCard findById(Long id) {
-        return paymentCardMapper.findById(id);
+        PaymentCard paymentCard = paymentCardMapper.findById(id);
+        if (paymentCard == null) {
+            throw new NoDataFoundException();
+        }
+        return paymentCard;
     }
 
     public void deleteById(Long id) {
