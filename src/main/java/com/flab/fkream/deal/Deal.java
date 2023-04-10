@@ -25,6 +25,7 @@ public class Deal {
 
     private Long id;
     @NotNull
+    @Setter
     private Item item;
     @NotNull
     private KindOfDeal kindOfDeal;

@@ -2,6 +2,7 @@ package com.flab.fkream.deal;
 
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import java.util.List;
@@ -16,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class DealService {
 
     private final DealMapper dealMapper;
+
+    private final ItemService itemService;
 
     private final ItemSizePriceService itemSizePriceService;
 
@@ -97,6 +100,7 @@ public class DealService {
         if (deal == null) {
             throw new NoDataFoundException();
         }
+        deal.setItem(itemService.findOne(deal.getItem().getId()));
         return deal;
     }
 
@@ -105,6 +109,7 @@ public class DealService {
         if (deal == null) {
             throw new NoDataFoundException();
         }
+        deal.setItem(itemService.findOne(deal.getItem().getId()));
         return deal;
     }
 
@@ -112,6 +117,9 @@ public class DealService {
         List<Deal> deals = dealMapper.findByUserId(userId);
         if (deals.size() == 0) {
             throw new NoDataFoundException();
+        }
+        for (Deal deal : deals) {
+            deal.setItem(itemService.findOne(deal.getItem().getId()));
         }
         return deals;
     }
@@ -121,6 +129,7 @@ public class DealService {
         if (deal == null) {
             throw new NoDataFoundException();
         }
+        deal.setItem(itemService.findOne(deal.getItem().getId()));
         return deal;
     }
 
