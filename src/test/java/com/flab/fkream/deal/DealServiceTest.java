@@ -6,6 +6,7 @@ import static org.mockito.BDDMockito.*;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
+import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import java.time.LocalDate;
@@ -27,6 +28,9 @@ class DealServiceTest {
 
     @Mock
     ItemSizePriceService itemSizePriceService;
+
+    @Mock
+    ItemService itemService;
 
     @InjectMocks
     DealService dealService;
@@ -149,6 +153,7 @@ class DealServiceTest {
         given(dealMapper.findBidToBuyDealByItemIdAndSize(saleDealInfo.getItem().getId(),
             saleDealInfo.getSize())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
+        given(itemService.findOne(saleDealInfo.getItem().getId())).willReturn(itemInfo);
         dealService.saveSale(saleDealInfo);
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
@@ -192,6 +197,7 @@ class DealServiceTest {
         given(dealMapper.findBidToSellDealByItemIdAndSize(purchaseDealInfo.getItem().getId(),
             purchaseDealInfo.getSize())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
+        given(itemService.findOne(purchaseDealInfo.getItem().getId())).willReturn(itemInfo);
         dealService.savePurchase(purchaseDealInfo);
         then(dealMapper).should().save(purchaseDealInfo);
         then(itemSizePriceService).should()
@@ -206,12 +212,15 @@ class DealServiceTest {
     @Test
     void findByUserId() {
         given(dealMapper.findByUserId(1L)).willReturn(List.of(dealInfo));
+        given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
         assertThat(dealService.findByUserId(1L)).contains(dealInfo);
     }
 
     @Test
     void findById() {
         given(dealMapper.findById(1L)).willReturn(dealInfo);
+        given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
+
         assertThat(dealService.findById(1L)).isEqualTo(dealInfo);
     }
 
@@ -219,6 +228,8 @@ class DealServiceTest {
     void completeDeal() {
         given(dealMapper.findById(any())).willReturn(dealInfo);
         given(dealMapper.update(dealInfo)).willReturn(1);
+        given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
+
         dealService.completeDeal(1L);
         then(dealMapper).should(times(2)).update(dealInfo);
     }
@@ -227,6 +238,8 @@ class DealServiceTest {
     void cancelDeal() {
         given(dealMapper.findById(any())).willReturn(dealInfo);
         given(dealMapper.update(dealInfo)).willReturn(1);
+        given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
+
         dealService.cancelDeal(1L);
         then(dealMapper).should(times(2)).update(dealInfo);
     }
