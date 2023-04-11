@@ -54,4 +54,8 @@ public class ItemService {
         itemMapper.delete(id);
 
     }
+
+    public List<Item> findByBrand(Brand brand) {
+        return itemMapper.findByBrand(brand);
+    }
 }

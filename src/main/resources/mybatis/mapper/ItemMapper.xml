@@ -56,7 +56,13 @@
         from ITEM
     </select>
 
-    <update id="update">
+  <select id="findByBrand" resultType="com.flab.fkream.item.Item">
+    select *
+    from ITEM
+    where brand_id = #{param1.id}
+  </select>
+
+  <update id="update">
         UPDATE ITEM
         SET item_name            = #{itemName},
             model_number         = #{modelNumber},
