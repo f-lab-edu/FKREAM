@@ -29,11 +29,7 @@ public class SalesAccountService {
     }
 
     public List<SalesAccount> findAll() {
-        List<SalesAccount> salesAccounts = salesAccountMapper.findAll();
-        if (salesAccounts.isEmpty()) {
-            throw new NoDataFoundException();
-        }
-        return salesAccounts;
+        return salesAccountMapper.findAll();
     }
 
     public void update(SalesAccount salesAccount) {
