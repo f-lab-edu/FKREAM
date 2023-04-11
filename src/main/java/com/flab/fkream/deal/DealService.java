@@ -89,8 +89,10 @@ public class DealService {
     }
 
     private void updatePrice(ItemSizePrice itemSizePrice) {
-        int highestPurchasePrice = dealMapper.findHighestPurchasePriceByItemIdAndSize(itemSizePrice.getItemId(), itemSizePrice.getSize());
-        int lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(itemSizePrice.getItemId(), itemSizePrice.getSize());
+        int highestPurchasePrice = dealMapper.findHighestPurchasePriceByItemIdAndSize(
+            itemSizePrice.getItemId(), itemSizePrice.getSize());
+        int lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(
+            itemSizePrice.getItemId(), itemSizePrice.getSize());
         itemSizePrice.changePrice(highestPurchasePrice, lowestSalePrice);
         itemSizePriceService.update(itemSizePrice);
     }
