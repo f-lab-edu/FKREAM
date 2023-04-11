@@ -39,6 +39,6 @@ public class PaymentCard {
     }
 
     public void encryptPassword() {
-        cardPw=SHA256Util.encrypt(cardPw);
+        cardPw = SHA256Util.encrypt(cardPw);
     }
 }
