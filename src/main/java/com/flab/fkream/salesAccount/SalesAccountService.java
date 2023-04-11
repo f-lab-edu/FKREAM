@@ -1,5 +1,6 @@
 package com.flab.fkream.salesAccount;
 
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -11,25 +12,35 @@ import lombok.extern.log4j.Log4j2;
 @Log4j2
 @RequiredArgsConstructor
 public class SalesAccountService {
-	private final SalesAccountMapper salesAccountMapper;
 
-	public int save(SalesAccount salesAccount) {
-		return salesAccountMapper.save(salesAccount);
-	}
+    private final SalesAccountMapper salesAccountMapper;
 
-	public SalesAccount findById(Long id) {
-		return salesAccountMapper.findById(id);
-	}
+    public void save(SalesAccount salesAccount) {
+        salesAccount.setCreatedAtToNow();
+        salesAccountMapper.save(salesAccount);
+    }
 
-	public List<SalesAccount> findAll() {
-		return salesAccountMapper.findAll();
-	}
+    public SalesAccount findById(Long id) {
+        SalesAccount salesAccount = salesAccountMapper.findById(id);
+        if (salesAccount == null) {
+            throw new NoDataFoundException();
+        }
+        return salesAccount;
+    }
 
-	public int update(SalesAccount salesAccount) {
-		return salesAccountMapper.update(salesAccount);
-	}
+    public List<SalesAccount> findAll() {
+        List<SalesAccount> salesAccounts = salesAccountMapper.findAll();
+        if (salesAccounts.isEmpty()) {
+            throw new NoDataFoundException();
+        }
+        return salesAccounts;
+    }
 
-	public int deleteById(Long id) {
-		return salesAccountMapper.deleteById(id);
-	}
+    public void update(SalesAccount salesAccount) {
+        salesAccountMapper.update(salesAccount);
+    }
+
+    public void deleteById(Long id) {
+        salesAccountMapper.deleteById(id);
+    }
 }
