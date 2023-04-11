@@ -7,13 +7,13 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SalesAccountMapper {
 
-	int save(SalesAccount salesAccount);
+    int save(SalesAccount salesAccount);
 
-	SalesAccount findById(Long id);
+    SalesAccount findById(Long id);
 
-	List<SalesAccount> findAll();
+    List<SalesAccount> findAll();
 
-	int update(SalesAccount salesAccount);
+    int update(SalesAccount salesAccount);
 
-	int deleteById(Long id);
+    int deleteById(Long id);
 }
