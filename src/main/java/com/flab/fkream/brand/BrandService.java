@@ -27,6 +27,14 @@ public class BrandService {
         return brand;
     }
 
+    public Brand findByBrandName(String brandName){
+        Brand brand = brandMapper.findByBrandName(brandName);
+        if (brand == null) {
+            throw new NoDataFoundException();
+        }
+        return brand;
+    }
+
     public List<Brand> findAll() {
         List<Brand> brands = brandMapper.findAll();
         if (brands.size() == 0) {

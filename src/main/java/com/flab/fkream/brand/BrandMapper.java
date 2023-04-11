@@ -22,4 +22,6 @@ public interface BrandMapper {
 
     @CacheEvict(cacheNames = "Brand", key = "#p0")
     int delete(Long id);
+
+    Brand findByBrandName(String brandName);
 }
