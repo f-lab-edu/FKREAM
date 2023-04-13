@@ -19,6 +19,10 @@ public class SessionUtil {
     return (Long) session.getAttribute(LOGIN_USERS_ID);
   }
 
+  public static Long getLoginUserId(){
+    return (Long) HttpRequestUtils.getRequest().getSession().getAttribute(LOGIN_USERS_ID);
+  }
+
   public static void logoutUser(HttpSession session) {
     session.removeAttribute(LOGIN_USERS_ID);
   }
