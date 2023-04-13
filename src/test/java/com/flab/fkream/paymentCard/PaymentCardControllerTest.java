@@ -41,7 +41,7 @@ class PaymentCardControllerTest {
     PaymentCard paymentCardInfo = PaymentCard.builder()
         .userId(1L)
         .cardCompany("woori")
-        .cardNumber("1111")
+        .cardNumber("1111222233334444")
         .expiration("12/32")
         .cardPw("1234")
         .build();
@@ -56,8 +56,8 @@ class PaymentCardControllerTest {
 
     @Test
     void findByUserId() throws Exception {
-        given(paymentCardService.findByUserId(1L)).willReturn(List.of(paymentCardInfo));
-        mockMvc.perform(get("/payment-cards/users/1")).andExpect(status().isOk())
+        given(paymentCardService.findByUserId()).willReturn(List.of(paymentCardInfo));
+        mockMvc.perform(get("/payment-cards")).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$[0].cardCompany").value(paymentCardInfo.getCardCompany()));
     }
