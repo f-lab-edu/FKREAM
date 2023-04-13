@@ -1,9 +1,14 @@
 package com.flab.fkream.paymentCard;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.error.exception.NotOwnedDataException;
+import com.flab.fkream.utils.HttpRequestUtils;
+import com.flab.fkream.utils.SessionUtil;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.apache.catalina.util.RequestUtil;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,11 +26,7 @@ public class PaymentCardService {
 
     public List<PaymentCard> findByUserId(Long id) {
         List<PaymentCard> paymentCards = paymentCardMapper.findByUserId(id);
-        if (paymentCards.size() == 0) {
-            throw new NoDataFoundException();
-        }
         return paymentCards;
-
     }
 
     public PaymentCard findById(Long id) {
@@ -33,10 +34,21 @@ public class PaymentCardService {
         if (paymentCard == null) {
             throw new NoDataFoundException();
         }
-        return paymentCard;
+        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()){
+            return paymentCard;
+        }
+        throw new NotOwnedDataException();
     }
 
     public void deleteById(Long id) {
-        paymentCardMapper.delete(id);
+        PaymentCard paymentCard = findById(id);
+        if (paymentCard == null) {
+            throw new NoDataFoundException();
+        }
+        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()) {
+            paymentCardMapper.delete(id);
+        }
+        throw new NotOwnedDataException();
     }
+
 }
