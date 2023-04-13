@@ -1,5 +1,6 @@
 package com.flab.fkream.paymentCard;
 
+import com.flab.fkream.error.exception.NoCardPasswordException;
 import com.flab.fkream.user.User;
 import com.flab.fkream.utils.SHA256Util;
 import javax.validation.constraints.NotEmpty;
@@ -43,6 +44,9 @@ public class PaymentCard {
     }
 
     public void encryptPassword() {
+        if (cardPw == null || cardPw.isEmpty()) {
+            throw new NoCardPasswordException();
+        }
         cardPw = SHA256Util.encrypt(cardPw);
     }
 }
