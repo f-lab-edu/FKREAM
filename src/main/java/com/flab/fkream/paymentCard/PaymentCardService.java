@@ -42,14 +42,8 @@ public class PaymentCardService {
     }
 
     public void deleteById(Long id) {
-        PaymentCard paymentCard = findById(id);
-        if (paymentCard == null) {
-            throw new NoDataFoundException();
-        }
-        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()) {
-            paymentCardMapper.delete(id);
-        }
-        throw new NotOwnedDataException();
+        findById(id);
+        paymentCardMapper.delete(id);
     }
 
 }
