@@ -1,7 +1,10 @@
 package com.flab.fkream.paymentCard;
 
 import com.flab.fkream.salesAccount.SalesAccount;
+import com.flab.fkream.utils.HttpRequestUtils;
+import com.flab.fkream.utils.SessionUtil;
 import java.util.List;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -32,9 +35,10 @@ public class PaymentCardController {
     }
 
     // salesAccount 리스트 조회
-    @GetMapping("/users/{id}")
-    public List<PaymentCard> findByUserId(@PathVariable Long id) {
-        return paymentCardService.findByUserId(id);
+    @GetMapping()
+    public List<PaymentCard> findByUserId() {
+        Long userId = SessionUtil.getLoginUserId();
+        return paymentCardService.findByUserId(userId);
     }
 
     // salesAccount 단건 조회
