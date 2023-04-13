@@ -30,15 +30,13 @@ public class PaymentCardController {
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@Valid @RequestBody @NonNull PaymentCard paymentCard) {
-
         paymentCardService.save(paymentCard);
     }
 
     // salesAccount 리스트 조회
     @GetMapping()
     public List<PaymentCard> findByUserId() {
-        Long userId = SessionUtil.getLoginUserId();
-        return paymentCardService.findByUserId(userId);
+        return paymentCardService.findByUserId();
     }
 
     // salesAccount 단건 조회

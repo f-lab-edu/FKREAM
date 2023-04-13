@@ -24,8 +24,9 @@ public class PaymentCardService {
         paymentCardMapper.save(paymentCard);
     }
 
-    public List<PaymentCard> findByUserId(Long id) {
-        List<PaymentCard> paymentCards = paymentCardMapper.findByUserId(id);
+    public List<PaymentCard> findByUserId() {
+        Long userId = SessionUtil.getLoginUserId();
+        List<PaymentCard> paymentCards = paymentCardMapper.findByUserId(userId);
         return paymentCards;
     }
 
@@ -34,7 +35,7 @@ public class PaymentCardService {
         if (paymentCard == null) {
             throw new NoDataFoundException();
         }
-        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()){
+        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()) {
             return paymentCard;
         }
         throw new NotOwnedDataException();
