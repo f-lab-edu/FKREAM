@@ -33,20 +33,17 @@ public class PaymentCardController {
         paymentCardService.save(paymentCard);
     }
 
-    // salesAccount 리스트 조회
     @GetMapping()
     public List<PaymentCard> findByUserId() {
         return paymentCardService.findByUserId();
     }
 
-    // salesAccount 단건 조회
     @GetMapping("/{id}")
     public PaymentCard findOne(@PathVariable Long id) {
         return paymentCardService.findById(id);
     }
 
 
-    // salesAccount 삭제
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         paymentCardService.deleteById(id);
