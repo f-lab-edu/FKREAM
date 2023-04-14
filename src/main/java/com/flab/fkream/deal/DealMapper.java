@@ -16,9 +16,9 @@ public interface DealMapper {
 
     int delete(Long id);
 
-    Deal findBidToBuyDealByItemIdAndSize(Long id, String size);
+    Deal findBuyNowDealByItemIdAndSizeAndPrice(Long id, String size, int price);
 
-    Deal findBidToSellDealByItemIdAndSize(Long id, String size);
+    Deal findSellNowDealByItemIdAndSizeAndPrice(Long id, String size, int price);
 
     int findHighestPurchasePriceByItemIdAndSize(Long itemId, String size);
 

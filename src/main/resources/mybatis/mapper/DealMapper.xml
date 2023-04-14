@@ -37,23 +37,25 @@
     where id = #{id}
   </select>
 
-  <select id="findBidToBuyDealByItemIdAndSize" resultMap="DealResultMap">
+  <select id="findBuyNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
     select *
     from deal
     where kind_of_deal = 'PURCHASE'
     and status = 'BIDDING'
     and item_id = #{param1}
     and size = #{param2}
+    and price = #{param3}
     limit 1
   </select>
 
-  <select id="findBidToSellDealByItemIdAndSize" resultMap="DealResultMap">
+  <select id="findSellNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
     select *
     from deal
     where kind_of_deal = 'SALE'
     and status = 'BIDDING'
     and item_id = #{param1}
     and size = #{param2}
+    and price = #{param3}
     limit 1
   </select>
 
