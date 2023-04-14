@@ -1,7 +1,6 @@
 package com.flab.fkream.deal;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import com.flab.fkream.brand.Brand;
@@ -9,15 +8,18 @@ import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
+import com.flab.fkream.utils.SessionUtil;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,6 +36,18 @@ class DealServiceTest {
 
     @InjectMocks
     DealService dealService;
+
+    static MockedStatic<SessionUtil> sessionUtilities;
+
+    @BeforeAll
+    public static void beforeAll() {
+        sessionUtilities = Mockito.mockStatic(SessionUtil.class);
+    }
+
+    @AfterAll
+    public static void afterAll() {
+        sessionUtilities.close();
+    }
 
     Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
 
@@ -78,7 +92,7 @@ class DealServiceTest {
             .item(itemInfo)
             .kindOfDeal(KindOfDeal.SALE)
             .userId(1L)
-            .price(20000)
+            .price(45000)
             .size("255")
             .period(LocalDate.now())
             .utilizationPolicy(true)
@@ -89,7 +103,7 @@ class DealServiceTest {
         given(dealMapper.save(saleDealInfo)).willReturn(1);
         given(itemSizePriceService.findByItemIdAndSize(itemInfo.getId(),
             saleDealInfo.getSize())).willReturn(itemSizePriceInfo);
-        dealService.saveSale(saleDealInfo);
+        dealService.sales(saleDealInfo);
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), saleDealInfo.getSize());
@@ -113,7 +127,7 @@ class DealServiceTest {
         given(dealMapper.save(purchaseDealInfo)).willReturn(1);
         given(itemSizePriceService.findByItemIdAndSize(itemInfo.getId(),
             purchaseDealInfo.getSize())).willReturn(itemSizePriceInfo);
-        dealService.savePurchase(purchaseDealInfo);
+        dealService.purchase(purchaseDealInfo);
         then(dealMapper).should().save(purchaseDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), purchaseDealInfo.getSize());
@@ -150,16 +164,17 @@ class DealServiceTest {
         given(dealMapper.save(saleDealInfo)).willReturn(1);
         given(itemSizePriceService.findByItemIdAndSize(itemInfo.getId(),
             saleDealInfo.getSize())).willReturn(itemSizePriceInfo);
-        given(dealMapper.findBidToBuyDealByItemIdAndSize(saleDealInfo.getItem().getId(),
-            saleDealInfo.getSize())).willReturn(otherDeal);
+        given(dealMapper.findBuyNowDealByItemIdAndSizeAndPrice(saleDealInfo.getItem().getId(),
+            saleDealInfo.getSize(), saleDealInfo.getPrice())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
         given(itemService.findOne(saleDealInfo.getItem().getId())).willReturn(itemInfo);
-        dealService.saveSale(saleDealInfo);
+        dealService.sales(saleDealInfo);
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), saleDealInfo.getSize());
-        then(dealMapper).should().findBidToBuyDealByItemIdAndSize(saleDealInfo.getItem().getId(),
-            saleDealInfo.getSize());
+        then(dealMapper).should()
+            .findBuyNowDealByItemIdAndSizeAndPrice(saleDealInfo.getItem().getId(),
+                saleDealInfo.getSize(), saleDealInfo.getPrice());
         then(dealMapper).should().update(otherDeal);
     }
 
@@ -194,17 +209,17 @@ class DealServiceTest {
         given(dealMapper.save(purchaseDealInfo)).willReturn(1);
         given(itemSizePriceService.findByItemIdAndSize(itemInfo.getId(),
             purchaseDealInfo.getSize())).willReturn(itemSizePriceInfo);
-        given(dealMapper.findBidToSellDealByItemIdAndSize(purchaseDealInfo.getItem().getId(),
-            purchaseDealInfo.getSize())).willReturn(otherDeal);
+        given(dealMapper.findSellNowDealByItemIdAndSizeAndPrice(purchaseDealInfo.getItem().getId(),
+            purchaseDealInfo.getSize(), purchaseDealInfo.getPrice())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
         given(itemService.findOne(purchaseDealInfo.getItem().getId())).willReturn(itemInfo);
-        dealService.savePurchase(purchaseDealInfo);
+        dealService.purchase(purchaseDealInfo);
         then(dealMapper).should().save(purchaseDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), purchaseDealInfo.getSize());
         then(dealMapper).should()
-            .findBidToSellDealByItemIdAndSize(purchaseDealInfo.getItem().getId(),
-                purchaseDealInfo.getSize());
+            .findSellNowDealByItemIdAndSizeAndPrice(purchaseDealInfo.getItem().getId(),
+                purchaseDealInfo.getSize(), purchaseDealInfo.getPrice());
         then(dealMapper).should().update(otherDeal);
     }
 
@@ -213,7 +228,7 @@ class DealServiceTest {
     void findByUserId() {
         given(dealMapper.findByUserId(1L)).willReturn(List.of(dealInfo));
         given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
-        assertThat(dealService.findByUserId(1L)).contains(dealInfo);
+        assertThat(dealService.findByUserId()).contains(dealInfo);
     }
 
     @Test
@@ -239,7 +254,6 @@ class DealServiceTest {
         given(dealMapper.findById(any())).willReturn(dealInfo);
         given(dealMapper.update(dealInfo)).willReturn(1);
         given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
-
         dealService.cancelDeal(1L);
         then(dealMapper).should(times(2)).update(dealInfo);
     }
@@ -247,6 +261,7 @@ class DealServiceTest {
     @Test
     void update() {
         given(dealMapper.update(dealInfo)).willReturn(1);
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(dealInfo.getUserId());
         dealService.update(dealInfo);
         then(dealMapper).should().update(dealInfo);
     }
@@ -254,6 +269,9 @@ class DealServiceTest {
     @Test
     void delete() {
         given(dealMapper.delete(1L)).willReturn(1);
+        given(dealMapper.findById(1L)).willReturn(dealInfo);
+        given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
         dealService.delete(1L);
         then(dealMapper).should().delete(1L);
     }

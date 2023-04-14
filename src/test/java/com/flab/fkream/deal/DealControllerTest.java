@@ -1,6 +1,5 @@
 package com.flab.fkream.deal;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -8,23 +7,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.flab.fkream.address.Address;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
-import com.flab.fkream.user.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @WebMvcTest(DealController.class)
 class DealControllerTest {
@@ -75,7 +69,7 @@ class DealControllerTest {
 
     @Test
     void sales() throws Exception {
-        doNothing().when(dealService).saveSale(saleDealInfo);
+        doNothing().when(dealService).sales(saleDealInfo);
         mockMvc.perform(post("/deals/sales")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(saleDealInfo)))
@@ -84,7 +78,7 @@ class DealControllerTest {
 
     @Test
     void purchase() throws Exception {
-        doNothing().when(dealService).saveSale(purchaseDealInfo);
+        doNothing().when(dealService).sales(purchaseDealInfo);
         mockMvc.perform(post("/deals/purchases")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(purchaseDealInfo)))
@@ -93,8 +87,8 @@ class DealControllerTest {
 
     @Test
     void findByUserId() throws Exception {
-        given(dealService.findByUserId(1L)).willReturn(List.of(saleDealInfo));
-        mockMvc.perform(get("/deals/user/1"))
+        given(dealService.findByUserId()).willReturn(List.of(saleDealInfo));
+        mockMvc.perform(get("/deals"))
             .andExpect(status().isOk());
     }
 
@@ -107,7 +101,7 @@ class DealControllerTest {
     @Test
     void progressToComplete() throws Exception {
         doNothing().when(dealService).completeDeal(1L);
-        mockMvc.perform(post("/deals/completes/1")).andExpect(status().isOk());
+        mockMvc.perform(post("/deals/complete/1")).andExpect(status().isOk());
     }
 
     @Test

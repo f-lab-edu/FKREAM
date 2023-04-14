@@ -1,20 +1,16 @@
 package com.flab.fkream.deal;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
-import com.fasterxml.jackson.databind.annotation.JsonAppend.Attr;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
-import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -48,7 +44,7 @@ class DealMapperTest {
     Deal purchaseDealInfo;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         brandInfo = Brand.builder().brandName("구찌").isLuxury(true).build();
         brandMapper.save(brandInfo);
         itemInfo =
@@ -144,15 +140,17 @@ class DealMapperTest {
     @Test
     void findBidToBuyDealByItemIdAndSize() {
         dealMapper.save(purchaseDealInfo);
-        assertThat(dealMapper.findBidToBuyDealByItemIdAndSize(purchaseDealInfo.getItem().getId(),
-            purchaseDealInfo.getSize())).isEqualTo(purchaseDealInfo);
+        assertThat(
+            dealMapper.findBuyNowDealByItemIdAndSizeAndPrice(purchaseDealInfo.getItem().getId(),
+                purchaseDealInfo.getSize(), purchaseDealInfo.getPrice())).isEqualTo(
+            purchaseDealInfo);
     }
 
     @Test
     void findBidToSellDealByItemIdAndSize() {
         dealMapper.save(saleDealInfo);
-        assertThat(dealMapper.findBidToSellDealByItemIdAndSize(saleDealInfo.getItem().getId(),
-            saleDealInfo.getSize())).isEqualTo(saleDealInfo);
+        assertThat(dealMapper.findSellNowDealByItemIdAndSizeAndPrice(saleDealInfo.getItem().getId(),
+            saleDealInfo.getSize(), saleDealInfo.getPrice())).isEqualTo(saleDealInfo);
     }
 
     @Test
