@@ -20,17 +20,17 @@ public class DealController {
 
     @PostMapping("/sales")
     public void sales(@Valid @RequestBody Deal deal) {
-        dealService.saveSale(deal);
+        dealService.sales(deal);
     }
 
     @PostMapping("/purchases")
     public void purchase(@Valid @RequestBody Deal deal) {
-        dealService.savePurchase(deal);
+        dealService.purchase(deal);
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Deal> findByUserId(@PathVariable Long userId) {
-        return dealService.findByUserId(userId);
+    @GetMapping()
+    public List<Deal> findByUserId() {
+        return dealService.findByUserId();
     }
 
     @GetMapping("/{id}")
@@ -38,13 +38,13 @@ public class DealController {
         return dealService.findById(id);
     }
 
-    @PostMapping("/completes/{id}")
-    public void progressToComplete(@PathVariable Long id){
+    @PostMapping("/complete/{id}")
+    public void progressToComplete(@PathVariable Long id) {
         dealService.completeDeal(id);
     }
 
     @PostMapping("/cancel/{id}")
-    public void progressToCancel(@PathVariable Long id){
+    public void progressToCancel(@PathVariable Long id) {
         dealService.cancelDeal(id);
     }
 
