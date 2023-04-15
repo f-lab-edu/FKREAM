@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/searches")
+@RequestMapping("/search")
 @RequiredArgsConstructor
 public class SearchController {
 
     private final SearchService searchService;
 
-    @GetMapping("/{context}")
-    public List<ItemImg> searchItem(@PathVariable String context){
+    @GetMapping()
+    public List<SearchItemDto> searchItem(@RequestParam String context) {
         return searchService.search(context);
     }
 
