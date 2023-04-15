@@ -69,7 +69,7 @@ class DealControllerTest {
 
     @Test
     void sales() throws Exception {
-        doNothing().when(dealService).sales(saleDealInfo);
+        doNothing().when(dealService).sale(saleDealInfo);
         mockMvc.perform(post("/deals/sales")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(saleDealInfo)))
@@ -78,7 +78,7 @@ class DealControllerTest {
 
     @Test
     void purchase() throws Exception {
-        doNothing().when(dealService).sales(purchaseDealInfo);
+        doNothing().when(dealService).sale(purchaseDealInfo);
         mockMvc.perform(post("/deals/purchases")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(getContent(purchaseDealInfo)))

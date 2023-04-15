@@ -28,7 +28,7 @@ public class DealService {
 
 
     @Transactional
-    public void sales(Deal deal) {
+    public void sale(Deal deal) {
         deal.setKindOfDealToSale();
         deal.setCreatedAtToNow();
         ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(

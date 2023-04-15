@@ -20,7 +20,7 @@ public class DealController {
 
     @PostMapping("/sales")
     public void sales(@Valid @RequestBody Deal deal) {
-        dealService.sales(deal);
+        dealService.sale(deal);
     }
 
     @PostMapping("/purchases")

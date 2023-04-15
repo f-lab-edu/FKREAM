@@ -103,7 +103,7 @@ class DealServiceTest {
         given(dealMapper.save(saleDealInfo)).willReturn(1);
         given(itemSizePriceService.findByItemIdAndSize(itemInfo.getId(),
             saleDealInfo.getSize())).willReturn(itemSizePriceInfo);
-        dealService.sales(saleDealInfo);
+        dealService.sale(saleDealInfo);
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), saleDealInfo.getSize());
@@ -168,7 +168,7 @@ class DealServiceTest {
             saleDealInfo.getSize(), saleDealInfo.getPrice())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
         given(itemService.findOne(saleDealInfo.getItem().getId())).willReturn(itemInfo);
-        dealService.sales(saleDealInfo);
+        dealService.sale(saleDealInfo);
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), saleDealInfo.getSize());
