@@ -51,7 +51,7 @@ CREATE TABLE `payment_card`
     `user_id`      int,
     `card_company` varchar(255),
     `card_number`  varchar(255),
-    `expiration`   timestamp,
+    `expiration`   varchar(255),
     `card_pw`      varchar(255),
     `created_at`   timestamp
 );
