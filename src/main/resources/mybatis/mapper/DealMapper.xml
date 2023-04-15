@@ -1,11 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flab.fkream.deal.DealMapper">
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.deal.Deal">
-        insert into deal (ITEM_ID, BUY_OR_SELL, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY, SALES_CONDITION, STATUS, CREATED_AT, MODIFIED_AT)
-        VALUES (#{item.id}, #{kindOfDeal}, #{user.id}, #{price}, #{size}, #{period}, #{utilizationPolicy}, #{salesCondition}, #{status}, #{createAt}, #{modifiedAt})
-    </insert>
+  <resultMap id="DealResultMap" type="com.flab.fkream.deal.Deal">
+    <id property="id" column="id"/>
+    <result property="item.id" column="item_id"/>
+    <result property="kindOfDeal" column="kind_of_deal"/>
+    <result property="userId" column="user_id"/>
+    <result property="price" column="price"/>
+    <result property="size" column="size"/>
+    <result property="period" column="period"/>
+    <result property="utilizationPolicy" column="utilization_policy"/>
+    <result property="salesCondition" column="sales_condition"/>
+    <result property="status" column="status"/>
+    <result property="otherId" column="other_id"/>
+    <result property="createdAt" column="created_at"/>
+  </resultMap>
+  <insert id="save" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.fkream.deal.Deal">
+    insert into deal (ITEM_ID, kind_of_deal, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY,
+                      SALES_CONDITION, STATUS, other_id, CREATED_AT)
+    VALUES (#{item.id}, #{kindOfDeal}, #{userId}, #{price}, #{size}, #{period},
+            #{utilizationPolicy}, #{salesCondition}, #{status}, #{otherId}, #{createdAt})
+  </insert>
+
+  <select id="findByUserId" resultMap="DealResultMap">
+    select *
+    from deal
+    where user_id = #{userId}
+  </select>
+
+  <select id="findById" resultMap="DealResultMap">
+    select *
+    from deal
+    where id = #{id}
+  </select>
+
+  <select id="findBuyNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
+    select *
+    from deal
+    where kind_of_deal = 'PURCHASE'
+    and status = 'BIDDING'
+    and item_id = #{param1}
+    and size = #{param2}
+    and price = #{param3}
+    limit 1
+  </select>
+
+  <select id="findSellNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
+    select *
+    from deal
+    where kind_of_deal = 'SALE'
+    and status = 'BIDDING'
+    and item_id = #{param1}
+    and size = #{param2}
+    and price = #{param3}
+    limit 1
+  </select>
+
+  <select id="findHighestPurchasePriceByItemIdAndSize" resultType="java.lang.Integer">
+    select price
+    from deal
+    where kind_of_deal = 'PURCHASE'
+      and item_id = #{param1}
+      and size = #{param2}
+      and status = 'BIDDING'
+    order by price DESC
+      limit 1
+  </select>
+
+  <select id="findLowestSalePriceByItemIdAndSize" resultType="java.lang.Integer">
+    select price
+    from deal
+    where kind_of_deal = 'SALE'
+      and item_id = #{param1}
+      and size = #{param2}
+      and status = 'BIDDING'
+    order by price ASC
+      limit 1
+  </select>
+
+  <update id="update">
+    update deal
+    set item_id            = #{item.id},
+        kind_of_deal       = #{kindOfDeal},
+        user_id            = #{userId},
+        price              = #{price},
+        size               = #{size},
+        period             = #{period},
+        utilization_policy = #{utilizationPolicy},
+        sales_condition    = #{salesCondition},
+        other_id           = #{otherId},
+        status             = #{status},
+        created_at         = #{createdAt}
+    where id = #{id}
+  </update>
+
+  <delete id="delete">
+    delete
+    from deal
+    where id = #{id}
+  </delete>
 
 </mapper>

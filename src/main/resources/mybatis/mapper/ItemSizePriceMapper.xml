@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.fkream.itemSizePrice.ItemSizePriceMapper">
-    <resultMap id="ItemSizePriceResultMap" type="com.flab.fkream.itemSizePrice.ItemSizePrice">
-        <id property="id" column="id"/>
-        <result property="itemId" column="item_id"/>
-        <result property="size" column="size"/>
-        <result property="lowestSellingPrice" column="lowest_selling_price"/>
-        <result property="highestPurchasePrice" column="highest_purchase_price"/>
-        <result property="modifiedAt" column="modified_at"/>
-    </resultMap>
+  <resultMap id="ItemSizePriceResultMap" type="com.flab.fkream.itemSizePrice.ItemSizePrice">
+    <id property="id" column="id"/>
+    <result property="itemId" column="item_id"/>
+    <result property="size" column="size"/>
+    <result property="lowestSellingPrice" column="lowest_selling_price"/>
+    <result property="highestPurchasePrice" column="highest_purchase_price"/>
+    <result property="modifiedAt" column="modified_at"/>
+  </resultMap>
 
 
-    <insert id="save" parameterType="com.flab.fkream.itemSizePrice.ItemSizePrice" useGeneratedKeys="true"
-            keyProperty="id">
-        INSERT INTO item_size_price(item_id, size, lowest_selling_price, highest_purchase_price, modified_at)
-        VALUES (#{itemId},
-                #{size},
-                #{lowestSellingPrice},
-                #{highestPurchasePrice},
-                #{modifiedAt})
-    </insert>
+  <insert id="save" parameterType="com.flab.fkream.itemSizePrice.ItemSizePrice"
+    useGeneratedKeys="true"
+    keyProperty="id">
+    INSERT INTO item_size_price(item_id, size, lowest_selling_price, highest_purchase_price,
+                                modified_at)
+    VALUES (#{itemId},
+            #{size},
+            #{lowestSellingPrice},
+            #{highestPurchasePrice},
+            #{modifiedAt})
+  </insert>
 
-    <select id="findOne" resultMap="ItemSizePriceResultMap">
-        select *
-        from ITEM_SIZE_PRICE
-        where ID = #{id}
-    </select>
+  <select id="findOne" resultMap="ItemSizePriceResultMap">
+    select *
+    from ITEM_SIZE_PRICE
+    where ID = #{id}
+  </select>
 
 
-    <select id="findAllByItemId" resultMap="ItemSizePriceResultMap">
-        select *
-        from ITEM_SIZE_PRICE
-        where item_id = #{itemId}
-    </select>
+  <select id="findAllByItemId" resultMap="ItemSizePriceResultMap">
+    select *
+    from ITEM_SIZE_PRICE
+    where item_id = #{itemId}
+  </select>
 
-    <select id="findByItemIdAndSize" resultMap="ItemSizePriceResultMap">
-        select *
-        from ITEM_SIZE_PRICE
-        where item_id = #{param1}
-        and size = #{param2}
-    </select>
+  <select id="findByItemIdAndSize" resultMap="ItemSizePriceResultMap">
+    select *
+    from ITEM_SIZE_PRICE
+    where item_id = #{param1}
+      and size = #{param2}
+  </select>
 
-    <delete id="delete">
-        delete
-        from ITEM_SIZE_PRICE
-        where id = #{id}
-    </delete>
+  <update id="update">
+    update item_size_price
+    set item_id                = #{itemId},
+        size                   = #{size},
+        lowest_selling_price   = #{lowestSellingPrice},
+        highest_purchase_price = #{highestPurchasePrice},
+        modified_at            = #{modifiedAt}
+    where id = #{id}
+  </update>
+
+  <delete id="delete">
+    delete
+    from ITEM_SIZE_PRICE
+    where id = #{id}
+  </delete>
 
 
 </mapper>
