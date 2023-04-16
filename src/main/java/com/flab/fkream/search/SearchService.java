@@ -25,6 +25,9 @@ public class SearchService {
     }
 
     public List<AutoCompletedItemDto> autoComplete(String word) {
+        if (word.isBlank()) {
+            return List.of();
+        }
         List<String> result = trie.search(word);
         return searchMapper.autoComplete(result);
     }
