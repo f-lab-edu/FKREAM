@@ -47,7 +47,7 @@ public class Trie {
         if (node.isEnd()) {
             result.add(prefix);
         }
-        if (result.size()==10){
+        if (result.size() == 10) {
             return;
         }
         for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {
