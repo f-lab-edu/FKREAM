@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.search.Trie;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,9 +19,12 @@ public class ItemService {
     private final ItemMapper itemMapper;
     private final BrandService brandService;
 
+    private final Trie trie;
+
     public void addItem(Item itemInfo) {
         itemInfo.setCreatedAtToNow();
         itemMapper.save(itemInfo);
+        trie.insert(itemInfo.getItemName());
     }
 
     public Item findOne(Long itemId) {
