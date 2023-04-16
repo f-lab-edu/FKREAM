@@ -14,6 +14,7 @@ import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -74,6 +75,8 @@ class SearchMapperTest {
 
     SearchItemDto searchItemDto1;
     SearchItemDto searchItemDto2;
+
+    AutoCompletedItemDto autoCompletedItemDto;
 
     @BeforeEach
     void beforeAll() {
@@ -148,6 +151,10 @@ class SearchMapperTest {
                 itemInfo3.getBrand().getBrandName()).buyNowLowestPrice(60000).itemImgId(
                 itemImgInfo4.getId()).imgName(itemImgInfo4.getImgName())
             .imgUrl(itemImgInfo4.getImgUrl()).build();
+
+        autoCompletedItemDto = AutoCompletedItemDto.builder().itemId(itemInfo1.getId())
+            .itemName(itemInfo1.getItemName()).itemImgId(itemImgInfo1.getId()).imgName(
+                itemImgInfo1.getImgName()).imgUrl(itemImgInfo1.getImgUrl()).build();
     }
 
 
@@ -170,4 +177,11 @@ class SearchMapperTest {
     void findCount() {
         assertThat(searchMapper.findCount("")).isEqualTo(3);
     }
+
+    @Test
+    void autoComplete() {
+        assertThat(searchMapper.autoComplete(List.of("조던"))).contains(autoCompletedItemDto);
+    }
+
+
 }

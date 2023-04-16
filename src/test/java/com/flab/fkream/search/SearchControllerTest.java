@@ -39,6 +39,14 @@ class SearchControllerTest {
         .imgUrl("test")
         .build();
 
+    AutoCompletedItemDto autoCompletedItemDto = AutoCompletedItemDto.builder()
+        .itemId(1L)
+        .itemName("나이키 에어포스")
+        .itemImgId(2L)
+        .imgName("test1234")
+        .imgUrl("test")
+        .build();
+
     @Test
     void searchItem() throws Exception {
         given(searchService.search(CONTEXT)).willReturn(List.of(searchItemDto));
@@ -50,6 +58,13 @@ class SearchControllerTest {
     @Test
     void searchItemCount() throws Exception {
         given(searchService.findCount(CONTEXT)).willReturn(20);
+        mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void searchAutoCompletedItem() throws Exception {
+        given(searchService.autoComplete(CONTEXT)).willReturn(List.of(autoCompletedItemDto));
         mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }

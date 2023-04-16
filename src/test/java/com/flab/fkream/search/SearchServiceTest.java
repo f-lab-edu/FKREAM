@@ -12,13 +12,15 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @ExtendWith(MockitoExtension.class)
 class SearchServiceTest {
 
     @Mock
     SearchMapper searchMapper;
-
+    @Mock
+    Trie trie;
     @InjectMocks
     SearchService searchService;
 
@@ -30,6 +32,14 @@ class SearchServiceTest {
         .brandId(2L)
         .brandName("nike")
         .buyNowLowestPrice(1000)
+        .itemImgId(2L)
+        .imgName("test1234")
+        .imgUrl("test")
+        .build();
+
+    AutoCompletedItemDto autoCompletedItemDto = AutoCompletedItemDto.builder()
+        .itemId(1L)
+        .itemName("나이키 에어포스")
         .itemImgId(2L)
         .imgName("test1234")
         .imgUrl("test")
@@ -48,5 +58,15 @@ class SearchServiceTest {
         given(searchMapper.findCount(CONTEXT)).willReturn(200);
         assertThat(searchService.findCount(CONTEXT)).isEqualTo(200);
         then(searchMapper).should().findCount(CONTEXT);
+    }
+
+    @Test
+    void autoComplete() {
+        List<String> result = List.of("nike");
+        given(trie.search(CONTEXT)).willReturn(result);
+        given(searchMapper.autoComplete(result)).willReturn(List.of(autoCompletedItemDto));
+        assertThat(searchService.autoComplete(CONTEXT)).contains(autoCompletedItemDto);
+        then(trie).should().search(CONTEXT);
+        then(searchMapper).should().autoComplete(result);
     }
 }
