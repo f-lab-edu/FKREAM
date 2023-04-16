@@ -37,4 +37,19 @@
       or BR.brand_name LIKE '%' || #{param1} || '%')
   </select>
 
+  <select id="autoComplete" resultType="com.flab.fkream.search.AutoCompletedItemDto">
+    select item.id as itemId,
+           item.item_name as itemName,
+           img.id as itemImgId,
+           img.img_name as imgName,
+           img.img_url as imgUrl
+    from ITEM item
+    join ITEM_IMG img on item.ID = img.ITEM_ID
+    where item.item_name in
+    <foreach collection="arg0" item="name" open="(" close=")" separator=",">
+      #{name}
+    </foreach>
+    and IS_REPRESENTATIVE_IMG = true
+  </select>
+
 </mapper>

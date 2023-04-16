@@ -1,13 +1,5 @@
 package com.flab.fkream.search;
 
-import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandService;
-import com.flab.fkream.error.exception.NoDataFoundException;
-import com.flab.fkream.item.Item;
-import com.flab.fkream.item.ItemService;
-import com.flab.fkream.itemImg.ItemImg;
-import com.flab.fkream.itemImg.ItemImgService;
-import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +11,8 @@ import org.springframework.stereotype.Service;
 @Log4j2
 public class SearchService {
 
-    private final ItemSizePriceService itemSizePriceService;
     private final SearchMapper searchMapper;
+    private final Trie trie;
 
     public List<SearchItemDto> search(String context) {
 
@@ -30,5 +22,10 @@ public class SearchService {
 
     public int findCount(String context) {
         return searchMapper.findCount(context);
+    }
+
+    public List<AutoCompletedItemDto> autoComplete(String word) {
+        List<String> result = trie.search(word);
+        return searchMapper.autoComplete(result);
     }
 }
