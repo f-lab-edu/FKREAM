@@ -93,6 +93,15 @@ CREATE TABLE `item`
     `manager_id`           int
 );
 
+CREATE TABLE `item_category`
+(
+    `id`                 int PRIMARY KEY AUTO_INCREMENT,
+    `category_name`      varchar(255) unique,
+    `parent_category_id` int,
+    foreign key (`parent_category_id`) references ITEM_CATEGORY (id)
+);
+
+
 CREATE TABLE `item_size_price`
 (
     `id`                     int PRIMARY KEY AUTO_INCREMENT,
