@@ -19,10 +19,10 @@
     values (#{userId}, #{bankName}, #{accountNumber}, #{accountHolder}, #{createdAt})
   </insert>
 
-  <select id="findById" resultMap="salesAccountMap">
+  <select id="findByUserId" resultMap="salesAccountMap">
     select *
     from SALES_ACCOUNT
-    WHERE ID = #{id}
+    WHERE USER_ID = #{userId}
   </select>
 
 
@@ -41,9 +41,9 @@
     WHERE id = #{id}
   </update>
 
-  <delete id="deleteById">
+  <delete id="deleteByUserId">
     DELETE
     FROM sales_account
-    WHERE id = #{id}
+    WHERE USER_ID = #{userId}
   </delete>
 </mapper>

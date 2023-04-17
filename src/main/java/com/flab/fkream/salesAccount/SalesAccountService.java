@@ -17,11 +17,18 @@ public class SalesAccountService {
 
     public void save(SalesAccount salesAccount) {
         salesAccount.setCreatedAtToNow();
+
+        SalesAccount existingAccount = salesAccountMapper.findByUserId(salesAccount.getUserId());
+
+        if (existingAccount != null) {
+            return;
+        }
+
         salesAccountMapper.save(salesAccount);
     }
 
     public SalesAccount findById(Long id) {
-        SalesAccount salesAccount = salesAccountMapper.findById(id);
+        SalesAccount salesAccount = salesAccountMapper.findByUserId(id);
         if (salesAccount == null) {
             throw new NoDataFoundException();
         }
@@ -37,6 +44,6 @@ public class SalesAccountService {
     }
 
     public void deleteById(Long id) {
-        salesAccountMapper.deleteById(id);
+        salesAccountMapper.deleteByUserId(id);
     }
 }

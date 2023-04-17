@@ -1,13 +1,17 @@
 package com.flab.fkream.salesAccount;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.mockito.BDDMockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.mockito.BDDMockito.doNothing;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.flab.fkream.user.User;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Collections;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +19,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @WebMvcTest(SalesAccountController.class)
 class SalesAccountControllerTest {
@@ -65,11 +67,11 @@ class SalesAccountControllerTest {
     @Test
     void findOne() throws Exception {
         // Given
-        long id = salesAccountInfo.getId();
+        long id = salesAccountInfo.getUserId();
         given(salesAccountService.findById(id)).willReturn(salesAccountInfo);
 
         // When & Then
-        mockMvc.perform(get("/sales-accounts/{id}", id))
+        mockMvc.perform(get("/sales-accounts/users/{id}", id))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.userId").value(salesAccountInfo.getUserId()))
@@ -81,7 +83,7 @@ class SalesAccountControllerTest {
     @Test
     void update() throws Exception {
         // Given
-        long id = salesAccountInfo.getId();
+        long id = salesAccountInfo.getUserId();
         SalesAccount salesAccountToUpdate = SalesAccount.builder()
             .id(id)
             .bankName("New Test Bank")
@@ -91,7 +93,7 @@ class SalesAccountControllerTest {
         given(salesAccountService.findById(id)).willReturn(salesAccountInfo);
 
         // When
-        mockMvc.perform(patch("/sales-accounts/{id}", id)
+        mockMvc.perform(patch("/sales-accounts/users/{id}", id)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(salesAccountToUpdate)))
             .andExpect(status().isOk());
@@ -101,7 +103,7 @@ class SalesAccountControllerTest {
     }
 
     @Test
-    void delete() throws Exception {
+    void delete() {
         // Given
         long id = salesAccountInfo.getId();
         doNothing().when(salesAccountService).deleteById(id);

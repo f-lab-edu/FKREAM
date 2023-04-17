@@ -59,7 +59,7 @@ class SalesAccountMapperTest {
         salesAccountMapper.save(salesAccount);
 
         // when
-        SalesAccount found = salesAccountMapper.findById(salesAccount.getId());
+        SalesAccount found = salesAccountMapper.findByUserId(salesAccount.getUserId());
 
         // then
         assertThat(found).isEqualTo(salesAccount);
@@ -137,26 +137,26 @@ class SalesAccountMapperTest {
         salesAccountMapper.update(salesAccountUpdated);
 
         //then
-        assertThat(salesAccountMapper.findById(salesAccount.getId())).isEqualTo(
+        assertThat(salesAccountMapper.findByUserId(salesAccount.getUserId())).isEqualTo(
             salesAccountUpdated);
     }
 
     @Test
     void testDeleteById() {
         //when
-        salesAccountMapper.deleteById(salesAccount.getId());
+        salesAccountMapper.deleteByUserId(salesAccount.getUserId());
 
         //then
-        assertThat(salesAccountMapper.findById(salesAccount.getId())).isNull();
+        assertThat(salesAccountMapper.findByUserId(salesAccount.getUserId())).isNull();
     }
 
     @Test
     void testFailDeleteById() {
         //when
-        salesAccountMapper.deleteById(2L);
+        salesAccountMapper.deleteByUserId(2L);
 
         //then
-        assertThat(salesAccountMapper.findById(salesAccount.getId())).isNull();
+        assertThat(salesAccountMapper.findByUserId(salesAccount.getUserId())).isNull();
     }
 
 }

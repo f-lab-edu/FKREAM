@@ -4,6 +4,9 @@ import static org.mockito.BDDMockito.any;
 import static org.mockito.BDDMockito.anyLong;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -46,9 +49,32 @@ class SalesAccountServiceTest {
     }
 
     @Test
+    public void testSaveDuplicateSalesAccount() {
+        // 이미 저장된 SalesAccount 객체 생성
+        SalesAccount existingAccount = SalesAccount.builder()
+            .userId(1L)
+            .build();
+
+        // SalesAccount 매퍼에서 findByUserId 메서드가 호출될 때 existingAccount 객체를 반환하도록 목(mock) 객체 생성
+        when(salesAccountMapper.findByUserId(1L)).thenReturn(existingAccount);
+
+        // 중복된 userId를 가진 SalesAccount 객체 생성
+        SalesAccount duplicateAccount = SalesAccount.builder()
+            .userId(1L)
+            .build();
+
+        // save 메서드 호출
+        salesAccountService.save(duplicateAccount);
+
+        // SalesAccount 매퍼에서 insert 메서드가 호출되지 않은 것을 확인
+        verify(salesAccountMapper, never()).save(any(SalesAccount.class));
+    }
+
+
+    @Test
     void findById() {
         //given
-        given(salesAccountMapper.findById(1L)).willReturn(salesAccount);
+        given(salesAccountMapper.findByUserId(1L)).willReturn(salesAccount);
 
         //when
         SalesAccount result = salesAccountService.findById(1L);
@@ -96,12 +122,12 @@ class SalesAccountServiceTest {
     @Test
     void deleteById() {
         //given
-        given(salesAccountMapper.deleteById(anyLong())).willReturn(1);
+        given(salesAccountMapper.deleteByUserId(anyLong())).willReturn(1);
 
         //when
         salesAccountService.deleteById(1L);
 
         //then
-        then(salesAccountMapper).should().deleteById(1L);
+        then(salesAccountMapper).should().deleteByUserId(1L);
     }
 }

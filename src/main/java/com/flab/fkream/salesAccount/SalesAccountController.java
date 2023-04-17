@@ -1,11 +1,9 @@
 package com.flab.fkream.salesAccount;
 
 import java.util.List;
-
 import javax.validation.Valid;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,21 +37,21 @@ public class SalesAccountController {
     }
 
     // salesAccount 단건 조회
-    @GetMapping("/{id}")
+    @GetMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public SalesAccount findOne(@PathVariable Long id) {
         return salesAccountService.findById(id);
     }
 
     // salesAccount 수정
-    @PatchMapping("{id}")
+    @PatchMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void update(@RequestBody SalesAccount salesAccountInfo) {
         salesAccountService.update(salesAccountInfo);
     }
 
     // salesAccount 삭제
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/users/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         salesAccountService.deleteById(id);
