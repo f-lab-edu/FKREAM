@@ -127,7 +127,7 @@ CREATE TABLE `deal`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `item_id`            int,
-    `buy_or_sell`        varchar(255),
+    `kind_of_deal`       varchar(255),
     `user_id`            int,
     `price`              int,
     `size`               varchar(255),
