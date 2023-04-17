@@ -62,9 +62,10 @@ class SearchServiceTest {
 
     @Test
     void searchByCategory() {
-        given(searchMapper.searchByCategory(CONTEXT, CATEGORY_ID)).willReturn(List.of(searchItemDto));
+        given(searchMapper.searchByCategory(CONTEXT, CATEGORY_ID)).willReturn(
+            List.of(searchItemDto));
         given(itemCategoryService.isValidCategoryId(CATEGORY_ID)).willReturn(true);
-        assertThat(searchService.search(CONTEXT,CATEGORY_ID)).contains(searchItemDto);
+        assertThat(searchService.search(CONTEXT, CATEGORY_ID)).contains(searchItemDto);
         then(searchMapper).should().searchByCategory(CONTEXT, CATEGORY_ID);
     }
 
