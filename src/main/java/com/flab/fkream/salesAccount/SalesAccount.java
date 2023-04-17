@@ -1,7 +1,7 @@
 package com.flab.fkream.salesAccount;
 
 
-import com.flab.fkream.user.User;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -15,16 +15,22 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(of = "id")
 @ToString
 public class SalesAccount {
 
-	private Long id;
-	private User user;
-	private String bankName;
-	private String accountNumber;
-	private String accountHolder;
-	private LocalDateTime createdAt;
+    private Long id;
+    @NotNull
+    private Long userId;
+    @NotNull
+    private String bankName;
+    @NotNull
+    private String accountNumber;
+    @NotNull
+    private String accountHolder;
+    private LocalDateTime createdAt;
 
-
+    public void setCreatedAtToNow() {
+        this.createdAt = LocalDateTime.now();
+    }
 }
