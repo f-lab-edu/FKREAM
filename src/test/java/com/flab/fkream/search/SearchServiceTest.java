@@ -4,6 +4,8 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.itemCategory.ItemCategory;
+import com.flab.fkream.itemCategory.ItemCategoryService;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,10 +23,15 @@ class SearchServiceTest {
     SearchMapper searchMapper;
     @Mock
     Trie trie;
+
+    @Mock
+    ItemCategoryService itemCategoryService;
     @InjectMocks
     SearchService searchService;
 
     private static final String CONTEXT = "nike";
+
+    private static final Long[] CATEGORY_ID = {1L, 2L};
 
     SearchItemDto searchItemDto = SearchItemDto.builder()
         .itemId(1L)
@@ -51,6 +58,14 @@ class SearchServiceTest {
         given(searchMapper.search(CONTEXT)).willReturn(List.of(searchItemDto));
         assertThat(searchService.search(CONTEXT)).contains(searchItemDto);
         then(searchMapper).should().search(CONTEXT);
+    }
+
+    @Test
+    void searchByCategory() {
+        given(searchMapper.searchByCategory(CONTEXT, CATEGORY_ID)).willReturn(List.of(searchItemDto));
+        given(itemCategoryService.isValidCategoryId(CATEGORY_ID)).willReturn(true);
+        assertThat(searchService.search(CONTEXT,CATEGORY_ID)).contains(searchItemDto);
+        then(searchMapper).should().searchByCategory(CONTEXT, CATEGORY_ID);
     }
 
     @Test

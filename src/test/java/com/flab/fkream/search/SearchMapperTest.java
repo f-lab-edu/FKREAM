@@ -8,6 +8,8 @@ import com.flab.fkream.deal.Deal;
 import com.flab.fkream.deal.DealMapper;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
+import com.flab.fkream.itemCategory.ItemCategory;
+import com.flab.fkream.itemCategory.ItemCategoryMapper;
 import com.flab.fkream.itemImg.ItemImg;
 import com.flab.fkream.itemImg.ItemImgMapper;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
@@ -45,11 +47,19 @@ class SearchMapperTest {
     @Autowired
     ItemSizePriceMapper itemSizePriceMapper;
 
+    @Autowired
+    ItemCategoryMapper itemCategoryMapper;
+
     User userInfo1;
     User userInfo2;
 
     Brand brandInfo1;
     Brand brandInfo2;
+
+    ItemCategory itemCategoryInfo1;
+    ItemCategory itemCategoryInfo2;
+    ItemCategory detailedCategoryInfo1;
+    ItemCategory detailedCategoryInfo2;
 
     Item itemInfo1;
     Item itemInfo2;
@@ -90,9 +100,26 @@ class SearchMapperTest {
         brandMapper.save(brandInfo1);
         brandMapper.save(brandInfo2);
 
-        itemInfo1 = Item.builder().itemName("조던").modelNumber("jd-100").brand(brandInfo1).build();
-        itemInfo2 = Item.builder().itemName("에어포스").modelNumber("af-200").brand(brandInfo1).build();
-        itemInfo3 = Item.builder().itemName("삼선슬리퍼").modelNumber("ss-300").brand(brandInfo2)
+        itemCategoryInfo1 = ItemCategory.builder().name("신발").build();
+        itemCategoryInfo2 = ItemCategory.builder().name("상의").build();
+        itemCategoryMapper.save(itemCategoryInfo1);
+        itemCategoryMapper.save(itemCategoryInfo2);
+
+        detailedCategoryInfo1 = ItemCategory.builder().name("스니커즈")
+            .parentId(itemCategoryInfo1.getId()).build();
+        detailedCategoryInfo2 = ItemCategory.builder().name("후드")
+            .parentId(itemCategoryInfo2.getId()).build();
+        itemCategoryMapper.save(detailedCategoryInfo1);
+        itemCategoryMapper.save(detailedCategoryInfo2);
+
+        itemInfo1 = Item.builder().itemName("조던").modelNumber("jd-100").brand(brandInfo1)
+            .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
+            .build();
+        itemInfo2 = Item.builder().itemName("에어포스").modelNumber("af-200").brand(brandInfo1)
+            .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
+            .build();
+        itemInfo3 = Item.builder().itemName("후드티").modelNumber("ss-300").brand(brandInfo2)
+            .categoryId(itemCategoryInfo2.getId()).detailedCategoryId(detailedCategoryInfo2.getId())
             .build();
         itemMapper.save(itemInfo1);
         itemMapper.save(itemInfo2);
@@ -183,5 +210,9 @@ class SearchMapperTest {
         assertThat(searchMapper.autoComplete(List.of("조던"))).contains(autoCompletedItemDto);
     }
 
-
+    @Test
+    void searchByCategory() {
+        assertThat(searchMapper.searchByCategory("", new Long[]{itemCategoryInfo1.getId()}))
+            .contains(searchItemDto1);
+    }
 }

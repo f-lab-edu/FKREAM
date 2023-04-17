@@ -56,6 +56,14 @@ class SearchControllerTest {
     }
 
     @Test
+    void searchItemByCategory() throws Exception {
+        given(searchService.search(CONTEXT, new Long[]{1L,2L})).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/search?context=nike&categoryId=1,2")).andExpect(status().isOk())
+            .andExpect(content().contentType(
+                MediaType.APPLICATION_JSON));
+    }
+
+    @Test
     void searchItemCount() throws Exception {
         given(searchService.findCount(CONTEXT)).willReturn(20);
         mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
