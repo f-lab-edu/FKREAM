@@ -150,4 +150,13 @@ class SalesAccountMapperTest {
         assertThat(salesAccountMapper.findById(salesAccount.getId())).isNull();
     }
 
+    @Test
+    void testFailDeleteById() {
+        //when
+        salesAccountMapper.deleteById(2L);
+
+        //then
+        assertThat(salesAccountMapper.findById(salesAccount.getId())).isNull();
+    }
+
 }
