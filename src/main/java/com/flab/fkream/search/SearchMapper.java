@@ -11,4 +11,7 @@ public interface SearchMapper {
     int findCount(String context);
 
     List<AutoCompletedItemDto> autoComplete(List<String> result);
+
+    List<SearchItemDto> searchByCategory(String context, Long[] categoryId);
+
 }

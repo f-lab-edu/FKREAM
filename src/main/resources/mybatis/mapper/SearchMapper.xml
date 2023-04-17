@@ -49,7 +49,40 @@
     <foreach collection="arg0" item="name" open="(" close=")" separator=",">
       #{name}
     </foreach>
-    and IS_REPRESENTATIVE_IMG = true
+  </select>
+
+  <select id="searchByCategory" resultType="com.flab.fkream.search.SearchItemDto">
+    select item.id        as itemId,
+           item.item_name as itemName,
+           BR.id          as brandId,
+           BR.brand_name  as brandName,
+           isp.lsp        as buyNowLowestPrice,
+           img.id         as itemImgId,
+           img.img_name   as imgName,
+           img.img_url    as imgUrl
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) deal_count
+                      from DEAL
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where (item.item_name like '%' || #{param1} || '%'
+      or item.model_number like '%' || #{param1} || '%'
+      or BR.brand_name like '%' || #{param1} || '%')
+      and IS_REPRESENTATIVE_IMG = true
+      and (item.category_id in
+           <foreach collection="arg1" item="category_id" open="(" close=")" separator=",">
+            #{category_id}
+           </foreach>
+           or
+           item.detailed_category_id in
+           <foreach collection="arg1" item="category_id" open="(" close=")" separator=",">
+             #{category_id}
+           </foreach>)
+    order by deal.deal_count DESC;
   </select>
 
 </mapper>

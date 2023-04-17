@@ -17,8 +17,9 @@ public class SearchController {
     private final SearchService searchService;
 
     @GetMapping()
-    public List<SearchItemDto> searchItem(@RequestParam String context) {
-        return searchService.search(context);
+    public List<SearchItemDto> searchItem(@RequestParam String context,
+        @RequestParam(required = false) Long... categoryId) {
+        return searchService.search(context, categoryId);
     }
 
     @GetMapping("/count")
