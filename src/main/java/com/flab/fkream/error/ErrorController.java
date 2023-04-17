@@ -61,4 +61,9 @@ public class ErrorController {
     public ResponseEntity<ErrorMsg> handleLoginFailureException(SignUpFailureException e) {
       return ErrorMsg.toResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR, e);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorMsg> handleIllegalArgumentException(IllegalArgumentException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
 }
