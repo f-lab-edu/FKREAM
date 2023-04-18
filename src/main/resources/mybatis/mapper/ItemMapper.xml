@@ -5,8 +5,8 @@
         <id property="id" column="id"/>
         <result property="itemName" column="item_name"/>
         <result property="modelNumber" column="model_number"/>
-        <result property="category1" column="category1"/>
-        <result property="category2" column="category2"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="detailedCategoryId" column="detailed_category_id"/>
         <result property="releaseDate" column="release_date"/>
         <result property="representativeColor" column="representative_color"/>
         <result property="releasedPrice" column="released_price"/>
@@ -21,24 +21,26 @@
     <insert id="save" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO Item(item_name,
                          model_number,
-                         category1,
-                         category2,
+                         category_id,
+                         detailed_category_id,
                          release_date,
                          representative_color,
                          released_price,
                          latest_price,
+                         gender,
                          brand_id,
                          manager_id,
                          created_at,
                          modified_at)
         VALUES (#{itemName},
                 #{modelNumber},
-                #{category1},
-                #{category2},
+                #{categoryId},
+                #{detailedCategoryId},
                 #{releaseDate},
                 #{representativeColor},
                 #{releasedPrice},
                 #{latestPrice},
+                #{gender},
                 #{brand.id},
                 #{managerId},
                 #{createdAt},
@@ -66,8 +68,8 @@
         UPDATE ITEM
         SET item_name            = #{itemName},
             model_number         = #{modelNumber},
-            category1            = #{category1},
-            category2            = #{category2},
+            category_id            = #{categoryId},
+            detailed_category_id            = #{detailedCategoryId},
             release_date         = #{releaseDate},
             representative_color = #{representativeColor},
             released_price       = #{releasedPrice},
