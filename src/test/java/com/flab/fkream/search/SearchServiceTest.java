@@ -52,29 +52,40 @@ class SearchServiceTest {
         .imgUrl("test")
         .build();
 
+    SearchCriteria searchCriteria = SearchCriteria.builder().context("nike").build();
 
     @Test
-    void search() {
-        given(searchMapper.search(CONTEXT)).willReturn(List.of(searchItemDto));
-        assertThat(searchService.search(CONTEXT)).contains(searchItemDto);
-        then(searchMapper).should().search(CONTEXT);
+    void searchAll() {
+        given(searchMapper.searchAll()).willReturn(List.of(searchItemDto));
+        assertThat(searchService.search(null)).contains(searchItemDto);
+        then(searchMapper).should().searchAll();
     }
 
     @Test
-    void searchByCategory() {
-        given(searchMapper.searchByCategory(CONTEXT, CATEGORY_ID)).willReturn(
+    void searchByCriteria() {
+        given(searchMapper.searchByCriteria(searchCriteria)).willReturn(
             List.of(searchItemDto));
-        given(itemCategoryService.isValidCategoryId(CATEGORY_ID)).willReturn(true);
-        assertThat(searchService.search(CONTEXT, CATEGORY_ID)).contains(searchItemDto);
-        then(searchMapper).should().searchByCategory(CONTEXT, CATEGORY_ID);
+        given(itemCategoryService.isValidCategoryId(searchCriteria.getCategoryId())).willReturn(true);
+        assertThat(searchService.search(searchCriteria)).contains(searchItemDto);
+        then(searchMapper).should().searchByCriteria(searchCriteria);
     }
 
     @Test
     void findCount() {
-        given(searchMapper.findCount(CONTEXT)).willReturn(200);
-        assertThat(searchService.findCount(CONTEXT)).isEqualTo(200);
-        then(searchMapper).should().findCount(CONTEXT);
+        given(searchMapper.findAllCount()).willReturn(200);
+        assertThat(searchService.findCount(null)).isEqualTo(200);
+        then(searchMapper).should().findAllCount();
     }
+
+    @Test
+    void findCountByCriteria() {
+        given(searchMapper.findCountByCriteria(searchCriteria)).willReturn(200);
+        given(itemCategoryService.isValidCategoryId(searchCriteria.getCategoryId())).willReturn(true);
+        assertThat(searchService.findCount(searchCriteria)).isEqualTo(200);
+        then(searchMapper).should().findCountByCriteria(searchCriteria);
+    }
+
+
 
     @Test
     void autoComplete() {

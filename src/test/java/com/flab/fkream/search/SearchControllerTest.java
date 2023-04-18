@@ -47,25 +47,34 @@ class SearchControllerTest {
         .imgUrl("test")
         .build();
 
+    SearchCriteria searchCriteria = SearchCriteria.builder().context("nike").build();
+
     @Test
-    void searchItem() throws Exception {
-        given(searchService.search(CONTEXT)).willReturn(List.of(searchItemDto));
+    void searchAll() throws Exception {
+        given(searchService.search(null)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/search")).andExpect(status().isOk())
+            .andExpect(content().contentType(
+                MediaType.APPLICATION_JSON));
+    }
+
+    @Test
+    void searchItemByCriteria() throws Exception {
+        given(searchService.search(searchCriteria)).willReturn(List.of(searchItemDto));
         mockMvc.perform(get("/search?context=nike")).andExpect(status().isOk())
             .andExpect(content().contentType(
                 MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void searchItemByCategory() throws Exception {
-        given(searchService.search(CONTEXT, new Long[]{1L, 2L})).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/search?context=nike&categoryId=1,2")).andExpect(status().isOk())
-            .andExpect(content().contentType(
-                MediaType.APPLICATION_JSON));
+    void searchAllItemCount() throws Exception {
+        given(searchService.findCount(null)).willReturn(20);
+        mockMvc.perform(get("/search/count")).andExpect(status().isOk())
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 
     @Test
-    void searchItemCount() throws Exception {
-        given(searchService.findCount(CONTEXT)).willReturn(20);
+    void searchItemCountByCriteria() throws Exception {
+        given(searchService.findCount(searchCriteria)).willReturn(20);
         mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }

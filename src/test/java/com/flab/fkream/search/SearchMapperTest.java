@@ -7,6 +7,7 @@ import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.deal.Deal;
 import com.flab.fkream.deal.DealMapper;
 import com.flab.fkream.item.Item;
+import com.flab.fkream.item.ItemGender;
 import com.flab.fkream.item.ItemMapper;
 import com.flab.fkream.itemCategory.ItemCategory;
 import com.flab.fkream.itemCategory.ItemCategoryMapper;
@@ -88,8 +89,17 @@ class SearchMapperTest {
 
     AutoCompletedItemDto autoCompletedItemDto;
 
+    SearchCriteria searchCriteriaWithItemName;
+    SearchCriteria searchCriteriaWithCategory;
+    SearchCriteria searchCriteriaWithBrand;
+    SearchCriteria searchCriteriaWithSize;
+    SearchCriteria searchCriteriaWithPrice;
+    SearchCriteria searchCriteriaWithGender;
+    SearchCriteria searchCriteria7;
+
+
     @BeforeEach
-    void beforeAll() {
+    void beforeEach() {
         userInfo1 = User.builder().email("email1").build();
         userInfo2 = User.builder().email("email2").build();
         userMapper.save(userInfo1);
@@ -114,12 +124,15 @@ class SearchMapperTest {
 
         itemInfo1 = Item.builder().itemName("조던").modelNumber("jd-100").brand(brandInfo1)
             .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
+            .gender(ItemGender.MALE)
             .build();
         itemInfo2 = Item.builder().itemName("에어포스").modelNumber("af-200").brand(brandInfo1)
             .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
+            .gender(ItemGender.FEMALE)
             .build();
         itemInfo3 = Item.builder().itemName("후드티").modelNumber("ss-300").brand(brandInfo2)
             .categoryId(itemCategoryInfo2.getId()).detailedCategoryId(detailedCategoryInfo2.getId())
+            .gender(ItemGender.KIDS)
             .build();
         itemMapper.save(itemInfo1);
         itemMapper.save(itemInfo2);
@@ -182,37 +195,68 @@ class SearchMapperTest {
         autoCompletedItemDto = AutoCompletedItemDto.builder().itemId(itemInfo1.getId())
             .itemName(itemInfo1.getItemName()).itemImgId(itemImgInfo1.getId()).imgName(
                 itemImgInfo1.getImgName()).imgUrl(itemImgInfo1.getImgUrl()).build();
+
+        searchCriteriaWithItemName = SearchCriteria.builder().context("조던").build();
+        searchCriteriaWithCategory = SearchCriteria.builder()
+            .categoryId(new Long[]{itemCategoryInfo1.getId()})
+            .build();
+        searchCriteriaWithBrand = SearchCriteria.builder().brandId(brandInfo2.getId()).build();
+        searchCriteriaWithSize = SearchCriteria.builder().size("270").build();
+        searchCriteriaWithPrice = SearchCriteria.builder().minPrice(35000).maxPrice(45000).build();
+        searchCriteriaWithGender = SearchCriteria.builder().gender(ItemGender.MALE.toString()).build();
+
     }
 
+
+    @Test
+    void searchAll() {
+        assertThat(searchMapper.searchAll()).contains(searchItemDto1).hasSize(3);
+    }
 
     @Test
     void search_아이템명() {
-        assertThat(searchMapper.search("조던")).contains(searchItemDto1).hasSize(1);
-    }
-
-    @Test
-    void search_전체검색() {
-        assertThat(searchMapper.search("")).contains(searchItemDto1, searchItemDto2).hasSize(3);
+        assertThat(searchMapper.searchByCriteria(searchCriteriaWithItemName)).contains(
+            searchItemDto1).hasSize(1);
     }
 
     @Test
     void search_브랜드명() {
-        assertThat(searchMapper.search("adidas")).contains(searchItemDto2).hasSize(1);
+        assertThat(
+            searchMapper.searchByCriteria(searchCriteriaWithBrand).get(0).getBrandId()).isEqualTo(
+            brandInfo2.getId());
     }
 
     @Test
-    void findCount() {
-        assertThat(searchMapper.findCount("")).isEqualTo(3);
+    void search_사이즈() {
+        assertThat(
+            searchMapper.searchByCriteria(searchCriteriaWithSize).get(0).getItemName()).isEqualTo(
+            "에어포스");
+    }
+
+    @Test
+    void search_성별() {
+        assertThat(
+            searchMapper.searchByCriteria(searchCriteriaWithGender).get(0).getItemName()).isEqualTo(
+            "조던");
+    }
+
+    @Test
+    void search_카테고리() {
+        assertThat(searchMapper.searchByCriteria(searchCriteriaWithCategory)).hasSize(2);
+    }
+
+    @Test
+    void findAllCount() {
+        assertThat(searchMapper.findAllCount()).isEqualTo(3);
+    }
+
+    @Test
+    void findCountByCriteria() {
+        assertThat(searchMapper.findCountByCriteria(searchCriteriaWithCategory)).isEqualTo(2);
     }
 
     @Test
     void autoComplete() {
         assertThat(searchMapper.autoComplete(List.of("조던"))).contains(autoCompletedItemDto);
-    }
-
-    @Test
-    void searchByCategory() {
-        assertThat(searchMapper.searchByCategory("", new Long[]{itemCategoryInfo1.getId()}))
-            .contains(searchItemDto1);
     }
 }
