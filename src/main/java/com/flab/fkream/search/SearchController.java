@@ -16,15 +16,15 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @GetMapping()
-    public List<SearchItemDto> searchItem(@RequestParam String context,
-        @RequestParam(required = false) Long... categoryId) {
-        return searchService.search(context, categoryId);
+    @GetMapping("")
+    public List<SearchItemDto> searchItem(
+        @RequestParam(required = false) SearchCriteria searchCriteria) {
+        return searchService.search(searchCriteria);
     }
 
     @GetMapping("/count")
-    public int searchItemCount(@RequestParam String context) {
-        return searchService.findCount(context);
+    public int searchItemCount(@RequestParam(required = false) SearchCriteria searchCriteria) {
+        return searchService.findCount(searchCriteria);
     }
 
     @GetMapping("/autoComplete")

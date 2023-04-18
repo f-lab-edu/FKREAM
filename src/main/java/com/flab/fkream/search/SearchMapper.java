@@ -6,12 +6,15 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface SearchMapper {
 
-    List<SearchItemDto> search(String context);
+    List<SearchItemDto> searchAll();
 
-    int findCount(String context);
+    List<SearchItemDto> searchByCriteria(SearchCriteria searchCriteria);
+
+    int findAllCount();
+
+    int findCountByCriteria(SearchCriteria searchCriteria);
 
     List<AutoCompletedItemDto> autoComplete(List<String> result);
 
-    List<SearchItemDto> searchByCategory(String context, Long[] categoryId);
 
 }

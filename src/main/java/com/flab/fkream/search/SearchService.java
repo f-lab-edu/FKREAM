@@ -20,18 +20,20 @@ public class SearchService {
 
     private static final String CATEGORY_ERROR_MESSAGE = "잘못된 카테고리를 입력하셨습니다.";
 
-    public List<SearchItemDto> search(String context, Long... categoryId) {
-        if (categoryId == null || categoryId.length == 0) {
-            return searchMapper.search(context);
+    public List<SearchItemDto> search(SearchCriteria searchCriteria) {
+        if (searchCriteria == null) {
+            return searchMapper.searchAll();
         }
-        if (itemCategoryService.isValidCategoryId(categoryId)) {
-            return searchMapper.searchByCategory(context, categoryId);
-        }
-        throw new IllegalArgumentException(CATEGORY_ERROR_MESSAGE);
+        validateCriteria(searchCriteria);
+        return searchMapper.searchByCriteria(searchCriteria);
     }
 
-    public int findCount(String context) {
-        return searchMapper.findCount(context);
+    public int findCount(SearchCriteria searchCriteria) {
+        if (searchCriteria == null) {
+            return searchMapper.findAllCount();
+        }
+        validateCriteria(searchCriteria);
+        return searchMapper.findCountByCriteria(searchCriteria);
     }
 
     public List<AutoCompletedItemDto> autoComplete(String word) {
@@ -40,5 +42,12 @@ public class SearchService {
         }
         List<String> result = trie.search(word);
         return searchMapper.autoComplete(result);
+    }
+
+    private void validateCriteria(SearchCriteria searchCriteria) {
+        searchCriteria.Validation();
+        if (!itemCategoryService.isValidCategoryId(searchCriteria.getCategoryId())) {
+            throw new IllegalArgumentException(CATEGORY_ERROR_MESSAGE);
+        }
     }
 }
