@@ -1,9 +1,6 @@
 package com.flab.fkream.search;
 
-import com.flab.fkream.itemCategory.ItemCategory;
 import com.flab.fkream.itemCategory.ItemCategoryService;
-import com.flab.fkream.itemSizePrice.ItemSizePriceService;
-import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -45,7 +42,7 @@ public class SearchService {
     }
 
     private void validateCriteria(SearchCriteria searchCriteria) {
-        searchCriteria.Validation();
+        searchCriteria.validatePrice();
         if (!itemCategoryService.isValidCategoryId(searchCriteria.getCategoryId())) {
             throw new IllegalArgumentException(CATEGORY_ERROR_MESSAGE);
         }

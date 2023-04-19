@@ -9,21 +9,22 @@
            item.item_name as itemName,
            BR.id          as brandId,
            BR.brand_name  as brandName,
-           isp.lsp        as buyNowLowestPrice,
+           isp.lsp           as price,
+           deal.deal_count   as sortCriteria,
            img.id         as itemImgId,
            img.img_name   as imgName,
            img.img_url    as imgUrl
     from ITEM item
-           join ITEM_IMG img on item.ID = img.ITEM_ID
-           join BRAND BR on item.BRAND_ID = BR.id
-           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
-                 from ITEM_SIZE_PRICE
-                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
-           left join (select ITEM_ID, count(*) deal_count
-                      from DEAL
-                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    join ITEM_IMG img on item.ID = img.ITEM_ID
+    join BRAND BR on item.BRAND_ID = BR.id
+    join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+          from ITEM_SIZE_PRICE
+          group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+    left join (select ITEM_ID, count(*) deal_count
+               from DEAL
+               group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where IS_REPRESENTATIVE_IMG = true
-    order by deal.deal_count DESC;
+    order by deal.deal_count DESC
   </select>
 
   <select id="findAllCount" resultType="java.lang.Integer">
@@ -47,26 +48,63 @@
   </select>
 
   <select id="searchByCriteria" resultType="com.flab.fkream.search.SearchItemDto" parameterType="com.flab.fkream.search.SearchCriteria">
-    select item.id        as itemId,
+    select 
+        item.id        as itemId,
         item.item_name as itemName,
         BR.id          as brandId,
         BR.brand_name  as brandName,
-        isp.lsp        as buyNowLowestPrice,
+    <choose>
+      <when test="sort == null or sort.name =='POPULAR'">
+        isp.lsp           as price,
+        deal.deal_count   as sortCriteria,
+      </when>
+      <when test="sort != null and sort.name =='PREMIUM_DESC'">
+        isp.lsp           as price,
+        ROUND(CAST((isp.lsp - item.released_price) as DOUBLE)/CAST(item.released_price as DOUBLE)*100, 1) as sortCriteria,
+      </when>
+      <when test="sort != null and sort.name =='PREMIUM_ASC'">
+        isp.lsp           as price,
+        ROUND(CAST((isp.lsp - item.released_price) as DOUBLE)/CAST(item.released_price as DOUBLE)*100, 1) as sortCriteria,
+      </when>
+      <when test="sort != null and sort.name =='LOWEST_SELLING_PRICE'">
+        isp.lsp           as price,
+      </when>
+      <when test="sort != null and sort.name =='HIGHEST_PURCHASE_PRICE'">
+        ispSorted.hpp     as price,
+      </when>
+      <when test="sort != null and sort.name == 'RELEASE_DATE'">
+        isp.lsp        as price,
+        item.release_date   as sortCriteria,
+      </when>
+    </choose>
         img.id         as itemImgId,
         img.img_name   as imgName,
         img.img_url    as imgUrl
     from ITEM item
         join ITEM_IMG img on item.ID = img.ITEM_ID
         join BRAND BR on item.BRAND_ID = BR.id
-        <if test="size != null">
-          join item_size_price item_size on item.id = item_size.item_id
-        </if>
+    <if test="size != null">
+        join item_size_price as item_size on item.id = item_size.item_id
+    </if>
+    <choose>
+      <when test="sort != null and sort.name =='HIGHEST_PURCHASE_PRICE'">
+        join (select ITEM_ID, max(HIGHEST_PURCHASE_PRICE) hpp
+        from ITEM_SIZE_PRICE
+        group by ITEM_ID) ispSorted on item.ID = ispSorted.ITEM_ID
+      </when>
+      <otherwise>
         join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
-              from ITEM_SIZE_PRICE
-              group by ITEM_ID) isp on item.ID = isp.ITEM_ID
-        left join (select ITEM_ID, count(*) deal_count
-                   from DEAL
-                   group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+        from ITEM_SIZE_PRICE
+        group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+      </otherwise>
+    </choose>
+    <choose>
+      <when test="sort == null or sort.name =='POPULAR'">
+        left join (select ITEM_ID, count(*) as deal_count
+        from DEAL
+        group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+      </when>
+    </choose>
     <where>
       <if test="context != null">
         (item.item_name like '%' || #{context} || '%'
@@ -99,7 +137,26 @@
       </if>
       and IS_REPRESENTATIVE_IMG = true
     </where>
-    order by deal.deal_count DESC;
+    <choose>
+      <when test="sort == null or sort.name =='POPULAR'">
+        order by deal.deal_count DESC
+      </when>
+      <when test="sort != null and sort.name =='PREMIUM_DESC'">
+        order by ROUND(CAST((isp.lsp - item.released_price) as DOUBLE)/CAST(item.released_price as DOUBLE)*100, 1) DESC
+      </when>
+      <when test="sort != null and sort.name =='PREMIUM_ASC'">
+        order by ROUND(CAST((isp.lsp - item.released_price) as DOUBLE)/CAST(item.released_price as DOUBLE)*100, 1)
+      </when>
+      <when test="sort != null and sort.name =='LOWEST_SELLING_PRICE'">
+        order by isp.lsp
+      </when>
+      <when test="sort != null and sort.name =='HIGHEST_PURCHASE_PRICE'">
+        order by ispSorted.hpp DESC
+      </when>
+      <when test="sort != null and sort.name =='RELEASE_DATE'">
+        order by item.release_date DESC
+      </when>
+    </choose>
   </select>
 
   <select id="findCountByCriteria" resultType="java.lang.Integer" parameterType="com.flab.fkream.search.SearchCriteria">
@@ -107,7 +164,7 @@
     from ITEM item
         join BRAND BR on item.BRAND_ID = BR.id
         <if test="size != null">
-          join item_size_price item_size on item.id = item_size.item_id
+          join item_size_price as item_size on item.id = item_size.item_id
         </if>
         join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
               from ITEM_SIZE_PRICE

@@ -1,6 +1,5 @@
 package com.flab.fkream.search;
 
-import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,7 +19,7 @@ public class SearchItemDto {
 
     private String brandName;
 
-    private int buyNowLowestPrice;
+    private int price;
 
     private Long itemImgId;
 
@@ -28,4 +27,5 @@ public class SearchItemDto {
 
     private String imgUrl;
 
+    private String sortCriteria;
 }

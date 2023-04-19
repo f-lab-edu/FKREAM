@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 
 @Data
 @Builder
@@ -14,19 +13,18 @@ import lombok.RequiredArgsConstructor;
 public class SearchCriteria {
 
     private String context;
-    private String gender;
+    private ItemGender gender;
     private Long brandId;
     private String size;
     private Integer minPrice;
     private Integer maxPrice;
     private Long[] categoryId;
+    private SortCriteria sort;
+
     private static final String BAD_REQUEST_CRITERIA = "필터 기준을 잘못 입력했습니다";
 
-    public void Validation() {
+    public void validatePrice() {
         try {
-            if (gender != null) {
-                ItemGender.valueOf(gender);
-            }
             if (minPrice != null && maxPrice != null) {
                 if (minPrice > maxPrice) {
                     throw new IllegalArgumentException();
