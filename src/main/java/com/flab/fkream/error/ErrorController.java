@@ -2,7 +2,11 @@ package com.flab.fkream.error;
 
 
 
+
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import com.flab.fkream.error.exception.NoCardPasswordException;
+import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.error.exception.NotOwnedDataException;
 import org.springframework.dao.DataAccessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flab.fkream.error.exception.DuplicatedEmailException;
@@ -25,8 +29,18 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class ErrorController {
 
+
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity handleInvalidFormatException(InvalidFormatException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
+
+    @ExceptionHandler({NoDataFoundException.class, NoCardPasswordException.class})
+    public ResponseEntity handleDataException(Exception e){
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
+    @ExceptionHandler(NotOwnedDataException.class)
+    public ResponseEntity handleNotOwnedDataException(NotOwnedDataException e){
         return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
     }
 

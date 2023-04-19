@@ -14,5 +14,7 @@ public interface ItemSizePriceMapper {
 
 	ItemSizePrice findByItemIdAndSize(Long itemId, String size);
 
+	int update(ItemSizePrice itemSizePrice);
+
 	int delete(Long id);
 }

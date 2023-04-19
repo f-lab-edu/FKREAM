@@ -43,4 +43,16 @@ public class ItemSizePriceService {
     public void delete(Long id) {
         itemSizePriceMapper.delete(id);
     }
+
+    public void compareLowestSellingPrice(ItemSizePrice itemSizePrice, int price) {
+        if (itemSizePrice.getLowestSellingPrice() > price) {
+            itemSizePrice.setLowestSellingPrice(price);
+            itemSizePriceMapper.update(itemSizePrice);
+        }
+    }
+
+
+    public void update(ItemSizePrice itemSizePrice) {
+        itemSizePriceMapper.update(itemSizePrice);
+    }
 }
