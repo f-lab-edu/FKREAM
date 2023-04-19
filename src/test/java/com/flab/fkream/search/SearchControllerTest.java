@@ -1,20 +1,19 @@
 package com.flab.fkream.search;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.flab.fkream.item.ItemGender;
 import java.util.List;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 
 @WebMvcTest(SearchController.class)
@@ -33,7 +32,7 @@ class SearchControllerTest {
         .itemName("나이키 에어포스")
         .brandId(2L)
         .brandName("nike")
-        .buyNowLowestPrice(1000)
+        .price(1000)
         .itemImgId(2L)
         .imgName("test1234")
         .imgUrl("test")
@@ -47,7 +46,8 @@ class SearchControllerTest {
         .imgUrl("test")
         .build();
 
-    SearchCriteria searchCriteria = SearchCriteria.builder().context("nike").build();
+    SearchCriteria criteria = SearchCriteria.builder().context("nike").gender(ItemGender.MALE)
+        .build();
 
     @Test
     void searchAll() throws Exception {
@@ -57,10 +57,12 @@ class SearchControllerTest {
                 MediaType.APPLICATION_JSON));
     }
 
+
     @Test
     void searchItemByCriteria() throws Exception {
-        given(searchService.search(searchCriteria)).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/search?context=nike")).andExpect(status().isOk())
+        given(searchService.search(criteria)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/search?context=nike&gender=male")
+            ).andExpect(status().isOk())
             .andExpect(content().contentType(
                 MediaType.APPLICATION_JSON));
     }
@@ -74,8 +76,8 @@ class SearchControllerTest {
 
     @Test
     void searchItemCountByCriteria() throws Exception {
-        given(searchService.findCount(searchCriteria)).willReturn(20);
-        mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
+        given(searchService.findCount(criteria)).willReturn(20);
+        mockMvc.perform(get("/search/count?context=nike&gender=male")).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 

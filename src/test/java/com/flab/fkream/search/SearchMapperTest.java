@@ -17,6 +17,7 @@ import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -95,7 +96,18 @@ class SearchMapperTest {
     SearchCriteria searchCriteriaWithSize;
     SearchCriteria searchCriteriaWithPrice;
     SearchCriteria searchCriteriaWithGender;
-    SearchCriteria searchCriteria7;
+
+    SearchCriteria searchCriteriaWithPopular;
+
+    SearchCriteria searchCriteriaWithPremiumDesc;
+
+    SearchCriteria searchCriteriaWithPremiumAsc;
+
+    SearchCriteria searchCriteriaWithLowestSellingPrice;
+
+    SearchCriteria searchCriteriaWithHighestPurchasePrice;
+
+    SearchCriteria searchCriteriaWithReleaseDate;
 
 
     @BeforeEach
@@ -124,15 +136,15 @@ class SearchMapperTest {
 
         itemInfo1 = Item.builder().itemName("조던").modelNumber("jd-100").brand(brandInfo1)
             .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
-            .gender(ItemGender.MALE)
+            .gender(ItemGender.MALE).releasedPrice(10000).releaseDate(LocalDate.of(2020, 3, 5))
             .build();
         itemInfo2 = Item.builder().itemName("에어포스").modelNumber("af-200").brand(brandInfo1)
             .categoryId(itemCategoryInfo1.getId()).detailedCategoryId(detailedCategoryInfo1.getId())
-            .gender(ItemGender.FEMALE)
+            .gender(ItemGender.FEMALE).releasedPrice(60000).releaseDate(LocalDate.of(2020, 5, 5))
             .build();
         itemInfo3 = Item.builder().itemName("후드티").modelNumber("ss-300").brand(brandInfo2)
             .categoryId(itemCategoryInfo2.getId()).detailedCategoryId(detailedCategoryInfo2.getId())
-            .gender(ItemGender.KIDS)
+            .gender(ItemGender.KIDS).releasedPrice(60000)
             .build();
         itemMapper.save(itemInfo1);
         itemMapper.save(itemInfo2);
@@ -163,6 +175,7 @@ class SearchMapperTest {
             .lowestSellingPrice(60000).highestPurchasePrice(55000).build();
         itemSizePriceInfo6 = ItemSizePrice.builder().itemId(itemInfo3.getId()).size("300")
             .lowestSellingPrice(70000).highestPurchasePrice(65000).build();
+
         itemSizePriceMapper.save(itemSizePriceInfo1);
         itemSizePriceMapper.save(itemSizePriceInfo2);
         itemSizePriceMapper.save(itemSizePriceInfo3);
@@ -183,12 +196,12 @@ class SearchMapperTest {
 
         searchItemDto1 = SearchItemDto.builder().itemId(itemInfo1.getId())
             .itemName(itemInfo1.getItemName()).brandId(itemInfo1.getBrand().getId()).brandName(
-                itemInfo1.getBrand().getBrandName()).buyNowLowestPrice(20000).itemImgId(
+                itemInfo1.getBrand().getBrandName()).price(20000).itemImgId(
                 itemImgInfo1.getId()).imgName(itemImgInfo1.getImgName())
             .imgUrl(itemImgInfo1.getImgUrl()).build();
         searchItemDto2 = SearchItemDto.builder().itemId(itemInfo3.getId())
             .itemName(itemInfo3.getItemName()).brandId(itemInfo3.getBrand().getId()).brandName(
-                itemInfo3.getBrand().getBrandName()).buyNowLowestPrice(60000).itemImgId(
+                itemInfo3.getBrand().getBrandName()).price(60000).itemImgId(
                 itemImgInfo4.getId()).imgName(itemImgInfo4.getImgName())
             .imgUrl(itemImgInfo4.getImgUrl()).build();
 
@@ -203,45 +216,93 @@ class SearchMapperTest {
         searchCriteriaWithBrand = SearchCriteria.builder().brandId(brandInfo2.getId()).build();
         searchCriteriaWithSize = SearchCriteria.builder().size("270").build();
         searchCriteriaWithPrice = SearchCriteria.builder().minPrice(35000).maxPrice(45000).build();
-        searchCriteriaWithGender = SearchCriteria.builder().gender(ItemGender.MALE.toString()).build();
-
+        searchCriteriaWithGender = SearchCriteria.builder().gender(ItemGender.MALE).build();
+        searchCriteriaWithPopular = SearchCriteria.builder().sort(SortCriteria.POPULAR).build();
+        searchCriteriaWithPremiumAsc = SearchCriteria.builder().sort(SortCriteria.PREMIUM_ASC)
+            .build();
+        searchCriteriaWithPremiumDesc = SearchCriteria.builder().sort(SortCriteria.PREMIUM_DESC)
+            .build();
+        searchCriteriaWithLowestSellingPrice = SearchCriteria.builder()
+            .sort(SortCriteria.LOWEST_SELLING_PRICE).build();
+        searchCriteriaWithHighestPurchasePrice = SearchCriteria.builder()
+            .sort(SortCriteria.HIGHEST_PURCHASE_PRICE).build();
+        searchCriteriaWithReleaseDate = SearchCriteria.builder().sort(SortCriteria.RELEASE_DATE)
+            .build();
     }
 
 
     @Test
-    void searchAll() {
-        assertThat(searchMapper.searchAll()).contains(searchItemDto1).hasSize(3);
+    void 전체검색_거래량순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchAll();
+        assertThat(searchItemDtos).hasSize(3);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo2.getId());
+
     }
 
     @Test
-    void search_아이템명() {
-        assertThat(searchMapper.searchByCriteria(searchCriteriaWithItemName)).contains(
-            searchItemDto1).hasSize(1);
+    void 전체검색시_프리미엄_낮은순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchByCriteria(
+            searchCriteriaWithPremiumAsc);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo2.getId());
     }
 
     @Test
-    void search_브랜드명() {
+    void 전체검색시_프리미엄_높은순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchByCriteria(
+            searchCriteriaWithPremiumDesc);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo1.getId());
+    }
+
+    @Test
+    void 전체검색시_최저판매가순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchByCriteria(
+            searchCriteriaWithLowestSellingPrice);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo1.getId());
+    }
+
+    @Test
+    void 전체검색시_최고구매가순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchByCriteria(
+            searchCriteriaWithHighestPurchasePrice);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo3.getId());
+    }
+
+    @Test
+    void 전체검색시_발매일순() {
+        List<SearchItemDto> searchItemDtos = searchMapper.searchByCriteria(
+            searchCriteriaWithReleaseDate);
+        assertThat(searchItemDtos.get(0).getItemId()).isEqualTo(itemInfo2.getId());
+    }
+
+    @Test
+    void 검색_아이템명() {
+        assertThat(searchMapper.searchByCriteria(searchCriteriaWithItemName).get(0)
+            .getItemName()).isEqualTo("조던");
+    }
+
+    @Test
+    void 검색_브랜드() {
         assertThat(
             searchMapper.searchByCriteria(searchCriteriaWithBrand).get(0).getBrandId()).isEqualTo(
             brandInfo2.getId());
     }
 
     @Test
-    void search_사이즈() {
+    void 검색_사이즈() {
         assertThat(
             searchMapper.searchByCriteria(searchCriteriaWithSize).get(0).getItemName()).isEqualTo(
             "에어포스");
     }
 
     @Test
-    void search_성별() {
+    void 검색_성별() {
         assertThat(
             searchMapper.searchByCriteria(searchCriteriaWithGender).get(0).getItemName()).isEqualTo(
             "조던");
     }
 
     @Test
-    void search_카테고리() {
+    void 검색_카테고리() {
         assertThat(searchMapper.searchByCriteria(searchCriteriaWithCategory)).hasSize(2);
     }
 
