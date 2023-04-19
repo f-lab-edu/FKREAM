@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.brand.BrandService;
+import com.flab.fkream.search.Trie;
 import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -30,6 +31,9 @@ class ItemServiceTest {
     ItemMapper itemMapper;
     @Mock
     BrandService brandService;
+
+    @Mock
+    Trie trie;
     @InjectMocks
     ItemService itemService;
 
@@ -50,6 +54,7 @@ class ItemServiceTest {
     @Test
     void 아이템_생성() {
         given(itemMapper.save(itemInfo)).willReturn(1);
+        doNothing().when(trie).insert(itemInfo.getItemName());
         itemService.addItem(itemInfo);
         then(itemMapper).should().save(itemInfo);
     }
