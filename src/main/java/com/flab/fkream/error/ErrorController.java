@@ -2,6 +2,7 @@ package com.flab.fkream.error;
 
 
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import org.springframework.dao.DataAccessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.flab.fkream.error.exception.DuplicatedEmailException;
@@ -23,6 +24,11 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class ErrorController {
+
+    @ExceptionHandler(InvalidFormatException.class)
+    public ResponseEntity handleInvalidFormatException(InvalidFormatException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
 
     @ExceptionHandler(DataAccessException.class)
     public ResponseEntity handleMapperException(DataAccessException e) {
