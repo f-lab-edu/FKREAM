@@ -183,11 +183,11 @@ class SearchMapperTest {
         itemSizePriceMapper.save(itemSizePriceInfo5);
         itemSizePriceMapper.save(itemSizePriceInfo6);
 
-        dealInfo1 = Deal.builder().item(itemInfo1).user(userInfo1).price(14000).size("250").build();
-        dealInfo2 = Deal.builder().item(itemInfo1).user(userInfo1).price(24000).size("260").build();
-        dealInfo3 = Deal.builder().item(itemInfo2).user(userInfo2).price(34000).size("270").build();
-        dealInfo4 = Deal.builder().item(itemInfo2).user(userInfo2).price(44000).size("280").build();
-        dealInfo5 = Deal.builder().item(itemInfo2).user(userInfo1).price(34000).size("270").build();
+        dealInfo1 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(14000).size("250").build();
+        dealInfo2 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(24000).size("260").build();
+        dealInfo3 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(34000).size("270").build();
+        dealInfo4 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(44000).size("280").build();
+        dealInfo5 = Deal.builder().item(itemInfo2).userId(userInfo1.getId()).price(34000).size("270").build();
         dealMapper.save(dealInfo1);
         dealMapper.save(dealInfo2);
         dealMapper.save(dealInfo3);
