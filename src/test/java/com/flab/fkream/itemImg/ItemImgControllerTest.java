@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.mockito.BDDMockito;
 import org.mockito.Mockito;
@@ -40,7 +41,7 @@ class ItemImgControllerTest {
             .modelNumber("NK22035")
             .categoryId(1L)
             .detailedCategoryId(2L)
-            .releaseDate(LocalDateTime.now())
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(new Brand())

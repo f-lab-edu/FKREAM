@@ -5,6 +5,7 @@ import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemService;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -39,7 +40,7 @@ public class ItemTest {
             Item.builder()
                 .itemName("나이키 에어포스")
                 .modelNumber("NK22035")
-                .releaseDate(LocalDateTime.now())
+                .releaseDate(LocalDate.now())
                 .representativeColor("Black")
                 .releasedPrice(10000)
                 .brand(brand)

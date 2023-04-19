@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,7 +35,7 @@ class ItemSizePriceMapperTest {
             .modelNumber("NK22035")
             .categoryId(1L)
             .detailedCategoryId(2L)
-            .releaseDate(LocalDateTime.now())
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(new Brand())

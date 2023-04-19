@@ -3,6 +3,7 @@ package com.flab.fkream.itemImg;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -30,7 +31,7 @@ class ItemImgMapperTest {
             .modelNumber("NK22035")
             .categoryId(1L)
             .detailedCategoryId(2L)
-            .releaseDate(LocalDateTime.now())
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(new Brand())

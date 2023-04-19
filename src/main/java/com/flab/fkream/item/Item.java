@@ -1,6 +1,7 @@
 package com.flab.fkream.item;
 
 import com.flab.fkream.itemCategory.ItemCategory;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.flab.fkream.brand.Brand;
@@ -26,8 +27,8 @@ public class Item {
     @NotNull
     private Long detailedCategoryId;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDateTime releaseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate releaseDate;
 
     @NotNull
     private String representativeColor;
