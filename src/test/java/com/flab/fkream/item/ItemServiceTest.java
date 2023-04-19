@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.brand.BrandService;
+import java.time.LocalDate;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -38,9 +39,9 @@ class ItemServiceTest {
         Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
+            .categoryId(1L)
+            .detailedCategoryId(2L)
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(brand)

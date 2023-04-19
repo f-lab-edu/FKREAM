@@ -27,6 +27,13 @@
         from BRAND
     </select>
 
+    <select id="findByBrandName" resultType="com.flab.fkream.brand.Brand" resultMap="BrandResultMap">
+        select *
+        from BRAND
+        where brand_name = #{brandName}
+    </select>
+
+
     <update id="update">
         update BRAND
         set brand_name = #{brandName},

@@ -3,10 +3,12 @@ mybatis:
 
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/fkream
+    url: jdbc:log4jdbc:h2:tcp://localhost/~/fkream
+    #url: jdbc:h2:tcp://localhost/~/fkream
     username: sa
     password:
-    driver-class-name: org.h2.Driver
+    #driver-class-name: org.h2.Driver
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   cache:
     jcache:
       config: classpath:ehcache.xml
@@ -15,6 +17,9 @@ spring:
       mode: always
       schema-locations:
         - classpath:db_sql/schema.sql
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
 # 테스트시는 이것을 빼야 돌아간다. 있으면 에러걸림
 #     data-locations:
 #       - classpath:db_sql/data.sql
@@ -23,4 +28,21 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: INFO
+    javax:
+      sql:
+        DataSource: OFF
+    jdbc:
+      audit: OFF # JDBC 트러블슈팅 경우를 제외하고는 사용 권장 X
+      resultset: OFF # ResultSet을 포함한 모든 JDBC 호출 정보를 출력
+      resultsettable: INFO  #SQL 결과 데이터 Table형식으로 출력
+      sqlonly: OFF    #SQL만 로그만 출력
+      sqltiming: INFO    #SQL + 소요시간 출력
+      connection : OFF  # 커넥션 연결/종료 정보 출력
+
 #  org.hibernate.type: trace

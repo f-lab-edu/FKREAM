@@ -80,8 +80,8 @@ CREATE TABLE `item`
     `id`                   int PRIMARY KEY AUTO_INCREMENT,
     `item_name`            varchar(255),
     `model_number`         varchar(255),
-    `category1`            varchar(255),
-    `category2`            varchar(255),
+    `category_id`          int,
+    `detailed_category_id` int,
     `gender`               varchar(255),
     `release_date`         timestamp,
     `representative_color` varchar(255),
@@ -92,6 +92,15 @@ CREATE TABLE `item`
     `modified_at`          timestamp,
     `manager_id`           int
 );
+
+CREATE TABLE `item_category`
+(
+    `id`                 int PRIMARY KEY AUTO_INCREMENT,
+    `category_name`      varchar(255) unique,
+    `parent_category_id` int,
+    foreign key (`parent_category_id`) references ITEM_CATEGORY (id)
+);
+
 
 CREATE TABLE `item_size_price`
 (

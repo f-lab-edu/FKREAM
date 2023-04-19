@@ -2,6 +2,7 @@ package com.flab.fkream.item;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
+import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -29,9 +30,9 @@ class ItemMapperTest {
         Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
+            .categoryId(1L)
+            .categoryId(2L)
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(brandInfo)
@@ -70,9 +71,9 @@ class ItemMapperTest {
                 .id(id)
                 .itemName("나이키 에어포스")
                 .modelNumber("NK22035")
-                .category1("신발")
-                .category2("스니커즈")
-                .releaseDate(LocalDateTime.now())
+                .categoryId(1L)
+                .detailedCategoryId(2L)
+                .releaseDate(LocalDate.now())
                 .representativeColor("Black")
                 .releasedPrice(10)
                 .brand(brandInfo)

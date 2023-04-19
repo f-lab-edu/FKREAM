@@ -102,5 +102,4 @@
     from deal
     where id = #{id}
   </delete>
-
 </mapper>

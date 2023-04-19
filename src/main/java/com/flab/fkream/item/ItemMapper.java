@@ -1,5 +1,6 @@
 package com.flab.fkream.item;
 
+import com.flab.fkream.brand.Brand;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -19,4 +20,6 @@ public interface ItemMapper {
     int update(Item itemInfo);
 
     int delete(Long id);
+
+    List<Item> findByBrand(Brand brand);
 }
