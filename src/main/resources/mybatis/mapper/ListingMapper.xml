@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.fkream.listing.ListingMapper">
+
+  <select id="generateRecommendedItemsListForMen"
+    resultType="com.flab.fkream.search.SearchItemDto">
+    select
+    item.id        as itemId,
+    item.item_name as itemName,
+    BR.id          as brandId,
+    BR.brand_name  as brandName,
+    isp.lsp        as price,
+    img.id         as itemImgId,
+    img.img_name   as imgName,
+    img.img_url    as imgUrl,
+    deal.deal_count as sortCriteria
+    from ITEM item
+    join ITEM_IMG img on item.ID = img.ITEM_ID
+    join BRAND BR on item.BRAND_ID = BR.id
+    join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+          from ITEM_SIZE_PRICE
+          group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+    left join (select ITEM_ID, count(*) as deal_count
+               from DEAL
+               where created_at BETWEEN #{param2} AND #{param1}
+               and kind_of_deal = 'PURCHASE'
+               group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where item.gender = 'MALE'
+      and IS_REPRESENTATIVE_IMG = true
+    order by deal.deal_count DESC
+    limit 20
+  </select>
+  <select id="generateRecommendedItemsListForWomen"
+    resultType="com.flab.fkream.search.SearchItemDto">
+    select
+      item.id        as itemId,
+      item.item_name as itemName,
+      BR.id          as brandId,
+      BR.brand_name  as brandName,
+      isp.lsp        as price,
+      img.id         as itemImgId,
+      img.img_name   as imgName,
+      img.img_url    as imgUrl,
+      deal.deal_count as sortCriteria
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where created_at BETWEEN #{param2} AND #{param1}
+                        and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where item.gender = 'FEMALE'
+      and IS_REPRESENTATIVE_IMG = true
+    order by deal.deal_count DESC
+      limit 20
+  </select>
+  <select id="generateItemsBelowReleasedPrice"
+    resultType="com.flab.fkream.search.SearchItemDto">
+    select
+      item.id        as itemId,
+      item.item_name as itemName,
+      BR.id          as brandId,
+      BR.brand_name  as brandName,
+      isp.lsp        as price,
+      img.id         as itemImgId,
+      img.img_name   as imgName,
+      img.img_url    as imgUrl,
+      deal.deal_count as sortCriteria
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where created_at BETWEEN #{param2} AND #{param1}
+                        and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where 0 > isp.lsp - item.released_price
+      and IS_REPRESENTATIVE_IMG = true
+    order by deal.deal_count DESC
+      limit 20
+  </select>
+  <select id="generatePopularLuxuryItems"
+    resultType="com.flab.fkream.search.SearchItemDto">
+    select
+      item.id        as itemId,
+      item.item_name as itemName,
+      BR.id          as brandId,
+      BR.brand_name  as brandName,
+      isp.lsp        as price,
+      img.id         as itemImgId,
+      img.img_name   as imgName,
+      img.img_url    as imgUrl,
+      deal.deal_count as sortCriteria
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where created_at BETWEEN #{param2} AND #{param1}
+                        and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where BR.IS_LUXURY = true
+      and IS_REPRESENTATIVE_IMG = true
+    order by deal.deal_count DESC
+      limit 20
+  </select>
+
+  <select id="generateMostPopularItems"
+    resultType="com.flab.fkream.search.SearchItemDto">
+    select
+      item.id        as itemId,
+      item.item_name as itemName,
+      BR.id          as brandId,
+      BR.brand_name  as brandName,
+      isp.lsp        as price,
+      img.id         as itemImgId,
+      img.img_name   as imgName,
+      img.img_url    as imgUrl,
+      deal.deal_count as sortCriteria
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+    where IS_REPRESENTATIVE_IMG = true
+    order by deal.deal_count DESC
+      limit 20
+  </select>
+  <select id="generatePopularSneakers" resultType="com.flab.fkream.search.SearchItemDto">
+    select
+      item.id        as itemId,
+      item.item_name as itemName,
+      BR.id          as brandId,
+      BR.brand_name  as brandName,
+      isp.lsp        as price,
+      img.id         as itemImgId,
+      img.img_name   as imgName,
+      img.img_url    as imgUrl,
+      deal.deal_count - deal2.deal_count2 as sortCriteria
+    from ITEM item
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join ITEM_CATEGORY ic on item.detailed_category_id = ic.id
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where created_at BETWEEN #{param2} AND #{param1}
+                        and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count2
+                      from DEAL
+                      where created_at BETWEEN #{param3} AND #{param2}
+                      and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal2 on item.ID = deal2.ITEM_ID
+    where  ic.category_name = '스니커즈'
+      and IS_REPRESENTATIVE_IMG = true
+      and deal.deal_count - deal2.deal_count2 > 0
+    order by deal.deal_count - deal2.deal_count2 DESC
+      limit 20
+  </select>
+</mapper>
