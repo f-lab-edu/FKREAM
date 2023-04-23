@@ -17,13 +17,13 @@ public class ListingService {
     public List<SearchItemDto> generateRecommendedItemsListForMen() {
         LocalDate now = LocalDate.now();
         LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generateRecommendedItemsListForMen(now, lastMonth);
+        return listingMapper.generateRecommendedItemsForMen(now, lastMonth);
     }
 
     public List<SearchItemDto> generateRecommendedItemsListForWomen() {
         LocalDate now = LocalDate.now();
         LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generateRecommendedItemsListForWomen(now, lastMonth);
+        return listingMapper.generateRecommendedItemsForWomen(now, lastMonth);
     }
 
     public List<SearchItemDto> generateItemsBelowReleasedPrice() {

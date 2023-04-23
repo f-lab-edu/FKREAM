@@ -1,7 +1,6 @@
 package com.flab.fkream.listing;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
@@ -9,12 +8,10 @@ import com.flab.fkream.deal.DealMapper;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
 import com.flab.fkream.item.ItemMapper;
-import com.flab.fkream.itemCategory.ItemCategory;
 import com.flab.fkream.itemCategory.ItemCategoryMapper;
 import com.flab.fkream.search.SearchItemDto;
 import java.time.LocalDate;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +39,7 @@ class ListingMapperTest {
 
     @Test
     void generateRecommendedItemsListForMen() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsListForMen(now,
+        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForMen(now,
             lastMonth);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
@@ -52,7 +49,7 @@ class ListingMapperTest {
 
     @Test
     void generateRecommendedItemsListForWomen() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsListForWomen(now,
+        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForWomen(now,
             lastMonth);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());

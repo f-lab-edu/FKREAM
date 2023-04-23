@@ -1,6 +1,5 @@
 package com.flab.fkream.listing;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import com.flab.fkream.search.SearchItemDto;
@@ -8,7 +7,6 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -26,21 +24,21 @@ class ListingServiceTest {
 
     @Test
     void generateRecommendedItemsListForMen() {
-        given(listingMapper.generateRecommendedItemsListForMen(LocalDate.now(),
+        given(listingMapper.generateRecommendedItemsForMen(LocalDate.now(),
             LocalDate.now().minusMonths(1))).willReturn(
             List.of(searchItemDto));
         listingService.generateRecommendedItemsListForMen();
-        then(listingMapper).should().generateRecommendedItemsListForMen(LocalDate.now(),
+        then(listingMapper).should().generateRecommendedItemsForMen(LocalDate.now(),
             LocalDate.now().minusMonths(1));
     }
 
     @Test
     void generateRecommendedItemsListForWomen() {
-        given(listingMapper.generateRecommendedItemsListForWomen(LocalDate.now(),
+        given(listingMapper.generateRecommendedItemsForWomen(LocalDate.now(),
             LocalDate.now().minusMonths(1))).willReturn(
             List.of(searchItemDto));
         listingService.generateRecommendedItemsListForWomen();
-        then(listingMapper).should().generateRecommendedItemsListForWomen(LocalDate.now(),
+        then(listingMapper).should().generateRecommendedItemsForWomen(LocalDate.now(),
             LocalDate.now().minusMonths(1));
     }
 

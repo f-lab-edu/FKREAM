@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.fkream.listing.ListingMapper">
 
-  <select id="generateRecommendedItemsListForMen"
+  <select id="generateRecommendedItemsForMen"
     resultType="com.flab.fkream.search.SearchItemDto">
     select
     item.id        as itemId,
@@ -31,7 +31,7 @@
     order by deal.deal_count DESC
     limit 20
   </select>
-  <select id="generateRecommendedItemsListForWomen"
+  <select id="generateRecommendedItemsForWomen"
     resultType="com.flab.fkream.search.SearchItemDto">
     select
       item.id        as itemId,
