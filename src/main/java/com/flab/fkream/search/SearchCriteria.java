@@ -1,6 +1,7 @@
 package com.flab.fkream.search;
 
 import com.flab.fkream.item.ItemGender;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class SearchCriteria {
+public class SearchCriteria implements Serializable {
 
     private String context;
     private ItemGender gender;
