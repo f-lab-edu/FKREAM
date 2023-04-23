@@ -28,7 +28,7 @@ public class SearchCriteria implements Serializable {
         try {
             if (minPrice != null && maxPrice != null) {
                 if (minPrice > maxPrice) {
-                    throw new IllegalArgumentException("최소가격이 최대 가격보다 클 수 없습니다.");
+                    throw new IllegalArgumentException("최소 가격이 최대 가격보다 클 수 없습니다.");
                 }
             }
             if (minPrice == null ^ maxPrice == null) {
