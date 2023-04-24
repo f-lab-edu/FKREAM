@@ -9,7 +9,10 @@ import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import com.flab.fkream.utils.SessionUtil;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -95,6 +98,8 @@ public class DealService {
         deal.setStatus(Status.COMPLETION);
         Deal otherDeal = findById(deal.getOtherId());
         otherDeal.setStatus(Status.COMPLETION);
+        deal.setTradingDayToNow();
+        otherDeal.setTradingDayToNow();
         update(deal);
         update(otherDeal);
     }
@@ -119,6 +124,54 @@ public class DealService {
     public void delete(Long id) {
         findById(id);
         dealMapper.delete(id);
+    }
+
+    public List<MarketPriceDto> findMarketPriceInGraph(Long itemId, String period, String size) {
+        LocalDate ago = getPeriod(period);
+        return dealMapper.findMarketPricesInGraph(itemId, ago, size);
+    }
+
+    public List<MarketPriceDto> findMarketPrices(Long itemId, String size) {
+        return dealMapper.findMarketPrices(itemId, size);
+    }
+
+    public List<BiddingPriceDto> findBiddingPrices(Long itemId, String size,
+        KindOfDeal kindOfDeal) {
+        return dealMapper.findBiddingPrices(itemId, size, kindOfDeal);
+    }
+
+    public Map<Status, Integer> findHistoryCount(KindOfDeal kindOfDeal) {
+        Long userId = SessionUtil.getLoginUserId();
+        List<DealHistoryCountDto> historyCountDtos = dealMapper.findHistoryCount(userId,
+            kindOfDeal);
+        Map<Status, Integer> historyCounts = new HashMap<>();
+        for (DealHistoryCountDto historyCountDto : historyCountDtos) {
+            historyCounts.put(historyCountDto.getStatus(), historyCountDto.getCount());
+        }
+        return historyCounts;
+    }
+
+    public List<DealHistoryDto> findPurchaseHistories(Status status) {
+        Long userId = SessionUtil.getLoginUserId();
+        return dealMapper.findPurchaseHistories(userId, status);
+    }
+
+    public List<DealHistoryDto> findSaleHistories(Status status) {
+        Long userId = SessionUtil.getLoginUserId();
+        return dealMapper.findSaleHistories(userId, status);
+    }
+
+    private LocalDate getPeriod(String period) {
+        if (period == null || period.equals("ALL")) {
+            return null;
+        }
+        if (period.charAt(1) == 'Y') {
+            return LocalDate.now().minusYears(1);
+        }
+        if (period.charAt(1) == 'M') {
+            return LocalDate.now().minusMonths(Character.getNumericValue(period.charAt(0)));
+        }
+        return null;
     }
 
     private void immediateSale(Deal deal) {

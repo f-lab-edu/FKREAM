@@ -1,5 +1,6 @@
 package com.flab.fkream.deal;
 
+import java.time.LocalDate;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -23,4 +24,16 @@ public interface DealMapper {
     int findHighestPurchasePriceByItemIdAndSize(Long itemId, String size);
 
     int findLowestSalePriceByItemIdAndSize(Long itemId, String size);
+
+    List<MarketPriceDto> findMarketPrices(Long itemId, String size);
+
+    List<MarketPriceDto> findMarketPricesInGraph(Long itemId, LocalDate period, String size);
+
+    List<BiddingPriceDto> findBiddingPrices(Long itemId, String size, KindOfDeal kindOfDeal);
+
+    List<DealHistoryCountDto> findHistoryCount(Long userId, KindOfDeal kindOfDeal);
+
+    List<DealHistoryDto> findPurchaseHistories(Long userId, Status status);
+
+    List<DealHistoryDto> findSaleHistories(Long userId, Status status);
 }
