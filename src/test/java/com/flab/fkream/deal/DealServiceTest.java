@@ -10,7 +10,6 @@ import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import com.flab.fkream.utils.SessionUtil;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -82,6 +81,12 @@ class DealServiceTest {
         .salesCondition(true)
         .status(Status.BIDDING)
         .build();
+
+    MarketPriceDto marketPriceDto = MarketPriceDto.builder().size("260").build();
+    BiddingPriceDto biddingPriceDto = BiddingPriceDto.builder().build();
+    DealHistoryDto dealHistoryDto = DealHistoryDto.builder().build();
+    DealHistoryCountDto dealHistoryCountDto = DealHistoryCountDto.builder()
+        .status(Status.COMPLETION).count(5).build();
 
     @Test
     void saveSale_입찰() {
@@ -272,5 +277,57 @@ class DealServiceTest {
         sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
         dealService.delete(1L);
         then(dealMapper).should().delete(1L);
+    }
+
+    @Test
+    void findMarketPriceInGraph() {
+        given(dealMapper.findMarketPricesInGraph(1L, LocalDate.of(2023, 03, 24), "260"))
+            .willReturn(List.of(marketPriceDto));
+        assertThat(dealService.findMarketPriceInGraph(1L, "1M", "260")).contains(marketPriceDto);
+        then(dealMapper).should().findMarketPricesInGraph(1L, LocalDate.of(2023, 03, 24), "260");
+    }
+
+    @Test
+    void findMarketPrices() {
+        given(dealMapper.findMarketPrices(1L, "255")).willReturn(List.of(marketPriceDto));
+        assertThat(dealService.findMarketPrices(1L, "255")).contains(marketPriceDto);
+        then(dealMapper).should().findMarketPrices(1L, "255");
+    }
+
+    @Test
+    void findBiddingPrices() {
+        given(dealMapper.findBiddingPrices(1L, "255", KindOfDeal.SALE)).willReturn(
+            List.of(biddingPriceDto));
+        assertThat(dealService.findBiddingPrices(1L, "255", KindOfDeal.SALE)).contains(
+            biddingPriceDto);
+        then(dealMapper).should().findBiddingPrices(1L, "255", KindOfDeal.SALE);
+    }
+
+    @Test
+    void findHistoryCount() {
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
+        given(dealMapper.findHistoryCount(1L, KindOfDeal.SALE)).willReturn(
+            List.of(dealHistoryCountDto));
+        assertThat(dealService.findHistoryCount(KindOfDeal.SALE)).containsEntry(Status.COMPLETION,
+            5);
+        then(dealMapper).should().findHistoryCount(1L, KindOfDeal.SALE);
+    }
+
+    @Test
+    void findPurchaseHistory() {
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
+        given(dealMapper.findPurchaseHistories(1L, Status.COMPLETION)).willReturn(
+            List.of(dealHistoryDto));
+        assertThat(dealService.findPurchaseHistories(Status.COMPLETION)).contains(dealHistoryDto);
+        then(dealMapper).should().findPurchaseHistories(1L, Status.COMPLETION);
+    }
+
+    @Test
+    void findSaleHistory() {
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
+        given(dealMapper.findSaleHistories(1L, Status.COMPLETION)).willReturn(
+            List.of(dealHistoryDto));
+        assertThat(dealService.findSaleHistories(Status.COMPLETION)).contains(dealHistoryDto);
+        then(dealMapper).should().findSaleHistories(1L, Status.COMPLETION);
     }
 }

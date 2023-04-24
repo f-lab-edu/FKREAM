@@ -10,8 +10,8 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -65,6 +65,11 @@ class DealControllerTest {
         .status(Status.BIDDING)
         .build();
 
+    MarketPriceDto marketPriceDto = MarketPriceDto.builder().size("260").build();
+    BiddingPriceDto biddingPriceDto = BiddingPriceDto.builder().build();
+
+    DealHistoryDto dealHistoryDto = DealHistoryDto.builder().build();
+
     @Test
     void sales() throws Exception {
         doNothing().when(dealService).sale(saleDealInfo);
@@ -113,6 +118,66 @@ class DealControllerTest {
         doNothing().when(dealService).delete(1L);
         mockMvc.perform(MockMvcRequestBuilders.delete("/deals/1")).andExpect(status().isOk());
     }
+
+    @Test
+    void findMarketPriceInGraph() throws Exception {
+        given(dealService.findMarketPriceInGraph(1L, "1Y", "260")).willReturn(
+            List.of(marketPriceDto));
+        given(dealService.findMarketPriceInGraph(1L, null, null)).willReturn(
+            List.of(marketPriceDto));
+
+        mockMvc.perform(get("/deals/market-prices-in-graph")
+            .param("itemId", "1")
+            .param("period", "1Y")
+            .param("size", "260")).andExpect(status().isOk());
+        mockMvc.perform(get("/deals/market-prices-in-graph")
+            .param("itemId", "1")).andExpect(status().isOk());
+    }
+
+    @Test
+    void findMarketPrices() throws Exception {
+        given(dealService.findMarketPrices(1L, "260")).willReturn(List.of(marketPriceDto));
+        mockMvc.perform(get("/deals/market-prices")
+                .param("itemId", "1")
+                .param("size", "255"))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void findBiddingPrices() throws Exception {
+        given(dealService.findBiddingPrices(1L, "255", KindOfDeal.PURCHASE))
+            .willReturn(List.of(biddingPriceDto));
+        mockMvc.perform(get("/deals/bidding-prices")
+                .param("itemId", "1")
+                .param("size", "255")
+                .param("kindOfDeal", "PURCHASE"))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void findHistoryCount() throws Exception {
+        DealHistoryCountDto dealHistoryCountDto = DealHistoryCountDto.builder().build();
+        given(dealService.findHistoryCount(KindOfDeal.PURCHASE)).willReturn(
+            Map.of());
+        mockMvc.perform(get("/deals/history-counts")
+            .param("kindOfDeal", "PURCHASE")).andExpect(status().isOk());
+    }
+
+    @Test
+    void findPurchaseHistory() throws Exception {
+        given(dealService.findPurchaseHistories(Status.BIDDING)).willReturn(
+            List.of(dealHistoryDto));
+        mockMvc.perform(get("/deals/purchase-histories").param("status", "BIDDING"))
+            .andExpect(status().isOk());
+    }
+
+    @Test
+    void findSaleHistory() throws Exception {
+        given(dealService.findSaleHistories(Status.BIDDING)).willReturn(List.of(dealHistoryDto));
+        mockMvc.perform(get("/deals/sale-histories").param("status", "BIDDING"))
+            .andExpect(status().isOk());
+    }
+
 
     private String getContent(Deal deal) throws JsonProcessingException {
         return new ObjectMapper().registerModule(new JavaTimeModule()).writeValueAsString(deal);
