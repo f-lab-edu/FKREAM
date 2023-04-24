@@ -47,7 +47,7 @@ public class Deal {
     private Long otherId;
 
     private LocalDateTime createdAt;
-
+    private LocalDate tradingDay;
 
     public void setKindOfDealToSale(){
         kindOfDeal = KindOfDeal.SALE;
@@ -64,4 +64,6 @@ public class Deal {
     public void setCreatedAtToNow(){
         createdAt = LocalDateTime.now();
     }
+
+    public void setTradingDayToNow() { tradingDay = LocalDate.now();}
 }
