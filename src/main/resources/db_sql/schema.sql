@@ -131,12 +131,13 @@ CREATE TABLE `deal`
     `user_id`            int,
     `price`              int,
     `size`               varchar(255),
-    `period`             varchar(255),
+    `period`             timestamp,
     `utilization_policy` boolean,
     `sales_condition`    boolean,
     `status`             varchar(255),
     `other_id`           int,
-    `created_at`         timestamp
+    `created_at`         timestamp,
+    `trading_day`        timestamp
 );
 
 CREATE TABLE `interested_item`
