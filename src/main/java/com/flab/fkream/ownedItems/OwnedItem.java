@@ -1,5 +1,7 @@
 package com.flab.fkream.ownedItems;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -14,8 +16,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OwnedItem {
-	private Long id;
-	private Long userId;
-	private Long itemSizePriceId;
-	private int purchasePrice;
+
+    private Long id;
+    @NotNull
+    private Long userId;
+    @NotNull
+    private Long itemSizePriceId;
+    @Min(value = 30000, message = "Purchase price must be at least 30,000")
+    private int purchasePrice;
 }
