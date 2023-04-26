@@ -14,10 +14,13 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "id")
 @ToString
 public class Notification {
-    private Long id;
-  private final User user;
-    private final InterestedItem interestedItem;
-    private final NotificationType notificationType;
-    private final LocalDateTime createdAt;
 
+    private Long id;
+    private Long userId;
+    private Long itemId;
+    private Long dealId;
+    private String title;
+    private String context;
+    private NotificationType notificationType;
+    private LocalDateTime createdAt;
 }
