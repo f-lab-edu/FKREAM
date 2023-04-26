@@ -70,8 +70,11 @@ CREATE TABLE `notification`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `user_id`            int,
-    `interested_item_id` int,
-    `type`               varchar(255),
+    `item_id`            int,
+    `deal_id`            int,
+    `title`             varchar(255),
+    `context`           varchar(255),
+    `notification_type`  varchar(255),
     `created_at`         timestamp
 );
 
@@ -139,6 +142,13 @@ CREATE TABLE `deal`
     `created_at`         timestamp
 );
 
+CREATE TABLE `FCM_token`
+(
+    `user_id`            int primary key,
+    `token`              varchar(255),
+    foreign key (`user_id`) references USERS (id)
+);
+
 CREATE TABLE `interested_item`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
@@ -174,7 +184,10 @@ ALTER TABLE `notification`
     ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 ALTER TABLE `notification`
-    ADD FOREIGN KEY (`interested_item_id`) REFERENCES `interested_item` (`id`);
+    ADD FOREIGN KEY (`item_id`) REFERENCES `item` (`id`);
+
+ALTER TABLE `notification`
+    ADD FOREIGN KEY (`deal_id`) REFERENCES `deal` (`id`);
 
 ALTER TABLE `item`
     ADD FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`);
