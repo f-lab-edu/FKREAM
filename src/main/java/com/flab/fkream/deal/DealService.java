@@ -5,6 +5,7 @@ import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.error.exception.NoRequestHigherPriceThenImmediatePurchaseException;
 import com.flab.fkream.error.exception.NoRequestLowerPriceThenImmediateSaleException;
 import com.flab.fkream.error.exception.NotOwnedDataException;
+import com.flab.fkream.event.CustomEventPublisher;
 import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
@@ -25,6 +26,8 @@ public class DealService {
     private final ItemService itemService;
 
     private final ItemSizePriceService itemSizePriceService;
+
+    private final CustomEventPublisher eventPublisher;
 
 
     @Transactional
@@ -97,6 +100,8 @@ public class DealService {
         otherDeal.setStatus(Status.COMPLETION);
         update(deal);
         update(otherDeal);
+        eventPublisher.publishDealStatusChangeEvent(deal);
+        eventPublisher.publishDealStatusChangeEvent(otherDeal);
     }
 
     @Transactional
@@ -107,6 +112,8 @@ public class DealService {
         otherDeal.setStatus(Status.CANCEL);
         update(deal);
         update(otherDeal);
+        eventPublisher.publishDealStatusChangeEvent(deal);
+        eventPublisher.publishDealStatusChangeEvent(otherDeal);
     }
 
     public void update(Deal deal) {
@@ -123,22 +130,26 @@ public class DealService {
 
     private void immediateSale(Deal deal) {
         deal.setStatus(Status.PROGRESS);
-        Deal purchaseHistory = findBuyNowDeal(deal);
-        purchaseHistory.setStatus(Status.PROGRESS);
-        deal.setOtherId(purchaseHistory.getId());
+        Deal correspondingDeal = findBuyNowDeal(deal);
+        correspondingDeal.setStatus(Status.PROGRESS);
+        deal.setOtherId(correspondingDeal.getId());
         dealMapper.save(deal);
-        purchaseHistory.setOtherId(deal.getId());
-        dealMapper.update(purchaseHistory);
+        correspondingDeal.setOtherId(deal.getId());
+        dealMapper.update(correspondingDeal);
+        eventPublisher.publishDealStatusChangeEvent(deal);
+        eventPublisher.publishDealStatusChangeEvent(correspondingDeal);
     }
 
     private void immediatePurchase(Deal deal) {
         deal.setStatus(Status.PROGRESS);
-        Deal saleHistory = findSellNowDeal(deal);
-        saleHistory.setStatus(Status.PROGRESS);
-        deal.setOtherId(saleHistory.getId());
+        Deal correspondingDeal = findSellNowDeal(deal);
+        correspondingDeal.setStatus(Status.PROGRESS);
+        deal.setOtherId(correspondingDeal.getId());
         dealMapper.save(deal);
-        saleHistory.setOtherId(deal.getId());
-        dealMapper.update(saleHistory);
+        correspondingDeal.setOtherId(deal.getId());
+        dealMapper.update(correspondingDeal);
+        eventPublisher.publishDealStatusChangeEvent(deal);
+        eventPublisher.publishDealStatusChangeEvent(correspondingDeal);
     }
 
     private void bidSale(Deal deal) {
@@ -161,6 +172,7 @@ public class DealService {
             if (deal.getKindOfDeal() == KindOfDeal.SALE) {
                 if (deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
                     itemSizePrice.setLowestSellingPrice(deal.getPrice());
+                    eventPublisher.publishInstantPurchasePriceChangeEvent(itemSizePrice.getId(), deal.getItem().getItemName());
                 }
             }
         }
@@ -169,7 +181,14 @@ public class DealService {
                 itemSizePrice.getItemId(), itemSizePrice.getSize());
             int lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(
                 itemSizePrice.getItemId(), itemSizePrice.getSize());
-            itemSizePrice.changePrice(highestPurchasePrice, lowestSalePrice);
+
+            if (highestPurchasePrice > itemSizePrice.getHighestPurchasePrice()) {
+                itemSizePrice.setHighestPurchasePrice(highestPurchasePrice);
+            }
+            if (lowestSalePrice < itemSizePrice.getLowestSellingPrice()) {
+                itemSizePrice.setLowestSellingPrice(lowestSalePrice);
+                eventPublisher.publishInstantPurchasePriceChangeEvent(itemSizePrice.getId(), deal.getItem().getItemName());
+            }
         }
         itemSizePriceService.update(itemSizePrice);
     }
