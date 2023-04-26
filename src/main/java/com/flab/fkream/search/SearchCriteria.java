@@ -25,17 +25,16 @@ public class SearchCriteria implements Serializable {
     private static final String BAD_REQUEST_CRITERIA = "필터 기준을 잘못 입력했습니다";
 
     public void validatePrice() {
-        try {
-            if (minPrice != null && maxPrice != null) {
-                if (minPrice > maxPrice) {
-                    throw new IllegalArgumentException("최소 가격이 최대 가격보다 클 수 없습니다.");
-                }
+        if (minPrice != null && maxPrice != null) {
+            if (minPrice<0 || maxPrice<0) {
+                throw new IllegalArgumentException("최소, 최대 가격은 음수일 수 없습니다.");
             }
-            if (minPrice == null ^ maxPrice == null) {
-                throw new IllegalArgumentException("최소 가격과 최대 가격을 하나만 입력할 수 없습니다.");
+            if (minPrice > maxPrice) {
+                throw new IllegalArgumentException("최소 가격이 최대 가격보다 클 수 없습니다.");
             }
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(BAD_REQUEST_CRITERIA);
+        }
+        if (minPrice == null ^ maxPrice == null) {
+            throw new IllegalArgumentException("최소 가격과 최대 가격을 하나만 입력할 수 없습니다.");
         }
     }
 }
