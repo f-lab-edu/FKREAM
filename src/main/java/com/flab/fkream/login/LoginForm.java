@@ -11,4 +11,5 @@ public class LoginForm {
 
 	private String email;
 	private String password;
+	private String fcmToken;
 }
