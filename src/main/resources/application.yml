@@ -46,3 +46,8 @@ logging:
       connection : OFF  # 커넥션 연결/종료 정보 출력
 
 #  org.hibernate.type: trace
+
+fcm:
+  key:
+    path: fkream-87538-firebase-adminsdk-4q3mo-132fa39f54.json
+    scope: https://www.googleapis.com/auth/cloud-platform
