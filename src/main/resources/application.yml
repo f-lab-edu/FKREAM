@@ -17,12 +17,13 @@ spring:
       mode: always
       schema-locations:
         - classpath:db_sql/schema.sql
+      data-locations:
+        - classpath:db_sql/data.sql
   jackson:
     mapper:
       accept-case-insensitive-enums: true
 # 테스트시는 이것을 빼야 돌아간다. 있으면 에러걸림
-#     data-locations:
-#       - classpath:db_sql/data.sql
+#
 
 
 
