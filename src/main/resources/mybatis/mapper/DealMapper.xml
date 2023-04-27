@@ -82,9 +82,9 @@
   </select>
 
   <select id="findMarketPrices" resultType="com.flab.fkream.deal.MarketPriceDto">
-    select price        as price,
-           size         as size,
-           trading_day  as tradingDay
+    select price as price,
+    size as size,
+    trading_day as tradingDay
     from deal
     where item_id = #{param1}
     <if test="param2 != null">
@@ -95,12 +95,12 @@
   </select>
 
   <select id="findMarketPricesInGraph" resultType="com.flab.fkream.deal.MarketPriceDto">
-    select price        as price,
-           size         as size,
-           trading_day  as tradingDay
+    select price as price,
+    size as size,
+    trading_day as tradingDay
     from deal
     where item_id = #{param1}
-      and status = 'COMPLETION'
+    and status = 'COMPLETION'
     <if test="param2 != null ">
       and trading_day >= #{param2}
     </if>
@@ -111,9 +111,9 @@
   </select>
 
   <select id="findBiddingPrices" resultType="com.flab.fkream.deal.BiddingPriceDto">
-    select price        as price,
-           size         as size,
-           count(*)     as count
+    select price as price,
+    size as size,
+    count(*) as count
     from deal
     where item_id = #{param1}
     and status = 'BIDDING'
@@ -140,15 +140,15 @@
       and deal_type = #{param2}
     group by status
   </select>
+
   <select id="findPurchaseHistories" resultType="com.flab.fkream.deal.DealHistoryDto">
-    select
-        deal.id as dealId,
-        item.id as itemId,
-        item.item_name as itemName,
-        deal.price as price,
-        deal.period as period,
-        img.id as itemImgId,
-        img.img_url as imgUrl
+    select deal.id        as dealId,
+           item.id        as itemId,
+           item.item_name as itemName,
+           deal.price     as price,
+           deal.period    as period,
+           img.id         as itemImgId,
+           img.img_url    as imgUrl
     from DEAL deal
            join Item item on item.id = deal.item_id
            join ITEM_IMG img on deal.item_id = img.item_id
@@ -160,14 +160,13 @@
   </select>
 
   <select id="findSaleHistories" resultType="com.flab.fkream.deal.DealHistoryDto">
-    select
-      deal.id as dealId,
-      item.id as itemId,
-      item.item_name as itemName,
-      deal.price as price,
-      deal.period as period,
-      img.id as itemImgId,
-      img.img_url as imgUrl
+    select deal.id        as dealId,
+           item.id        as itemId,
+           item.item_name as itemName,
+           deal.price     as price,
+           deal.period    as period,
+           img.id         as itemImgId,
+           img.img_url    as imgUrl
     from DEAL deal
            join Item item on item.id = deal.item_id
            join ITEM_IMG img on deal.item_id = img.item_id
