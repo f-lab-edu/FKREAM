@@ -1,7 +1,6 @@
 package com.flab.fkream.deal;
 
 import com.flab.fkream.item.Item;
-import com.flab.fkream.user.User;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
