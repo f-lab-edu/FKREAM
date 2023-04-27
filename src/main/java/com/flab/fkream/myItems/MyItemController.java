@@ -6,6 +6,7 @@ import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,7 +26,8 @@ public class MyItemController {
 
     @PostMapping("/my-items")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOwnedItem(@Valid @RequestBody @NotNull MyItem myItemInfo) {
+    public void addOwnedItem(@Valid @RequestBody @NotNull MyItem myItemInfo)
+        throws NotFoundException {
         myItemService.save(myItemInfo);
     }
 
