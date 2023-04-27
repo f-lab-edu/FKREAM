@@ -540,6 +540,7 @@ insert into ITEM_IMG (item_id, img_name, img_url, is_representative_img) values 
 insert into ITEM_IMG (item_id, img_name, img_url, is_representative_img) values (99, 'Davy''s Centaury', 'http://dummyimage.com/126x100.png/ff4444/ffffff', true);
 insert into ITEM_IMG (item_id, img_name, img_url, is_representative_img) values (100, 'Barwood', 'http://dummyimage.com/215x100.png/5fa2dd/ffffff', true);
 
+
 -- ITEM_SIZE_PRICE ---------------------------------------------------------------------------------
 
 insert into ITEM_SIZE_PRICE (item_id, size, lowest_selling_price, highest_purchase_price) values (23, 230, 5760000, 4240000);
@@ -642,6 +643,7 @@ insert into ITEM_SIZE_PRICE (item_id, size, lowest_selling_price, highest_purcha
 insert into ITEM_SIZE_PRICE (item_id, size, lowest_selling_price, highest_purchase_price) values (29, 270, 8470000, 3810000);
 insert into ITEM_SIZE_PRICE (item_id, size, lowest_selling_price, highest_purchase_price) values (26, 240, 8560000, 1860000);
 insert into ITEM_SIZE_PRICE (item_id, size, lowest_selling_price, highest_purchase_price) values (85, 250, 7140000, 4290000);
+
 
 -- DEAL --------------------------------------------------------------------------------------------
 
@@ -3645,3 +3647,4 @@ insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day)
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (48, 'PURCHASE', 10, 460000, 240, 'BIDDING', '2023-03-15');
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (40, 'PURCHASE', 3, 460000, 220, 'PROGRESS', '2022-08-01');
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (44, 'SALE', 33, 940000, 240, 'BIDDING', '2022-06-19');
+
