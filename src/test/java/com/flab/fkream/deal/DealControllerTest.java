@@ -43,7 +43,7 @@ class DealControllerTest {
 
     Deal saleDealInfo = Deal.builder()
         .item(itemInfo)
-        .kindOfDeal(KindOfDeal.SALE)
+        .dealType(DealType.SALE)
         .userId(1L)
         .price(20000)
         .size("255")
@@ -55,7 +55,7 @@ class DealControllerTest {
 
     Deal purchaseDealInfo = Deal.builder()
         .item(itemInfo)
-        .kindOfDeal(KindOfDeal.PURCHASE)
+        .dealType(DealType.PURCHASE)
         .userId(1L)
         .price(20000)
         .size("255")
@@ -145,22 +145,22 @@ class DealControllerTest {
 
     @Test
     void findBiddingPrices() throws Exception {
-        given(dealService.findBiddingPrices(1L, "255", KindOfDeal.PURCHASE))
+        given(dealService.findBiddingPrices(1L, "255", DealType.PURCHASE))
             .willReturn(List.of(biddingPriceDto));
         mockMvc.perform(get("/deals/bidding-prices")
                 .param("itemId", "1")
                 .param("size", "255")
-                .param("kindOfDeal", "PURCHASE"))
+                .param("dealType", "PURCHASE"))
             .andExpect(status().isOk());
     }
 
     @Test
     void findHistoryCount() throws Exception {
         DealHistoryCountDto dealHistoryCountDto = DealHistoryCountDto.builder().build();
-        given(dealService.findHistoryCount(KindOfDeal.PURCHASE)).willReturn(
+        given(dealService.findHistoryCount(DealType.PURCHASE)).willReturn(
             Map.of());
         mockMvc.perform(get("/deals/history-counts")
-            .param("kindOfDeal", "PURCHASE")).andExpect(status().isOk());
+            .param("dealType", "PURCHASE")).andExpect(status().isOk());
     }
 
     @Test

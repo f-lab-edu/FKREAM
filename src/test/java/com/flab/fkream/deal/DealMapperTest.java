@@ -72,7 +72,7 @@ class DealMapperTest {
 
         saleDealInfo = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(20000)
             .size("255")
@@ -84,7 +84,7 @@ class DealMapperTest {
 
         purchaseDealInfo = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(userInfo.getId())
             .price(20000)
             .size("255")
@@ -118,7 +118,7 @@ class DealMapperTest {
         Deal dealInfo = Deal.builder()
             .id(saleDealInfo.getId())
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(30000)
             .size("260")
@@ -157,7 +157,7 @@ class DealMapperTest {
         dealMapper.save(purchaseDealInfo);
         Deal otherDeal = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(userInfo.getId())
             .price(30000)
             .size("255")
@@ -176,7 +176,7 @@ class DealMapperTest {
         dealMapper.save(saleDealInfo);
         Deal otherDeal = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(10000)
             .size("255")
@@ -213,11 +213,11 @@ class DealMapperTest {
     @Test
     void findBiddingPrices() {
         List<BiddingPriceDto> biddingPurchasePrices = dealMapper.findBiddingPrices(71L, null,
-            KindOfDeal.PURCHASE);
+            DealType.PURCHASE);
         assertThat(biddingPurchasePrices.get(0).getPrice()).isGreaterThan(
             biddingPurchasePrices.get(1).getPrice());
         List<BiddingPriceDto> biddingSalePrices = dealMapper.findBiddingPrices(71L, null,
-            KindOfDeal.SALE);
+            DealType.SALE);
         assertThat(biddingSalePrices.get(0).getPrice()).isLessThan(
             biddingSalePrices.get(1).getPrice());
     }
@@ -225,7 +225,7 @@ class DealMapperTest {
     @Test
     void findHistoryCount() {
         List<DealHistoryCountDto> historyCount = dealMapper.findHistoryCount(30L,
-            KindOfDeal.PURCHASE);
+            DealType.PURCHASE);
         assertThat(historyCount).hasSize(3);
     }
 
@@ -235,7 +235,7 @@ class DealMapperTest {
             Status.COMPLETION);
         Deal deal = dealMapper.findById(purchaseHistories.get(0).getDealId());
         assertThat(deal.getUserId()).isEqualTo(30L);
-        assertThat(deal.getKindOfDeal()).isEqualTo(KindOfDeal.PURCHASE);
+        assertThat(deal.getDealType()).isEqualTo(DealType.PURCHASE);
         assertThat(deal.getStatus()).isEqualTo(Status.COMPLETION);
     }
 
@@ -245,7 +245,7 @@ class DealMapperTest {
             Status.BIDDING);
         Deal deal = dealMapper.findById(saleHistories.get(0).getDealId());
         assertThat(deal.getUserId()).isEqualTo(30L);
-        assertThat(deal.getKindOfDeal()).isEqualTo(KindOfDeal.SALE);
+        assertThat(deal.getDealType()).isEqualTo(DealType.SALE);
         assertThat(deal.getStatus()).isEqualTo(Status.BIDDING);
     }
 }

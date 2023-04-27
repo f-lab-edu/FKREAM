@@ -136,14 +136,14 @@ public class DealService {
     }
 
     public List<BiddingPriceDto> findBiddingPrices(Long itemId, String size,
-        KindOfDeal kindOfDeal) {
-        return dealMapper.findBiddingPrices(itemId, size, kindOfDeal);
+        DealType dealType) {
+        return dealMapper.findBiddingPrices(itemId, size, dealType);
     }
 
-    public Map<Status, Integer> findHistoryCount(KindOfDeal kindOfDeal) {
+    public Map<Status, Integer> findHistoryCount(DealType dealType) {
         Long userId = SessionUtil.getLoginUserId();
         List<DealHistoryCountDto> historyCountDtos = dealMapper.findHistoryCount(userId,
-            kindOfDeal);
+            dealType);
         Map<Status, Integer> historyCounts = new HashMap<>();
         for (DealHistoryCountDto historyCountDto : historyCountDtos) {
             historyCounts.put(historyCountDto.getStatus(), historyCountDto.getCount());
@@ -206,12 +206,12 @@ public class DealService {
 
     private void updatePrice(Deal deal, ItemSizePrice itemSizePrice) {
         if (deal.getStatus() == Status.BIDDING) {
-            if (deal.getKindOfDeal() == KindOfDeal.PURCHASE) {
+            if (deal.getDealType() == DealType.PURCHASE) {
                 if (deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
                     itemSizePrice.setHighestPurchasePrice(deal.getPrice());
                 }
             }
-            if (deal.getKindOfDeal() == KindOfDeal.SALE) {
+            if (deal.getDealType() == DealType.SALE) {
                 if (deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
                     itemSizePrice.setLowestSellingPrice(deal.getPrice());
                 }

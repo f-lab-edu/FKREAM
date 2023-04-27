@@ -72,7 +72,7 @@ class DealServiceTest {
     Deal dealInfo = Deal.builder()
         .id(1L)
         .item(itemInfo)
-        .kindOfDeal(KindOfDeal.SALE)
+        .dealType(DealType.SALE)
         .userId(1L)
         .price(20000)
         .size("255")
@@ -93,7 +93,7 @@ class DealServiceTest {
         Deal saleDealInfo = Deal.builder()
             .id(1L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(1L)
             .price(45000)
             .size("255")
@@ -117,7 +117,7 @@ class DealServiceTest {
         Deal purchaseDealInfo = Deal.builder()
             .id(2L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(1L)
             .price(20000)
             .size("255")
@@ -141,7 +141,7 @@ class DealServiceTest {
         Deal saleDealInfo = Deal.builder()
             .id(1L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(1L)
             .price(40000)
             .size("255")
@@ -154,7 +154,7 @@ class DealServiceTest {
         Deal otherDeal = Deal.builder()
             .id(1L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(2L)
             .price(40000)
             .size("255")
@@ -186,7 +186,7 @@ class DealServiceTest {
         Deal purchaseDealInfo = Deal.builder()
             .id(2L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(1L)
             .price(30000)
             .size("255")
@@ -199,7 +199,7 @@ class DealServiceTest {
         Deal otherDeal = Deal.builder()
             .id(1L)
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(2L)
             .price(40000)
             .size("255")
@@ -296,21 +296,21 @@ class DealServiceTest {
 
     @Test
     void findBiddingPrices() {
-        given(dealMapper.findBiddingPrices(1L, "255", KindOfDeal.SALE)).willReturn(
+        given(dealMapper.findBiddingPrices(1L, "255", DealType.SALE)).willReturn(
             List.of(biddingPriceDto));
-        assertThat(dealService.findBiddingPrices(1L, "255", KindOfDeal.SALE)).contains(
+        assertThat(dealService.findBiddingPrices(1L, "255", DealType.SALE)).contains(
             biddingPriceDto);
-        then(dealMapper).should().findBiddingPrices(1L, "255", KindOfDeal.SALE);
+        then(dealMapper).should().findBiddingPrices(1L, "255", DealType.SALE);
     }
 
     @Test
     void findHistoryCount() {
         sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
-        given(dealMapper.findHistoryCount(1L, KindOfDeal.SALE)).willReturn(
+        given(dealMapper.findHistoryCount(1L, DealType.SALE)).willReturn(
             List.of(dealHistoryCountDto));
-        assertThat(dealService.findHistoryCount(KindOfDeal.SALE)).containsEntry(Status.COMPLETION,
+        assertThat(dealService.findHistoryCount(DealType.SALE)).containsEntry(Status.COMPLETION,
             5);
-        then(dealMapper).should().findHistoryCount(1L, KindOfDeal.SALE);
+        then(dealMapper).should().findHistoryCount(1L, DealType.SALE);
     }
 
     @Test

@@ -29,9 +29,9 @@ public interface DealMapper {
 
     List<MarketPriceDto> findMarketPricesInGraph(Long itemId, LocalDate period, String size);
 
-    List<BiddingPriceDto> findBiddingPrices(Long itemId, String size, KindOfDeal kindOfDeal);
+    List<BiddingPriceDto> findBiddingPrices(Long itemId, String size, DealType dealType);
 
-    List<DealHistoryCountDto> findHistoryCount(Long userId, KindOfDeal kindOfDeal);
+    List<DealHistoryCountDto> findHistoryCount(Long userId, DealType dealType);
 
     List<DealHistoryDto> findPurchaseHistories(Long userId, Status status);
 

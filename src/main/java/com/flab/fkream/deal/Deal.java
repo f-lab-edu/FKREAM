@@ -28,7 +28,7 @@ public class Deal {
     @Setter
     private Item item;
     @NotNull
-    private KindOfDeal kindOfDeal;
+    private DealType dealType;
     @NotNull
     private Long userId;
     @NotNull
@@ -50,7 +50,7 @@ public class Deal {
     private LocalDate tradingDay;
 
     public void setKindOfDealToSale() {
-        kindOfDeal = KindOfDeal.SALE;
+        dealType = DealType.SALE;
     }
 
     public void setStatus(Status status) {
@@ -58,7 +58,7 @@ public class Deal {
     }
 
     public void setKindOfDealToPurchase() {
-        kindOfDeal = KindOfDeal.PURCHASE;
+        dealType = DealType.PURCHASE;
     }
 
     public void setCreatedAtToNow() {

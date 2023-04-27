@@ -71,13 +71,13 @@ public class DealController {
     @GetMapping("/bidding-prices")
     public List<BiddingPriceDto> findBiddingPrices(@RequestParam Long itemId,
         @RequestParam(required = false) String size,
-        @RequestParam KindOfDeal kindOfDeal) {
-        return dealService.findBiddingPrices(itemId, size, kindOfDeal);
+        @RequestParam DealType dealType) {
+        return dealService.findBiddingPrices(itemId, size, dealType);
     }
 
     @GetMapping("/history-counts")
-    public Map<Status, Integer> findHistoryCount(@RequestParam KindOfDeal kindOfDeal) {
-        return dealService.findHistoryCount(kindOfDeal);
+    public Map<Status, Integer> findHistoryCount(@RequestParam DealType dealType) {
+        return dealService.findHistoryCount(dealType);
     }
 
     @GetMapping("/purchase-histories")
