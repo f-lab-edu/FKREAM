@@ -5,33 +5,31 @@
 
   <select id="generateRecommendedItemsForMen"
     resultType="com.flab.fkream.search.SearchItemDto">
-    select
-    item.id as itemId,
-    item.item_name as itemName,
-    BR.id as brandId,
-    BR.brand_name as brandName,
-    isp.lsp as price,
-    img.id as itemImgId,
-    img.img_name as imgName,
-    img.img_url as imgUrl,
-    deal.deal_count as sortCriteria
+    select item.id         as itemId,
+           item.item_name  as itemName,
+           BR.id           as brandId,
+           BR.brand_name   as brandName,
+           isp.lsp         as price,
+           img.id          as itemImgId,
+           img.img_name    as imgName,
+           img.img_url     as imgUrl,
+           deal.deal_count as sortCriteria
     from ITEM item
-    join ITEM_IMG img on item.ID = img.ITEM_ID
-    join BRAND BR on item.BRAND_ID = BR.id
-    join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
-          from ITEM_SIZE_PRICE
-          group by ITEM_ID) isp on item.ID = isp.ITEM_ID
-    left join (select ITEM_ID, count(*) as deal_count
-               from DEAL
-               where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                and kind_of_deal = 'PURCHASE'
-                group by ITEM_ID) deal on item.ID = deal.ITEM_ID
+           join ITEM_IMG img on item.ID = img.ITEM_ID
+           join BRAND BR on item.BRAND_ID = BR.id
+           join (select ITEM_ID, min(LOWEST_SELLING_PRICE) lsp
+                 from ITEM_SIZE_PRICE
+                 group by ITEM_ID) isp on item.ID = isp.ITEM_ID
+           left join (select ITEM_ID, count(*) as deal_count
+                      from DEAL
+                      where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
+                        and kind_of_deal = 'PURCHASE'
+                      group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where IS_REPRESENTATIVE_IMG = true
-    and item.gender = 'MALE'
+      and item.gender = 'MALE'
     order by deal.deal_count DESC
     limit 20
   </select>
-
 
 
   <select id="generateRecommendedItemsForWomen"
@@ -167,7 +165,7 @@
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
            left join (select ITEM_ID, count(*) as deal_count2
                       from DEAL D
-                      where D.created_at between DATEADD('MONTH', -#{param1}*2, CURRENT_DATE()) AND DATEADD('MONTH', -#{param1}, CURRENT_DATE())
+                      where D.created_at between DATEADD('MONTH', -#{param1} * 2, CURRENT_DATE()) AND DATEADD('MONTH', -#{param1}, CURRENT_DATE())
                         and D.kind_of_deal = 'PURCHASE'
                       group by ITEM_ID) deal2 on item.ID = deal2.ITEM_ID
     where ic.category_name = '스니커즈'
