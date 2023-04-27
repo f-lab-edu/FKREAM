@@ -1,4 +1,4 @@
-package com.flab.fkream.ownedItems;
+package com.flab.fkream.myItems;
 
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
@@ -26,22 +26,22 @@ import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-@WebMvcTest(OwnedItemController.class)
-class OwnedItemControllerTest {
+@WebMvcTest(MyItemController.class)
+class MyItemControllerTest {
 
     @MockBean
-    private OwnedItemService ownedItemService;
+    private MyItemService myItemService;
     @Autowired
     MockMvc mockMvc;
 
-    OwnedItem ownedItem;
+    MyItem myItem;
 
     final String LOGIN_USERS_ID = "LOGIN_USERS_ID";
     MockHttpSession session = new MockHttpSession();
 
     @BeforeEach
     public void setUp() {
-        ownedItem = OwnedItem.builder()
+        myItem = MyItem.builder()
             .id(1L)
             .itemSizePriceId(1L)
             .userId(1L)
@@ -54,11 +54,11 @@ class OwnedItemControllerTest {
     @DisplayName("보유상품 등록 테스트")
     public void addOwnedItemTest() throws Exception {
         // given
-        given(ownedItemService.save(any(OwnedItem.class))).willReturn(1);
+        given(myItemService.save(any(MyItem.class))).willReturn(1);
         MockHttpServletRequestBuilder builder =
             post("/my-items")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .content(new ObjectMapper().writeValueAsString(ownedItem));
+                .content(new ObjectMapper().writeValueAsString(myItem));
 
         // when
         // then
@@ -70,7 +70,7 @@ class OwnedItemControllerTest {
     @DisplayName("보유상품 조회 성공 테스트")
     public void findOneTest_success() throws Exception {
         // given
-        given(ownedItemService.findOne(anyLong())).willReturn(ownedItem);
+        given(myItemService.findOne(anyLong())).willReturn(myItem);
 
         // when
         // then
@@ -87,7 +87,7 @@ class OwnedItemControllerTest {
     @DisplayName("보유 상품 조회 실패 테스트")
     public void findOne_notFound() throws Exception {
         // given
-        given(ownedItemService.findOne(anyLong())).willReturn(null);
+        given(myItemService.findOne(anyLong())).willReturn(null);
 
         // when
         // then
@@ -100,8 +100,8 @@ class OwnedItemControllerTest {
     void findAllByUserId_ok() throws Exception {
         //given
         Long userId = 1L;
-        List<OwnedItem> ownedItemList = Collections.singletonList(ownedItem);
-        given(ownedItemService.findAllByUserId(userId)).willReturn(ownedItemList);
+        List<MyItem> myItemList = Collections.singletonList(myItem);
+        given(myItemService.findAllByUserId(userId)).willReturn(myItemList);
 
         //when
         //then
@@ -119,23 +119,23 @@ class OwnedItemControllerTest {
     @DisplayName("보유상품 정보 수정 성공")
     void updateOwnedItem_success() throws Exception {
         // given
-        Long userId = ownedItem.getUserId();
+        Long userId = myItem.getUserId();
 
-        OwnedItem updateOwnedItem = OwnedItem.builder()
-            .id(ownedItem.getId())
+        MyItem updateMyItem = MyItem.builder()
+            .id(myItem.getId())
             .userId(userId)
             .itemSizePriceId(2L)
             .purchasePrice(40000).build();
 
         session.setAttribute(LOGIN_USERS_ID, userId);
-        given(ownedItemService.update(any(OwnedItem.class))).willReturn(1);
+        given(myItemService.update(any(MyItem.class))).willReturn(1);
 
         // when
         // then
         mockMvc.perform(patch("/my-items")
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(updateOwnedItem)))
+                .content(new ObjectMapper().writeValueAsString(updateMyItem)))
             .andExpect(status().isOk());
     }
 
@@ -143,11 +143,11 @@ class OwnedItemControllerTest {
     @DisplayName("보유상품 정보 수정 실패 - 다른 유저의 경우")
     void updateOwnedItem_failure_differentUser() throws Exception {
         // given
-        Long userId = ownedItem.getUserId(); // 1L
+        Long userId = myItem.getUserId(); // 1L
         Long otherUserId = 2L;
 
-        OwnedItem updateOwnedItem = OwnedItem.builder()
-            .id(ownedItem.getId())
+        MyItem updateMyItem = MyItem.builder()
+            .id(myItem.getId())
             .userId(userId)
             .itemSizePriceId(otherUserId)
             .purchasePrice(40000).build();
@@ -159,7 +159,7 @@ class OwnedItemControllerTest {
         mockMvc.perform(patch("/my-items")
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(new ObjectMapper().writeValueAsString(updateOwnedItem)))
+                .content(new ObjectMapper().writeValueAsString(updateMyItem)))
             .andExpect(status().isForbidden());
     }
 
@@ -172,8 +172,8 @@ class OwnedItemControllerTest {
 
         session.setAttribute(LOGIN_USERS_ID, loggedInUserId);
 
-        given(ownedItemService.findOne(ownedItemId)).willReturn(
-            new OwnedItem(ownedItemId, 1L, 2L, 60000));
+        given(myItemService.findOne(ownedItemId)).willReturn(
+            new MyItem(ownedItemId, 1L, 2L, 60000));
 
         // when, then
         mockMvc.perform(delete("/my-items/{id}", ownedItemId).session(session))
@@ -189,8 +189,8 @@ class OwnedItemControllerTest {
         Long ownedItemId = 1L;
 
         session.setAttribute(LOGIN_USERS_ID, anotherUserId);
-        given(ownedItemService.findOne(ownedItemId)).willReturn(
-            new OwnedItem(ownedItemId, loggedInUserId, 2L, 60000));
+        given(myItemService.findOne(ownedItemId)).willReturn(
+            new MyItem(ownedItemId, loggedInUserId, 2L, 60000));
 
         // when, then
         mockMvc.perform(delete("/my-items/{id}", ownedItemId).session(session))

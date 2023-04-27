@@ -1,4 +1,4 @@
-package com.flab.fkream.ownedItems;
+package com.flab.fkream.myItems;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -17,19 +17,19 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class OwnedItemServiceTest {
+class MyItemServiceTest {
 
     @Mock
-    OwnedItemMapper ownedItemMapper;
+    MyItemMapper myItemMapper;
 
     @InjectMocks
-    OwnedItemService ownedItemService;
+    MyItemService myItemService;
 
-    OwnedItem ownedItem;
+    MyItem myItem;
 
     @BeforeEach
     public void setUp() {
-        ownedItem = OwnedItem.builder()
+        myItem = MyItem.builder()
             .id(1L)
             .itemSizePriceId(1L)
             .userId(1L)
@@ -41,108 +41,108 @@ class OwnedItemServiceTest {
     void saveTest() {
         // given
         int expectedResult = 1;
-        given(ownedItemMapper.save(any(OwnedItem.class))).willReturn(expectedResult);
+        given(myItemMapper.save(any(MyItem.class))).willReturn(expectedResult);
 
         // when
-        int result = ownedItemService.save(ownedItem);
+        int result = myItemService.save(myItem);
 
         // then
         assertEquals(expectedResult, result);
-        then(ownedItemMapper).should().save(any(OwnedItem.class));
+        then(myItemMapper).should().save(any(MyItem.class));
     }
 
     @Test
     void findOneTest() {
         // given
-        given(ownedItemMapper.findOne(anyLong())).willReturn(ownedItem);
+        given(myItemMapper.findOne(anyLong())).willReturn(myItem);
 
         // when
-        OwnedItem foundOwnedItem = ownedItemService.findOne(ownedItem.getId());
+        MyItem foundMyItem = myItemService.findOne(myItem.getId());
 
         // then
-        assertEquals(ownedItem, foundOwnedItem);
-        then(ownedItemMapper).should().findOne(anyLong());
+        assertEquals(myItem, foundMyItem);
+        then(myItemMapper).should().findOne(anyLong());
     }
 
     @Test
     void findOneTest_NoDataFoundException() {
         // given
-        given(ownedItemMapper.findOne(anyLong())).willReturn(null);
+        given(myItemMapper.findOne(anyLong())).willReturn(null);
 
         // then
         assertThrows(NoDataFoundException.class, () -> {
             // when
-            ownedItemService.findOne(ownedItem.getId());
+            myItemService.findOne(myItem.getId());
         });
-        then(ownedItemMapper).should().findOne(anyLong());
+        then(myItemMapper).should().findOne(anyLong());
     }
 
     @Test
     void findAllByUserIdTest() {
         // given
-        List<OwnedItem> expectedResult = List.of(ownedItem);
-        given(ownedItemMapper.findAllByUserId(anyLong())).willReturn(expectedResult);
+        List<MyItem> expectedResult = List.of(myItem);
+        given(myItemMapper.findAllByUserId(anyLong())).willReturn(expectedResult);
 
         // when
-        List<OwnedItem> resultList = ownedItemService.findAllByUserId(ownedItem.getUserId());
+        List<MyItem> resultList = myItemService.findAllByUserId(myItem.getUserId());
 
         // then
         assertEquals(expectedResult, resultList);
-        then(ownedItemMapper).should().findAllByUserId(anyLong());
+        then(myItemMapper).should().findAllByUserId(anyLong());
     }
 
     @Test
     void updateTest() {
         // given
         int expectedResult = 1;
-        given(ownedItemMapper.update(any(OwnedItem.class))).willReturn(expectedResult);
+        given(myItemMapper.update(any(MyItem.class))).willReturn(expectedResult);
 
         // when
-        int result = ownedItemService.update(ownedItem);
+        int result = myItemService.update(myItem);
 
         // then
         assertEquals(expectedResult, result);
-        then(ownedItemMapper).should().update(any(OwnedItem.class));
+        then(myItemMapper).should().update(any(MyItem.class));
     }
 
     @Test
     void updateTest_NoDataFoundException() {
         // given
-        given(ownedItemMapper.update(any(OwnedItem.class))).willReturn(0);
+        given(myItemMapper.update(any(MyItem.class))).willReturn(0);
 
         // then
         assertThrows(NoDataFoundException.class, () -> {
             // when
-            ownedItemService.update(ownedItem);
+            myItemService.update(myItem);
         });
-        then(ownedItemMapper).should().update(any(OwnedItem.class));
+        then(myItemMapper).should().update(any(MyItem.class));
     }
 
     @Test
     void deleteTest() {
         // given
         int expectedResult = 1;
-        given(ownedItemMapper.delete(anyLong())).willReturn(expectedResult);
+        given(myItemMapper.delete(anyLong())).willReturn(expectedResult);
 
         // when
-        int result = ownedItemService.delete(ownedItem.getId());
+        int result = myItemService.delete(myItem.getId());
 
         // then
         assertEquals(expectedResult, result);
-        then(ownedItemMapper).should().delete(anyLong());
+        then(myItemMapper).should().delete(anyLong());
     }
 
     @Test
     void deleteTest_NoDataFoundException() {
         // given
-        given(ownedItemMapper.delete(anyLong())).willReturn(0);
+        given(myItemMapper.delete(anyLong())).willReturn(0);
 
         // then
         assertThrows(NoDataFoundException.class, () -> {
             // when
-            ownedItemService.delete(ownedItem.getId());
+            myItemService.delete(myItem.getId());
         });
-        then(ownedItemMapper).should().delete(anyLong());
+        then(myItemMapper).should().delete(anyLong());
     }
 
 }

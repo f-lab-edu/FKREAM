@@ -1,4 +1,4 @@
-package com.flab.fkream.ownedItems;
+package com.flab.fkream.myItems;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-class OwnedItemMapperTest {
+class MyItemMapperTest {
 
     @Autowired
     UserMapper userMapper;
@@ -31,12 +31,12 @@ class OwnedItemMapperTest {
     ItemSizePriceMapper itemSizePriceMapper;
 
     @Autowired
-    OwnedItemMapper ownedItemMapper;
+    MyItemMapper myItemMapper;
 
     User user;
     Item item;
     ItemSizePrice itemSizePrice;
-    OwnedItem ownedItem;
+    MyItem myItem;
 
     @BeforeEach
     public void setUp() {
@@ -66,7 +66,7 @@ class OwnedItemMapperTest {
             .build();
         itemSizePriceMapper.save(itemSizePrice);
 
-        ownedItem = OwnedItem.builder()
+        myItem = MyItem.builder()
             .itemSizePriceId(itemSizePrice.getId())
             .userId(user.getId())
             .purchasePrice(50000)
@@ -75,19 +75,19 @@ class OwnedItemMapperTest {
 
     @Test
     void saveTest() throws Exception {
-        assertThat(ownedItemMapper.save(ownedItem)).isEqualTo(1);
+        assertThat(myItemMapper.save(myItem)).isEqualTo(1);
     }
 
     @Test
     void findOneTest() throws Exception {
         //given
-        ownedItemMapper.save(ownedItem);
+        myItemMapper.save(myItem);
 
         //when
-        OwnedItem result = ownedItemMapper.findOne(ownedItem.getId());
+        MyItem result = myItemMapper.findOne(myItem.getId());
 
         //then
-        assertThat(result).isEqualTo(ownedItem);
+        assertThat(result).isEqualTo(myItem);
 
     }
 
@@ -100,20 +100,20 @@ class OwnedItemMapperTest {
             .build();
         itemSizePriceMapper.save(itemSizePrice2);
 
-        OwnedItem ownedItem2 = OwnedItem.builder()
+        MyItem myItem2 = MyItem.builder()
             .itemSizePriceId(itemSizePrice2.getId())
             .userId(user.getId())
             .purchasePrice(60000)
             .build();
 
-        ownedItemMapper.save(ownedItem);
-        ownedItemMapper.save(ownedItem2);
+        myItemMapper.save(myItem);
+        myItemMapper.save(myItem2);
 
         //when
-        List<OwnedItem> ownedItems = ownedItemMapper.findAllByUserId(user.getId());
+        List<MyItem> myItems = myItemMapper.findAllByUserId(user.getId());
 
         //then
-        assertThat(ownedItems.size()).isEqualTo(2);
+        assertThat(myItems.size()).isEqualTo(2);
 
     }
 
@@ -121,7 +121,7 @@ class OwnedItemMapperTest {
     @Test
     void updateTest() {
         // given
-        ownedItemMapper.save(ownedItem);
+        myItemMapper.save(myItem);
 
         ItemSizePrice newItemSizePrice = ItemSizePrice.builder()
             .itemId(item.getId())
@@ -129,15 +129,15 @@ class OwnedItemMapperTest {
             .build();
         itemSizePriceMapper.save(newItemSizePrice);
 
-        OwnedItem updatedOwnedItem = OwnedItem.builder()
-            .id(ownedItem.getId())
+        MyItem updatedMyItem = MyItem.builder()
+            .id(myItem.getId())
             .userId(user.getId())
             .itemSizePriceId(newItemSizePrice.getId())
             .purchasePrice(30000)
             .build();
 
         // when
-        int result = ownedItemMapper.update(updatedOwnedItem);
+        int result = myItemMapper.update(updatedMyItem);
 
         // then
         assertThat(result).isEqualTo(1);
@@ -147,11 +147,11 @@ class OwnedItemMapperTest {
     @Test
     void deleteTest() {
         // given
-        ownedItemMapper.save(ownedItem);
-        Long ownedItemId = ownedItem.getId();
+        myItemMapper.save(myItem);
+        Long ownedItemId = myItem.getId();
 
         // when
-        int result = ownedItemMapper.delete(ownedItemId);
+        int result = myItemMapper.delete(ownedItemId);
 
         // then
         assertThat(result).isEqualTo(1);

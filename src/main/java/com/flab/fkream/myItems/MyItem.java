@@ -1,4 +1,4 @@
-package com.flab.fkream.ownedItems;
+package com.flab.fkream.myItems;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,7 +15,7 @@ import lombok.ToString;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OwnedItem {
+public class MyItem {
 
     private Long id;
     @NotNull

@@ -1,4 +1,4 @@
-package com.flab.fkream.ownedItems;
+package com.flab.fkream.myItems;
 
 import com.flab.fkream.error.exception.ForbiddenException;
 import com.flab.fkream.utils.SessionUtil;
@@ -19,50 +19,50 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class OwnedItemController {
+public class MyItemController {
 
-    private final OwnedItemService ownedItemService;
+    private final MyItemService myItemService;
 
     @PostMapping("/my-items")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addOwnedItem(@Valid @RequestBody @NotNull OwnedItem ownedItemInfo) {
-        ownedItemService.save(ownedItemInfo);
+    public void addOwnedItem(@Valid @RequestBody @NotNull MyItem myItemInfo) {
+        myItemService.save(myItemInfo);
     }
 
     @GetMapping("/my-items/{id}")
-    public ResponseEntity<OwnedItem> findOne(@PathVariable Long id) {
-        OwnedItem ownedItem = ownedItemService.findOne(id);
-        if (ownedItem == null) {
+    public ResponseEntity<MyItem> findOne(@PathVariable Long id) {
+        MyItem myItem = myItemService.findOne(id);
+        if (myItem == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(ownedItem);
+        return ResponseEntity.ok(myItem);
     }
 
     @GetMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
-    public List<OwnedItem> findAllByUserId() {
+    public List<MyItem> findAllByUserId() {
         Long loggedInUserId = SessionUtil.getLoginUserId();
-        return ownedItemService.findAllByUserId(loggedInUserId);
+        return myItemService.findAllByUserId(loggedInUserId);
     }
 
 
     @PatchMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@Valid @RequestBody @NotNull OwnedItem ownedItemInfo) {
+    public void update(@Valid @RequestBody @NotNull MyItem myItemInfo) {
         Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!ownedItemInfo.getUserId().equals(loggedInUserId)) {
+        if (!myItemInfo.getUserId().equals(loggedInUserId)) {
             throw new ForbiddenException();
         }
-        ownedItemService.update(ownedItemInfo);
+        myItemService.update(myItemInfo);
     }
 
     @DeleteMapping("/my-items/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!ownedItemService.findOne(id).getUserId().equals(loggedInUserId)) {
+        if (!myItemService.findOne(id).getUserId().equals(loggedInUserId)) {
             throw new ForbiddenException();
         }
-        ownedItemService.delete(id);
+        myItemService.delete(id);
     }
 }
