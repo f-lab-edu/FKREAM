@@ -56,7 +56,7 @@ class OwnedItemControllerTest {
         // given
         given(ownedItemService.save(any(OwnedItem.class))).willReturn(1);
         MockHttpServletRequestBuilder builder =
-            post("/owned-items")
+            post("/my-items")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(new ObjectMapper().writeValueAsString(ownedItem));
 
@@ -74,7 +74,7 @@ class OwnedItemControllerTest {
 
         // when
         // then
-        mockMvc.perform(get("/owned-item/1"))
+        mockMvc.perform(get("/my-items/1"))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$.id").value(1))
             .andExpect(jsonPath("$.itemSizePriceId").value(1))
@@ -91,7 +91,7 @@ class OwnedItemControllerTest {
 
         // when
         // then
-        mockMvc.perform(get("/owned-item/1"))
+        mockMvc.perform(get("/my-item/1"))
             .andExpect(status().isNotFound());
     }
 
@@ -105,7 +105,7 @@ class OwnedItemControllerTest {
 
         //when
         //then
-        mockMvc.perform(get("/owned-items/users/" + userId)
+        mockMvc.perform(get("/my-items")
                 .sessionAttr(LOGIN_USERS_ID, userId))
             .andExpect(status().isOk())
             .andExpect(jsonPath("$", hasSize(1)))
@@ -113,23 +113,6 @@ class OwnedItemControllerTest {
             .andExpect(jsonPath("$[0].itemSizePriceId").value(1))
             .andExpect(jsonPath("$[0].userId").value(1))
             .andExpect(jsonPath("$[0].purchasePrice").value(50000));
-    }
-
-
-    @Test
-    @DisplayName("유저 ID로 보유상품 리스트 조회 실패 - 다른 유저의 경우")
-    void findAllByUserId_failure_differentUser() throws Exception {
-        // given
-        Long userId = 1L;
-        Long anotherUserId = 2L;
-
-        session.setAttribute(LOGIN_USERS_ID, userId);
-
-        // when
-        // then
-        mockMvc.perform(get("/owned-items/users/" + anotherUserId)
-                .session(session))
-            .andExpect(status().isForbidden());
     }
 
     @Test
@@ -149,7 +132,7 @@ class OwnedItemControllerTest {
 
         // when
         // then
-        mockMvc.perform(patch("/owned-items/{id}", updateOwnedItem.getId())
+        mockMvc.perform(patch("/my-items")
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(updateOwnedItem)))
@@ -173,7 +156,7 @@ class OwnedItemControllerTest {
 
         // when
         // then
-        mockMvc.perform(patch("/owned-items/1")
+        mockMvc.perform(patch("/my-items")
                 .session(session)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsString(updateOwnedItem)))
@@ -193,7 +176,7 @@ class OwnedItemControllerTest {
             new OwnedItem(ownedItemId, 1L, 2L, 60000));
 
         // when, then
-        mockMvc.perform(delete("/owned-items/{id}", ownedItemId).session(session))
+        mockMvc.perform(delete("/my-items/{id}", ownedItemId).session(session))
             .andExpect(status().isOk());
     }
 
@@ -210,7 +193,7 @@ class OwnedItemControllerTest {
             new OwnedItem(ownedItemId, loggedInUserId, 2L, 60000));
 
         // when, then
-        mockMvc.perform(delete("/owned-items/{id}", ownedItemId).session(session))
+        mockMvc.perform(delete("/my-items/{id}", ownedItemId).session(session))
             .andExpect(status().isForbidden());
     }
 }
