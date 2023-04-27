@@ -26,7 +26,7 @@ public class SearchController {
         return searchService.findCount(searchCriteria);
     }
 
-    @GetMapping("/autoComplete")
+    @GetMapping("/auto-complete")
     public List<AutoCompletedItemDto> searchAutoCompletedItem(@RequestParam String context) {
         return searchService.autoComplete(context);
     }
