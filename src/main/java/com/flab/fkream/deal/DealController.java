@@ -57,7 +57,7 @@ public class DealController {
 
     @GetMapping("/market-prices-in-graph")
     public List<MarketPriceDto> findMarketPriceInGraph(@RequestParam Long itemId,
-        @RequestParam(required = false) String period,
+        @RequestParam(required = false) DealPeriod period,
         @RequestParam(required = false) String size) {
         return dealService.findMarketPriceInGraph(itemId, period, size);
     }

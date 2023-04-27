@@ -121,14 +121,14 @@ class DealControllerTest {
 
     @Test
     void findMarketPriceInGraph() throws Exception {
-        given(dealService.findMarketPriceInGraph(1L, "1Y", "260")).willReturn(
+        given(dealService.findMarketPriceInGraph(1L, DealPeriod.ONE_YEAR, "260")).willReturn(
             List.of(marketPriceDto));
         given(dealService.findMarketPriceInGraph(1L, null, null)).willReturn(
             List.of(marketPriceDto));
 
         mockMvc.perform(get("/deals/market-prices-in-graph")
             .param("itemId", "1")
-            .param("period", "1Y")
+            .param("period", "ONE_YEAR")
             .param("size", "260")).andExpect(status().isOk());
         mockMvc.perform(get("/deals/market-prices-in-graph")
             .param("itemId", "1")).andExpect(status().isOk());

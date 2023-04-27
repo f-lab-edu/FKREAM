@@ -126,9 +126,10 @@ public class DealService {
         dealMapper.delete(id);
     }
 
-    public List<MarketPriceDto> findMarketPriceInGraph(Long itemId, String period, String size) {
-        LocalDate ago = getPeriod(period);
-        return dealMapper.findMarketPricesInGraph(itemId, ago, size);
+    public List<MarketPriceDto> findMarketPriceInGraph(Long itemId, DealPeriod period,
+        String size) {
+        LocalDate fromTradingDay = getPeriod(period);
+        return dealMapper.findMarketPricesInGraph(itemId, fromTradingDay, size);
     }
 
     public List<MarketPriceDto> findMarketPrices(Long itemId, String size) {
@@ -161,15 +162,18 @@ public class DealService {
         return dealMapper.findSaleHistories(userId, status);
     }
 
-    private LocalDate getPeriod(String period) {
-        if (period == null || period.equals("ALL")) {
-            return null;
-        }
-        if (period.charAt(1) == 'Y') {
+    private LocalDate getPeriod(DealPeriod period) {
+        if (period == DealPeriod.ONE_YEAR) {
             return LocalDate.now().minusYears(1);
         }
-        if (period.charAt(1) == 'M') {
-            return LocalDate.now().minusMonths(Character.getNumericValue(period.charAt(0)));
+        if (period == DealPeriod.SIX_MONTH) {
+            return LocalDate.now().minusMonths(6);
+        }
+        if (period == DealPeriod.THREE_MONTH) {
+            return LocalDate.now().minusMonths(3);
+        }
+        if (period == DealPeriod.ONE_MONTH) {
+            return LocalDate.now().minusMonths(1);
         }
         return null;
     }

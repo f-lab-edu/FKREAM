@@ -281,10 +281,10 @@ class DealServiceTest {
 
     @Test
     void findMarketPriceInGraph() {
-        given(dealMapper.findMarketPricesInGraph(1L, LocalDate.of(2023, 03, 24), "260"))
+        given(dealMapper.findMarketPricesInGraph(1L, LocalDate.now().minusMonths(1), "260"))
             .willReturn(List.of(marketPriceDto));
-        assertThat(dealService.findMarketPriceInGraph(1L, "1M", "260")).contains(marketPriceDto);
-        then(dealMapper).should().findMarketPricesInGraph(1L, LocalDate.of(2023, 03, 24), "260");
+        assertThat(dealService.findMarketPriceInGraph(1L, DealPeriod.ONE_MONTH, "260")).contains(marketPriceDto);
+        then(dealMapper).should().findMarketPricesInGraph(1L, LocalDate.now().minusMonths(1), "260");
     }
 
     @Test
