@@ -14,34 +14,8 @@ public class ListingController {
 
     private final ListingService listingService;
 
-    @GetMapping("/for-man")
-    public List<SearchItemDto>  generateRecommendedItemsListForMen() {
-        return listingService.generateRecommendedItemsListForMen();
+    @GetMapping
+    public List<SearchItemDto> generateItems(ListingCriteria listingCriteria) {
+        return listingService.generateItems(listingCriteria);
     }
-
-    @GetMapping("/for-women")
-    public List<SearchItemDto> generateRecommendedItemsListForWomen() {
-        return listingService.generateRecommendedItemsListForWomen();
-    }
-
-    @GetMapping("/for-item-below-released-price")
-    public List<SearchItemDto> generateItemsBelowReleasedPrice() {
-        return listingService.generateItemsBelowReleasedPrice();
-    }
-
-    @GetMapping("/popular-luxury")
-    public List<SearchItemDto> generatePopularLuxuryItems() {
-        return listingService.generatePopularLuxuryItems();
-    }
-
-    @GetMapping("/most-popular")
-    public List<SearchItemDto> generateMostPopularItems() {
-        return listingService.generateMostPopularItems();
-    }
-
-    @GetMapping("popular-sneakers")
-    public List<SearchItemDto> generatePopularSneakers() {
-        return listingService.generatePopularSneakers();
-    }
-
 }

@@ -14,40 +14,26 @@ public class ListingService {
 
     private final ListingMapper listingMapper;
 
-    public List<SearchItemDto> generateRecommendedItemsListForMen() {
-        LocalDate now = LocalDate.now();
-        LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generateRecommendedItemsForMen(now, lastMonth);
-    }
-
-    public List<SearchItemDto> generateRecommendedItemsListForWomen() {
-        LocalDate now = LocalDate.now();
-        LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generateRecommendedItemsForWomen(now, lastMonth);
-    }
-
-    public List<SearchItemDto> generateItemsBelowReleasedPrice() {
-        LocalDate now = LocalDate.now();
-        LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generateItemsBelowReleasedPrice(now, lastMonth);
-    }
-
-    public List<SearchItemDto> generatePopularLuxuryItems() {
-        LocalDate now = LocalDate.now();
-        LocalDate lastMonth = now.minusMonths(1);
-        return listingMapper.generatePopularLuxuryItems(now, lastMonth);
-
-    }
-
-    public List<SearchItemDto> generateMostPopularItems() {
-        return listingMapper.generateMostPopularItems();
-
-    }
-
-    public List<SearchItemDto> generatePopularSneakers() {
-        LocalDate now = LocalDate.now();
-        LocalDate lastMonth = now.minusMonths(1);
-        LocalDate twoMonthAgo = lastMonth.minusMonths(1);
-        return listingMapper.generatePopularSneakers(now, lastMonth, twoMonthAgo);
+    public List<SearchItemDto> generateItems(ListingCriteria listingCriteria) {
+        final int month = 1;
+        if (listingCriteria == ListingCriteria.RECOMMENDED_ITEM_FOR_MEN) {
+            return listingMapper.generateRecommendedItemsForMen(month);
+        }
+        if (listingCriteria == ListingCriteria.RECOMMENDED_ITEM_FOR_WOMEN) {
+            return listingMapper.generateRecommendedItemsForWomen(month);
+        }
+        if (listingCriteria == ListingCriteria.ITEMS_BELOW_RELEASED_PRICE) {
+            return listingMapper.generateItemsBelowReleasedPrice(month);
+        }
+        if (listingCriteria == ListingCriteria.POPULAR_LUXURY_ITEMS) {
+            return listingMapper.generatePopularLuxuryItems(month);
+        }
+        if (listingCriteria == ListingCriteria.MOST_POPULAR) {
+            return listingMapper.generateMostPopularItems();
+        }
+        if (listingCriteria == ListingCriteria.POPULAR_SNEAKERS) {
+            return listingMapper.generatePopularSneakers(month);
+        }
+        throw new IllegalArgumentException("리스팅 기준이 잘못 입력되었습니다.");
     }
 }
