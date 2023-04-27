@@ -23,13 +23,13 @@ public class OwnedItemController {
 
     private final OwnedItemService ownedItemService;
 
-    @PostMapping("/owned-items")
+    @PostMapping("/my-items")
     @ResponseStatus(HttpStatus.CREATED)
     public void addOwnedItem(@Valid @RequestBody @NotNull OwnedItem ownedItemInfo) {
         ownedItemService.save(ownedItemInfo);
     }
 
-    @GetMapping("/owned-item/{id}")
+    @GetMapping("/my-items/{id}")
     public ResponseEntity<OwnedItem> findOne(@PathVariable Long id) {
         OwnedItem ownedItem = ownedItemService.findOne(id);
         if (ownedItem == null) {
@@ -38,18 +38,15 @@ public class OwnedItemController {
         return ResponseEntity.ok(ownedItem);
     }
 
-    @GetMapping("/owned-items/users/{id}")
+    @GetMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
-    public List<OwnedItem> findAllByUserId(@PathVariable Long id) {
+    public List<OwnedItem> findAllByUserId() {
         Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!id.equals(loggedInUserId)) {
-            throw new ForbiddenException();
-        }
-        return ownedItemService.findAllByUserId(id);
+        return ownedItemService.findAllByUserId(loggedInUserId);
     }
 
 
-    @PatchMapping("/owned-items/{id}")
+    @PatchMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
     public void update(@Valid @RequestBody @NotNull OwnedItem ownedItemInfo) {
         Long loggedInUserId = SessionUtil.getLoginUserId();
@@ -59,7 +56,7 @@ public class OwnedItemController {
         ownedItemService.update(ownedItemInfo);
     }
 
-    @DeleteMapping("/owned-items/{id}")
+    @DeleteMapping("/my-items/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable Long id) {
         Long loggedInUserId = SessionUtil.getLoginUserId();
