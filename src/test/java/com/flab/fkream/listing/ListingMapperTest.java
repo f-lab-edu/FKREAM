@@ -39,8 +39,7 @@ class ListingMapperTest {
 
     @Test
     void generateRecommendedItemsListForMen() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForMen(now,
-            lastMonth);
+        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForMen(1);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         assertThat(item.getGender()).isEqualTo(ItemGender.MALE);
@@ -49,8 +48,7 @@ class ListingMapperTest {
 
     @Test
     void generateRecommendedItemsListForWomen() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForWomen(now,
-            lastMonth);
+        List<SearchItemDto> searchItemDtos = listingMapper.generateRecommendedItemsForWomen(1);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         assertThat(item.getGender()).isEqualTo(ItemGender.FEMALE);
@@ -59,8 +57,7 @@ class ListingMapperTest {
 
     @Test
     void generateItemsBelowReleasedPrice() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generateItemsBelowReleasedPrice(now,
-            lastMonth);
+        List<SearchItemDto> searchItemDtos = listingMapper.generateItemsBelowReleasedPrice(1);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         assertThat(searchItemDto.getPrice()).isLessThan(item.getReleasedPrice());
@@ -68,8 +65,7 @@ class ListingMapperTest {
 
     @Test
     void generatePopularLuxuryItems() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generatePopularLuxuryItems(now,
-            lastMonth);
+        List<SearchItemDto> searchItemDtos = listingMapper.generatePopularLuxuryItems(1);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Brand brand = brandMapper.findOne(searchItemDto.getBrandId());
         assertThat(brand.isLuxury()).isTrue();
@@ -83,8 +79,7 @@ class ListingMapperTest {
 
     @Test
     void generatePopularSneakers() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generatePopularSneakers(now, lastMonth,
-            twoMonthAgo);
+        List<SearchItemDto> searchItemDtos = listingMapper.generatePopularSneakers(1);
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         String name = itemCategoryMapper.findById(item.getDetailedCategoryId()).getName();

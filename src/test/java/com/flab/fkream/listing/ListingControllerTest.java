@@ -30,38 +30,38 @@ class ListingControllerTest {
 
     @Test
     void generateRecommendedItemsListForMen() throws Exception {
-        given(listingService.generateRecommendedItemsListForMen()).willReturn(
+        given(listingService.generateItems(ListingCriteria.RECOMMENDED_ITEM_FOR_MEN)).willReturn(
             List.of(searchItemDto));
-        mockMvc.perform(get("/listing/for-man")).andExpect(status().isOk());
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 
     @Test
     void generateRecommendedItemsListForWomen() throws Exception {
-        given(listingService.generateRecommendedItemsListForWomen()).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/listing/for-women")).andExpect(status().isOk());
+        given(listingService.generateItems(ListingCriteria.RECOMMENDED_ITEM_FOR_WOMEN)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 
     @Test
     void generateItemsBelowReleasedPrice() throws Exception {
-        given(listingService.generateItemsBelowReleasedPrice()).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/listing/for-item-below-released-price")).andExpect(status().isOk());
+        given(listingService.generateItems(ListingCriteria.ITEMS_BELOW_RELEASED_PRICE)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 
     @Test
     void generatePopularLuxuryItems() throws Exception {
-        given(listingService.generatePopularLuxuryItems()).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/listing/popular-luxury")).andExpect(status().isOk());
+        given(listingService.generateItems(ListingCriteria.POPULAR_LUXURY_ITEMS)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 
     @Test
     void generateMostPopularItems() throws Exception {
-        given(listingService.generateMostPopularItems()).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/listing/most-popular")).andExpect(status().isOk());
+        given(listingService.generateItems(ListingCriteria.MOST_POPULAR)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 
     @Test
     void generatePopularSneakers() throws Exception {
-        given(listingService.generatePopularSneakers()).willReturn(List.of(searchItemDto));
-        mockMvc.perform(get("/listing/popular-sneakers")).andExpect(status().isOk());
+        given(listingService.generateItems(ListingCriteria.POPULAR_SNEAKERS)).willReturn(List.of(searchItemDto));
+        mockMvc.perform(get("/listing")).andExpect(status().isOk());
     }
 }

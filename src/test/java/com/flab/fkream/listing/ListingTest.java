@@ -28,12 +28,12 @@ public class ListingTest {
 
     @Test
     void listingCacheTest() {
-        listingMapper.generateRecommendedItemsForMen(now, lastMonth);
-        listingMapper.generateRecommendedItemsForWomen(now, lastMonth);
-        listingMapper.generateItemsBelowReleasedPrice(now, lastMonth);
-        listingMapper.generatePopularLuxuryItems(now, lastMonth);
+        listingMapper.generateRecommendedItemsForMen(1);
+        listingMapper.generateRecommendedItemsForWomen(1);
+        listingMapper.generateItemsBelowReleasedPrice(1);
+        listingMapper.generatePopularLuxuryItems(1);
         listingMapper.generateMostPopularItems();
-        listingMapper.generatePopularSneakers(now, lastMonth,twoMonthAgo);
+        listingMapper.generatePopularSneakers(1);
 
         Cache listing = cacheManager.getCache("Listing");
         assertThat(listing.get("generateRecommendedItemsForMen")).isNotNull();

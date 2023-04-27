@@ -24,59 +24,49 @@ class ListingServiceTest {
 
     @Test
     void generateRecommendedItemsListForMen() {
-        given(listingMapper.generateRecommendedItemsForMen(LocalDate.now(),
-            LocalDate.now().minusMonths(1))).willReturn(
+        given(listingMapper.generateRecommendedItemsForMen(1)).willReturn(
             List.of(searchItemDto));
-        listingService.generateRecommendedItemsListForMen();
-        then(listingMapper).should().generateRecommendedItemsForMen(LocalDate.now(),
-            LocalDate.now().minusMonths(1));
+        listingService.generateItems(ListingCriteria.RECOMMENDED_ITEM_FOR_MEN);
+        then(listingMapper).should().generateRecommendedItemsForMen(1);
     }
 
     @Test
     void generateRecommendedItemsListForWomen() {
-        given(listingMapper.generateRecommendedItemsForWomen(LocalDate.now(),
-            LocalDate.now().minusMonths(1))).willReturn(
+        given(listingMapper.generateRecommendedItemsForWomen(1)).willReturn(
             List.of(searchItemDto));
-        listingService.generateRecommendedItemsListForWomen();
-        then(listingMapper).should().generateRecommendedItemsForWomen(LocalDate.now(),
-            LocalDate.now().minusMonths(1));
+        listingService.generateItems(ListingCriteria.RECOMMENDED_ITEM_FOR_WOMEN);
+        then(listingMapper).should().generateRecommendedItemsForWomen(1);
     }
 
     @Test
     void generateItemsBelowReleasedPrice() {
-        given(listingMapper.generateItemsBelowReleasedPrice(LocalDate.now(),
-            LocalDate.now().minusMonths(1))).willReturn(
+        given(listingMapper.generateItemsBelowReleasedPrice(1)).willReturn(
             List.of(searchItemDto));
-        listingService.generateItemsBelowReleasedPrice();
-        then(listingMapper).should().generateItemsBelowReleasedPrice(LocalDate.now(),
-            LocalDate.now().minusMonths(1));
+        listingService.generateItems(ListingCriteria.ITEMS_BELOW_RELEASED_PRICE);
+        then(listingMapper).should().generateItemsBelowReleasedPrice(1);
     }
 
     @Test
     void generatePopularLuxuryItems() {
-        given(listingMapper.generatePopularLuxuryItems(LocalDate.now(),
-            LocalDate.now().minusMonths(1))).willReturn(
+        given(listingMapper.generatePopularLuxuryItems(1)).willReturn(
             List.of(searchItemDto));
-        listingService.generatePopularLuxuryItems();
-        then(listingMapper).should().generatePopularLuxuryItems(LocalDate.now(),
-            LocalDate.now().minusMonths(1));
+        listingService.generateItems(ListingCriteria.POPULAR_LUXURY_ITEMS);
+        then(listingMapper).should().generatePopularLuxuryItems(1);
     }
 
     @Test
     void generateMostPopularItems() {
         given(listingMapper.generateMostPopularItems()).willReturn(
             List.of(searchItemDto));
-        listingService.generateMostPopularItems();
+        listingService.generateItems(ListingCriteria.MOST_POPULAR);
         then(listingMapper).should().generateMostPopularItems();
     }
 
     @Test
     void generatePopularSneakers() {
-        given(listingMapper.generatePopularSneakers(LocalDate.now(),
-            LocalDate.now().minusMonths(1), LocalDate.now().minusMonths(2))).willReturn(
+        given(listingMapper.generatePopularSneakers(1)).willReturn(
             List.of(searchItemDto));
-        listingService.generatePopularSneakers();
-        then(listingMapper).should().generatePopularSneakers(LocalDate.now(),
-            LocalDate.now().minusMonths(1), LocalDate.now().minusMonths(2));
+        listingService.generateItems(ListingCriteria.POPULAR_SNEAKERS);
+        then(listingMapper).should().generatePopularSneakers(1);
     }
 }
