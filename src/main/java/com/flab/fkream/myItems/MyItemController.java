@@ -50,7 +50,7 @@ public class MyItemController {
 
     @PatchMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@Valid @RequestBody @NotNull MyItem myItemInfo) {
+    public void update(@Valid @RequestBody @NotNull MyItem myItemInfo) throws NotFoundException {
         Long loggedInUserId = SessionUtil.getLoginUserId();
         if (!myItemInfo.getUserId().equals(loggedInUserId)) {
             throw new ForbiddenException();

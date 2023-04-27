@@ -31,10 +31,10 @@ public class MyItemService {
         return myItemMapper.save(myItemInfo);
     }
 
-    public MyItem findOne(Long ownedItemId) {
-        MyItem myItem = myItemMapper.findOne(ownedItemId);
+    public MyItem findOne(Long myItemId) {
+        MyItem myItem = myItemMapper.findOne(myItemId);
         if (myItem == null) {
-            log.error("MyItem with id {} not found.", ownedItemId);
+            log.error("MyItem with id {} not found.", myItemId);
             throw new NoDataFoundException();
         }
         return myItem;
@@ -44,7 +44,13 @@ public class MyItemService {
         return myItemMapper.findAllByUserId(userId);
     }
 
-    public int update(MyItem myItem) {
+    public int update(MyItem myItem) throws NotFoundException {
+        User user = Optional.ofNullable(userMapper.findOne(myItem.getUserId()))
+            .orElseThrow(() -> new NotFoundException("해당 유저를 찾을 수 없습니다."));
+        ItemSizePrice itemSizePrice = Optional.ofNullable(
+            itemSizePriceMapper.findOne(myItem.getItemSizePriceId())
+        ).orElseThrow(() -> new NotFoundException("해당 아이템사이즈가격을 찾을 수 없습니다."));
+
         int result = myItemMapper.update(myItem);
         if (result == 0) {
             log.error("Failed to update MyItem with id {}.", myItem.getId());
