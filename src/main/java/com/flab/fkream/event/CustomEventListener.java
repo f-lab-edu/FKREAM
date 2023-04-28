@@ -10,8 +10,11 @@ import com.flab.fkream.notification.NotificationService;
 import com.flab.fkream.notification.NotificationType;
 import com.flab.fkream.notification.TitleInfo;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.EventListener;
@@ -37,19 +40,26 @@ public class CustomEventListener {
         // itemSizePriceId로 해당 아이템을 찜한 유저 아이디를 가져오는 기능 구현
         List<Long> userIds = List.of(); // 기능 구현 전까지만 사용
 
-        List<String> fcmTokens = userIds.stream()
-            .map(fcmTokenService::findToken)
-            .filter(Objects::nonNull)
-            .collect(Collectors.toList());
+        Map<Long, String> userIdToTokenMap = userIds.stream()
+            .collect(Collectors.toMap(
+                Function.identity(),
+                fcmTokenService::findToken
+            ));
 
-        notificationService.sendPriceChangeNotification(fcmTokens, event.getItemName());
+        List<String> failedTokens = notificationService.sendPriceChangeNotification(
+            new ArrayList<>(userIdToTokenMap.values()), event.getItemName());
+
+        List<Long> successUserIds = userIdToTokenMap.entrySet().stream()
+            .filter(entry -> !failedTokens.contains(entry.getValue()))
+            .map(Map.Entry::getKey)
+            .collect(Collectors.toList());
 
         ItemSizePrice itemSizePrice = itemSizePriceService.findOne(event.getItemSizePriceId());
 
         TitleInfo titleInfo = notificationService.getTitleInfoForPurchasePrice(
             event.getItemName());
 
-        List<Notification> notifications = userIds.stream()
+        List<Notification> notifications = successUserIds.stream()
             .map(userId -> Notification.builder()
                 .userId(userId)
                 .itemId(itemSizePrice.getItemId())
@@ -68,7 +78,12 @@ public class CustomEventListener {
 
         Deal deal = event.getDeal();
         String token = fcmTokenService.findToken(deal.getUserId());
-        notificationService.sendDealStatusChangeNotification(token, deal);
+        List<String> failedTokens = notificationService.sendDealStatusChangeNotification(token,
+            deal);
+
+        if (!failedTokens.isEmpty()) {
+            return;
+        }
 
         TitleInfo titleInfo = notificationService.getTitleInfoForDealStatus(deal);
 

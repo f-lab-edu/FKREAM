@@ -61,16 +61,16 @@ public class NotificationService {
         notificationMapper.delete(id);
     }
 
-    public void sendPriceChangeNotification(List<String> tokenList, String itemName) {
+    public List<String> sendPriceChangeNotification(List<String> tokenList, String itemName) {
         TitleInfo titleInfo = getTitleInfoForPurchasePrice(itemName);
         List<Message> messages = getMessages(tokenList, titleInfo);
-        sendMessages(tokenList, messages);
+        return sendMessages(tokenList, messages);
     }
 
-    public void sendDealStatusChangeNotification(String token, Deal deal) {
+    public List<String> sendDealStatusChangeNotification(String token, Deal deal) {
         TitleInfo titleInfo = getTitleInfoForDealStatus(deal);
         List<Message> messages = getMessages(List.of(token), titleInfo);
-        sendMessages(List.of(token), messages);
+        return sendMessages(List.of(token), messages);
     }
 
     public TitleInfo getTitleInfoForPurchasePrice(String itemName) {
@@ -105,22 +105,23 @@ public class NotificationService {
         return deal.getItem().getItemName() + " : " + title + " 되었습니다.";
     }
 
-    private void sendMessages(List<String> tokenList, List<Message> messages) {
+    private List<String> sendMessages(List<String> tokenList, List<Message> messages) {
         try {
             BatchResponse response = FirebaseMessaging.getInstance().sendAll(messages);
+            List<String> failedTokens = new ArrayList<>();
             if (response.getFailureCount() > 0) {
                 List<SendResponse> responses = response.getResponses();
-                List<String> failedTokens = new ArrayList<>();
 
                 for (int i = 0; i < responses.size(); i++) {
                     if (!responses.get(i).isSuccessful()) {
                         failedTokens.add(tokenList.get(i));
                     }
                 }
-                log.error("List of tokens are not valid FCM token : " + failedTokens);
+                log.error("유효하지 않은 토큰 : {}" + failedTokens);
             }
+            return failedTokens;
         } catch (FirebaseMessagingException e) {
-            log.error("cannot send to memberList push message. error info : {}", e.getMessage());
+            log.error("푸쉬 알림을 보낼 수 없습니다. : {}", e.getMessage());
             throw new RuntimeException(e);
         }
     }
