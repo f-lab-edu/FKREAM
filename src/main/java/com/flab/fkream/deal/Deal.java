@@ -1,7 +1,6 @@
 package com.flab.fkream.deal;
 
 import com.flab.fkream.item.Item;
-import com.flab.fkream.user.User;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -28,7 +27,7 @@ public class Deal {
     @Setter
     private Item item;
     @NotNull
-    private KindOfDeal kindOfDeal;
+    private DealType dealType;
     @NotNull
     private Long userId;
     @NotNull
@@ -47,10 +46,10 @@ public class Deal {
     private Long otherId;
 
     private LocalDateTime createdAt;
+    private LocalDate tradingDay;
 
-
-    public void setKindOfDealToSale(){
-        kindOfDeal = KindOfDeal.SALE;
+    public void setKindOfDealToSale() {
+        dealType = DealType.SALE;
     }
 
     public void setStatus(Status status) {
@@ -58,10 +57,14 @@ public class Deal {
     }
 
     public void setKindOfDealToPurchase() {
-        kindOfDeal = KindOfDeal.PURCHASE;
+        dealType = DealType.PURCHASE;
     }
 
-    public void setCreatedAtToNow(){
+    public void setCreatedAtToNow() {
         createdAt = LocalDateTime.now();
+    }
+
+    public void setTradingDayToNow() {
+        tradingDay = LocalDate.now();
     }
 }

@@ -10,7 +10,10 @@ import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import com.flab.fkream.utils.SessionUtil;
+import java.time.LocalDate;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -98,6 +101,8 @@ public class DealService {
         deal.setStatus(Status.COMPLETION);
         Deal otherDeal = findById(deal.getOtherId());
         otherDeal.setStatus(Status.COMPLETION);
+        deal.setTradingDayToNow();
+        otherDeal.setTradingDayToNow();
         update(deal);
         update(otherDeal);
         eventPublisher.publishDealStatusChangeEvent(deal);
@@ -126,6 +131,58 @@ public class DealService {
     public void delete(Long id) {
         findById(id);
         dealMapper.delete(id);
+    }
+
+    public List<MarketPriceDto> findMarketPriceInGraph(Long itemId, DealPeriod period,
+        String size) {
+        LocalDate fromTradingDay = getPeriod(period);
+        return dealMapper.findMarketPricesInGraph(itemId, fromTradingDay, size);
+    }
+
+    public List<MarketPriceDto> findMarketPrices(Long itemId, String size) {
+        return dealMapper.findMarketPrices(itemId, size);
+    }
+
+    public List<BiddingPriceDto> findBiddingPrices(Long itemId, String size,
+        DealType dealType) {
+        return dealMapper.findBiddingPrices(itemId, size, dealType);
+    }
+
+    public Map<Status, Integer> findHistoryCount(DealType dealType) {
+        Long userId = SessionUtil.getLoginUserId();
+        List<DealHistoryCountDto> historyCountDtos = dealMapper.findHistoryCount(userId,
+            dealType);
+        Map<Status, Integer> historyCounts = new HashMap<>();
+        for (DealHistoryCountDto historyCountDto : historyCountDtos) {
+            historyCounts.put(historyCountDto.getStatus(), historyCountDto.getCount());
+        }
+        return historyCounts;
+    }
+
+    public List<DealHistoryDto> findPurchaseHistories(Status status) {
+        Long userId = SessionUtil.getLoginUserId();
+        return dealMapper.findPurchaseHistories(userId, status);
+    }
+
+    public List<DealHistoryDto> findSaleHistories(Status status) {
+        Long userId = SessionUtil.getLoginUserId();
+        return dealMapper.findSaleHistories(userId, status);
+    }
+
+    private LocalDate getPeriod(DealPeriod period) {
+        if (period == DealPeriod.ONE_YEAR) {
+            return LocalDate.now().minusYears(1);
+        }
+        if (period == DealPeriod.SIX_MONTH) {
+            return LocalDate.now().minusMonths(6);
+        }
+        if (period == DealPeriod.THREE_MONTH) {
+            return LocalDate.now().minusMonths(3);
+        }
+        if (period == DealPeriod.ONE_MONTH) {
+            return LocalDate.now().minusMonths(1);
+        }
+        return null;
     }
 
     private void immediateSale(Deal deal) {
@@ -164,12 +221,12 @@ public class DealService {
 
     private void updatePrice(Deal deal, ItemSizePrice itemSizePrice) {
         if (deal.getStatus() == Status.BIDDING) {
-            if (deal.getKindOfDeal() == KindOfDeal.PURCHASE) {
+            if (deal.getDealType() == DealType.PURCHASE) {
                 if (deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
                     itemSizePrice.setHighestPurchasePrice(deal.getPrice());
                 }
             }
-            if (deal.getKindOfDeal() == KindOfDeal.SALE) {
+            if (deal.getDealType() == DealType.SALE) {
                 if (deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
                     itemSizePrice.setLowestSellingPrice(deal.getPrice());
                     eventPublisher.publishInstantPurchasePriceChangeEvent(itemSizePrice.getId(), deal.getItem().getItemName());
