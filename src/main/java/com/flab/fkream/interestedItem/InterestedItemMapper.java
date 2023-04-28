@@ -1,15 +1,16 @@
 package com.flab.fkream.interestedItem;
 
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface InterestedItemMapper {
-	Long save(InterestedItem interestedItem);
 
-	InterestedItem findOne(Long id);
+    int save(InterestedItem interestedItem);
 
-	List<InterestedItem> findAll();
+    List<InterestedItem> findAllByUserId(Long userId);
+
+    int deleteById(@Param("userId") Long userId, @Param("itemSizePriceId") Long itemSizePriceId);
 
 }
