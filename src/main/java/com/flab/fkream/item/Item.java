@@ -1,5 +1,7 @@
 package com.flab.fkream.item;
 
+import com.flab.fkream.itemCategory.ItemCategory;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import com.flab.fkream.brand.Brand;
@@ -21,21 +23,26 @@ public class Item {
     @NotNull
     private String modelNumber;
     @NotNull
-    private String category1;
+    private Long categoryId;
     @NotNull
-    private String category2;
+    private Long detailedCategoryId;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    private LocalDateTime releaseDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate releaseDate;
 
     @NotNull
     private String representativeColor;
     @NotNull
     private int releasedPrice;
-    private int latestPrice;
+
+    @NotNull
+    private ItemGender gender;
     @NotNull
     private Brand brand;
+
     private Long managerId;
+
+    private int latestPrice;
 
     private boolean isOneSize;
 

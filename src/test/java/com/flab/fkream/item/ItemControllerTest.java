@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.flab.fkream.brand.Brand;
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -31,9 +32,9 @@ class ItemControllerTest {
         Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
+            .categoryId(1L)
+            .detailedCategoryId(2L)
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(brand)

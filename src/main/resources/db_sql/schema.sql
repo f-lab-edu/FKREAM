@@ -51,7 +51,7 @@ CREATE TABLE `payment_card`
     `user_id`      int,
     `card_company` varchar(255),
     `card_number`  varchar(255),
-    `expiration`   timestamp,
+    `expiration`   varchar(255),
     `card_pw`      varchar(255),
     `created_at`   timestamp
 );
@@ -80,8 +80,8 @@ CREATE TABLE `item`
     `id`                   int PRIMARY KEY AUTO_INCREMENT,
     `item_name`            varchar(255),
     `model_number`         varchar(255),
-    `category1`            varchar(255),
-    `category2`            varchar(255),
+    `category_id`          int,
+    `detailed_category_id` int,
     `gender`               varchar(255),
     `release_date`         timestamp,
     `representative_color` varchar(255),
@@ -92,6 +92,15 @@ CREATE TABLE `item`
     `modified_at`          timestamp,
     `manager_id`           int
 );
+
+CREATE TABLE `item_category`
+(
+    `id`                 int PRIMARY KEY AUTO_INCREMENT,
+    `category_name`      varchar(255) unique,
+    `parent_category_id` int,
+    foreign key (`parent_category_id`) references ITEM_CATEGORY (id) on delete set null
+);
+
 
 CREATE TABLE `item_size_price`
 (
@@ -118,16 +127,17 @@ CREATE TABLE `deal`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `item_id`            int,
-    `buy_or_sell`        varchar(255),
+    `deal_type`       varchar(255),
     `user_id`            int,
     `price`              int,
     `size`               varchar(255),
-    `period`             varchar(255),
+    `period`             timestamp,
     `utilization_policy` boolean,
     `sales_condition`    boolean,
     `status`             varchar(255),
+    `other_id`           int,
     `created_at`         timestamp,
-    `modified_at`        timestamp
+    `trading_day`        timestamp
 );
 
 CREATE TABLE `interested_item`

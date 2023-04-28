@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.fkream.itemCategory.ItemCategoryMapper">
+
+  <resultMap id="ItemCategoryMap" type="com.flab.fkream.itemCategory.ItemCategory">
+    <id property="id" column="id"/>
+    <result property="name" column="category_name"/>
+    <result property="parentId" column="parent_category_id"/>
+  </resultMap>
+
+  <insert id="save" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.fkream.itemCategory.ItemCategory">
+    insert into item_category (category_name, parent_category_id)
+    values (#{name}, #{parentId})
+  </insert>
+
+  <select id="findParentCategory" resultMap="ItemCategoryMap">
+    select *
+    from item_category
+    where PARENT_CATEGORY_ID is null
+  </select>
+
+  <select id="findChildCategory" resultMap="ItemCategoryMap">
+    select *
+    from item_category
+    where PARENT_CATEGORY_ID = #{parentCategoryId}
+  </select>
+
+  <select id="findById" resultMap="ItemCategoryMap">
+    select *
+    from item_category
+    where id = #{id}
+  </select>
+
+  <delete id="delete">
+    delete
+    from item_category
+    where id = #{id}
+  </delete>
+
+</mapper>

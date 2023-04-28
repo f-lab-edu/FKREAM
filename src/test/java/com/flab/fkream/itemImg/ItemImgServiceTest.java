@@ -2,6 +2,7 @@ package com.flab.fkream.itemImg;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -33,9 +34,9 @@ class ItemImgServiceTest {
         Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
+            .categoryId(1L)
+            .detailedCategoryId(2L)
+            .releaseDate(LocalDate.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .brand(brand)
