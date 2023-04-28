@@ -8,8 +8,7 @@ public class SessionUtil {
     private static final String LOGIN_MANAGER_ID = "LOGIN_MANAGER_ID";
 
     //인스턴스화 방지
-    private SessionUtil() {
-    }
+    private SessionUtil() {}
 
     public static void setLoginUserId(HttpSession session, Long id) {
         session.setAttribute(LOGIN_USERS_ID, id);
