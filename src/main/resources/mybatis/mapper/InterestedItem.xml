@@ -22,8 +22,8 @@
     </select>
 
     <delete id="deleteById">
-        DELETE
-        from INTERESTED_ITEM
-        where ID = #{id}
+        DELETE from INTERESTED_ITEM
+        where USER_ID = #{userId}
+          and ITEM_SIZE_PRICE_ID = #{itemSizePriceId}
     </delete>
 </mapper>

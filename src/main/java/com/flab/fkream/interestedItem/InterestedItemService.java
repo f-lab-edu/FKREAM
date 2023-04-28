@@ -20,8 +20,8 @@ public class InterestedItemService {
         return interestedItemMapper.findAllByUserId(userId);
     }
 
-    public int delete(Long id) {
-        return interestedItemMapper.deleteById(id);
+    public int delete(Long userId, Long itemSizePriceId) {
+        return interestedItemMapper.deleteById(userId, itemSizePriceId);
     }
 
 }

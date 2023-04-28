@@ -94,13 +94,18 @@ class InterestedItemServiceTest {
     @Test
     void delete() {
         //given
-        given(interestedItemMapper.deleteById(interestedItem.getId())).willReturn(1);
+        Long userId = interestedItem.getUserId();
+        Long itemSizePriceId = interestedItem.getItemSizePriceId();
+        given(interestedItemMapper.deleteById(userId,
+            itemSizePriceId)).willReturn(1);
 
         //when
-        int result = interestedItemService.delete(interestedItem.getId());
+        int result = interestedItemService.delete(userId,
+            itemSizePriceId);
 
         //then
-        then(interestedItemMapper).should().deleteById(ArgumentMatchers.anyLong());
+        then(interestedItemMapper).should()
+            .deleteById(ArgumentMatchers.anyLong(), ArgumentMatchers.anyLong());
         assertThat(result).isEqualTo(1);
     }
 }

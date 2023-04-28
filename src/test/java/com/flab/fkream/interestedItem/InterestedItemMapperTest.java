@@ -110,8 +110,12 @@ class InterestedItemMapperTest {
     @Test
     void deleteById() {
         //when
-        int affectedRow = interestedItemMapper.deleteById(interestedItem.getId());
-
+        Long userId = interestedItem.getUserId();
+        Long itemSizePriceId = interestedItem.getItemSizePriceId();
+        System.out.println("userId = " + userId);
+        System.out.println("itemSizePriceId = " + itemSizePriceId);
+        int affectedRow = interestedItemMapper.deleteById(userId, itemSizePriceId);
+        
         //then
         Assertions.assertThat(affectedRow).isEqualTo(1);
     }

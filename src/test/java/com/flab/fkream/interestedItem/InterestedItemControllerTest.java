@@ -33,6 +33,8 @@ class InterestedItemControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    final String LOGIN_USERS_ID = "LOGIN_USERS_ID";
+
     User user = User.builder()
         .id(1L)
         .email("test@test.com")
@@ -84,11 +86,12 @@ class InterestedItemControllerTest {
     @Test
     void findAllByUserId() throws Exception {
         //given
-        given(interestedItemService.findAllByUserId(user.getId())).willReturn(
+        Long userId = user.getId();
+        given(interestedItemService.findAllByUserId(userId)).willReturn(
             Collections.singletonList(interestedItem));
 
         //when then
-        mockMvc.perform(get("/interested-items/users/{id}", user.getId()))
+        mockMvc.perform(get("/interested-items").sessionAttr(LOGIN_USERS_ID, userId))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$[0].itemSizePriceId").value(interestedItem.getItemSizePriceId()))
@@ -99,15 +102,30 @@ class InterestedItemControllerTest {
 
 
     @Test
-    void delete() throws Exception {
+    void delete_success() throws Exception {
         //given
-        Long id = interestedItem.getId();
-        given(interestedItemService.delete(id)).willReturn(1);
+        Long userId = interestedItem.getUserId();
+        Long itemSizePriceId = interestedItem.getItemSizePriceId();
+        given(interestedItemService.delete(userId, itemSizePriceId)).willReturn(1);
 
         //when then
-        mockMvc.perform(MockMvcRequestBuilders.delete("/interested-items/{id}", id))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/interested-items")
+                .sessionAttr(LOGIN_USERS_ID, userId)
+                .content(new ObjectMapper().writeValueAsString(interestedItem))
+                .contentType(MediaType.APPLICATION_JSON))
             .andExpect(status().isOk());
+    }
 
-        verify(interestedItemService).delete(id);
+    @Test
+    void delete_fail() throws Exception {
+        //given
+        Long otherUserId = 2L;
+
+        //when then
+        mockMvc.perform(MockMvcRequestBuilders.delete("/interested-items")
+                .sessionAttr(LOGIN_USERS_ID, otherUserId)
+                .content(new ObjectMapper().writeValueAsString(interestedItem))
+                .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isForbidden());
     }
 }
