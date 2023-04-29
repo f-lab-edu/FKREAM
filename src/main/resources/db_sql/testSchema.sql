@@ -1,3 +1,4 @@
+drop all objects;
 CREATE TABLE users
 (
     id                      int PRIMARY KEY AUTO_INCREMENT,
