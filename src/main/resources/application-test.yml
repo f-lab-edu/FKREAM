@@ -5,3 +5,10 @@ spring:
     password:
     #driver-class-name: org.h2.Driver
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db_sql/testSchema.sql
+      data-locations:
+        - classpath:db_sql/data.sql
