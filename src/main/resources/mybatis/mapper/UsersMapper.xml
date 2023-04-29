@@ -1,40 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.flab.fkream.user.UserMapper">
 
-    <resultMap id="UsersResultMap" type="com.flab.fkream.user.User">
-        <id column="id" property="id" />
-        <result column="email" property="email" />
-        <result column="password" property="password" />
-        <result column="fourteen_agreement" property="fourteenAgreement" />
-        <result column="ad_agreement" property="adAgreement" />
-        <result column="personal_authentication" property="personalAuthentication" />
-        <result column="gender" property="gender" />
-        <result column="phone_number" property="phoneNumber" />
-        <result column="profile_name" property="profileName" />
-        <result column="name" property="name" />
-        <result column="rank" property="rank" />
-        <result column="profile_img_name" property="profileImgName" />
-        <result column="profile_img_url" property="profileImgUrl" />
-        <result column="profile_img_origin_name" property="profileImgOriginName" />
-        <result column="created_at" property="createdAt" />
-        <result column="modified_at" property="modifiedAt" />
-    </resultMap>
+  <resultMap id="UsersResultMap" type="com.flab.fkream.user.User">
+    <id column="id" property="id"/>
+    <result column="email" property="email"/>
+    <result column="password" property="password"/>
+    <result column="fourteen_agreement" property="fourteenAgreement"/>
+    <result column="ad_agreement" property="adAgreement"/>
+    <result column="personal_authentication" property="personalAuthentication"/>
+    <result column="gender" property="gender"/>
+    <result column="phone_number" property="phoneNumber"/>
+    <result column="profile_name" property="profileName"/>
+    <result column="name" property="name"/>
+    <result column="profile_img_name" property="profileImgName"/>
+    <result column="profile_img_url" property="profileImgUrl"/>
+    <result column="profile_img_origin_name" property="profileImgOriginName"/>
+    <result column="created_at" property="createdAt"/>
+    <result column="modified_at" property="modifiedAt"/>
+  </resultMap>
 
-    <insert id="save" useGeneratedKeys="true" keyProperty="id" parameterType="com.flab.fkream.user.User">
-        insert into users (EMAIL, PASSWORD, FOURTEEN_AGREEMENT, GENDER, AD_AGREEMENT, PERSONAL_AUTHENTICATION, PHONE_NUMBER, PROFILE_NAME, NAME, RANK, PROFILE_IMG_NAME, PROFILE_IMG_URL, PROFILE_IMG_ORIGIN_NAME, CREATED_AT, MODIFIED_AT)
-        values ( #{email}, #{password}, #{fourteenAgreement}, #{gender}, #{adAgreement}, #{personalAuthentication}, #{phoneNumber}
-            ,#{profileName}, #{name}, #{rank}, #{profileImgName}, #{profileImgUrl}, #{profileImgOriginName}, #{createdAt}, #{modifiedAt})
-    </insert>
+  <insert id="save" useGeneratedKeys="true" keyProperty="id"
+    parameterType="com.flab.fkream.user.User">
+    insert into users (EMAIL, PASSWORD, FOURTEEN_AGREEMENT, GENDER, AD_AGREEMENT,
+                       PERSONAL_AUTHENTICATION, PHONE_NUMBER, PROFILE_NAME, NAME, PROFILE_IMG_NAME,
+                       PROFILE_IMG_URL, PROFILE_IMG_ORIGIN_NAME, CREATED_AT, MODIFIED_AT)
+    values ( #{email}, #{password}, #{fourteenAgreement}, #{gender}, #{adAgreement}
+           , #{personalAuthentication}, #{phoneNumber}
+           , #{profileName}, #{name}, #{profileImgName}, #{profileImgUrl}, #{profileImgOriginName}
+           , #{createdAt}, #{modifiedAt})
+  </insert>
 
-    <select id="findByEmail" resultType="com.flab.fkream.user.User" resultMap="UsersResultMap">
-        select *
-        from users
-        where
-        email = #{email}
-    </select>
+  <select id="findByEmail" resultType="com.flab.fkream.user.User" resultMap="UsersResultMap">
+    select *
+    from users
+    where email = #{email}
+  </select>
 </mapper>
 
 

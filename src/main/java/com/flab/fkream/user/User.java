@@ -33,7 +33,6 @@ public class User {
     private String profileName;
     @NotNull(message = "이름은 필수입니다.")
     private String name;
-    private Rank rank = Rank.BRONZE;
     private String profileImgName;
     private String profileImgUrl;
     private String profileImgOriginName;
@@ -50,11 +49,5 @@ public class User {
 
     public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
-    }
-
-    public enum Rank {
-        BRONZE,
-        SILVER,
-        GOLD
     }
 }
