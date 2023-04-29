@@ -18,7 +18,7 @@ class ItemCategoryMapperTest {
     @Autowired
     ItemCategoryMapper itemCategoryMapper;
 
-    ItemCategory parentCategory = ItemCategory.builder().name("신발").build();
+    ItemCategory parentCategory = ItemCategory.builder().name("구두").build();
     ItemCategory childCategory;
 
 
@@ -40,7 +40,7 @@ class ItemCategoryMapperTest {
     @Test
     void findChildCategory() {
         itemCategoryMapper.save(parentCategory);
-        childCategory = ItemCategory.builder().name("스니커즈").parentId(parentCategory.getId())
+        childCategory = ItemCategory.builder().name("키높이구두").parentId(parentCategory.getId())
             .build();
         itemCategoryMapper.save(childCategory);
         assertThat(itemCategoryMapper.findChildCategory(parentCategory.getId())).contains(
