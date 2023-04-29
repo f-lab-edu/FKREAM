@@ -2,7 +2,7 @@ package com.flab.fkream.notification;
 
 
 import com.flab.fkream.deal.Deal;
-import com.flab.fkream.deal.KindOfDeal;
+import com.flab.fkream.deal.DealType;
 import com.flab.fkream.deal.Status;
 import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.error.exception.NotOwnedDataException;
@@ -80,11 +80,11 @@ public class NotificationService {
     }
 
     public TitleInfo getTitleInfoForDealStatus(Deal deal) {
-        if (deal.getStatus() == Status.PROGRESS && deal.getKindOfDeal() == KindOfDeal.SALE) {
+        if (deal.getStatus() == Status.PROGRESS && deal.getDealType() == DealType.SALE) {
             return TitleInfo.builder().title(COMPLETE_SALE_BIDDING)
                 .context(makeContextForDeal(deal, COMPLETE_SALE_BIDDING)).build();
         }
-        if (deal.getStatus() == Status.PROGRESS && deal.getKindOfDeal() == KindOfDeal.PURCHASE) {
+        if (deal.getStatus() == Status.PROGRESS && deal.getDealType() == DealType.PURCHASE) {
             return TitleInfo.builder().title(COMPLETE_PURCHASE_BIDDING)
                 .context(makeContextForDeal(deal, COMPLETE_PURCHASE_BIDDING)).build();
         }
