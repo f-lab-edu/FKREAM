@@ -1,20 +1,21 @@
 package com.flab.fkream.address;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test"})
 class AddressMapperTest {
 
     @Autowired

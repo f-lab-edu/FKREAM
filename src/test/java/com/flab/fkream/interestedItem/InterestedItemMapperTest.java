@@ -6,7 +6,6 @@ import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
-import java.time.LocalDateTime;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,11 +13,13 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
+@ActiveProfiles({"test"})
 class InterestedItemMapperTest {
 
     @Autowired
@@ -112,7 +113,7 @@ class InterestedItemMapperTest {
         System.out.println("userId = " + userId);
         System.out.println("itemSizePriceId = " + itemSizePriceId);
         int affectedRow = interestedItemMapper.deleteById(userId, itemSizePriceId);
-        
+
         //then
         Assertions.assertThat(affectedRow).isEqualTo(1);
     }

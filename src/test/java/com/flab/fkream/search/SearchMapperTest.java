@@ -1,6 +1,6 @@
 package com.flab.fkream.search;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
@@ -24,9 +24,11 @@ import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles({"test"})
 class SearchMapperTest {
 
     @Autowired
@@ -183,11 +185,16 @@ class SearchMapperTest {
         itemSizePriceMapper.save(itemSizePriceInfo5);
         itemSizePriceMapper.save(itemSizePriceInfo6);
 
-        dealInfo1 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(14000).size("250").build();
-        dealInfo2 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(24000).size("260").build();
-        dealInfo3 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(34000).size("270").build();
-        dealInfo4 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(44000).size("280").build();
-        dealInfo5 = Deal.builder().item(itemInfo2).userId(userInfo1.getId()).price(34000).size("270").build();
+        dealInfo1 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(14000)
+            .size("250").build();
+        dealInfo2 = Deal.builder().item(itemInfo1).userId(userInfo1.getId()).price(24000)
+            .size("260").build();
+        dealInfo3 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(34000)
+            .size("270").build();
+        dealInfo4 = Deal.builder().item(itemInfo2).userId(userInfo2.getId()).price(44000)
+            .size("280").build();
+        dealInfo5 = Deal.builder().item(itemInfo2).userId(userInfo1.getId()).price(34000)
+            .size("270").build();
         dealMapper.save(dealInfo1);
         dealMapper.save(dealInfo2);
         dealMapper.save(dealInfo3);

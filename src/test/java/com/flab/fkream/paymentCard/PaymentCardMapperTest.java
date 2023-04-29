@@ -1,7 +1,6 @@
 package com.flab.fkream.paymentCard;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
@@ -12,9 +11,11 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test"})
 class PaymentCardMapperTest {
 
     @Autowired

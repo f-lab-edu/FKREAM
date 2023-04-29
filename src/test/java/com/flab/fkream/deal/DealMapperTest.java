@@ -1,6 +1,6 @@
 package com.flab.fkream.deal;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandMapper;
@@ -17,9 +17,11 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test"})
 class DealMapperTest {
 
     @Autowired

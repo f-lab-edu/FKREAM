@@ -1,25 +1,23 @@
 package com.flab.fkream.itemSizePrice;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemMapper;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.test.context.ActiveProfiles;
 
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test"})
 class ItemSizePriceMapperTest {
 
 
@@ -45,9 +43,8 @@ class ItemSizePriceMapperTest {
     ItemSizePrice itemSizePriceInfo;
 
 
-
     @BeforeEach
-    void setUp(){
+    void setUp() {
         itemMapper.save(itemInfo);
         itemSizePriceInfo = ItemSizePrice.builder()
             .itemId(itemInfo.getId())
@@ -63,7 +60,8 @@ class ItemSizePriceMapperTest {
     @Test
     void findOne() {
         itemSizePriceMapper.save(itemSizePriceInfo);
-        assertThat(itemSizePriceMapper.findOne(itemSizePriceInfo.getId())).isEqualTo(itemSizePriceInfo);
+        assertThat(itemSizePriceMapper.findOne(itemSizePriceInfo.getId())).isEqualTo(
+            itemSizePriceInfo);
     }
 
     @Test
@@ -75,7 +73,8 @@ class ItemSizePriceMapperTest {
     @Test
     void findByItemIdAndSize() {
         itemSizePriceMapper.save(itemSizePriceInfo);
-        assertThat(itemSizePriceMapper.findByItemIdAndSize(itemInfo.getId(),SIZE)).isEqualTo(itemSizePriceInfo);
+        assertThat(itemSizePriceMapper.findByItemIdAndSize(itemInfo.getId(), SIZE)).isEqualTo(
+            itemSizePriceInfo);
     }
 
     @Test

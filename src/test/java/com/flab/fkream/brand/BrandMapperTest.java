@@ -1,17 +1,17 @@
 package com.flab.fkream.brand;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles({"test"})
 class BrandMapperTest {
 
     @Autowired
@@ -34,8 +34,7 @@ class BrandMapperTest {
     @Test
     void 브랜드_리스팅() {
         List<Brand> all = brandMapper.findAll();
-        int BRAND_COUNT = 201;
-        assertThat(all.size()).isEqualTo(BRAND_COUNT);
+        assertThat(all.size()).isEqualTo(201);
     }
 
     @Test
