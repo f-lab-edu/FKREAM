@@ -3,10 +3,10 @@ mybatis:
 
 spring:
   datasource:
-    url: jdbc:log4jdbc:h2:tcp://localhost/~/fkream
+    url: jdbc:log4jdbc:mysql://localhost:3306/testfkream
     #url: jdbc:h2:tcp://localhost/~/fkream
-    username: sa
-    password:
+    username: fkream
+    password: 1234
     #driver-class-name: org.h2.Driver
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
   cache:
@@ -43,6 +43,6 @@ logging:
       resultsettable: INFO  #SQL 결과 데이터 Table형식으로 출력
       sqlonly: OFF    #SQL만 로그만 출력
       sqltiming: INFO    #SQL + 소요시간 출력
-      connection : OFF  # 커넥션 연결/종료 정보 출력
+      connection: OFF  # 커넥션 연결/종료 정보 출력
 
 #  org.hibernate.type: trace
