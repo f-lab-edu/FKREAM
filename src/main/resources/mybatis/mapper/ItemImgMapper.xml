@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.fkream.itemImg.ItemImgMapper">
-
     <resultMap id="ItemImgResultMap" type="com.flab.fkream.itemImg.ItemImg">
         <id property="id" column="id"/>
         <result property="imgName" column="img_name"/>
@@ -9,7 +9,8 @@
         <result property="originName" column="origin_name"/>
         <result property="isRepresentativeImg" column="is_representative_img"/>
         <result property="createdAt" column="created_at"/>
-        <association property="item" javaType="com.flab.fkream.item.Item" resultMap="ItemResultMap"/>
+        <association property="item" javaType="com.flab.fkream.item.Item"
+            resultMap="ItemResultMap"/>
     </resultMap>
 
     <resultMap id="ItemResultMap" type="com.flab.fkream.item.Item">
@@ -33,15 +34,19 @@
     </resultMap>
 
 
-    <insert id="save" parameterType="com.flab.fkream.itemImg.ItemImg" useGeneratedKeys="true" keyProperty="id">
-        insert into ITEM_IMG (ITEM_ID, IMG_NAME, IMG_URL, ORIGIN_NAME, is_representative_img, CREATED_AT)
-        VALUES (#{item.id}, #{imgName}, #{imgUrl}, #{originName}, #{isRepresentativeImg}, #{createdAt});
+    <insert id="save" parameterType="com.flab.fkream.itemImg.ItemImg" useGeneratedKeys="true"
+        keyProperty="id">
+        insert into ITEM_IMG (ITEM_ID, IMG_NAME, IMG_URL, ORIGIN_NAME, is_representative_img,
+                              CREATED_AT)
+        VALUES (#{item.id}, #{imgName}, #{imgUrl}, #{originName}, #{isRepresentativeImg},
+                #{createdAt});
     </insert>
 
     <select id="findImagesByItemId" resultMap="ItemImgResultMap">
         select *
         from ITEM_IMG
                  join ITEM
+                      on ITEM_IMG.ITEM_ID = ITEM.ID
         where item.id = #{itemId}
     </select>
 
