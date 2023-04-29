@@ -21,6 +21,12 @@
         where USER_ID = #{userId}
     </select>
 
+    <select id="findUserIdsByItemSizePriceID" resultType="java.lang.Long">
+        select user_id
+        from INTERESTED_ITEM
+        where item_size_price_id = #{itemSizePriceId}
+    </select>
+
     <delete id="deleteById">
         DELETE from INTERESTED_ITEM
         where USER_ID = #{userId}

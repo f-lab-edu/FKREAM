@@ -13,4 +13,5 @@ public interface InterestedItemMapper {
 
     int deleteById(@Param("userId") Long userId, @Param("itemSizePriceId") Long itemSizePriceId);
 
+    List<Long> findUserIdsByItemSizePriceID(Long itemSizePriceId);
 }

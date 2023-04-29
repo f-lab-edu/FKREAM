@@ -3,6 +3,8 @@ package com.flab.fkream.event;
 
 import com.flab.fkream.deal.Deal;
 import com.flab.fkream.fcm.FCMTokenService;
+import com.flab.fkream.interestedItem.InterestedItem;
+import com.flab.fkream.interestedItem.InterestedItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
 import com.flab.fkream.notification.Notification;
@@ -30,6 +32,8 @@ public class CustomEventListener {
     private final FCMTokenService fcmTokenService;
     private final ItemSizePriceService itemSizePriceService;
 
+    private final InterestedItemService interestedItemService;
+
 
     @EventListener
     @Async("InstantPurchasePriceChangeEventAsync")
@@ -37,8 +41,8 @@ public class CustomEventListener {
     public void handleInstantPurchasePriceChangeEvent(InstantPurchasePriceChangeEvent event) {
         Long itemSizePriceId = event.getItemSizePriceId();
 
-        // itemSizePriceId로 해당 아이템을 찜한 유저 아이디를 가져오는 기능 구현
-        List<Long> userIds = List.of(); // 기능 구현 전까지만 사용
+        List<Long> userIds = interestedItemService.findUserIdsByItemSizePriceID(
+            itemSizePriceId);
 
         Map<Long, String> userIdToTokenMap = userIds.stream()
             .collect(Collectors.toMap(
