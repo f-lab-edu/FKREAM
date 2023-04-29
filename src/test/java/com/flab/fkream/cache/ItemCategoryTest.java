@@ -14,10 +14,12 @@ import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @Transactional
+@ActiveProfiles({"test"})
 public class ItemCategoryTest {
 
     @Autowired
