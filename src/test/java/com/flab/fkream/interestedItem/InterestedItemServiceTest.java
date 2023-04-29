@@ -7,7 +7,6 @@ import static org.mockito.BDDMockito.then;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.user.User;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -42,9 +41,6 @@ class InterestedItemServiceTest {
         .id(1L)
         .itemName("나이키 에어포스")
         .modelNumber("NK22035")
-        .category1("신발")
-        .category2("스니커즈")
-        .releaseDate(LocalDateTime.now())
         .representativeColor("Black")
         .releasedPrice(10000)
         .build();
