@@ -2,6 +2,7 @@ package com.flab.fkream.search;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.cache.annotation.Cacheable;
 
 @Mapper
@@ -21,5 +22,5 @@ public interface SearchMapper {
     int findCountByCriteria(SearchCriteria searchCriteria);
 
     @Cacheable(cacheNames = "AutoComplete", key = "#p0")
-    List<AutoCompletedItemDto> autoComplete(List<String> result);
+    List<AutoCompletedItemDto> autoComplete(@Param("results") List<String> results);
 }

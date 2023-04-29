@@ -42,7 +42,7 @@
     from ITEM item
     join ITEM_IMG img on item.ID = img.ITEM_ID
     <where>
-    <foreach collection="arg0" item="name">
+    <foreach collection="results" item="name">
       or item.item_name like concat('%', #{name}, '%')
     </foreach>
     </where>
@@ -50,7 +50,7 @@
   </select>
 
   <select id="searchByCriteria" resultType="com.flab.fkream.search.SearchItemDto" parameterType="com.flab.fkream.search.SearchCriteria">
-    select 
+    select
         item.id        as itemId,
         item.item_name as itemName,
         BR.id          as brandId,
