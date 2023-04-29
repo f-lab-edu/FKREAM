@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.flab.fkream.item.ItemMapper">
+    <resultMap id="ItemResultMap" type="com.flab.fkream.item.Item">
+        <id property="id" column="id"/>
+        <result property="itemName" column="item_name"/>
+        <result property="modelNumber" column="model_number"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="detailedCategoryId" column="detailed_category_id"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="representativeColor" column="representative_color"/>
+        <result property="releasedPrice" column="released_price"/>
+        <result property="latestPrice" column="latest_price"/>
+        <result property="managerId" column="manager_id"/>
+        <result property="brand.id" column="brand_id"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="modifiedAt" column="modified_at"/>
+
+    </resultMap>
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO Item(item_name,
+                         model_number,
+                         category_id,
+                         detailed_category_id,
+                         release_date,
+                         representative_color,
+                         released_price,
+                         latest_price,
+                         gender,
+                         brand_id,
+                         manager_id,
+                         created_at,
+                         modified_at)
+        VALUES (#{itemName},
+                #{modelNumber},
+                #{categoryId},
+                #{detailedCategoryId},
+                #{releaseDate},
+                #{representativeColor},
+                #{releasedPrice},
+                #{latestPrice},
+                #{gender},
+                #{brand.id},
+                #{managerId},
+                #{createdAt},
+                #{modifiedAt})
+    </insert>
+
+    <select id="findOne" resultMap="ItemResultMap">
+        select *
+        from ITEM i
+        where i.id = #{id}
+    </select>
+
+    <select id="findAll" resultMap="ItemResultMap">
+        select *
+        from ITEM
+    </select>
+
+  <select id="findByBrand" resultType="com.flab.fkream.item.Item">
+    select *
+    from ITEM
+    where brand_id = #{param1.id}
+  </select>
+
+  <update id="update">
+        UPDATE ITEM
+        SET item_name            = #{itemName},
+            model_number         = #{modelNumber},
+            category_id            = #{categoryId},
+            detailed_category_id            = #{detailedCategoryId},
+            release_date         = #{releaseDate},
+            representative_color = #{representativeColor},
+            released_price       = #{releasedPrice},
+            brand_id             = #{brand.id},
+            manager_id           = #{managerId},
+            modified_at          = #{modifiedAt}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete">
+        DELETE
+        FROM ITEM
+        WHERE id = #{id}
+    </delete>
+</mapper>

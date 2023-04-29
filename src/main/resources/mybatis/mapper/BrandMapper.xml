@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.flab.fkream.brand.BrandMapper">
+
+    <resultMap id="BrandResultMap" type="com.flab.fkream.brand.Brand">
+        <id property="id" column="id"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="isLuxury" column="is_luxury"/>
+    </resultMap>
+
+
+    <insert id="save" parameterType="com.flab.fkream.brand.Brand" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO BRAND(brand_name, is_luxury)
+        VALUES (#{brandName}, #{isLuxury})
+    </insert>
+
+    <select id="findOne" resultType="com.flab.fkream.brand.Brand" resultMap="BrandResultMap">
+        select *
+        from BRAND
+        where ID = #{id}
+    </select>
+
+    <select id="findAll" resultType="com.flab.fkream.brand.Brand" resultMap="BrandResultMap">
+        select *
+        from BRAND
+    </select>
+
+    <select id="findByBrandName" resultType="com.flab.fkream.brand.Brand" resultMap="BrandResultMap">
+        select *
+        from BRAND
+        where brand_name = #{brandName}
+    </select>
+
+
+    <update id="update">
+        update BRAND
+        set brand_name = #{brandName},
+            is_luxury  = #{isLuxury}
+        where id = #{id}
+    </update>
+
+    <delete id="delete">
+        delete
+        from BRAND
+        where id = #{id}
+    </delete>
+</mapper>

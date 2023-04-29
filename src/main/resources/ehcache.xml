@@ -1,0 +1,83 @@
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.ehcache.org/v3"
+  xmlns:jsr107="http://www.ehcache.org/v3/jsr107"
+  xsi:schemaLocation="
+            http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core-3.0.xsd
+            http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext-3.0.xsd">
+
+
+  <cache alias="Brand">
+    <key-type>java.lang.Long</key-type>
+    <value-type>com.flab.fkream.brand.Brand</value-type>
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">1000</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="Item">
+    <key-type>java.lang.Long</key-type>
+    <value-type>com.flab.fkream.item.Item</value-type>
+    <expiry>
+      <ttl unit="hours">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">2</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="ItemCategoryAll">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">100</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="ItemCategory">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">100</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="Search">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">120</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="AutoComplete">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">100</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+  <cache alias="SearchCount">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">200</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+
+</config>
