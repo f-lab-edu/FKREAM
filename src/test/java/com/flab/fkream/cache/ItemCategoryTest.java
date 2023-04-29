@@ -10,6 +10,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.cache.Cache;
 import org.springframework.cache.Cache.ValueWrapper;
 import org.springframework.cache.CacheManager;
@@ -22,7 +23,7 @@ public class ItemCategoryTest {
     @Autowired
     CacheManager cacheManager;
 
-    @Autowired
+    @SpyBean
     ItemCategoryMapper itemCategoryMapper;
 
     @Test
