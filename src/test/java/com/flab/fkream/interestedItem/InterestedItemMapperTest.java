@@ -55,9 +55,6 @@ class InterestedItemMapperTest {
         item = Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .build();
