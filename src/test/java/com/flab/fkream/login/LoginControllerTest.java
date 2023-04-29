@@ -30,7 +30,7 @@ class LoginControllerTest {
 
     @Test
     public void testLoginSuccess() throws Exception {
-        LoginForm loginForm = new LoginForm("test", "test");
+        LoginForm loginForm = new LoginForm("test", "test", "tokenData");
 
         User user = User.builder().email("test").password("test").build();
 
@@ -46,7 +46,7 @@ class LoginControllerTest {
 
     @Test
     public void testLoginFail() throws Exception {
-        LoginForm loginForm = new LoginForm("test@test.com", "test");
+        LoginForm loginForm = new LoginForm("test@test.com", "test", "tokenData");
         User user = User.builder().email("test").password("test").build();
 
         given(userService.login(loginForm)).willThrow(LoginFailureException.class);

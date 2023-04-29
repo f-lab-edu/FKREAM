@@ -51,7 +51,7 @@ class UserServiceTest {
             .personalAuthentication(true)
             .phoneNumber("010")
             .build());
-        User login = userService.login(new LoginForm(user.getEmail(), user.getPassword()));
+        User login = userService.login(new LoginForm(user.getEmail(), user.getPassword(), "tokenData"));
         String email = login.getEmail();
         Assertions.assertThat(email).isEqualTo(user.getEmail());
     }
@@ -60,7 +60,7 @@ class UserServiceTest {
     void loginFailureTest() {
         given(userMapper.findByEmail(user.getEmail())).willReturn(null);
         Assertions.assertThatThrownBy(
-                () -> userService.login(new LoginForm(user.getEmail(), user.getPassword())))
+                () -> userService.login(new LoginForm(user.getEmail(), user.getPassword(), "tokenData")))
             .isInstanceOf(
                 LoginFailureException.class);
     }
