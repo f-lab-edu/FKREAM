@@ -6,6 +6,7 @@ import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.assertj.core.api.Assertions;
@@ -19,7 +20,8 @@ import org.springframework.transaction.annotation.Transactional;
 @MybatisTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
-class InterestedItemMapperTest {
+class
+InterestedItemMapperTest {
 
     @Autowired
     UserMapper userMapper;
@@ -55,9 +57,6 @@ class InterestedItemMapperTest {
         item = Item.builder()
             .itemName("나이키 에어포스")
             .modelNumber("NK22035")
-            .category1("신발")
-            .category2("스니커즈")
-            .releaseDate(LocalDateTime.now())
             .representativeColor("Black")
             .releasedPrice(10000)
             .build();
@@ -83,6 +82,30 @@ class InterestedItemMapperTest {
 
         //then
         Assertions.assertThat(interestedItem.getId()).isNotNull();
+    }
+
+    @Test
+    void findUserIdsByItemSizePriceID() {
+        User user2 = User.builder()
+            .email("test2")
+            .password("000")
+            .gender("aa")
+            .name("test2")
+            .adAgreement(true)
+            .fourteenAgreement(true)
+            .personalAuthentication(true)
+            .phoneNumber("010")
+            .build();
+        userMapper.save(user2);
+        InterestedItem anotherInterestedItem = InterestedItem.builder()
+            .itemSizePriceId(itemSizePrice.getId())
+            .userId(user2.getId())
+            .build();
+        interestedItemMapper.save(anotherInterestedItem);
+
+        List<Long> userIdsByItemSizePriceID = interestedItemMapper.findUserIdsByItemSizePriceID(
+            itemSizePrice.getId());
+        Assertions.assertThat(userIdsByItemSizePriceID).hasSize(2);
     }
 
     @Test
@@ -115,7 +138,7 @@ class InterestedItemMapperTest {
         System.out.println("userId = " + userId);
         System.out.println("itemSizePriceId = " + itemSizePriceId);
         int affectedRow = interestedItemMapper.deleteById(userId, itemSizePriceId);
-        
+
         //then
         Assertions.assertThat(affectedRow).isEqualTo(1);
     }
