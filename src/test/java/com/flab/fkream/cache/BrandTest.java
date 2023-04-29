@@ -26,7 +26,7 @@ public class BrandTest {
 
 
     @Test
-    void 브랜드_캐시_사용_테스트() {
+    void brandCacheTest() {
         Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
 
         Item itemInfo =
