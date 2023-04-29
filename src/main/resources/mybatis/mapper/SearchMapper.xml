@@ -43,7 +43,7 @@
     join ITEM_IMG img on item.ID = img.ITEM_ID
     <where>
     <foreach collection="arg0" item="name">
-      or item.item_name like '%' || #{name} || '%'
+      or item.item_name like concat('%', #{name}, '%')
     </foreach>
     </where>
     limit 10
@@ -109,9 +109,9 @@
     </choose>
     <where>
       <if test="context != null">
-        (item.item_name like '%' || #{context} || '%'
-        or item.model_number like '%' || #{context} || '%'
-        or BR.brand_name like '%' || #{context} || '%')
+        (item.item_name like concat('%', #{context}, '%')
+        or item.model_number like concat('%', #{context}, '%')
+        or BR.brand_name like concat('%', #{context}, '%'))
       </if>
       <if test="categoryId != null">
         and (item.category_id in
@@ -173,9 +173,9 @@
               group by ITEM_ID) isp on item.ID = isp.ITEM_ID
     <where>
       <if test="context != null">
-        (item.item_name like '%' || #{context} || '%'
-        or item.model_number like '%' || #{context} || '%'
-        or BR.brand_name like '%' || #{context} || '%')
+        (item.item_name like concat('%', #{context}, '%')
+        or item.model_number like concat('%', #{context}, '%')
+        or BR.brand_name like concat('%', #{context}, '%'))
       </if>
       <if test="categoryId != null">
         and (item.category_id in
