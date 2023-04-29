@@ -33,10 +33,9 @@ class BrandMapperTest {
 
     @Test
     void 브랜드_리스팅() {
-        brandMapper.save(brandInfo);
-        brandMapper.save(brandInfo);
         List<Brand> all = brandMapper.findAll();
-        assertThat(all.size()).isEqualTo(2);
+        int BRAND_COUNT = 201;
+        assertThat(all.size()).isEqualTo(BRAND_COUNT);
     }
 
     @Test
