@@ -95,8 +95,7 @@ CREATE TABLE item_category
 (
     id                 int PRIMARY KEY AUTO_INCREMENT,
     category_name      varchar(255) unique,
-    parent_category_id int,
-    foreign key (parent_category_id) references ITEM_CATEGORY (id) on delete set null
+    parent_category_id int
 );
 
 
@@ -204,3 +203,6 @@ ALTER TABLE owned_items
 
 ALTER TABLE owned_items
     ADD FOREIGN KEY (item_size_price_id) REFERENCES item_size_price (id);
+
+ALTER TABLE item_category
+    ADD FOREIGN KEY (parent_category_id) REFERENCES item_category (id) on delete set null;
