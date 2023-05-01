@@ -3,13 +3,14 @@ package com.flab.fkream.notification;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface NotificationMapper {
 
     int save(Notification notification);
 
-    int saveAll(List<Notification> notifications);
+    int saveAll(@Param("notifications")List<Notification> notifications);
 
     List<Notification> findByUserId(Long userId);
 
