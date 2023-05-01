@@ -6,7 +6,7 @@
 
   <insert id="save">
     insert into fcm_token (user_id, token)
-    values (#{userId}, #{token})
+    values (#{param1}, #{param2})
   </insert>
 
   <select id="findByUserId" resultType="java.lang.String">
