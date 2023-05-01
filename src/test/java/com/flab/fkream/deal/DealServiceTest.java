@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import com.flab.fkream.brand.Brand;
+import com.flab.fkream.event.CustomEventPublisher;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
@@ -29,6 +30,9 @@ class DealServiceTest {
 
     @Mock
     ItemSizePriceService itemSizePriceService;
+
+    @Mock
+    CustomEventPublisher eventPublisher;
 
     @Mock
     ItemService itemService;
@@ -171,7 +175,9 @@ class DealServiceTest {
             saleDealInfo.getSize(), saleDealInfo.getPrice())).willReturn(otherDeal);
         given(dealMapper.update(otherDeal)).willReturn(1);
         given(itemService.findOne(saleDealInfo.getItem().getId())).willReturn(itemInfo);
+
         dealService.sale(saleDealInfo);
+
         then(dealMapper).should().save(saleDealInfo);
         then(itemSizePriceService).should()
             .findByItemIdAndSize(itemInfo.getId(), saleDealInfo.getSize());
@@ -238,7 +244,7 @@ class DealServiceTest {
     void findById() {
         given(dealMapper.findById(1L)).willReturn(dealInfo);
         given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
-
+        sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
         assertThat(dealService.findById(1L)).isEqualTo(dealInfo);
     }
 
@@ -249,6 +255,7 @@ class DealServiceTest {
         given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
 
         dealService.completeDeal(1L);
+
         then(dealMapper).should(times(2)).update(dealInfo);
     }
 
@@ -257,7 +264,9 @@ class DealServiceTest {
         given(dealMapper.findById(any())).willReturn(dealInfo);
         given(dealMapper.update(dealInfo)).willReturn(1);
         given(itemService.findOne(dealInfo.getItem().getId())).willReturn(itemInfo);
+
         dealService.cancelDeal(1L);
+
         then(dealMapper).should(times(2)).update(dealInfo);
     }
 
@@ -283,8 +292,10 @@ class DealServiceTest {
     void findMarketPriceInGraph() {
         given(dealMapper.findMarketPricesInGraph(1L, LocalDate.now().minusMonths(1), "260"))
             .willReturn(List.of(marketPriceDto));
-        assertThat(dealService.findMarketPriceInGraph(1L, DealPeriod.ONE_MONTH, "260")).contains(marketPriceDto);
-        then(dealMapper).should().findMarketPricesInGraph(1L, LocalDate.now().minusMonths(1), "260");
+        assertThat(dealService.findMarketPriceInGraph(1L, DealPeriod.ONE_MONTH, "260")).contains(
+            marketPriceDto);
+        then(dealMapper).should()
+            .findMarketPricesInGraph(1L, LocalDate.now().minusMonths(1), "260");
     }
 
     @Test
