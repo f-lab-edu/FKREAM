@@ -19,7 +19,7 @@
     parameterType="com.flab.fkream.notification.Notification">
     insert into notification (user_id, item_id, deal_id, title, context, notification_type,
                               CREATED_AT)
-    values (#{userId}, #{itemId}, #{dealId}, #{title}, #{context}, #{notificationType} #{createdAt})
+    values (#{userId}, #{itemId}, #{dealId}, #{title}, #{context}, #{notificationType}, #{createdAt})
   </insert>
 
   <insert id="saveAll" parameterType="com.flab.fkream.notification.Notification">
