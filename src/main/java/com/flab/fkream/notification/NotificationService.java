@@ -27,6 +27,8 @@ public class NotificationService {
 
     private final NotificationMapper notificationMapper;
 
+    private final FirebaseMessaging firebaseMessaging;
+
     private static final String NEW_IMMEDIATE_PURCHASE_PRICE = "신규 즉시 구매가";
     private static final String COMPLETE_PURCHASE_BIDDING = "구매 입찰 완료";
     private static final String COMPLETE_SALE_BIDDING = "판매 입찰 완료";
@@ -47,11 +49,11 @@ public class NotificationService {
 
     public Notification findById(Long id) {
         Notification notification = notificationMapper.findById(id);
-        if (notification != null) {
+        if (notification == null) {
             throw new NoDataFoundException();
         }
         if (notification.getUserId() == SessionUtil.getLoginUserId()) {
-            return notificationMapper.findById(id);
+            return notification;
         }
         throw new NotOwnedDataException();
     }
@@ -107,7 +109,7 @@ public class NotificationService {
 
     private List<String> sendMessages(List<String> tokenList, List<Message> messages) {
         try {
-            BatchResponse response = FirebaseMessaging.getInstance().sendAll(messages);
+            BatchResponse response = firebaseMessaging.sendAll(messages);
             List<String> failedTokens = new ArrayList<>();
             if (response.getFailureCount() > 0) {
                 List<SendResponse> responses = response.getResponses();
@@ -134,6 +136,4 @@ public class NotificationService {
             .setToken(token)
             .build()).collect(Collectors.toList());
     }
-
-
 }
