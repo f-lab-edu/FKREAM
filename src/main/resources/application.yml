@@ -1,0 +1,50 @@
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+spring:
+  datasource:
+    url: jdbc:log4jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  cache:
+    jcache:
+      config: classpath:ehcache.xml
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath:db_sql/schema.sql
+      data-locations:
+        - classpath:db_sql/data.sql
+  jackson:
+    mapper:
+      accept-case-insensitive-enums: true
+  redis:
+    cache:
+      host: ${REDIS_CACHE_HOST}
+      port: ${REDIS_CACHE_PORT}
+    session:
+      host: ${REDIS_SESSION_HOST}
+      port: ${REDIS_SESSION_PORT}
+
+
+
+logging.level:
+  org.hibernate.SQL: debug
+
+logging:
+  level:
+    com:
+      zaxxer:
+        hikari: INFO
+    javax:
+      sql:
+        DataSource: OFF
+    jdbc:
+      audit: OFF # JDBC 트러블슈팅 경우를 제외하고는 사용 권장 X
+      resultset: OFF # ResultSet을 포함한 모든 JDBC 호출 정보를 출력
+      resultsettable: INFO  #SQL 결과 데이터 Table형식으로 출력
+      sqlonly: OFF    #SQL만 로그만 출력
+      sqltiming: INFO    #SQL + 소요시간 출력
+      connection: OFF  # 커넥션 연결/종료 정보 출력
