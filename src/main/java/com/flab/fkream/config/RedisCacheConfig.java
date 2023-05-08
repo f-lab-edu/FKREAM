@@ -1,5 +1,8 @@
 package com.flab.fkream.config;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,32 +12,28 @@ import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactor
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 300)
-public class RedisSessionConfig {
+public class RedisCacheConfig {
 
-    @Value("${spring.redis.session.host}")
-    private String redisSessionHost;
+    @Value("${spring.redis.cache.host}")
+    private String redisCacheHost;
 
-    @Value("${spring.redis.session.port}")
-    private int redisSessionPort;
+    @Value("${spring.redis.cache.port}")
+    private int redisCachePort;
 
-
-    // Creating Connection with Redis session
-    @Bean({"redisConnectionFactory", "redisSessionConnectionFactory"})
-    public RedisConnectionFactory redisSessionConnectionFactory() {
+    @Bean
+    public RedisConnectionFactory redisCacheConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-        redisStandaloneConfiguration.setHostName(redisSessionHost);
-        redisStandaloneConfiguration.setPort(redisSessionPort);
+        redisStandaloneConfiguration.setHostName(redisCacheHost);
+        redisStandaloneConfiguration.setPort(redisCachePort);
         return new LettuceConnectionFactory(redisStandaloneConfiguration);
     }
 
-    @Bean(name = "redisTemplate")
-    public RedisTemplate<String, Object> redisSessionTemplate() {
+    @Bean
+    public RedisTemplate<String, Object> redisCacheTemplate() {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
-        redisTemplate.setConnectionFactory(redisSessionConnectionFactory());
+        redisTemplate.setConnectionFactory(redisCacheConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
         return redisTemplate;

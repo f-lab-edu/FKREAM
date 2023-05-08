@@ -7,9 +7,6 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-  cache:
-    jcache:
-      config: classpath:ehcache.xml
   sql:
     init:
       mode: always
@@ -30,6 +27,8 @@ spring:
     timeout: 30000
   session:
     store-type: redis
+  cache:
+    type: redis
 
 
 
