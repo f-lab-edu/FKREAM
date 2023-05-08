@@ -1,5 +1,6 @@
 package com.flab.fkream.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
@@ -16,6 +17,9 @@ public class CacheConfig {
 
     @Autowired
     RedisConnectionFactory redisCacheConnectionFactory;
+
+    @Autowired
+    public ObjectMapper objectMapper;
 
     @Bean
     public CacheManager redisCacheManager() {

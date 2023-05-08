@@ -22,6 +22,10 @@ public class RedisCacheConfig {
     @Value("${spring.redis.cache.port}")
     private int redisCachePort;
 
+    @Autowired
+    public ObjectMapper objectMapper;
+
+
     @Bean
     public RedisConnectionFactory redisCacheConnectionFactory() {
         RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
