@@ -28,6 +28,7 @@ dependencies {
 	implementation 'com.oracle.database.jdbc:ojdbc11-production:21.9.0.0'
 	implementation 'org.springframework.session:spring-session-data-redis'
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+	implementation ("org.springframework.boot:spring-boot-starter-actuator")
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'
