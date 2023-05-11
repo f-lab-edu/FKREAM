@@ -5,3 +5,5 @@
 젠킨스 자동 배포 
 뉴젠킨스 웹훅, 자동배포 
 redis cache
+
+![fkream 인프라 구조](https://github.com/f-lab-edu/FKREAM/assets/79684851/d91cdf73-d950-4cfc-b5ab-3a3ad03c12d4)
