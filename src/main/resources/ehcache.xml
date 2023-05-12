@@ -30,6 +30,7 @@
     </resources>
   </cache>
 
+
   <cache alias="ItemCategoryAll">
     <expiry>
       <ttl unit="days">1</ttl>
@@ -76,6 +77,16 @@
     </expiry>
     <resources>
       <heap unit="entries">200</heap>
+      <offheap unit="MB">500</offheap>
+    </resources>
+  </cache>
+  
+  <cache alias="Listing">
+    <expiry>
+      <ttl unit="days">1</ttl>
+    </expiry>
+    <resources>
+      <heap unit="entries">50</heap>
       <offheap unit="MB">500</offheap>
     </resources>
   </cache>
