@@ -35,6 +35,12 @@
         where
         email = #{email}
     </select>
+
+    <select id="findOne" resultMap="UsersResultMap">
+        select *
+        from USERS
+        where ID = #{id}
+    </select>
 </mapper>
 
 

@@ -10,4 +10,6 @@ public interface UserMapper {
 
   User findByEmail(String email);
 
+  User findOne(Long id);
+
 }
