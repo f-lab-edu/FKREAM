@@ -6,7 +6,7 @@
   <resultMap id="DealResultMap" type="com.flab.fkream.deal.Deal">
     <id property="id" column="id"/>
     <result property="item.id" column="item_id"/>
-    <result property="kindOfDeal" column="kind_of_deal"/>
+    <result property="dealType" column="deal_type"/>
     <result property="userId" column="user_id"/>
     <result property="price" column="price"/>
     <result property="size" column="size"/>
@@ -19,9 +19,9 @@
   </resultMap>
   <insert id="save" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.flab.fkream.deal.Deal">
-    insert into deal (ITEM_ID, kind_of_deal, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY,
+    insert into deal (ITEM_ID, deal_type, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY,
                       SALES_CONDITION, STATUS, other_id, CREATED_AT)
-    VALUES (#{item.id}, #{kindOfDeal}, #{userId}, #{price}, #{size}, #{period},
+    VALUES (#{item.id}, #{dealType}, #{userId}, #{price}, #{size}, #{period},
             #{utilizationPolicy}, #{salesCondition}, #{status}, #{otherId}, #{createdAt})
   </insert>
 
@@ -40,29 +40,29 @@
   <select id="findBuyNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
     select *
     from deal
-    where kind_of_deal = 'PURCHASE'
-    and status = 'BIDDING'
-    and item_id = #{param1}
-    and size = #{param2}
-    and price = #{param3}
-    limit 1
+    where deal_type = 'PURCHASE'
+      and status = 'BIDDING'
+      and item_id = #{param1}
+      and size = #{param2}
+      and price = #{param3}
+      limit 1
   </select>
 
   <select id="findSellNowDealByItemIdAndSizeAndPrice" resultMap="DealResultMap">
     select *
     from deal
-    where kind_of_deal = 'SALE'
-    and status = 'BIDDING'
-    and item_id = #{param1}
-    and size = #{param2}
-    and price = #{param3}
-    limit 1
+    where deal_type = 'SALE'
+      and status = 'BIDDING'
+      and item_id = #{param1}
+      and size = #{param2}
+      and price = #{param3}
+      limit 1
   </select>
 
   <select id="findHighestPurchasePriceByItemIdAndSize" resultType="java.lang.Integer">
     select price
     from deal
-    where kind_of_deal = 'PURCHASE'
+    where deal_type = 'PURCHASE'
       and item_id = #{param1}
       and size = #{param2}
       and status = 'BIDDING'
@@ -73,7 +73,7 @@
   <select id="findLowestSalePriceByItemIdAndSize" resultType="java.lang.Integer">
     select price
     from deal
-    where kind_of_deal = 'SALE'
+    where deal_type = 'SALE'
       and item_id = #{param1}
       and size = #{param2}
       and status = 'BIDDING'
@@ -81,10 +81,106 @@
       limit 1
   </select>
 
+  <select id="findMarketPrices" resultType="com.flab.fkream.deal.MarketPriceDto">
+    select price as price,
+    size as size,
+    trading_day as tradingDay
+    from deal
+    where item_id = #{param1}
+    <if test="param2 != null">
+      and size = #{param2}
+    </if>
+    and status = 'COMPLETION'
+    order by trading_day DESC
+  </select>
+
+  <select id="findMarketPricesInGraph" resultType="com.flab.fkream.deal.MarketPriceDto">
+    select price as price,
+    size as size,
+    trading_day as tradingDay
+    from deal
+    where item_id = #{param1}
+    and status = 'COMPLETION'
+    <if test="param2 != null ">
+      and trading_day >= #{param2}
+    </if>
+    <if test="param3 != null">
+      and size = #{param3}
+    </if>
+    order by trading_day DESC
+  </select>
+
+  <select id="findBiddingPrices" resultType="com.flab.fkream.deal.BiddingPriceDto">
+    select price as price,
+    size as size,
+    count(*) as count
+    from deal
+    where item_id = #{param1}
+    and status = 'BIDDING'
+    and deal_type = #{param3}
+    <if test="param2 != null">
+      and size = #{param2}
+    </if>
+    group by size, price
+    <choose>
+      <when test="param3.name() == 'PURCHASE'">
+        order by price DESC
+      </when>
+      <when test="param3.name() == 'SALE'">
+        order by price
+      </when>
+    </choose>
+  </select>
+
+  <select id="findHistoryCount" resultType="com.flab.fkream.deal.DealHistoryCountDto">
+    select status as status,
+           count(*) as count
+    from deal
+    where user_id = #{param1}
+      and deal_type = #{param2}
+    group by status
+  </select>
+
+  <select id="findPurchaseHistories" resultType="com.flab.fkream.deal.DealHistoryDto">
+    select deal.id        as dealId,
+           item.id        as itemId,
+           item.item_name as itemName,
+           deal.price     as price,
+           deal.period    as period,
+           img.id         as itemImgId,
+           img.img_url    as imgUrl
+    from DEAL deal
+           join Item item on item.id = deal.item_id
+           join ITEM_IMG img on deal.item_id = img.item_id
+    where deal.deal_type = 'PURCHASE'
+      and deal.user_id = #{param1}
+      and deal.status = #{param2}
+      and img.is_representative_img = true
+    order by deal.id DESC
+  </select>
+
+  <select id="findSaleHistories" resultType="com.flab.fkream.deal.DealHistoryDto">
+    select deal.id        as dealId,
+           item.id        as itemId,
+           item.item_name as itemName,
+           deal.price     as price,
+           deal.period    as period,
+           img.id         as itemImgId,
+           img.img_url    as imgUrl
+    from DEAL deal
+           join Item item on item.id = deal.item_id
+           join ITEM_IMG img on deal.item_id = img.item_id
+    where deal.deal_type = 'SALE'
+      and deal.user_id = #{param1}
+      and deal.status = #{param2}
+      and img.is_representative_img = true
+    order by deal.id DESC
+  </select>
+
   <update id="update">
     update deal
     set item_id            = #{item.id},
-        kind_of_deal       = #{kindOfDeal},
+        deal_type       = #{dealType},
         user_id            = #{userId},
         price              = #{price},
         size               = #{size},

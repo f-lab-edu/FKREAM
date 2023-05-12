@@ -41,10 +41,12 @@
            img.img_url as imgUrl
     from ITEM item
     join ITEM_IMG img on item.ID = img.ITEM_ID
-    where item.item_name in
-    <foreach collection="arg0" item="name" open="(" close=")" separator=",">
-      #{name}
+    <where>
+    <foreach collection="arg0" item="name">
+      or item.item_name like '%' || #{name} || '%'
     </foreach>
+    </where>
+    limit 10
   </select>
 
   <select id="searchByCriteria" resultType="com.flab.fkream.search.SearchItemDto" parameterType="com.flab.fkream.search.SearchCriteria">

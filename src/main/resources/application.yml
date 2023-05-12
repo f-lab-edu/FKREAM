@@ -22,8 +22,6 @@ spring:
   jackson:
     mapper:
       accept-case-insensitive-enums: true
-# 테스트시는 이것을 빼야 돌아간다. 있으면 에러걸림
-#
 
 
 

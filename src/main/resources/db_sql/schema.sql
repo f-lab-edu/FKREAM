@@ -98,7 +98,7 @@ CREATE TABLE `item_category`
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `category_name`      varchar(255) unique,
     `parent_category_id` int,
-    foreign key (`parent_category_id`) references ITEM_CATEGORY (id)
+    foreign key (`parent_category_id`) references ITEM_CATEGORY (id) on delete set null
 );
 
 
@@ -127,16 +127,17 @@ CREATE TABLE `deal`
 (
     `id`                 int PRIMARY KEY AUTO_INCREMENT,
     `item_id`            int,
-    `kind_of_deal`       varchar(255),
+    `deal_type`       varchar(255),
     `user_id`            int,
     `price`              int,
     `size`               varchar(255),
-    `period`             varchar(255),
+    `period`             timestamp,
     `utilization_policy` boolean,
     `sales_condition`    boolean,
     `status`             varchar(255),
     `other_id`           int,
-    `created_at`         timestamp
+    `created_at`         timestamp,
+    `trading_day`        timestamp
 );
 
 CREATE TABLE `interested_item`
