@@ -10,7 +10,7 @@ import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.User;
 import com.flab.fkream.user.UserMapper;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
@@ -71,7 +71,7 @@ class DealMapperTest {
 
         saleDealInfo = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(20000)
             .size("255")
@@ -83,7 +83,7 @@ class DealMapperTest {
 
         purchaseDealInfo = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(userInfo.getId())
             .price(20000)
             .size("255")
@@ -117,7 +117,7 @@ class DealMapperTest {
         Deal dealInfo = Deal.builder()
             .id(saleDealInfo.getId())
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(30000)
             .size("260")
@@ -156,7 +156,7 @@ class DealMapperTest {
         dealMapper.save(purchaseDealInfo);
         Deal otherDeal = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.PURCHASE)
+            .dealType(DealType.PURCHASE)
             .userId(userInfo.getId())
             .price(30000)
             .size("255")
@@ -175,7 +175,7 @@ class DealMapperTest {
         dealMapper.save(saleDealInfo);
         Deal otherDeal = Deal.builder()
             .item(itemInfo)
-            .kindOfDeal(KindOfDeal.SALE)
+            .dealType(DealType.SALE)
             .userId(userInfo.getId())
             .price(10000)
             .size("255")
@@ -187,5 +187,64 @@ class DealMapperTest {
         dealMapper.save(otherDeal);
         assertThat(dealMapper.findLowestSalePriceByItemIdAndSize(itemInfo.getId(),
             saleDealInfo.getSize())).isEqualTo(otherDeal.getPrice());
+    }
+
+    @Test
+    void findMarketPrices() {
+        List<MarketPriceDto> marketPrices = dealMapper.findMarketPrices(13L, null);
+        assertThat(marketPrices.get(0).getTradingDay()).isAfter(
+            marketPrices.get(1).getTradingDay());
+        List<MarketPriceDto> marketPrices2 = dealMapper.findMarketPrices(13L, "280");
+        assertThat(marketPrices2.get(0).getSize()).isEqualTo("280");
+    }
+
+    @Test
+    void findMarketPricesInGraph() {
+        List<MarketPriceDto> marketPricesInGraph = dealMapper.findMarketPricesInGraph(71L,
+            LocalDate.now().minusMonths(6), null);
+        assertThat(marketPricesInGraph.get(0).getPrice()).isNotNull();
+        assertThat(marketPricesInGraph.get(0).getSize()).isNotNull();
+        assertThat(marketPricesInGraph.get(0).getTradingDay()).isNotNull();
+        assertThat(marketPricesInGraph.get(0).getTradingDay()).isAfter(
+            marketPricesInGraph.get(1).getTradingDay());
+    }
+
+    @Test
+    void findBiddingPrices() {
+        List<BiddingPriceDto> biddingPurchasePrices = dealMapper.findBiddingPrices(71L, null,
+            DealType.PURCHASE);
+        assertThat(biddingPurchasePrices.get(0).getPrice()).isGreaterThan(
+            biddingPurchasePrices.get(1).getPrice());
+        List<BiddingPriceDto> biddingSalePrices = dealMapper.findBiddingPrices(71L, null,
+            DealType.SALE);
+        assertThat(biddingSalePrices.get(0).getPrice()).isLessThan(
+            biddingSalePrices.get(1).getPrice());
+    }
+
+    @Test
+    void findHistoryCount() {
+        List<DealHistoryCountDto> historyCount = dealMapper.findHistoryCount(30L,
+            DealType.PURCHASE);
+        assertThat(historyCount).hasSize(3);
+    }
+
+    @Test
+    void findPurchaseHistories() {
+        List<DealHistoryDto> purchaseHistories = dealMapper.findPurchaseHistories(30L,
+            Status.COMPLETION);
+        Deal deal = dealMapper.findById(purchaseHistories.get(0).getDealId());
+        assertThat(deal.getUserId()).isEqualTo(30L);
+        assertThat(deal.getDealType()).isEqualTo(DealType.PURCHASE);
+        assertThat(deal.getStatus()).isEqualTo(Status.COMPLETION);
+    }
+
+    @Test
+    void findSaleHistories() {
+        List<DealHistoryDto> saleHistories = dealMapper.findSaleHistories(30L,
+            Status.BIDDING);
+        Deal deal = dealMapper.findById(saleHistories.get(0).getDealId());
+        assertThat(deal.getUserId()).isEqualTo(30L);
+        assertThat(deal.getDealType()).isEqualTo(DealType.SALE);
+        assertThat(deal.getStatus()).isEqualTo(Status.BIDDING);
     }
 }

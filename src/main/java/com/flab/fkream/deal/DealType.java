@@ -1,5 +1,5 @@
 package com.flab.fkream.deal;
 
-public enum KindOfDeal {
+public enum DealType {
     PURCHASE, SALE
 }

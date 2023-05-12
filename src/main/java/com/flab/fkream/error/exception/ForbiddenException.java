@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class ForbiddenException extends RuntimeException {
 
     public ForbiddenException() {
-        super("Access Denied");
+        super("접근 권한이 없습니다.");
     }
 
     public ForbiddenException(String message) {

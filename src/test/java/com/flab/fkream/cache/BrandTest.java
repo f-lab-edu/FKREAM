@@ -1,27 +1,20 @@
-package com.flab.fkream.integration;
+package com.flab.fkream.cache;
 
 import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemService;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 @Transactional
-public class ItemTest {
+public class BrandTest {
 
 
     @Autowired
@@ -33,7 +26,7 @@ public class ItemTest {
 
 
     @Test
-    void 캐시_사용_테스트(){
+    void 브랜드_캐시_사용_테스트() {
         Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
 
         Item itemInfo =
