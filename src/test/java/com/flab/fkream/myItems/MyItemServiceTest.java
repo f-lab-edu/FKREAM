@@ -135,7 +135,7 @@ class MyItemServiceTest {
     }
 
     @Test
-    void updateTest() {
+    void updateTest() throws NotFoundException {
         // given
         int expectedResult = 1;
         given(myItemMapper.update(any(MyItem.class))).willReturn(expectedResult);
