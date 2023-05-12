@@ -6,6 +6,6 @@ ADD ${JAR_FILE} docker-springboot.jar
 
 ENTRYPOINT ["java","-jar",\
 "-javaagent:./pinpoint/pinpoint-bootstrap-2.2.2.jar",\
-"-Dpinpoint.agentId=gjgs01","-Dpinpoint.applicationName=gjgs",\
+"-Dpinpoint.applicationName=gjgs",\
 "-Dpinpoint.config=./pinpoint/pinpoint-root.config"\
 ,"docker-springboot.jar"]
