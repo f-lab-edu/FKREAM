@@ -23,7 +23,7 @@
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
                       where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                        and kind_of_deal = 'PURCHASE'
+                        and deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where IS_REPRESENTATIVE_IMG = true
       and item.gender = 'MALE'
@@ -52,7 +52,7 @@
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
                       where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                        and kind_of_deal = 'PURCHASE'
+                        and deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where item.gender = 'FEMALE'
       and IS_REPRESENTATIVE_IMG = true
@@ -80,7 +80,7 @@
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
                       where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                        and kind_of_deal = 'PURCHASE'
+                        and deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where 0 > isp.lsp - item.released_price
       and IS_REPRESENTATIVE_IMG = true
@@ -108,7 +108,7 @@
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
                       where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                        and kind_of_deal = 'PURCHASE'
+                        and deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where BR.IS_LUXURY = true
       and IS_REPRESENTATIVE_IMG = true
@@ -134,7 +134,7 @@
                  group by ITEM_ID) isp on item.ID = isp.ITEM_ID
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
-                      where kind_of_deal = 'PURCHASE'
+                      where deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
     where IS_REPRESENTATIVE_IMG = true
     order by deal.deal_count DESC
@@ -161,12 +161,12 @@
            left join (select ITEM_ID, count(*) as deal_count
                       from DEAL
                       where created_at between DATEADD('MONTH', -#{param1}, CURRENT_DATE()) AND CURRENT_DATE()
-                        and kind_of_deal = 'PURCHASE'
+                        and deal_type = 'PURCHASE'
                       group by ITEM_ID) deal on item.ID = deal.ITEM_ID
            left join (select ITEM_ID, count(*) as deal_count2
                       from DEAL D
                       where D.created_at between DATEADD('MONTH', -#{param1} * 2, CURRENT_DATE()) AND DATEADD('MONTH', -#{param1}, CURRENT_DATE())
-                        and D.kind_of_deal = 'PURCHASE'
+                        and D.deal_type = 'PURCHASE'
                       group by ITEM_ID) deal2 on item.ID = deal2.ITEM_ID
     where ic.category_name = '스니커즈'
       and IS_REPRESENTATIVE_IMG = true

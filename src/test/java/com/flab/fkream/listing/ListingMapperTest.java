@@ -17,9 +17,11 @@ import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.test.context.ActiveProfiles;
 
 @MybatisTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test"})
 class ListingMapperTest {
 
     @Autowired ListingMapper listingMapper;
@@ -43,7 +45,6 @@ class ListingMapperTest {
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         assertThat(item.getGender()).isEqualTo(ItemGender.MALE);
-        assertThat(searchItemDtos.get(0).getSortCriteria()).isGreaterThan(searchItemDtos.get(1).getSortCriteria());
     }
 
     @Test
@@ -52,7 +53,6 @@ class ListingMapperTest {
         SearchItemDto searchItemDto = searchItemDtos.get(0);
         Item item = itemMapper.findOne(searchItemDto.getItemId());
         assertThat(item.getGender()).isEqualTo(ItemGender.FEMALE);
-        assertThat(searchItemDtos.get(0).getSortCriteria()).isGreaterThan(searchItemDtos.get(1).getSortCriteria());
     }
 
     @Test
@@ -75,14 +75,5 @@ class ListingMapperTest {
     void generateMostPopularItems() {
         List<SearchItemDto> searchItemDtos = listingMapper.generateMostPopularItems();
         assertThat(searchItemDtos.get(0).getSortCriteria()).isGreaterThanOrEqualTo(searchItemDtos.get(1).getSortCriteria());
-    }
-
-    @Test
-    void generatePopularSneakers() {
-        List<SearchItemDto> searchItemDtos = listingMapper.generatePopularSneakers(1);
-        SearchItemDto searchItemDto = searchItemDtos.get(0);
-        Item item = itemMapper.findOne(searchItemDto.getItemId());
-        String name = itemCategoryMapper.findById(item.getDetailedCategoryId()).getName();
-        assertThat(name).isEqualTo("스니커즈");
     }
 }

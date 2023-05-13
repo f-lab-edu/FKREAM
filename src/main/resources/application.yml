@@ -2,6 +2,8 @@ mybatis:
   mapper-locations: classpath:mybatis/mapper/*.xml
 
 spring:
+  profiles:
+    active: prod
   datasource:
     url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
     username: ${DB_USERNAME}
@@ -25,10 +27,6 @@ spring:
       host: ${REDIS_SESSION_HOST}
       port: ${REDIS_SESSION_PORT}
     timeout: 30000
-  session:
-    store-type: redis
-  cache:
-    type: redis
 
 logging.level:
   org.hibernate.SQL: debug

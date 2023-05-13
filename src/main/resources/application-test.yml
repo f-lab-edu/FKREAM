@@ -11,10 +11,3 @@ spring:
         - classpath:db_sql/testSchema.sql
       data-locations:
         - classpath:db_sql/data.sql
-  redis:
-    cache:
-      host: ${REDIS_CACHE_HOST}
-      port: ${REDIS_CACHE_PORT}
-    session:
-      host: ${REDIS_SESSION_HOST}
-      port: ${REDIS_SESSION_PORT}
