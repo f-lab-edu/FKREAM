@@ -3647,4 +3647,3 @@ insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day)
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (48, 'PURCHASE', 10, 460000, 240, 'BIDDING', '2023-03-15');
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (40, 'PURCHASE', 3, 460000, 220, 'PROGRESS', '2022-08-01');
 insert into DEAL (item_id, deal_type, user_id, price, size, status, trading_day) values (44, 'SALE', 33, 940000, 240, 'BIDDING', '2022-06-19');
-
