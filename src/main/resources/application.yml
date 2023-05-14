@@ -30,3 +30,8 @@ spring:
 
 logging.level:
   org.hibernate.SQL: debug
+
+pagehelper:
+  helper-dialect: mysql
+  auto-dialect: true
+  reasonable: true

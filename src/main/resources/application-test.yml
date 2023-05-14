@@ -11,3 +11,6 @@ spring:
         - classpath:db_sql/testSchema.sql
       data-locations:
         - classpath:db_sql/data.sql
+
+pagehelper:
+  helper-dialect: h2

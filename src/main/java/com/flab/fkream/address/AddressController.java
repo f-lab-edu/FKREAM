@@ -1,6 +1,9 @@
 package com.flab.fkream.address;
 
 
+import com.flab.fkream.aop.Paging;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +27,9 @@ public class AddressController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Address> findOneByUserID(@PathVariable Long userId) {
-        return addressService.findByUserId(userId);
+    public PageInfo<Address> findOneByUserID(@PathVariable Long userId, @RequestParam int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfo.of(addressService.findByUserId(userId));
     }
 
     @PatchMapping("/{id}")

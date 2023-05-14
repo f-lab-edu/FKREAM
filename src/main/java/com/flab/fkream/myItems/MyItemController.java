@@ -2,6 +2,8 @@ package com.flab.fkream.myItems;
 
 import com.flab.fkream.error.exception.ForbiddenException;
 import com.flab.fkream.utils.SessionUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -42,9 +45,10 @@ public class MyItemController {
 
     @GetMapping("/my-items")
     @ResponseStatus(HttpStatus.OK)
-    public List<MyItem> findAllByUserId() {
+    public PageInfo<MyItem> findAllByUserId(@RequestParam int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
         Long loggedInUserId = SessionUtil.getLoginUserId();
-        return myItemService.findAllByUserId(loggedInUserId);
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfo.of(myItemService.findAllByUserId(loggedInUserId));
     }
 
 

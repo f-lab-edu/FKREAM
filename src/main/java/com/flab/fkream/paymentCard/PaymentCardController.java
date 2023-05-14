@@ -3,6 +3,8 @@ package com.flab.fkream.paymentCard;
 import com.flab.fkream.salesAccount.SalesAccount;
 import com.flab.fkream.utils.HttpRequestUtils;
 import com.flab.fkream.utils.SessionUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -34,8 +37,9 @@ public class PaymentCardController {
     }
 
     @GetMapping()
-    public List<PaymentCard> findByUserId() {
-        return paymentCardService.findByUserId();
+    public PageInfo<PaymentCard> findByUserId(@RequestParam int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfo.of(paymentCardService.findByUserId());
     }
 
     @GetMapping("/{id}")

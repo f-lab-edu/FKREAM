@@ -1,5 +1,7 @@
 package com.flab.fkream.deal;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import java.util.List;
 import java.util.Map;
 import javax.validation.Valid;
@@ -31,8 +33,9 @@ public class DealController {
     }
 
     @GetMapping()
-    public List<Deal> findByUserId() {
-        return dealService.findByUserId();
+    public PageInfo<Deal> findByUserId(@RequestParam int pageNum, @RequestParam int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        return PageInfo.of(dealService.findByUserId());
     }
 
     @GetMapping("/{id}")
