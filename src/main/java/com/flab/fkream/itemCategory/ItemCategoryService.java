@@ -46,6 +46,9 @@ public class ItemCategoryService {
      * 부모 카테고리가 있으면 해당 부모의 자식 카테고리가 있으면 안된다.
      */
     public boolean isValidCategoryId(Long[] categoryId) {
+        if (categoryId==null){
+            return true;
+        }
         List<Long> categories = List.of(categoryId);
         for (Long id : categories) {
             ItemCategory itemCategory = findById(id);

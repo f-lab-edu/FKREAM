@@ -1,5 +1,12 @@
 package com.flab.fkream.item;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.flab.fkream.itemCategory.ItemCategory;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,6 +35,8 @@ public class Item {
     private Long detailedCategoryId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate releaseDate;
 
     @NotNull
@@ -44,7 +53,7 @@ public class Item {
 
     private int latestPrice;
 
-    private boolean isOneSize;
+    private boolean oneSize;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
