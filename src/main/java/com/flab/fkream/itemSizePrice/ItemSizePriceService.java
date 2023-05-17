@@ -29,9 +29,6 @@ public class ItemSizePriceService {
 
     public List<ItemSizePrice> findAllByItemId(Long itemId) {
         List<ItemSizePrice> itemSizePrices = itemSizePriceMapper.findAllByItemId(itemId);
-        if (itemSizePrices.size() == 0) {
-            throw new NoDataFoundException();
-        }
         return itemSizePrices;
     }
 

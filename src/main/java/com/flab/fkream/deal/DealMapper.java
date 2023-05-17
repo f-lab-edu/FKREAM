@@ -21,9 +21,9 @@ public interface DealMapper {
 
     Deal findSellNowDealByItemIdAndSizeAndPrice(Long id, String size, int price);
 
-    int findHighestPurchasePriceByItemIdAndSize(Long itemId, String size);
+    Integer findHighestPurchasePriceByItemIdAndSize(Long itemId, String size);
 
-    int findLowestSalePriceByItemIdAndSize(Long itemId, String size);
+    Integer findLowestSalePriceByItemIdAndSize(Long itemId, String size);
 
     List<MarketPriceDto> findMarketPrices(Long itemId, String size);
 

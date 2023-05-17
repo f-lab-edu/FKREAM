@@ -1,5 +1,9 @@
 package com.flab.fkream.deal;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.flab.fkream.item.Item;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.NotNull;
@@ -26,7 +30,6 @@ public class Deal {
     @NotNull
     @Setter
     private Item item;
-    @NotNull
     private DealType dealType;
     @NotNull
     private Long userId;
@@ -34,7 +37,10 @@ public class Deal {
     private int price;
     @NotNull
     private String size;
+
     @NotNull
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate period;
     @AssertTrue
     private boolean utilizationPolicy;
@@ -44,8 +50,11 @@ public class Deal {
 
     @Setter
     private Long otherId;
-
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDateTime createdAt;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate tradingDay;
 
     public void setKindOfDealToSale() {
