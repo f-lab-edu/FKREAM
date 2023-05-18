@@ -44,6 +44,8 @@ public class DealService {
             immediateSale(deal);
         }
         if (deal.getPrice() < itemSizePrice.getHighestPurchasePrice()) {
+            log.error("deal.getPrice() : {}", deal.getPrice());
+            log.error("itemSizePrice.getHighestPurchasePrice() : {}", itemSizePrice.getHighestPurchasePrice());
             throw new NoRequestLowerPriceThenImmediateSaleException();
         }
         updatePrice(deal, itemSizePrice);
@@ -63,6 +65,8 @@ public class DealService {
             immediatePurchase(deal);
         }
         if (deal.getPrice() > itemSizePrice.getLowestSellingPrice()) {
+            log.error("deal.getPrice() : {}", deal.getPrice());
+            log.error("itemSizePrice.getLowestSellingPrice() : {}", itemSizePrice.getLowestSellingPrice());
             throw new NoRequestHigherPriceThenImmediatePurchaseException();
         }
         updatePrice(deal, itemSizePrice);
