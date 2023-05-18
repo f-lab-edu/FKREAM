@@ -2,6 +2,8 @@ package com.flab.fkream.deal;
 
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.error.exception.NoMatchDealStatusException;
+import com.flab.fkream.error.exception.NoMatchDealTypeException;
 import com.flab.fkream.error.exception.NoRequestHigherPriceThenImmediatePurchaseException;
 import com.flab.fkream.error.exception.NoRequestLowerPriceThenImmediateSaleException;
 import com.flab.fkream.error.exception.NotOwnedDataException;
@@ -32,49 +34,72 @@ public class DealService {
 
     @Transactional
     public void sale(Deal deal) {
-        deal.setKindOfDealToSale();
+
+        if (deal.getDealType() != DealType.SALE) {
+            throw new NoMatchDealTypeException();
+        }
+
         deal.setCreatedAtToNow();
+
         ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
             deal.getItem().getId(), deal.getSize());
-        if (itemSizePrice.getHighestPurchasePrice() == null
-            || deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
-            bidSale(deal);
-            updatePrice(deal, itemSizePrice);
-            return;
+
+        if (deal.getStatus()==Status.BIDDING) {
+            if (itemSizePrice.getHighestPurchasePrice() == null || deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
+                bidSale(deal);
+                updatePrice(deal, itemSizePrice);
+                return;
+            }
+            if (deal.getPrice() <=  itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoRequestLowerPriceThenImmediateSaleException();
+            }
         }
-        if (deal.getPrice() == itemSizePrice.getHighestPurchasePrice()) {
-            immediateSale(deal);
-            updatePrice(deal, itemSizePrice);
-            return;
-        }
-        if (deal.getPrice() < itemSizePrice.getHighestPurchasePrice()) {
-            log.error("deal.getPrice() : {}", deal.getPrice());
-            log.error("itemSizePrice.getHighestPurchasePrice() : {}", itemSizePrice.getHighestPurchasePrice());
-            throw new NoRequestLowerPriceThenImmediateSaleException();
+
+        if (deal.getStatus()==Status.PROGRESS) {
+            if (deal.getPrice() == itemSizePrice.getHighestPurchasePrice()) {
+                immediateSale(deal);
+                updatePrice(deal, itemSizePrice);
+                return;
+            }
+            if (deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoMatchDealStatusException("즉시 판매 진행 중 에러 발생, 다시 시도해주세요.");
+            }
         }
     }
 
     @Transactional
     public void purchase(Deal deal) {
-        deal.setKindOfDealToPurchase();
+
+        if (deal.getDealType() != DealType.PURCHASE) {
+            throw new NoMatchDealTypeException();
+        }
+
         deal.setCreatedAtToNow();
+
         ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
             deal.getItem().getId(), deal.getSize());
-        if (itemSizePrice.getLowestSellingPrice() == null
-            || deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
-            bidPurchase(deal);
-            updatePrice(deal, itemSizePrice);
-            return;
+
+
+        if (deal.getStatus()==Status.BIDDING) {
+            if (itemSizePrice.getLowestSellingPrice() == null || deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
+                bidPurchase(deal);
+                updatePrice(deal, itemSizePrice);
+                return;
+            }
+            if (deal.getPrice() >=  itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoRequestHigherPriceThenImmediatePurchaseException();
+            }
         }
-        if (deal.getPrice() == itemSizePrice.getLowestSellingPrice()) {
-            immediatePurchase(deal);
-            updatePrice(deal, itemSizePrice);
-            return;
-        }
-        if (deal.getPrice() > itemSizePrice.getLowestSellingPrice()) {
-            log.error("deal.getPrice() : {}", deal.getPrice());
-            log.error("itemSizePrice.getLowestSellingPrice() : {}", itemSizePrice.getLowestSellingPrice());
-            throw new NoRequestHigherPriceThenImmediatePurchaseException();
+
+        if (deal.getStatus()==Status.PROGRESS) {
+            if (deal.getPrice() == itemSizePrice.getLowestSellingPrice()) {
+                immediatePurchase(deal);
+                updatePrice(deal, itemSizePrice);
+                return;
+            }
+            if (deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoMatchDealStatusException("즉시 구매 진행중 에러 발생, 다시 시도해주세요.");
+            }
         }
     }
 

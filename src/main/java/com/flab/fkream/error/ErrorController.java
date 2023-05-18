@@ -6,6 +6,8 @@ package com.flab.fkream.error;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.flab.fkream.error.exception.NoCardPasswordException;
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.error.exception.NoMatchDealStatusException;
+import com.flab.fkream.error.exception.NoMatchDealTypeException;
 import com.flab.fkream.error.exception.NotOwnedDataException;
 import org.springframework.dao.DataAccessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -30,8 +32,18 @@ import java.util.stream.Collectors;
 public class ErrorController {
 
 
+    @ExceptionHandler(NoMatchDealStatusException.class)
+    public ResponseEntity handleNoMatchDealStatusException(NoMatchDealStatusException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
+
     @ExceptionHandler(InvalidFormatException.class)
     public ResponseEntity handleInvalidFormatException(InvalidFormatException e) {
+        return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
+    }
+
+    @ExceptionHandler(NoMatchDealTypeException.class)
+    public ResponseEntity handleNoMatchDealTypeException(NoMatchDealTypeException e) {
         return ErrorMsg.toResponseEntity(HttpStatus.BAD_REQUEST, e);
     }
 
