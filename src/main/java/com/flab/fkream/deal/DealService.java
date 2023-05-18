@@ -36,19 +36,22 @@ public class DealService {
         deal.setCreatedAtToNow();
         ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
             deal.getItem().getId(), deal.getSize());
-        if (itemSizePrice.getHighestPurchasePrice() == 0
+        if (itemSizePrice.getHighestPurchasePrice() == null
             || deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
             bidSale(deal);
+            updatePrice(deal, itemSizePrice);
+            return;
         }
         if (deal.getPrice() == itemSizePrice.getHighestPurchasePrice()) {
             immediateSale(deal);
+            updatePrice(deal, itemSizePrice);
+            return;
         }
         if (deal.getPrice() < itemSizePrice.getHighestPurchasePrice()) {
             log.error("deal.getPrice() : {}", deal.getPrice());
             log.error("itemSizePrice.getHighestPurchasePrice() : {}", itemSizePrice.getHighestPurchasePrice());
             throw new NoRequestLowerPriceThenImmediateSaleException();
         }
-        updatePrice(deal, itemSizePrice);
     }
 
     @Transactional
@@ -57,19 +60,22 @@ public class DealService {
         deal.setCreatedAtToNow();
         ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
             deal.getItem().getId(), deal.getSize());
-        if (itemSizePrice.getLowestSellingPrice() == 0
+        if (itemSizePrice.getLowestSellingPrice() == null
             || deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
             bidPurchase(deal);
+            updatePrice(deal, itemSizePrice);
+            return;
         }
         if (deal.getPrice() == itemSizePrice.getLowestSellingPrice()) {
             immediatePurchase(deal);
+            updatePrice(deal, itemSizePrice);
+            return;
         }
         if (deal.getPrice() > itemSizePrice.getLowestSellingPrice()) {
             log.error("deal.getPrice() : {}", deal.getPrice());
             log.error("itemSizePrice.getLowestSellingPrice() : {}", itemSizePrice.getLowestSellingPrice());
             throw new NoRequestHigherPriceThenImmediatePurchaseException();
         }
-        updatePrice(deal, itemSizePrice);
     }
 
     public List<Deal> findByUserId() {
@@ -215,13 +221,13 @@ public class DealService {
     private void updatePrice(Deal deal, ItemSizePrice itemSizePrice) {
         if (deal.getStatus() == Status.BIDDING) {
             if (deal.getDealType() == DealType.PURCHASE) {
-                if (itemSizePrice.getHighestPurchasePrice() == 0
+                if (itemSizePrice.getHighestPurchasePrice() == null
                     || deal.getPrice() > itemSizePrice.getHighestPurchasePrice()) {
                     itemSizePrice.setHighestPurchasePrice(deal.getPrice());
                 }
             }
             if (deal.getDealType() == DealType.SALE) {
-                if (itemSizePrice.getLowestSellingPrice() == 0
+                if (itemSizePrice.getLowestSellingPrice() == null
                     || deal.getPrice() < itemSizePrice.getLowestSellingPrice()) {
                     itemSizePrice.setLowestSellingPrice(deal.getPrice());
                 }
@@ -232,12 +238,6 @@ public class DealService {
                 itemSizePrice.getItemId(), itemSizePrice.getSize());
             Integer lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(
                 itemSizePrice.getItemId(), itemSizePrice.getSize());
-            if (highestPurchasePrice == null) {
-                highestPurchasePrice = 0;
-            }
-            if (lowestSalePrice == null) {
-                lowestSalePrice = 0;
-            }
             itemSizePrice.changePrice(highestPurchasePrice, lowestSalePrice);
         }
         itemSizePriceService.update(itemSizePrice);

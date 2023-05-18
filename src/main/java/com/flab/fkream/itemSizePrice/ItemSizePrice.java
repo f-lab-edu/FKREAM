@@ -23,12 +23,12 @@ public class ItemSizePrice {
 	private Long itemId;
 	private String size;
 	@Setter
-	private int lowestSellingPrice;
+	private Integer lowestSellingPrice;
 	@Setter
-	private int highestPurchasePrice;
+	private Integer highestPurchasePrice;
 	private LocalDateTime modifiedAt;
 
-	public void changePrice(int highestPurchasePrice, int lowestSalePrice) {
+	public void changePrice(Integer highestPurchasePrice, Integer lowestSalePrice) {
 		this.highestPurchasePrice= highestPurchasePrice;
 		this.lowestSellingPrice = lowestSalePrice;
 	}
