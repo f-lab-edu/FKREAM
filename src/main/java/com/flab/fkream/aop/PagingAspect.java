@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class PagingAspect {
 
     @Around("@annotation(com.flab.fkream.aop.Paging)")
-    public PageInfo paging(ProceedingJoinPoint joinPoint) throws Throwable{
+    public Object paging(ProceedingJoinPoint joinPoint) throws Throwable{
         int pageNum = (int)joinPoint.getArgs()[1];
         int pageSize = (int)joinPoint.getArgs()[2];
         if (pageNum==0 || pageSize ==0) {
@@ -27,7 +27,6 @@ public class PagingAspect {
         }
         PageHelper.startPage(pageNum, pageSize);
         Object result = joinPoint.proceed();
-        List<Object> result1 = List.of(result);
-        return PageInfo.of(result1);
+        return PageInfo.of((List<Address>)result);
     }
 }
