@@ -56,13 +56,13 @@ public class DealService {
         }
 
         if (deal.getStatus()==Status.PROGRESS) {
+            if (itemSizePrice.getHighestPurchasePrice() == null || deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoMatchDealStatusException("즉시 판매 진행 중 에러 발생, 다시 시도해주세요.");
+            }
             if (deal.getPrice() == itemSizePrice.getHighestPurchasePrice()) {
                 immediateSale(deal);
                 updatePrice(deal, itemSizePrice);
                 return;
-            }
-            if (deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
-                throw new NoMatchDealStatusException("즉시 판매 진행 중 에러 발생, 다시 시도해주세요.");
             }
         }
     }
@@ -92,13 +92,13 @@ public class DealService {
         }
 
         if (deal.getStatus()==Status.PROGRESS) {
+            if (itemSizePrice.getHighestPurchasePrice() == null || deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
+                throw new NoMatchDealStatusException("즉시 구매 진행중 에러 발생, 다시 시도해주세요.");
+            }
             if (deal.getPrice() == itemSizePrice.getLowestSellingPrice()) {
                 immediatePurchase(deal);
                 updatePrice(deal, itemSizePrice);
                 return;
-            }
-            if (deal.getPrice() != itemSizePrice.getHighestPurchasePrice()) {
-                throw new NoMatchDealStatusException("즉시 구매 진행중 에러 발생, 다시 시도해주세요.");
             }
         }
     }
