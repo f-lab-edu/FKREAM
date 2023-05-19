@@ -12,15 +12,15 @@ public interface BrandMapper {
 
     int save(Brand brand);
 
-    @Cacheable(cacheNames = "Brand", key = "#p0")
+    //@Cacheable(cacheNames = "Brand", key = "#p0")
     Brand findOne(Long id);
 
     List<Brand> findAll();
 
-    @CacheEvict(cacheNames = "Brand", key = "#p0.id")
+    //@CacheEvict(cacheNames = "Brand", key = "#p0.id")
     int update(Brand brandInfo);
 
-    @CacheEvict(cacheNames = "Brand", key = "#p0")
+    //@CacheEvict(cacheNames = "Brand", key = "#p0")
     int delete(Long id);
 
     Brand findByBrandName(String brandName);

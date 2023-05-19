@@ -11,18 +11,18 @@ public interface ItemCategoryMapper {
 
     int save(ItemCategory category);
 
-    @Cacheable(cacheNames = "ItemCategoryAll", key = "#root.methodName")
+    //@Cacheable(cacheNames = "ItemCategoryAll", key = "#root.methodName")
     List<ItemCategory> findParentCategory();
 
-    @Cacheable(cacheNames = "ItemCategoryAll", key = "#p0")
+    //@Cacheable(cacheNames = "ItemCategoryAll", key = "#p0")
     List<ItemCategory> findChildCategory(Long parentCategoryId);
 
-    @Caching(evict = {
-        @CacheEvict(cacheNames = "ItemCategory", key = "#p0"),
-        @CacheEvict(cacheNames = "ItemCategoryAll", allEntries = true)
-    })
+//    @Caching(evict = {
+//        @CacheEvict(cacheNames = "ItemCategory", key = "#p0"),
+//        @CacheEvict(cacheNames = "ItemCategoryAll", allEntries = true)
+//    })
     int delete(Long id);
 
-    @Cacheable(cacheNames = "ItemCategory", key = "#p0")
+    //@Cacheable(cacheNames = "ItemCategory", key = "#p0")
     ItemCategory findById(Long id);
 }

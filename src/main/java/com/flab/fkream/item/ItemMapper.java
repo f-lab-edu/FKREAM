@@ -12,7 +12,7 @@ public interface ItemMapper {
 
     int save(Item item);
 
-    @Cacheable(cacheNames = "Item", key = "#p0")
+    //@Cacheable(cacheNames = "Item", key = "#p0")
     Item findOne(Long id);
 
     List<Item> findAll();
