@@ -9,6 +9,8 @@ spring:
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 20
   sql:
     init:
       mode: always
