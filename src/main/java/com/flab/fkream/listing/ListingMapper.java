@@ -10,25 +10,25 @@ import org.springframework.cache.annotation.Cacheable;
 public interface ListingMapper {
 
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName" )
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName" )
     List<SearchItemDto> generateRecommendedItemsForMen(int month);
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
     List<SearchItemDto> generateRecommendedItemsForWomen(int month);
 
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
     List<SearchItemDto> generateItemsBelowReleasedPrice(int month);
 
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
     List<SearchItemDto> generatePopularLuxuryItems(int month);
 
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
     List<SearchItemDto> generateMostPopularItems();
 
 
-//    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
+    @Cacheable(cacheNames = "Listing", key = "#root.methodName")
     List<SearchItemDto> generatePopularSneakers(int month);
 }
