@@ -129,6 +129,8 @@ CREATE TABLE item_size_price
     highest_purchase_price int,
     modified_at            timestamp
 );
+create index idx_item_id on item_size_price (item_id);
+create index idx_lowest_selling_price on item_size_price (lowest_selling_price);
 
 CREATE TABLE item_img
 (
@@ -157,6 +159,7 @@ CREATE TABLE deal
     created_at         timestamp,
     trading_day        timestamp
 );
+create index idx_item_id on deal (item_id);
 
 CREATE TABLE interested_item
 (
