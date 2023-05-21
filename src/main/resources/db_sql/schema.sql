@@ -31,7 +31,8 @@ CREATE TABLE users
     profile_img_url         varchar(255),
     profile_img_origin_name varchar(255),
     created_at              timestamp,
-    modified_at             timestamp
+    modified_at             timestamp,
+    INDEX                   idx_email (email)
 );
 
 CREATE TABLE manager
@@ -43,7 +44,8 @@ CREATE TABLE manager
     phone_number    varchar(255),
     agreement       boolean,
     created_at      timestamp,
-    modified_at     timestamp
+    modified_at     timestamp,
+    INDEX           idx_employee_number (employee_number)
 );
 
 CREATE TABLE address
@@ -104,7 +106,9 @@ CREATE TABLE item
     brand_id             int,
     created_at           timestamp,
     modified_at          timestamp,
-    manager_id           int
+    manager_id           int,
+    INDEX                idx_item_name (item_name),
+    INDEX                idx_model_number (model_number)
 );
 
 CREATE TABLE item_category
@@ -113,6 +117,7 @@ CREATE TABLE item_category
     category_name      varchar(255) unique,
     parent_category_id int,
     foreign key (`parent_category_id`) references ITEM_CATEGORY (id) on delete set null
+        INDEX idx_category_name (category_name)
 );
 
 
@@ -145,7 +150,7 @@ CREATE TABLE deal
     user_id            int,
     price              int,
     size               varchar(255),
-    `period`             timestamp,
+    `period`           timestamp,
     utilization_policy boolean,
     sales_condition    boolean,
     status             varchar(255),
@@ -165,7 +170,8 @@ CREATE TABLE brand
 (
     id         int PRIMARY KEY AUTO_INCREMENT,
     brand_name varchar(255),
-    is_luxury  boolean
+    is_luxury  boolean,
+    INDEX      idx_brand_name (brand_name)
 );
 
 CREATE TABLE owned_items
