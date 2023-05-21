@@ -44,7 +44,7 @@ CREATE TABLE manager
     phone_number    varchar(255),
     agreement       boolean,
     created_at      timestamp,
-    modified_at     timestamp,
+    modified_at     timestamp
 );
 create index idx_employee_number on manager (employee_number);
 
@@ -172,7 +172,6 @@ CREATE TABLE brand
     brand_name varchar(255),
     is_luxury  boolean
 );
-
 create index idx_brand_name on brand (brand_name);
 
 
