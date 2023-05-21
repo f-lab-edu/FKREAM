@@ -32,7 +32,7 @@ CREATE TABLE users
     profile_img_origin_name varchar(255),
     created_at              timestamp,
     modified_at             timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_email on users (email);
 
 CREATE TABLE manager
@@ -45,7 +45,7 @@ CREATE TABLE manager
     agreement       boolean,
     created_at      timestamp,
     modified_at     timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_employee_number on manager (employee_number);
 
 CREATE TABLE address
@@ -59,7 +59,7 @@ CREATE TABLE address
     detail2         varchar(255),
     default_address boolean,
     created_at      timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE payment_card
 (
@@ -70,7 +70,7 @@ CREATE TABLE payment_card
     expiration   varchar(255),
     card_pw      varchar(255),
     created_at   timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE sales_account
 (
@@ -80,7 +80,7 @@ CREATE TABLE sales_account
     account_number varchar(255),
     account_holder varchar(255),
     created_at     timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE notification
 (
@@ -89,7 +89,7 @@ CREATE TABLE notification
     interested_item_id int,
     type               varchar(255),
     created_at         timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE item
 (
@@ -107,11 +107,11 @@ CREATE TABLE item
     created_at           timestamp,
     modified_at          timestamp,
     manager_id           int
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 CREATE
-FULLTEXT INDEX item_name_idx ON ITEM (item_name);
+FULLTEXT INDEX item_name_idx ON ITEM (item_name) WITH PARSER ngram;
 Create
-FULLTEXT index model_number_idx on ITEM (model_number);
+FULLTEXT index model_number_idx on ITEM (model_number) WITH PARSER ngram;
 
 CREATE TABLE item_category
 (
@@ -119,7 +119,7 @@ CREATE TABLE item_category
     category_name      varchar(255) unique,
     parent_category_id int,
     foreign key (`parent_category_id`) references ITEM_CATEGORY (id) on delete set null
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_category_name on item_category (category_name);
 
 CREATE TABLE item_size_price
@@ -130,7 +130,7 @@ CREATE TABLE item_size_price
     lowest_selling_price   int,
     highest_purchase_price int,
     modified_at            timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_item_id on item_size_price (item_id);
 create index idx_lowest_selling_price on item_size_price (lowest_selling_price);
 
@@ -143,7 +143,7 @@ CREATE TABLE item_img
     origin_name           varchar(255),
     is_representative_img boolean,
     created_at            timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE deal
 (
@@ -160,7 +160,7 @@ CREATE TABLE deal
     other_id           int,
     created_at         timestamp,
     trading_day        timestamp
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_item_id on deal (item_id);
 
 CREATE TABLE interested_item
@@ -168,15 +168,15 @@ CREATE TABLE interested_item
     id                 int PRIMARY KEY AUTO_INCREMENT,
     user_id            int,
     item_size_price_id int
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 CREATE TABLE brand
 (
     id         int PRIMARY KEY AUTO_INCREMENT,
     brand_name varchar(255),
     is_luxury  boolean
-);
-Create FULLTEXT index brand_name_idx on BRAND (brand_name);
+)Engine=InnoDB CHARACTER SET utf8mb4;
+Create FULLTEXT index brand_name_idx on BRAND (brand_name) WITH PARSER ngram;
 
 CREATE TABLE owned_items
 (
@@ -184,7 +184,7 @@ CREATE TABLE owned_items
     user_id            int,
     item_size_price_id int,
     purchase_price     int
-);
+)Engine=InnoDB CHARACTER SET utf8mb4;
 
 
 
