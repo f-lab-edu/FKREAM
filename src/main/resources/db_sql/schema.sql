@@ -31,9 +31,9 @@ CREATE TABLE users
     profile_img_url         varchar(255),
     profile_img_origin_name varchar(255),
     created_at              timestamp,
-    modified_at             timestamp,
-    INDEX                   idx_email (email)
+    modified_at             timestamp
 );
+create index idx_email on users (email);
 
 CREATE TABLE manager
 (
@@ -45,8 +45,8 @@ CREATE TABLE manager
     agreement       boolean,
     created_at      timestamp,
     modified_at     timestamp,
-    INDEX           idx_employee_number (employee_number)
 );
+create index idx_employee_number on manager (employee_number);
 
 CREATE TABLE address
 (
@@ -106,10 +106,10 @@ CREATE TABLE item
     brand_id             int,
     created_at           timestamp,
     modified_at          timestamp,
-    manager_id           int,
-    INDEX                idx_item_name (item_name),
-    INDEX                idx_model_number (model_number)
+    manager_id           int
 );
+create index idx_item_name on item (item_name);
+create index idx_model_number on item (model_number);
 
 CREATE TABLE item_category
 (
@@ -170,9 +170,11 @@ CREATE TABLE brand
 (
     id         int PRIMARY KEY AUTO_INCREMENT,
     brand_name varchar(255),
-    is_luxury  boolean,
-    INDEX      idx_brand_name (brand_name)
+    is_luxury  boolean
 );
+
+create index idx_brand_name on brand (brand_name);
+
 
 CREATE TABLE owned_items
 (
@@ -181,6 +183,8 @@ CREATE TABLE owned_items
     item_size_price_id int,
     purchase_price     int
 );
+
+
 
 ALTER TABLE address
     ADD FOREIGN KEY (user_id) REFERENCES users (id);
