@@ -108,8 +108,10 @@ CREATE TABLE item
     modified_at          timestamp,
     manager_id           int
 );
-create index idx_item_name on item (item_name);
-create index idx_model_number on item (model_number);
+CREATE
+FULLTEXT INDEX item_name_idx ON ITEM (item_name);
+Create
+FULLTEXT index model_number_idx on ITEM (model_number);
 
 CREATE TABLE item_category
 (
@@ -174,8 +176,7 @@ CREATE TABLE brand
     brand_name varchar(255),
     is_luxury  boolean
 );
-create index idx_brand_name on brand (brand_name);
-
+Create FULLTEXT index brand_name_idx on BRAND (brand_name);
 
 CREATE TABLE owned_items
 (
