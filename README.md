@@ -6,8 +6,9 @@
 뉴젠킨스 웹훅, 자동배포 
 redis cache
 
-인프라 구조 변경 - test 중
-![fkream 인프라 구조](https://github.com/f-lab-edu/FKREAM/assets/79684851/d91cdf73-d950-4cfc-b5ab-3a3ad03c12d4)
+인프라 구조 변경
+![fkream 인프라 구조 drawio (3)](https://github.com/f-lab-edu/FKREAM/assets/79684851/b3f6b8a2-b16f-4a68-88bc-afaedffac3c9)
+
 
 
 pinpoint - test 중
