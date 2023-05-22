@@ -213,24 +213,24 @@ public class DealService {
         return null;
     }
 
-    private void immediateSale(Deal deal) {
-        deal.setStatus(Status.PROGRESS);
-        Deal purchaseHistory = findBuyNowDeal(deal);
-        purchaseHistory.setStatus(Status.PROGRESS);
-        deal.setOtherId(purchaseHistory.getId());
-        dealMapper.save(deal);
-        purchaseHistory.setOtherId(deal.getId());
-        dealMapper.update(purchaseHistory);
+    private void immediateSale(Deal saleDeal) {
+        saleDeal.setStatus(Status.PROGRESS);
+        Deal purchaseDeal = findBuyNowDeal(saleDeal);
+        purchaseDeal.setStatus(Status.PROGRESS);
+        saleDeal.setOtherId(purchaseDeal.getId());
+        dealMapper.save(saleDeal);
+        purchaseDeal.setOtherId(saleDeal.getId());
+        dealMapper.update(purchaseDeal);
     }
 
-    private void immediatePurchase(Deal deal) {
-        deal.setStatus(Status.PROGRESS);
-        Deal saleHistory = findSellNowDeal(deal);
-        saleHistory.setStatus(Status.PROGRESS);
-        deal.setOtherId(saleHistory.getId());
-        dealMapper.save(deal);
-        saleHistory.setOtherId(deal.getId());
-        dealMapper.update(saleHistory);
+    private void immediatePurchase(Deal purchaseDeal) {
+        purchaseDeal.setStatus(Status.PROGRESS);
+        Deal saleDeal = findSellNowDeal(purchaseDeal);
+        saleDeal.setStatus(Status.PROGRESS);
+        purchaseDeal.setOtherId(saleDeal.getId());
+        dealMapper.save(purchaseDeal);
+        saleDeal.setOtherId(purchaseDeal.getId());
+        dealMapper.update(saleDeal);
     }
 
     private void bidSale(Deal deal) {
