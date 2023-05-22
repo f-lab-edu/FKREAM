@@ -5,10 +5,24 @@ spring:
   profiles:
     active: prod
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-    driverClassName: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
+#    username: ${DB_USERNAME}
+#    password: ${DB_PASSWORD}
+#    driverClassName: com.mysql.cj.jdbc.Driver
+    master:
+      hikari:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
+        read-only: false
+        username: ${DB_USERNAME}
+        password: ${DB_PASSWORD}
+    slave:
+      hikari:
+        driverClassName: com.mysql.cj.jdbc.Driver
+        jdbcUrl: jdbc:mysql://49.50.161.215:3306/fkream
+        read-only: true
+        username: root
+        password: root
   sql:
     init:
       mode: always
