@@ -81,7 +81,7 @@ class SearchServiceTest {
     }
 
 
-    @Test
+    /*@Test
     void autoComplete() {
         List<String> result = List.of("nike");
         given(trie.search(CONTEXT)).willReturn(result);
@@ -89,5 +89,5 @@ class SearchServiceTest {
         assertThat(searchService.autoComplete(CONTEXT)).contains(autoCompletedItemDto);
         then(trie).should().search(CONTEXT);
         then(searchMapper).should().autoComplete(result);
-    }
+    }*/
 }

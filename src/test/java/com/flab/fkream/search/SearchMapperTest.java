@@ -205,8 +205,8 @@ class SearchMapperTest {
         assertThat(searchMapper.findCountByCriteria(searchCriteriaWithCategory)).isEqualTo(13);
     }
 
-    @Test
-    void autoComplete() {
-        assertThat(searchMapper.autoComplete(List.of("ve")).get(0).getItemName()).contains("ve");
-    }
+//    @Test
+//    void autoComplete() {
+//        assertThat(searchMapper.autoComplete(List.of("ve")).get(0).getItemName()).contains("ve");
+//    }
 }

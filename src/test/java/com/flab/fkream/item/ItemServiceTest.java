@@ -54,7 +54,7 @@ class ItemServiceTest {
     @Test
     void 아이템_생성() {
         given(itemMapper.save(itemInfo)).willReturn(1);
-        doNothing().when(trie).insert(itemInfo.getItemName());
+//        doNothing().when(trie).insert(itemInfo.getItemName());
         itemService.addItem(itemInfo);
         then(itemMapper).should().save(itemInfo);
     }
