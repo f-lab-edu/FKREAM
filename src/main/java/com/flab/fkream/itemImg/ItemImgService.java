@@ -28,6 +28,16 @@ public class ItemImgService {
         return itemImages;
     }
 
+    public ItemImg findRepresentImageByItemID(Long itemId) {
+        List<ItemImg> imagesByItemId = itemImgMapper.findImagesByItemId(itemId);
+        for (ItemImg itemImg : imagesByItemId) {
+            if (itemImg.isRepresentativeImg()) {
+                return itemImg;
+            }
+        }
+        throw new NoDataFoundException();
+    }
+
     public void delete(Long id) {
         itemImgMapper.delete(id);
     }
