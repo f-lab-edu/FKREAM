@@ -24,7 +24,7 @@ public class ItemImg {
     private String imgUrl;
     @NotNull
     private String originName;
-    private boolean isRepresentativeImg;
+    private boolean representativeImg;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
