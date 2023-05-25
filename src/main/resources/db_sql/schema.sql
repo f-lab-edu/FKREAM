@@ -112,6 +112,8 @@ CREATE
 FULLTEXT INDEX item_name_idx ON ITEM (item_name) WITH PARSER ngram;
 Create
 FULLTEXT index model_number_idx on ITEM (model_number) WITH PARSER ngram;
+CREATE INDEX idx_item_covering
+    ON ITEM (item_name, BRAND_ID);
 
 CREATE TABLE item_category
 (
@@ -133,6 +135,8 @@ CREATE TABLE item_size_price
 )Engine=InnoDB CHARACTER SET utf8mb4;
 create index idx_item_id on item_size_price (item_id);
 create index idx_lowest_selling_price on item_size_price (lowest_selling_price);
+CREATE INDEX idx_item_size_price_covering
+    ON ITEM_SIZE_PRICE (ITEM_ID, LOWEST_SELLING_PRICE);
 
 CREATE TABLE item_img
 (
@@ -144,6 +148,9 @@ CREATE TABLE item_img
     is_representative_img boolean,
     created_at            timestamp
 )Engine=InnoDB CHARACTER SET utf8mb4;
+CREATE INDEX idx_item_img
+    ON item_img (ITEM_ID);
+
 
 CREATE TABLE deal
 (
