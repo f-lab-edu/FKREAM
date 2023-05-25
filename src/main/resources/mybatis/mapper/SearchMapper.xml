@@ -108,9 +108,9 @@
     </choose>
     <where>
       <if test="context != null">
-        (item.item_name like concat('%', #{context}, '%')
-        or item.model_number like concat('%', #{context}, '%')
-        or BR.brand_name like concat('%', #{context}, '%'))
+        MATCH (item.item_name) AGAINST ('and' in boolean mode)
+        or MATCH (BR.brand_name) AGAINST ('and' in boolean mode)
+        or MATCH (item.model_number) AGAINST ('and' in boolean mode)
       </if>
       <if test="categoryId != null">
         and (item.category_id in
