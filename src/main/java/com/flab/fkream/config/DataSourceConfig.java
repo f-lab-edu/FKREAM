@@ -74,7 +74,7 @@ public class DataSourceConfig {
         return sessionFactory.getObject();
     }
 
-    @Bean
+    /*@Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("masterDataSource") DataSource master){
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
         resourceDatabasePopulator.addScript(new ClassPathResource("db_sql/schema.sql"));
@@ -83,5 +83,5 @@ public class DataSourceConfig {
         dataSourceInitializer.setDataSource(master);
         dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator);
         return dataSourceInitializer;
-    }
+    }*/
 }
