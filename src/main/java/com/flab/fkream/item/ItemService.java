@@ -24,7 +24,7 @@ public class ItemService {
     public void addItem(Item itemInfo) {
         itemInfo.setCreatedAtToNow();
         itemMapper.save(itemInfo);
-        trie.insert(itemInfo.getItemName());
+        trie.insert(itemInfo);
     }
 
     public Item findOne(Long itemId) {

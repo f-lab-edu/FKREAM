@@ -1,26 +1,28 @@
 package com.flab.fkream.search;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.item.Item;
+import com.flab.fkream.item.ItemService;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class Trie {
 
-    private TrieNode root;
+    private TrieNode root = new TrieNode();
 
-    public Trie() {
-        root = new TrieNode();
-    }
-
-    public void insert(String word) {
+    public void insert(Item item) {
+        String word = item.getItemName();
         TrieNode node = root;
         for (char c : word.toCharArray()) {
+            c = Character.toLowerCase(c);
             if (!node.getChildren().containsKey(c)) {
                 TrieNode trieNode = new TrieNode();
                 node.getChildren().put(c, trieNode);
@@ -28,12 +30,16 @@ public class Trie {
             node = node.getChildren().get(c);
         }
         node.setEnd(true);
+        if (node.isEnd()) {
+            node.getItems().add(item);
+        }
     }
 
-    public List<String> search(String word) {
-        List<String> results = new ArrayList<>();
+    public List<Item> search(String word) {
+        List<Item> results = new ArrayList<>();
         TrieNode node = root;
         for (char c : word.toCharArray()) {
+            c = Character.toLowerCase(c);
             if (!node.getChildren().containsKey(c)) {
                 return results;
             }
@@ -43,11 +49,11 @@ public class Trie {
         return results;
     }
 
-    private void findAllWords(TrieNode node, String prefix, List<String> result) {
+    private void findAllWords(TrieNode node, String prefix, List<Item> result) {
         if (node.isEnd()) {
-            result.add(prefix);
+            result.addAll(node.getItems());
         }
-        if (result.size() == 10) {
+        if (result.size() > 10) {
             return;
         }
         for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {

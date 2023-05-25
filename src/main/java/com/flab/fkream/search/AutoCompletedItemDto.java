@@ -1,5 +1,7 @@
 package com.flab.fkream.search;
 
+import com.flab.fkream.item.Item;
+import com.flab.fkream.itemImg.ItemImg;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +23,9 @@ public class AutoCompletedItemDto implements Serializable {
     private String imgName;
 
     private String imgUrl;
+
+    public static AutoCompletedItemDto of(Item item, ItemImg itemImg) {
+        return new AutoCompletedItemDto(item.getId(), item.getItemName(), itemImg.getId(),
+            itemImg.getImgName(), itemImg.getImgUrl());
+    }
 }

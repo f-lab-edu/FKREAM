@@ -33,4 +33,9 @@ public class SearchController {
     public List<AutoCompletedItemDto> searchAutoCompletedItem(@RequestParam String context) {
         return searchService.autoComplete(context);
     }
+
+    @GetMapping("/auto-complete-init")
+    public void initTrie() {
+        searchService.initTrie();
+    }
 }

@@ -17,5 +17,8 @@ public interface SearchMapper {
 
     int findCountByCriteria(SearchCriteria searchCriteria);
 
-    List<AutoCompletedItemDto> autoComplete(@Param("results") List<String> results);
+//    List<AutoCompletedItemDto> autoComplete(@Param("results") List<String> results);
+
+    List<AutoCompletedItemDto> autoComplete(@Param("results") String results);
+
 }

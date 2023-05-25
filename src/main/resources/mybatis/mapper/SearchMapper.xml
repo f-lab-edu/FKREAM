@@ -41,11 +41,10 @@
            img.img_url as imgUrl
     from ITEM item
     join ITEM_IMG img on item.ID = img.ITEM_ID
-    <where>
-    <foreach collection="results" item="name">
-      or item.item_name like concat('%', #{name}, '%')
-    </foreach>
-    </where>
+    where item.item_name like concat(#{results}, '%')
+<!--    <where>-->
+<!--     item.item_name like concat('%', #{name}, '%')-->
+<!--    </where>-->
     limit 10
   </select>
 
