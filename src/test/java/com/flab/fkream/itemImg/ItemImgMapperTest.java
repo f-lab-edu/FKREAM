@@ -41,7 +41,7 @@ class ItemImgMapperTest {
             .imgUrl("test")
             .imgName("test")
             .originName("test_origin")
-            .isRepresentativeImg(true)
+            //.isRepresentativeImg(true)
             .build();
 
     @BeforeEach
