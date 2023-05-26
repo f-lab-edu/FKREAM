@@ -32,7 +32,10 @@ dependencies {
 	implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+	// redisson
+	implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
 	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'com.mysql:mysql-connector-j'

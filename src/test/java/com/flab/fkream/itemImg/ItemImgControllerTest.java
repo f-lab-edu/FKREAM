@@ -55,7 +55,7 @@ class ItemImgControllerTest {
             .imgUrl("test")
             .imgName("test")
             .originName("test_origin")
-            .isRepresentativeImg(true)
+            //.isRepresentativeImg(true)
             .build();
 
     @Test
