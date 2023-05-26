@@ -222,24 +222,52 @@ public class DealService {
         return null;
     }
 
-    private void immediateSale(Deal saleDeal) {
-        saleDeal.setStatus(Status.PROGRESS);
+    public void immediateSale(Deal saleDeal) {
         Deal purchaseDeal = findBuyNowDeal(saleDeal);
-        purchaseDeal.setStatus(Status.PROGRESS);
-        saleDeal.setOtherId(purchaseDeal.getId());
-        dealMapper.save(saleDeal);
-        purchaseDeal.setOtherId(saleDeal.getId());
-        dealMapper.update(purchaseDeal);
+        String lockName = purchaseDeal.getClass().getName() + purchaseDeal.getId().toString();
+        RLock rLock = redissonClient.getLock(lockName);
+        try {
+            if (!rLock.tryLock(0, TimeUnit.MILLISECONDS)) {
+                log.info("락 획득 실패");
+                throw new NoDataFoundException();
+            }
+            log.info("락 획득 성공");
+            purchaseDeal.setStatus(Status.PROGRESS);
+            saleDeal.setOtherId(purchaseDeal.getId());
+            dealMapper.save(saleDeal);
+            purchaseDeal.setOtherId(saleDeal.getId());
+            dealMapper.update(purchaseDeal);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            throw new  RuntimeException(e);
+        } finally {
+            if (rLock != null && rLock.isLocked()) {
+                rLock.unlock();
+            }
+        }
     }
 
     private void immediatePurchase(Deal purchaseDeal) {
-        purchaseDeal.setStatus(Status.PROGRESS);
         Deal saleDeal = findSellNowDeal(purchaseDeal);
-        saleDeal.setStatus(Status.PROGRESS);
-        purchaseDeal.setOtherId(saleDeal.getId());
-        dealMapper.save(purchaseDeal);
-        saleDeal.setOtherId(purchaseDeal.getId());
-        dealMapper.update(saleDeal);
+        final String lockName =
+            saleDeal.getClass().getName() + saleDeal.getId().toString();
+        RLock rLock = redissonClient.getLock(lockName);
+        try {
+            if (!rLock.tryLock(0, TimeUnit.MILLISECONDS)) {
+                throw new NoDataFoundException();
+            }
+            saleDeal.setStatus(Status.PROGRESS);
+            purchaseDeal.setOtherId(saleDeal.getId());
+            dealMapper.save(purchaseDeal);
+            saleDeal.setOtherId(purchaseDeal.getId());
+            dealMapper.update(saleDeal);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } finally {
+            if (rLock != null && rLock.isLocked()) {
+                rLock.unlock();
+            }
+        }
     }
 
     private void bidSale(Deal deal) {
@@ -258,7 +286,7 @@ public class DealService {
         RLock rLock = redissonClient.getLock(lockName);
 
         try {
-            if (!rLock.tryLock(1, 3, TimeUnit.SECONDS)) {
+            if (!rLock.tryLock(1, 3, TimeUnit.MINUTES)) {
                 return;
             }
 

@@ -40,6 +40,9 @@ spring:
     session:
       host: ${REDIS_SESSION_HOST}
       port: ${REDIS_SESSION_PORT}
+    redisson:
+      host: ${REDIS_SESSION_HOST}
+      port: 6381
     timeout: 30000
 
 logging.level:
