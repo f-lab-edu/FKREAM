@@ -4,6 +4,14 @@ mybatis:
 spring:
   profiles:
     active: prod
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      authentication-database: admin
+      database: fkream
+      username: admin
+      password: admin
   datasource:
 #    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
 #    username: ${DB_USERNAME}
