@@ -2,6 +2,7 @@ package com.flab.fkream.interestItemCount;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,9 +27,8 @@ public class InterestItemCountController {
         return interestItemCountService.findByItemId(itemId);
     }
 
-    @GetMapping()
-    public List<InterestItemCount> findByItemId() {
-        return interestItemCountService.findAll();
+    @PostMapping("/increase")
+    public void increaseCount(@RequestBody InterestItemCount interestItemCount) {
+        interestItemCountService.increaseCount(interestItemCount);
     }
-
 }

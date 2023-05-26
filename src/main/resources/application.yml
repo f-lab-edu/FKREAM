@@ -12,6 +12,7 @@ spring:
       database: fkream
       username: admin
       password: admin
+      auto-index-creation: true
   datasource:
 #    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
 #    username: ${DB_USERNAME}

@@ -7,5 +7,4 @@ import org.springframework.stereotype.Repository;
 public interface InterestItemCountRepository extends MongoRepository<InterestItemCount, String> {
 
     InterestItemCount findByItemId(Long itemId);
-
 }
