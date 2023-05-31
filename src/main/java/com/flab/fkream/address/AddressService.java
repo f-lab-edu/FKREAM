@@ -1,6 +1,7 @@
 package com.flab.fkream.address;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.redis.RedisService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -12,9 +13,13 @@ import org.springframework.stereotype.Service;
 public class AddressService {
 
     private final AddressMapper addressMapper;
+    private final RedisService redisService;
+
+    private final AddressRepository addressRepository;
 
     public void addAddress(Address address) {
-        addressMapper.save(address);
+        Long addressId = redisService.getAddressId();
+        addressRepository.addAddress(addressId, address);
     }
 
     public Address findOne(Long id) {
@@ -26,7 +31,7 @@ public class AddressService {
     }
 
     public List<Address> findByUserId(Long userId) {
-        List<Address> addresses = addressMapper.findByUserId(userId);
+        List<Address> addresses = addressRepository.findByUserId(userId);
         if (addresses.size() == 0) {
             throw new NoDataFoundException();
         }
@@ -34,7 +39,7 @@ public class AddressService {
     }
 
     public void update(Address addressInfo) {
-        addressMapper.update(addressInfo);
+        addressRepository.update(addressInfo.getId(), addressInfo);
     }
 
     public void delete(Long id) {
