@@ -50,7 +50,7 @@ create index idx_employee_number on manager (employee_number);
 
 CREATE TABLE address
 (
-    id              int PRIMARY KEY AUTO_INCREMENT,
+    id              int PRIMARY KEY,
     user_id         int,
     name            varchar(255),
     phone_number    varchar(255),
