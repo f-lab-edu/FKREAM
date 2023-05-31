@@ -18,10 +18,10 @@
 
   <insert id="save" useGeneratedKeys="true" keyProperty="id"
     parameterType="com.flab.fkream.address.Address">
-    insert into address (USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT,
+    insert into address (ID, USER_ID, NAME, PHONE_NUMBER, ZIPCODE, DETAIL1, DETAIL2, CREATED_AT,
                          DEFAULT_ADDRESS)
-    values (#{userId}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2}, #{createdAt},
-            #{defaultAddress})
+    values (#{id} ,#{userId}, #{name}, #{phoneNumber}, #{zipcode}, #{detail1}, #{detail2},
+            #{createdAt}, #{defaultAddress})
   </insert>
   <select id="findByUserId" resultMap="AddressResultMap">
     select *
