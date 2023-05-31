@@ -27,7 +27,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 @MapperScan("com.flab.fkream.*")
 public class DataSourceConfig {
 
-
+/*
     @Bean(name = "masterDataSource")
     @ConfigurationProperties(prefix = "spring.datasource.master.hikari")
     public DataSource masterDataSource() {
@@ -72,7 +72,7 @@ public class DataSourceConfig {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
         return sessionFactory.getObject();
-    }
+    }*/
 
     /*@Bean
     public DataSourceInitializer dataSourceInitializer(@Qualifier("masterDataSource") DataSource master){
