@@ -14,7 +14,6 @@ public class ShardingProperty {
 
     private ShardingStrategy strategy;
     private List<ShardingRule> rules;
-    // private int mod;
 
     @Getter
     @Setter
