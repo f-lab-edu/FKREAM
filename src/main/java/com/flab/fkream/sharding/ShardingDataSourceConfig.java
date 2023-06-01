@@ -27,7 +27,7 @@ public class ShardingDataSourceConfig {
 
     private ShardingDataSourceProperty property;
 
-    private static final String SHARD_DELIMITER = ShardDelimiter.D.toString();
+    private static final String SHARD_DELIMITER = ShardDelimiter.DELIMITER.toString();
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     private static final String MAPPER_LOCATION = "classpath:mybatis/mapper/*.xml";
 

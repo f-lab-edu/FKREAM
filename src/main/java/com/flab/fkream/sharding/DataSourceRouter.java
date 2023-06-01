@@ -16,7 +16,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
 
     private Map<Integer, MhaDataSource> shards;
 
-    private static final String SHARD_DELIMITER = ShardDelimiter.D.toString();
+    private static final String SHARD_DELIMITER = ShardDelimiter.DELIMITER.toString();
     private static final String MASTER = "master";
     private static final String SLAVE = "slave";
 
