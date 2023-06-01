@@ -1,10 +1,18 @@
 package com.flab.fkream.redis;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.assertj.core.api.Assertions.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,40 +24,29 @@ class RedisServiceTest {
     private RedisService redisService;
 
     @Test
-    void getAddressId() throws InterruptedException {
+    void getAddressId() throws InterruptedException, ExecutionException {
 
         int threadCount = 10;
-        CountDownLatch latch = new CountDownLatch(threadCount);
+        Set<Long> results = new HashSet<>();
 
-        List<Thread> workers = new ArrayList<>();
-        for (Long i = 0L; i < threadCount; i++) {
-            workers.add(new Thread(new CountWorker(latch, i)));
-        }
-        workers.forEach(Thread::start);
-        latch.await();
+        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        List<Future<Long>> futures = new ArrayList<>();
 
-        Long addressId = redisService.getAddressId();
-        System.out.println("addressId = " + addressId);
-    }
+        redisService.initAddressId();
 
-    private class CountWorker implements Runnable {
-
-        private CountDownLatch countDownLatch;
-        private Long id;
-
-        public CountWorker(CountDownLatch countDownLatch, Long id) {
-            this.countDownLatch = countDownLatch;
-            this.id = id;
-        }
-
-        @Override
-        public void run() {
-            try {
+        for (int i = 0; i < threadCount; i++) {
+            Callable<Long> callable = () -> {
                 Long addressId = redisService.getAddressId();
-                System.out.println("Thread id = " + id + " addressId = " + addressId);
-            } finally {
-                countDownLatch.countDown();
-            }
+                return addressId;
+            };
+            futures.add(executorService.submit(callable));
         }
+        executorService.shutdown();
+        for (Future<Long> future : futures) {
+            results.add(future.get());
+        }
+
+        assertThat(results.size()).isEqualTo(10);
+        assertThat(redisService.getAddressId()).isEqualTo(11L);
     }
 }

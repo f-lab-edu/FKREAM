@@ -1,6 +1,6 @@
 package com.flab.fkream.redis;
 
-import java.util.Objects;
+import com.flab.fkream.error.exception.GenerateAddressKeyException;
 import javax.annotation.Resource;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.redis.core.ValueOperations;
@@ -14,13 +14,17 @@ public class RedisService {
     private ValueOperations<String, Object> valueOps;
 
     public Long getAddressId() {
-        Long increment = 0L;
+        Long addressId = 0L;
         try {
-            increment = valueOps.increment("spring:redis:getAddressId", 1L);
+            addressId = valueOps.increment("spring:redis:getAddressId", 1L);
         } catch (Exception e) {
-            log.info(e.toString());
+            log.error(e.toString());
+            throw new GenerateAddressKeyException();
         }
-        return increment;
+        return addressId;
     }
 
+    public void initAddressId() {
+        valueOps.set("spring:redis:getAddressId", 0L);
+    }
 }
