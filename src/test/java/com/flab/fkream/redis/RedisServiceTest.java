@@ -29,7 +29,7 @@ class RedisServiceTest {
         int threadCount = 10;
         Set<Long> results = new HashSet<>();
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
         List<Future<Long>> futures = new ArrayList<>();
 
         redisService.initAddressId();
@@ -46,7 +46,7 @@ class RedisServiceTest {
             results.add(future.get());
         }
 
-        assertThat(results.size()).isEqualTo(10);
-        assertThat(redisService.getAddressId()).isEqualTo(11L);
+        assertThat(results.size()).isEqualTo(threadCount);
+        assertThat(redisService.getAddressId()).isEqualTo(Integer.toUnsignedLong(threadCount + 1));
     }
 }
