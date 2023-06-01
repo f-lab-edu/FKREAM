@@ -23,9 +23,9 @@ public class UserHolder {
         getUserContext().setSharding(new Sharding(target, shardKey));
     }
 
-    public static void setShardingWithShardNo(ShardingTarget target, int slaveNumber) {
+    public static void setShardingWithShardNo(int shardNo) {
         Sharding sharding = new Sharding();
-        sharding.setTargetAndSlaveNumber(target, slaveNumber);
+        sharding.setSlaveNumber(shardNo);
         getUserContext().setSharding(sharding);
     }
 
@@ -52,7 +52,6 @@ public class UserHolder {
 
         private ShardingTarget target;
         private long shardKey;
-
         private Integer shardNo;
 
         public Sharding(ShardingTarget target, long shardKey) {
@@ -60,9 +59,8 @@ public class UserHolder {
             this.shardKey = shardKey;
         }
 
-        public void setTargetAndSlaveNumber(ShardingTarget target, int slaveNumber) {
-            this.target = target;
-            this.shardNo = slaveNumber;
+        public void setSlaveNumber(int shardNo) {
+            this.shardNo = shardNo;
         }
     }
 }
