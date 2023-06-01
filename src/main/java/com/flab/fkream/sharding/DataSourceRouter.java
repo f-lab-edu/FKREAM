@@ -1,13 +1,12 @@
 package com.flab.fkream.sharding;
 
+import com.flab.fkream.error.exception.InvalidShardKeyException;
+import com.flab.fkream.error.exception.ShardingStrategyNotFoundException;
 import com.flab.fkream.sharding.ShardingProperty.ShardingRule;
 import com.flab.fkream.sharding.UserHolder.Sharding;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import javax.sql.DataSource;
-import jodd.util.StringUtil;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
@@ -17,10 +16,13 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
 
     private Map<Integer, MhaDataSource> shards;
 
-    private static final String SHARD_DELIMITER = "SHARD_DELIMITER";
+    private static final String SHARD_DELIMITER = ShardDelimiter.D.toString();
     private static final String MASTER = "master";
     private static final String SLAVE = "slave";
 
+    public int getShardSize() {
+        return shards.size();
+    }
 
     @Override
     public void setTargetDataSources(Map<Object, Object> targetDataSources) {
@@ -65,6 +67,9 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
         if (shardingProperty.getStrategy() == ShardingStrategy.RANGE) {
             shardNo = getShardNoByRange(shardingProperty.getRules(), sharding.getShardKey());
         }
+        if (shardingProperty.getStrategy() != ShardingStrategy.RANGE) {
+            throw new ShardingStrategyNotFoundException();
+        }
         return shardNo;
     }
 
@@ -74,7 +79,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
                 return rule.getShardNo();
             }
         }
-        return 0;
+        throw new InvalidShardKeyException();
     }
 
     private MhaDataSource getShard(String shardNoStr) {
@@ -93,7 +98,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
 
     private boolean isNumeric(String input) {
         try {
-            Double.parseDouble(input);
+            Integer.parseInt(input);
             return true;
         } catch (NumberFormatException e) {
             return false;
