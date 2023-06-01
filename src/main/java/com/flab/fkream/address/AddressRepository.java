@@ -1,14 +1,10 @@
 package com.flab.fkream.address;
 
 
-import com.flab.fkream.sharding.DataSourceRouter;
+import com.flab.fkream.sharding.AllShardQuery;
 import com.flab.fkream.sharding.Sharding;
 import com.flab.fkream.sharding.ShardingTarget;
-import com.flab.fkream.sharding.UserHolder;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import javax.sql.DataSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +18,6 @@ import org.springframework.stereotype.Component;
 public class AddressRepository {
 
     private final AddressMapper addressMapper;
-    private final DataSourceRouter dataSourceRouter;
 
 
     @Sharding(target = ShardingTarget.ADDRESS)
@@ -35,16 +30,9 @@ public class AddressRepository {
         return addressMapper.findOne(id);
     }
 
+    @AllShardQuery
     public List<Address> findByUserId(Long userId) {
-        Map<Object, DataSource> dataSources = dataSourceRouter.getResolvedDataSources();
-        int shardSize = dataSources.size() / 2;
-        List<Address> result = new ArrayList<>();
-        for (int i = 0; i < shardSize; i++) {
-            UserHolder.setShardingWithShardNo(ShardingTarget.ADDRESS, i);
-            result.addAll(addressMapper.findByUserId(userId));
-        }
-        UserHolder.clearSharding();
-        return result;
+        return addressMapper.findByUserId(userId);
     }
 
     @Sharding(target = ShardingTarget.ADDRESS)
