@@ -1,17 +1,15 @@
 package com.flab.fkream.sharding;
 
-
-import com.flab.fkream.replication.RoutingDataSource;
 import com.flab.fkream.sharding.ShardingDataSourceProperty.Property;
 import com.flab.fkream.sharding.ShardingDataSourceProperty.Shard;
 import com.zaxxer.hikari.HikariDataSource;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import lombok.Setter;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -23,15 +21,14 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @ConfigurationProperties(prefix = "datasource")
+@MapperScan("com.flab.fkream.*")
 @Setter
 public class ShardingDataSourceConfig {
 
     private ShardingDataSourceProperty property;
 
-    private static final String SHARD_DELIMITER = "SHARD_DELIMITER";
-
+    private static final String SHARD_DELIMITER = ShardDelimiter.D.toString();
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-
     private static final String MAPPER_LOCATION = "classpath:mybatis/mapper/*.xml";
 
     @Bean
