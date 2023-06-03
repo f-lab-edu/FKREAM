@@ -2,6 +2,7 @@ package com.flab.fkream;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -11,6 +12,7 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableAspectJAutoProxy
 @EnableCaching
 @EnableMongoRepositories
+@ConfigurationPropertiesScan(value = "com.flab.fkream.sharding")
 public class FkreamApplication {
 
 	public static void main(String[] args) {

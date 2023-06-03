@@ -15,6 +15,7 @@ public interface AddressMapper {
     @Transactional(readOnly = true)
     Address findOne(Long id);
 
+    @Transactional(readOnly = true)
     List<Address> findByUserId(Long userId);
 
     int update(Address addressInfo);

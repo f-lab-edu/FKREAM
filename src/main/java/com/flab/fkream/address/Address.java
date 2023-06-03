@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Address {
 
+    @Setter
     private Long id;
     @NotNull
     private Long userId;

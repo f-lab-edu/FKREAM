@@ -13,25 +13,6 @@ spring:
       username: admin
       password: admin
       auto-index-creation: true
-  datasource:
-#    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
-#    username: ${DB_USERNAME}
-#    password: ${DB_PASSWORD}
-#    driverClassName: com.mysql.cj.jdbc.Driver
-    master:
-      hikari:
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
-        read-only: false
-        username: ${DB_USERNAME}
-        password: ${DB_PASSWORD}
-    slave:
-      hikari:
-        driverClassName: com.mysql.cj.jdbc.Driver
-        jdbcUrl: jdbc:mysql://49.50.161.215:3306/fkream
-        read-only: true
-        username: root
-        password: root
   sql:
     init:
       mode: always
@@ -61,3 +42,42 @@ pagehelper:
   helper-dialect: mysql
   auto-dialect: true
   reasonable: true
+
+#################################################################################
+
+datasource:
+  property:
+    shards:
+      - master:
+          url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
+          username: ${DB_USERNAME}
+          password: ${DB_PASSWORD}
+          name: master1
+        slave:
+          url: jdbc:mysql://49.50.161.215:3306/fkream
+          username: root
+          password: root
+          name: slave1
+      - master:
+          url: jdbc:mysql://${MYSQL_HOST}:3307/${DB_NAME}
+          username: root
+          password: root
+          name: master2
+        slave:
+          url: jdbc:mysql://49.50.161.215:3307/fkream
+          username: root
+          password: root
+          name: slave2
+
+sharding:
+  address:
+    strategy: RANGE
+    rules:
+      - shard_no: 0
+        range_min: 0
+        range_max: 100
+
+      - shard_no: 1
+        range_min: 101
+        range_max: 200 #최댓값을 안했다.
+
