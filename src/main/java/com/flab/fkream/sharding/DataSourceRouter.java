@@ -1,5 +1,6 @@
 package com.flab.fkream.sharding;
 
+import com.flab.fkream.constants.Constants;
 import com.flab.fkream.error.exception.InvalidShardKeyException;
 import com.flab.fkream.error.exception.ShardingStrategyNotFoundException;
 import com.flab.fkream.sharding.ShardingProperty.ShardingRule;
@@ -15,8 +16,6 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
 public class DataSourceRouter extends AbstractRoutingDataSource {
 
     private Map<Integer, MhaDataSource> shards;
-
-    private static final String SHARD_DELIMITER = ShardDelimiter.DELIMITER.toString();
     private static final String MASTER = "master";
     private static final String SLAVE = "slave";
 
@@ -32,7 +31,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
 
         for (Object item : targetDataSources.keySet()) {
             String dataSourceName = item.toString();
-            String shardNoStr = dataSourceName.split(SHARD_DELIMITER)[0];
+            String shardNoStr = dataSourceName.split(Constants.ShardDelimiter)[0];
 
             MhaDataSource shard = getShard(shardNoStr);
             if (dataSourceName.contains(MASTER)) {

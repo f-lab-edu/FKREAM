@@ -1,5 +1,6 @@
 package com.flab.fkream.sharding;
 
+import com.flab.fkream.constants.Constants;
 import com.flab.fkream.sharding.ShardingDataSourceProperty.Property;
 import com.flab.fkream.sharding.ShardingDataSourceProperty.Shard;
 import com.zaxxer.hikari.HikariDataSource;
@@ -26,8 +27,6 @@ import org.springframework.transaction.PlatformTransactionManager;
 public class ShardingDataSourceConfig {
 
     private ShardingDataSourceProperty property;
-
-    private static final String SHARD_DELIMITER = ShardDelimiter.DELIMITER.toString();
     private static final String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
     private static final String MAPPER_LOCATION = "classpath:mybatis/mapper/*.xml";
 
@@ -59,8 +58,8 @@ public class ShardingDataSourceConfig {
                 .type(HikariDataSource.class)
                 .build();
 
-            dataSourceMap.put(i + SHARD_DELIMITER + shard.getMaster().getName(), masterSource);
-            dataSourceMap.put(i + SHARD_DELIMITER + shard.getSlave().getName(), slaveSource);
+            dataSourceMap.put(i + Constants.ShardDelimiter + shard.getMaster().getName(), masterSource);
+            dataSourceMap.put(i + Constants.ShardDelimiter + shard.getSlave().getName(), slaveSource);
         }
 
         router.setTargetDataSources(dataSourceMap);
