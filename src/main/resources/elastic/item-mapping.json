@@ -1,0 +1,65 @@
+{
+  "properties": {
+    "id": {
+      "type": "keyword"
+    },
+    "dealCount": {
+      "type": "long"
+    },
+    "itemName": {
+      "type": "text"
+    },
+    "modelNumber": {
+      "type": "text"
+    },
+    "categoryId": {
+      "type": "long"
+    },
+    "detailedCategoryId": {
+      "type": "long"
+    },
+    "releaseDate": {
+      "type": "date",
+      "format": "yyyy-MM-dd"
+    },
+    "representativeColor": {
+      "type": "keyword"
+    },
+    "releasedPrice": {
+      "type": "int"
+    },
+    "gender": {
+      "type": "keyword"
+    },
+    "brand": {
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "brandName": {
+          "type": "text"
+        },
+        "isLuxury": {
+          "type": "boolean"
+        }
+      }
+    },
+    "managerId": {
+      "type": "keyword"
+    },
+    "latestPrice": {
+      "type": "int"
+    },
+    "oneSize": {
+      "type": "boolean"
+    },
+    "createdAt": {
+      "type": "date",
+      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
+    },
+    "modifiedAt": {
+      "type": "date",
+      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
+    }
+  }
+}
