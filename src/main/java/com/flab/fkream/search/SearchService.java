@@ -5,6 +5,8 @@ import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemCategory.ItemCategoryService;
 import com.flab.fkream.itemImg.ItemImg;
 import com.flab.fkream.itemImg.ItemImgService;
+import com.flab.fkream.kafka.KafkaMessageSender;
+import com.flab.fkream.kafka.KafkaTopic;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,8 @@ public class SearchService {
     private final ItemService itemService;
     private final ItemImgService itemImgService;
     private final Trie trie;
+    private final KafkaMessageSender messageSender;
+
 
     private static final String CATEGORY_ERROR_MESSAGE = "잘못된 카테고리를 입력하셨습니다.";
 
@@ -30,6 +34,9 @@ public class SearchService {
             return searchMapper.searchAll();
         }
         validateCriteria(searchCriteria);
+        if (searchCriteria.getContext() != null && !searchCriteria.getContext().isEmpty()) {
+            messageSender.send(KafkaTopic.search_log.toString(), searchCriteria.getContext());
+        }
         return searchMapper.searchByCriteria(searchCriteria);
     }
 
