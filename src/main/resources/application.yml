@@ -34,6 +34,10 @@ spring:
       host: ${REDIS_SESSION_HOST}
       port: 6381
     timeout: 30000
+  kafka:
+    bootstrap-servers: 101.101.210.178:9092, 101.101.210.178:9093, 101.101.210.178:9094
+
+
 
 logging.level:
   org.hibernate.SQL: debug
@@ -80,4 +84,8 @@ sharding:
       - shard_no: 1
         range_min: 101
         range_max: 200 #최댓값을 안했다.
+
+###########################################################################
+
+
 
