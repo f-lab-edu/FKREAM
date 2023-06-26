@@ -1,0 +1,55 @@
+{
+  "properties": {
+    "id": {
+      "type": "long"
+    },
+    "itemName": {
+      "type": "text"
+    },
+    "size": {
+      "type": "keyword"
+    },
+    "modelNumber": {
+      "type": "text"
+    },
+    "categoryId": {
+      "type": "long"
+    },
+    "detailedCategoryId": {
+      "type": "long"
+    },
+    "releaseDate": {
+      "type": "date",
+      "format": "yyyy-MM-dd||yyyy/MM/dd||epoch_millis"
+    },
+    "releasedPrice": {
+      "type": "integer"
+    },
+    "gender": {
+      "type": "keyword"
+    },
+    "brand": {
+      "type": "nested",
+      "properties": {
+        "id": {
+          "type": "long"
+        },
+        "brandName": {
+          "type": "text"
+        },
+        "isLuxury": {
+          "type": "boolean"
+        }
+      }
+    },
+    "dealCount": {
+      "type": "integer"
+    },
+    "premiumRate": {
+      "type": "integer"
+    },
+    "immediateSalePrice": {
+      "type": "integer"
+    }
+  }
+}
