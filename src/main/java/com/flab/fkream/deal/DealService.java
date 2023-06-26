@@ -10,6 +10,8 @@ import com.flab.fkream.error.exception.NotOwnedDataException;
 import com.flab.fkream.item.ItemService;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
+import com.flab.fkream.kafka.KafkaMessageSender;
+import com.flab.fkream.kafka.KafkaTopic;
 import com.flab.fkream.utils.SessionUtil;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -30,12 +32,10 @@ import org.springframework.transaction.annotation.Transactional;
 public class DealService {
 
     private final DealMapper dealMapper;
-
     private final ItemService itemService;
-
     private final ItemSizePriceService itemSizePriceService;
-
     private final RedissonClient redissonClient;
+    private final KafkaMessageSender messageSender;
 
 
     @Transactional
@@ -107,7 +107,6 @@ public class DealService {
             if (deal.getPrice() == itemSizePrice.getLowestSellingPrice()) {
                 immediatePurchase(deal);
                 updatePrice(deal, itemSizePrice);
-                return;
             }
         }
     }
@@ -146,6 +145,7 @@ public class DealService {
         otherDeal.setTradingDayToNow();
         update(deal);
         update(otherDeal);
+        messageSender.send(KafkaTopic.complete_deal_price.toString(), new CompleteDealPriceDto(deal.getItem().getId(), deal.getPrice()));
     }
 
     @Transactional
