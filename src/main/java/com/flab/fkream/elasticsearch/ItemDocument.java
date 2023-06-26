@@ -1,36 +1,31 @@
 package com.flab.fkream.elasticsearch;
 
-import static org.springframework.data.elasticsearch.annotations.DateFormat.date_hour_minute_second_millis;
-import static org.springframework.data.elasticsearch.annotations.DateFormat.epoch_millis;
-
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.ItemGender;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import javax.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.elasticsearch.search.SearchHit;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import org.springframework.data.elasticsearch.annotations.Mapping;
 import org.springframework.data.elasticsearch.annotations.Setting;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Document(indexName = "member")
+@Document(indexName = "item")
 @Mapping(mappingPath = "elastic/item-mapping.json")
 @Setting(settingPath = "elastic/item-setting.json")
 public class ItemDocument {
@@ -38,59 +33,49 @@ public class ItemDocument {
     @Id
     private Long id;
 
-    private Long dealCount;
-
-    @NotNull
     private String itemName;
 
-    @Field(type = FieldType.Auto)
     private List<String> size;
 
-    @NotNull
     private String modelNumber;
-    @NotNull
+
     private Long categoryId;
-    @NotNull
+
     private Long detailedCategoryId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonSerialize(using = LocalDateSerializer.class)
-    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @Field(type = FieldType.Date)
     private LocalDate releaseDate;
 
-    @NotNull
-    private String representativeColor;
-    @NotNull
     private int releasedPrice;
 
-    @NotNull
     private ItemGender gender;
-    @NotNull
+
     private Brand brand;
 
     private Long managerId;
 
-    private int latestPrice;
+    private int premiumRate;
 
-    private boolean oneSize;
+    private int immediateSalePrice;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Field(type = FieldType.Date, format = {date_hour_minute_second_millis, epoch_millis})
-    private LocalDateTime createdAt;
+    public static ItemDocument of(SearchHit hit) {
+        Map<String, Object> sourceAsMap = hit.getSourceAsMap();
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    @Field(type = FieldType.Date, format = {date_hour_minute_second_millis, epoch_millis})
-    private LocalDateTime modifiedAt;
-
-    public void setCreatedAtToNow() {
-        createdAt = LocalDateTime.now();
-    }
-
-    public void setModifiedAtToNow() {
-        modifiedAt = LocalDateTime.now();
-    }
-
-    public void setBrand(Brand brand) {
-        this.brand = brand;
+        ItemDocument itemDocument = ItemDocument.builder()
+            .id(Long.parseLong(hit.getId()))
+            .itemName((String) sourceAsMap.get("itemName"))
+            .size((List<String>) sourceAsMap.get("size"))
+            .modelNumber((String) sourceAsMap.get("modelNumber"))
+            .categoryId(((Number) sourceAsMap.get("categoryId")).longValue())
+            .detailedCategoryId(((Number) sourceAsMap.get("detailedCategoryId")).longValue())
+            .releaseDate(parseLocalDate(sourceAsMap.get("releaseDate")))
+            .releasedPrice((int) sourceAsMap.get("releasedPrice"))
+            .gender(ItemGender.valueOf((String) sourceAsMap.get("gender")))
+            .brand(parseBrand((Map<String, Object>) sourceAsMap.get("brand")))
+            .dealCount((int) sourceAsMap.get("dealCount"))
+            .premiumRate((int) sourceAsMap.get("premiumRate"))
+            .immediateSalePrice((int) sourceAsMap.get("immediateSalePrice"))
+            .build();
+        return itemDocument;
     }
 }

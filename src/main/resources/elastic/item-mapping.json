@@ -1,13 +1,13 @@
 {
   "properties": {
     "id": {
-      "type": "keyword"
-    },
-    "dealCount": {
       "type": "long"
     },
     "itemName": {
       "type": "text"
+    },
+    "size": {
+      "type": "keyword"
     },
     "modelNumber": {
       "type": "text"
@@ -20,18 +20,16 @@
     },
     "releaseDate": {
       "type": "date",
-      "format": "yyyy-MM-dd"
-    },
-    "representativeColor": {
-      "type": "keyword"
+      "format": "yyyy-MM-dd||yyyy/MM/dd||epoch_millis"
     },
     "releasedPrice": {
-      "type": "int"
+      "type": "integer"
     },
     "gender": {
       "type": "keyword"
     },
     "brand": {
+      "type": "nested",
       "properties": {
         "id": {
           "type": "long"
@@ -44,22 +42,14 @@
         }
       }
     },
-    "managerId": {
-      "type": "keyword"
+    "dealCount": {
+      "type": "integer"
     },
-    "latestPrice": {
-      "type": "int"
+    "premiumRate": {
+      "type": "integer"
     },
-    "oneSize": {
-      "type": "boolean"
-    },
-    "createdAt": {
-      "type": "date",
-      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
-    },
-    "modifiedAt": {
-      "type": "date",
-      "format": "uuuu-MM-dd'T'HH:mm:ss.SSS||epoch_millis"
+    "immediateSalePrice": {
+      "type": "integer"
     }
   }
 }
