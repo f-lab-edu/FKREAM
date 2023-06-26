@@ -23,6 +23,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Getter
 @Setter
 @Builder
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Document(indexName = "item")
@@ -52,7 +53,7 @@ public class ItemDocument {
 
     private Brand brand;
 
-    private Long managerId;
+    private int dealCount;
 
     private int premiumRate;
 
@@ -77,5 +78,23 @@ public class ItemDocument {
             .immediateSalePrice((int) sourceAsMap.get("immediateSalePrice"))
             .build();
         return itemDocument;
+    }
+
+    private static LocalDate parseLocalDate(Object value) {
+        if (value instanceof String) {
+            return LocalDate.parse((String) value);
+        } else if (value instanceof Long) {
+            return LocalDate.ofEpochDay((Long) value);
+        }
+        return null;
+    }
+
+    private static Brand parseBrand(Map<String, Object> brandMap) {
+        Brand brand = Brand.builder()
+            .id(((Number) brandMap.get("id")).longValue())
+            .brandName((String) brandMap.get("brandName"))
+            .isLuxury((boolean) brandMap.get("isLuxury"))
+            .build();
+        return brand;
     }
 }
