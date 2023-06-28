@@ -65,8 +65,8 @@ class DealServiceTest {
         .id(1L)
         .itemId(1L)
         .size("250")
-        .lowestSellingPrice(30000)
-        .highestPurchasePrice(40000)
+        .immediatePurchasePrice(30000)
+        .immediateSalePrice(40000)
         .build();
 
     Deal dealInfo = Deal.builder()
