@@ -1,6 +1,7 @@
 package com.flab.fkream.elasticsearch;
 
 import com.flab.fkream.brand.Brand;
+import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,29 +38,25 @@ public class ItemDocument {
     private Long id;
 
     private String itemName;
-
-    private List<String> size;
-
+    private Brand brand;
     private String modelNumber;
 
+    // 필터 (사이즈, 카테고리, 성별)
+    private List<String> size;
     private Long categoryId;
-
     private Long detailedCategoryId;
+    private ItemGender gender;
+    private int releasedPrice;
 
+    // 정렬 (발매일 순, 거래 순, 프리미엄율 순)
     @Field(type = FieldType.Date)
     private LocalDate releaseDate;
 
-    private int releasedPrice;
-
-    private ItemGender gender;
-
-    private Brand brand;
-
     private int dealCount;
+    private Map<String, Integer> immediatePurchasePriceBySize;
+    private List<PremiumRateBySize> premiumRateBySize;
+    private int minPremiumRate;
 
-    private int premiumRate;
-
-    private int immediateSalePrice;
 
     public static ItemDocument of(SearchHit hit) {
         Map<String, Object> sourceAsMap = hit.getSourceAsMap();
@@ -84,6 +81,49 @@ public class ItemDocument {
         return itemDocument;
     }
 
+    public static ItemDocument of(Item item, List<String> sizes) {
+        List<PremiumRateBySize> premiumRateBySize = new ArrayList<>();
+
+        for (String size : sizes) {
+            premiumRateBySize.add(PremiumRateBySize.builder().size(size).premiumRate(0).build());
+        }
+
+        ItemDocument itemDocument = ItemDocument.builder()
+            .id(item.getId())
+            .itemName(item.getItemName())
+            .size(sizes)
+            .modelNumber(item.getModelNumber())
+            .categoryId(item.getCategoryId())
+            .detailedCategoryId(item.getDetailedCategoryId())
+            .releaseDate(item.getReleaseDate())
+            .releasedPrice(item.getReleasedPrice())
+            .gender(item.getGender())
+            .brand(item.getBrand())
+            .dealCount(0)
+            .premiumRateBySize(premiumRateBySize)
+            .minPremiumRate(0)
+            .build();
+        return itemDocument;
+    }
+
+    public void increaseCount() {
+        this.dealCount++;
+    }
+
+    public void updatePremiumRateBySize(String size, int latestPrice) {
+        double premiumRate = (double) (latestPrice - releasedPrice) / releasedPrice * 100;
+        for (PremiumRateBySize premiumRateBySize : premiumRateBySize) {
+            if (premiumRateBySize.getSize().equals(size)) {
+                premiumRateBySize.setPremiumRate((int) premiumRate);
+            }
+        }
+    }
+
+    public void updateMinPremiumRate() {
+        this.minPremiumRate = this.premiumRateBySize.stream()
+            .mapToInt(PremiumRateBySize::getPremiumRate).min().orElse(this.minPremiumRate);
+    }
+
     private static LocalDate parseLocalDate(Object value) {
         if (value instanceof String) {
             return LocalDate.parse((String) value);
@@ -101,4 +141,5 @@ public class ItemDocument {
             .build();
         return brand;
     }
+
 }
