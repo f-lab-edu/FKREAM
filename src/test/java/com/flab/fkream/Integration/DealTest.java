@@ -1,7 +1,7 @@
 package com.flab.fkream.Integration;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.fkream.deal.Deal;
@@ -41,24 +41,24 @@ public class DealTest {
             "LowestSellingPrice : " + itemSizePriceService.findByItemIdAndSize(23L, "260")
                 .getImmediatePurchasePrice());
 
-
-
         Deal deal = Deal.builder().item(Item.builder().id(53L).build())
-            .userId(1L).price(1_000_000).size("260").utilizationPolicy(true).dealType(DealType.SALE).status(Status.BIDDING)
+            .userId(1L).price(1_000_000).size("260").utilizationPolicy(true).dealType(DealType.SALE)
+            .status(Status.BIDDING)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
-
 
         Deal deal2 = Deal.builder().item(Item.builder().id(53L).build())
-            .userId(1L).price(10_000).size("260").utilizationPolicy(true).dealType(DealType.PURCHASE).status(Status.BIDDING)
+            .userId(1L).price(10_000).size("260").utilizationPolicy(true)
+            .dealType(DealType.PURCHASE).status(Status.BIDDING)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
-
         Deal deal3 = Deal.builder().item(Item.builder().id(53L).build())
-            .userId(1L).price(1_000_000).size("260").utilizationPolicy(true).dealType(DealType.PURCHASE).status(Status.PROGRESS)
+            .userId(1L).price(1_000_000).size("260").utilizationPolicy(true)
+            .dealType(DealType.PURCHASE).status(Status.PROGRESS)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
         Deal deal4 = Deal.builder().item(Item.builder().id(53L).build())
-            .userId(1L).price(10_000).size("260").utilizationPolicy(true).dealType(DealType.SALE).status(Status.PROGRESS)
+            .userId(1L).price(10_000).size("260").utilizationPolicy(true).dealType(DealType.SALE)
+            .status(Status.PROGRESS)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
 //        mockMvc.perform(post("/deals/sales")
@@ -84,7 +84,6 @@ public class DealTest {
         System.out.println(
             "LowestSellingPrice : " + itemSizePriceService.findByItemIdAndSize(23L, "260")
                 .getImmediatePurchasePrice());
-
 
         mockMvc.perform(post("/deals/sales")
                 .contentType(MediaType.APPLICATION_JSON)
