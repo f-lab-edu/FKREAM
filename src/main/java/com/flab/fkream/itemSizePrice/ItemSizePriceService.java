@@ -42,8 +42,8 @@ public class ItemSizePriceService {
     }
 
     public void compareLowestSellingPrice(ItemSizePrice itemSizePrice, int price) {
-        if (itemSizePrice.getLowestSellingPrice() > price) {
-            itemSizePrice.setLowestSellingPrice(price);
+        if (itemSizePrice.getImmediatePurchasePrice() > price) {
+            itemSizePrice.setImmediatePurchasePrice(price);
             itemSizePriceMapper.update(itemSizePrice);
         }
     }
