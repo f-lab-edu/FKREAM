@@ -36,6 +36,7 @@ spring:
     timeout: 30000
   kafka:
     bootstrap-servers: 101.101.210.178:9092, 101.101.210.178:9093, 101.101.210.178:9094
+    group-id: fkream
   elasticsearch:
     uris: 101.101.210.178:9200
 
