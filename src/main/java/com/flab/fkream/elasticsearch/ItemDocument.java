@@ -130,7 +130,7 @@ public class ItemDocument {
         } else if (value instanceof Long) {
             return LocalDate.ofEpochDay((Long) value);
         }
-        return null;
+        throw new IllegalArgumentException();
     }
 
     private static Brand parseBrand(Map<String, Object> brandMap) {

@@ -29,10 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Log4j2
 public class ItemSearchService {
 
+    private static final int PAGE_SIZE = 5;
     private final ItemSearchRepository itemSearchRepository;
     private final RestHighLevelClient client;
 
-    private static final int PAGE_SIZE = 5;
 
     public void saveItem(ItemDocument itemDocument) {
         itemSearchRepository.save(itemDocument);
