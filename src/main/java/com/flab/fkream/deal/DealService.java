@@ -147,7 +147,7 @@ public class DealService {
         otherDeal.setTradingDayToNow();
         update(deal);
         update(otherDeal);
-        messageSender.send(KafkaTopic.complete_deal_price.toString(), new CompleteDealPriceDto(deal.getItem().getId(), deal.getPrice()));
+        messageSender.send(KafkaTopic.DEAL, deal);
     }
 
     @Transactional
@@ -241,7 +241,7 @@ public class DealService {
             dealMapper.update(purchaseDeal);
         } catch (InterruptedException e) {
             e.printStackTrace();
-            throw new  RuntimeException(e);
+            throw new RuntimeException(e);
         } finally {
             if (rLock != null && rLock.isLocked()) {
                 rLock.unlock();
