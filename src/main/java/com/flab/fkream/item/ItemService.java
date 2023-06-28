@@ -25,6 +25,7 @@ public class ItemService {
         itemInfo.setCreatedAtToNow();
         itemMapper.save(itemInfo);
         trie.insert(itemInfo);
+        messageSender.send(KafkaTopic.ITEM_TOPIC, itemInfo);
     }
 
     public Item findOne(Long itemId) {
