@@ -46,7 +46,7 @@
       "type": "integer"
     },
     "premiumRateBySize": {
-      "type": "nested",
+      "type": "object",
       "properties": {
         "key": {
           "type": "keyword"

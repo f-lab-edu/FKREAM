@@ -4,7 +4,7 @@ import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.AccessLevel;
@@ -54,7 +54,7 @@ public class ItemDocument {
 
     private int dealCount;
     private Map<String, Integer> immediatePurchasePriceBySize;
-    private List<PremiumRateBySize> premiumRateBySize;
+    private Map<String, Integer> premiumRateBySize;
     private int minPremiumRate;
 
 
@@ -75,17 +75,18 @@ public class ItemDocument {
             .gender(ItemGender.valueOf((String) sourceAsMap.get("gender")))
             .brand(parseBrand((Map<String, Object>) sourceAsMap.get("brand")))
             .dealCount((int) sourceAsMap.get("dealCount"))
-            .premiumRateBySize((List<PremiumRateBySize>) sourceAsMap.get("premiumRateBySize"))
+            .premiumRateBySize(
+                (Map<String, Integer>) sourceAsMap.get("premiumRateBySize"))
             .minPremiumRate((int) sourceAsMap.get("minPremiumRate"))
             .build();
         return itemDocument;
     }
 
     public static ItemDocument of(Item item, List<String> sizes) {
-        List<PremiumRateBySize> premiumRateBySize = new ArrayList<>();
+        Map<String, Integer> premiumRateBySize = new HashMap<>();
 
         for (String size : sizes) {
-            premiumRateBySize.add(PremiumRateBySize.builder().size(size).premiumRate(0).build());
+            premiumRateBySize.put(size, 0);
         }
 
         ItemDocument itemDocument = ItemDocument.builder()
@@ -112,16 +113,14 @@ public class ItemDocument {
 
     public void updatePremiumRateBySize(String size, int latestPrice) {
         double premiumRate = (double) (latestPrice - releasedPrice) / releasedPrice * 100;
-        for (PremiumRateBySize premiumRateBySize : premiumRateBySize) {
-            if (premiumRateBySize.getSize().equals(size)) {
-                premiumRateBySize.setPremiumRate((int) premiumRate);
-            }
-        }
+        this.premiumRateBySize.put(size, (int) premiumRate);
     }
 
     public void updateMinPremiumRate() {
-        this.minPremiumRate = this.premiumRateBySize.stream()
-            .mapToInt(PremiumRateBySize::getPremiumRate).min().orElse(this.minPremiumRate);
+        this.minPremiumRate = this.premiumRateBySize.values()
+            .stream()
+            .min(Integer::compareTo)
+            .orElse(this.minPremiumRate);
     }
 
     private static LocalDate parseLocalDate(Object value) {
