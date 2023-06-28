@@ -1,6 +1,6 @@
 package com.flab.fkream.kafka;
 
-public enum KafkaTopic {
+public class KafkaTopic {
 
     search_log, complete_deal_price
 }
