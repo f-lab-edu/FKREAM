@@ -3,6 +3,7 @@ package com.flab.fkream.elasticsearch;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.ItemGender;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import lombok.AccessLevel;
@@ -31,6 +32,7 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @Setting(settingPath = "elastic/item-setting.json")
 public class ItemDocument {
 
+    // 검색 (상품 이름, 브랜드명, 모델 넘버)
     @Id
     private Long id;
 
@@ -66,6 +68,8 @@ public class ItemDocument {
             .id(Long.parseLong(hit.getId()))
             .itemName((String) sourceAsMap.get("itemName"))
             .size((List<String>) sourceAsMap.get("size"))
+            .immediatePurchasePriceBySize(
+                (Map<String, Integer>) sourceAsMap.get("immediatePurchasePriceBySize"))
             .modelNumber((String) sourceAsMap.get("modelNumber"))
             .categoryId(((Number) sourceAsMap.get("categoryId")).longValue())
             .detailedCategoryId(((Number) sourceAsMap.get("detailedCategoryId")).longValue())
@@ -74,8 +78,8 @@ public class ItemDocument {
             .gender(ItemGender.valueOf((String) sourceAsMap.get("gender")))
             .brand(parseBrand((Map<String, Object>) sourceAsMap.get("brand")))
             .dealCount((int) sourceAsMap.get("dealCount"))
-            .premiumRate((int) sourceAsMap.get("premiumRate"))
-            .immediateSalePrice((int) sourceAsMap.get("immediateSalePrice"))
+            .premiumRateBySize((List<PremiumRateBySize>) sourceAsMap.get("premiumRateBySize"))
+            .minPremiumRate((int) sourceAsMap.get("minPremiumRate"))
             .build();
         return itemDocument;
     }
