@@ -38,7 +38,10 @@ spring:
     bootstrap-servers: 101.101.210.178:9092, 101.101.210.178:9093, 101.101.210.178:9094
     group-id: fkream
   elasticsearch:
-    uris: 101.101.210.178:9200
+#    uris: 101.101.210.178:9200
+    uris: 49.50.173.232:9200
+    username: elastic
+    password: changeme
 
 logging.level:
   org.hibernate.SQL: debug
