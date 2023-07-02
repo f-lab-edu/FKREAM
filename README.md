@@ -7,8 +7,5 @@
 redis cache
 
 인프라 구조 변경
-![fkream 인프라 구조 drawio (3)](https://github.com/f-lab-edu/FKREAM/assets/79684851/b3f6b8a2-b16f-4a68-88bc-afaedffac3c9)
+![image](https://github.com/f-lab-edu/FKREAM/assets/79684851/ede95562-3fae-46f9-9c9f-939d7573261f)
 
-
-
-pinpoint - test 중
