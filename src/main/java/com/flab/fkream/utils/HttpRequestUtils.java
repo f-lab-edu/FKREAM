@@ -9,4 +9,8 @@ public class HttpRequestUtils {
     public static HttpServletRequest getRequest() {
         return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
     }
+
+    public static String getIpAddress() {
+        return (null != getRequest().getHeader("X-FORWARDED-FOR")) ? getRequest().getHeader("X-FORWARDED-FOR") : getRequest().getRemoteAddr();
+    }
 }
