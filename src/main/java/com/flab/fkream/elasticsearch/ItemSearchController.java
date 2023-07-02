@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ItemSearchController {
 
     private final ItemSearchService itemSearchService;
+    private final SearchRankingService searchRankingService;
+    private final RedissonClient redissonClient;
     private final KafkaMessageSender messageSender;
 
 
