@@ -4,15 +4,52 @@
 
 클라이언트는 Kakao Oven을 사용한 프로토타입으로 제작하여 RestAPI 서버 개발에 집중하였습니다.
 
+### 기술 스택,
+Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elasticsearch, Kibana, Kafka, Jenkins, Naver Cloud Platform, Pinpoint, NGrinder
+
+
 ## 프로젝트 구조
 
 ![image](https://github.com/f-lab-edu/FKREAM/assets/79684851/ede95562-3fae-46f9-9c9f-939d7573261f)
 ## 프로젝트 목표
 
 - 객체 지향 원리를 토대로 올바른 코드 작성
-- 대용량 트래픽 처리를 고려 및 실무 수준의 서비스 기능 구현
-- 병목지점 파악 및 성능 개선
-- 학습한 기술을 적용
+- 대용량 트래픽 처리를 고려하여 서비스 기능 구현
+- 병목 지점 파악 및 성능 개선
+- 새로운 기술을 학습하고 프로젝트 적재적소에 적용
+
+## 프로젝트 고도화 정리
+
+
+- [aop를 이용한 로직 분리](https://www.notion.so/AOP-b0d55411434843168b5c67ef62bfd18a?pvs=21)
+- [자동완성 기능](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
+- [푸시 메세지 비동기 처리](https://www.notion.so/867e717060f14065b21aa5e9603cad90?pvs=21)
+
+
+- [CI/CD](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
+- [scale-out](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [세션 스토리지 분리](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [로드밸런싱](https://www.notion.so/4faea793a72b4e3da968eae5735722d1?pvs=21)
+- [글로벌 캐시](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
+- [ngrinder 시나리오 → 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
+- [db 커넥션 풀 사이즈에 따른 성능 차이](https://www.notion.so/fdae9e0004c94bdf9798d4070346674e?pvs=21)
+
+
+- [db 실행 계획 분석 → sql 성능 튜닝  → 인덱스 설정(FullText Index)](https://www.notion.so/6272f4b29f4349689d4487e0de9b0ae2?pvs=21)
+- [db replication](https://www.notion.so/db-replication-181020a542014cfb9330a3e0bee8ab9c?pvs=21)
+- [db 샤딩](https://www.notion.so/143f7cea2bae46259157f80daea0abbd?pvs=21)
+- [nosql과 sql의 차이](https://www.notion.so/nosql-ed1d754ad641428dac6c9457597ce58c?pvs=21)
+
+
+- [동시성 문제](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
+- [배치 작업 - 스프링 배치](https://www.notion.so/242f131e39c74e309645686059b82a50?pvs=21)
+- [카프카를 이용한 통계 DB 적용 (1)](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
+- [카프카를 이용한 통계 DB 적용 (2)](https://www.notion.so/DB-2-18906846010f4928b617f9185a6764fa?pvs=21)
+- [엘라스틱 서치 - 카프카](https://www.notion.so/5bf9a15f8ba9480581e2714928c30bb0?pvs=21)
+
+## 주요기능
+
+[위키](https://github.com/f-lab-edu/FKREAM/wiki/%E2%9A%99%EF%B8%8F-%EA%B8%B0%EB%8A%A5-%EC%A0%95%EC%9D%98) 에서 자세히 확인할 수 있습니다.
 
 ## 공통사항
 
@@ -24,31 +61,8 @@
 
 GitHub Flow를 사용하여 브랜치를 관리합니다.<br>
 Main 브랜치로부터 새로운 Feature 브랜치를 생성하고 Pull Request에 코드 리뷰를 진행한 후 Jenkins를 통한 테스트 이후 Main 브랜치로 merge 됩니다.
-![img.png](img.png)
+![img](https://github.com/f-lab-edu/FKREAM/assets/76461625/b6436e5a-b942-4bae-b998-73747cd08841)
 
-## 기술 스택
-
-- Java 11
-- Spring Boot 2.7.
-- Gradle
-- MyBatis
-- Redis
-- Docker
-- MySql
-- MongoDB
-- Elasticsearch
-- Kibana
-- Kafka
-- Jenkins
-- Naver Cloud Platform
-- Pinpoint
-- NGrinder
-
-## 주요기능
-
-## 프로젝트 고도화 정리
-
-## 배치 작업
 
 ## 프로토타입
 
