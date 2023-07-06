@@ -28,13 +28,13 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 - [동시성 문제](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
 - [db 커넥션 풀 사이즈에 따른 성능 차이](https://www.notion.so/fdae9e0004c94bdf9798d4070346674e?pvs=21)
 - [자동완성 기능](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
-
+<br/>
 
 - [nosql과 sql의 차이](https://www.notion.so/nosql-ed1d754ad641428dac6c9457597ce58c?pvs=21)
 - [db 샤딩](https://www.notion.so/143f7cea2bae46259157f80daea0abbd?pvs=21)
 - [db replication](https://www.notion.so/db-replication-181020a542014cfb9330a3e0bee8ab9c?pvs=21)
 - [db 실행 계획 분석 → sql 성능 튜닝  → 인덱스 설정(FullText Index)](https://www.notion.so/6272f4b29f4349689d4487e0de9b0ae2?pvs=21)
-
+<br/>
 
 - [ngrinder 시나리오 → 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
 - [글로벌 캐시](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
@@ -42,11 +42,11 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 - [세션 스토리지 분리](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
 - [scale-out](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
 - [CI/CD](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
-
+<br/>
 
 - [푸시 메세지 비동기 처리](https://www.notion.so/867e717060f14065b21aa5e9603cad90?pvs=21)
 - [aop를 이용한 로직 분리](https://www.notion.so/AOP-b0d55411434843168b5c67ef62bfd18a?pvs=21)
-
+<br/>
 
 ## 주요기능
 
