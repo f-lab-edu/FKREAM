@@ -4,6 +4,8 @@
 
 클라이언트는 Kakao Oven을 사용한 프로토타입으로 제작하여 RestAPI 서버 개발에 집중하였습니다.
 
+**fkream-batch** 프로젝트는 [여기](https://github.com/f-lab-edu/fkream-batch)에서 볼 수 있습니다.
+
 ### 기술 스택,
 Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elasticsearch, Kibana, Kafka, Jenkins, Naver Cloud Platform, Pinpoint, NGrinder
 
