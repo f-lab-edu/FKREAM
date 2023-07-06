@@ -10,7 +10,8 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 
 ## 프로젝트 구조
 
-![image](https://github.com/f-lab-edu/FKREAM/assets/79684851/ede95562-3fae-46f9-9c9f-939d7573261f)
+![image](https://github.com/f-lab-edu/FKREAM/assets/76461625/63e17709-873a-4c69-8b93-fbf8ee575bed)
+
 ## 프로젝트 목표
 
 - 객체 지향 원리를 토대로 올바른 코드 작성
