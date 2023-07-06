@@ -21,30 +21,29 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 
 ## 프로젝트 고도화 정리
 
-- [실시간 검색 순위 - 엘라스틱 서치 - 카프카](https://www.notion.so/5bf9a15f8ba9480581e2714928c30bb0?pvs=21)
-- [카프카를 이용한 통계 DB 적용 (2)](https://www.notion.so/DB-2-18906846010f4928b617f9185a6764fa?pvs=21)
-- [카프카를 이용한 통계 DB 적용 (1)](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
-- [배치 작업 - 스프링 배치](https://www.notion.so/242f131e39c74e309645686059b82a50?pvs=21)
-- [동시성 문제](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
+- [매 시간 갱신되는 **실시간 검색 순위 구현**: 엘라스틱서치와 카프카 사용](https://www.notion.so/5bf9a15f8ba9480581e2714928c30bb0?pvs=21)
+- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (2)](https://www.notion.so/DB-2-18906846010f4928b617f9185a6764fa?pvs=21)
+- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (1))](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
+- [분산 환경에서 **동시성 문제**를 어떻게 해결할까?](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
 - [db 커넥션 풀 사이즈에 따른 성능 차이](https://www.notion.so/fdae9e0004c94bdf9798d4070346674e?pvs=21)
-- [자동완성 기능](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
+- [자동완성 기능 성능 개선: Trie 알고리즘](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
 <br/>
 
-- [nosql과 sql의 차이](https://www.notion.so/nosql-ed1d754ad641428dac6c9457597ce58c?pvs=21)
-- [db 샤딩](https://www.notion.so/143f7cea2bae46259157f80daea0abbd?pvs=21)
-- [db replication](https://www.notion.so/db-replication-181020a542014cfb9330a3e0bee8ab9c?pvs=21)
-- [db 실행 계획 분석 → sql 성능 튜닝  → 인덱스 설정(FullText Index)](https://www.notion.so/6272f4b29f4349689d4487e0de9b0ae2?pvs=21)
+- [가용성과 확장성 관점에서의 **NoSQL과 SQL 비교**](https://www.notion.so/nosql-ed1d754ad641428dac6c9457597ce58c?pvs=21)
+- [분산처리를 위한 **DB Sharding**](https://www.notion.so/143f7cea2bae46259157f80daea0abbd?pvs=21)
+- [고가용성을 위한 **DB replication**](https://www.notion.so/db-replication-181020a542014cfb9330a3e0bee8ab9c?pvs=21)
+- [DB 실행 계획 분석을 통한 **SQL 성능 튜닝**](https://www.notion.so/6272f4b29f4349689d4487e0de9b0ae2?pvs=21)
 <br/>
 
-- [ngrinder 시나리오 → 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
-- [글로벌 캐시](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
-- [로드밸런싱](https://www.notion.so/4faea793a72b4e3da968eae5735722d1?pvs=21)
-- [세션 스토리지 분리](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
-- [scale-out](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
-- [CI/CD](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
+- [ngrinder 성능 테스트 : 사용자 행동을 시뮬레이션한 시나리오 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
+- [**글로벌 캐시**: 분산 환경일 때 캐시는 어디에 저장될까?](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
+- [**로드밸런싱**: 분산 환경일 때 트래픽을 어떻게 분산할까?](https://www.notion.so/4faea793a72b4e3da968eae5735722d1?pvs=21)
+- [**세션 스토리지 분리**: 분산 환경일 때 세션은 어디에 저장될까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [**Scale-Out 적용**: 가용성, 확장성, 성능을 어떻게 개선할까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [**CI/CD** 환경 구성: Jenkins](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
 <br/>
 
-- [푸시 메세지 비동기 처리](https://www.notion.so/867e717060f14065b21aa5e9603cad90?pvs=21)
+- [푸시 알림 메세지 기능: FCM을 사용한 비동기 처리](https://www.notion.so/867e717060f14065b21aa5e9603cad90?pvs=21)
 - [aop를 이용한 로직 분리](https://www.notion.so/AOP-b0d55411434843168b5c67ef62bfd18a?pvs=21)
 <br/>
 
