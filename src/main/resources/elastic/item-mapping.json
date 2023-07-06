@@ -45,11 +45,27 @@
     "dealCount": {
       "type": "integer"
     },
-    "premiumRate": {
-      "type": "integer"
+    "premiumRateBySize": {
+      "type": "object",
+      "properties": {
+        "key": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "integer"
+        }
+      }
     },
-    "immediateSalePrice": {
-      "type": "integer"
+    "immediatePurchasePriceBySize": {
+      "type": "nested",
+      "properties": {
+        "key": {
+          "type": "keyword"
+        },
+        "value": {
+          "type": "integer"
+        }
+      }
     }
   }
 }

@@ -29,10 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 @Log4j2
 public class ItemSearchService {
 
+    private static final int PAGE_SIZE = 5;
     private final ItemSearchRepository itemSearchRepository;
     private final RestHighLevelClient client;
 
-    private static final int PAGE_SIZE = 5;
 
     public void saveItem(ItemDocument itemDocument) {
         itemSearchRepository.save(itemDocument);
@@ -43,7 +43,8 @@ public class ItemSearchService {
         itemSearchRepository.saveAll(itemDocumentList);
     }
 
-    public ItemDocumentsDto findBySearchCriteria(ElasticSearchCriteria searchCriteria) throws IOException {
+    public ItemDocumentsDto findBySearchCriteria(ElasticSearchCriteria searchCriteria)
+        throws IOException {
 
         SearchRequest searchRequest = new SearchRequest("item");
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
@@ -92,10 +93,29 @@ public class ItemSearchService {
 
         switch (searchCriteria.getSort() != null ? searchCriteria.getSort() : POPULAR) {
             case PREMIUM_DESC:
-                sourceBuilder.sort(SortBuilders.fieldSort("premiumRate").order(SortOrder.DESC));
+
+                if (searchCriteria.getSize() == null || searchCriteria.getSize().length > 1) {
+                    sourceBuilder.sort(
+                        SortBuilders.fieldSort("minPremiumRate").order(SortOrder.DESC));
+
+                } else if (searchCriteria.getSize() != null
+                    && searchCriteria.getSize().length == 1) {
+                    String size = searchCriteria.getSize()[0];
+                    sourceBuilder.sort(
+                        SortBuilders.fieldSort("premiumRateBySize." + size).order(SortOrder.DESC));
+                }
                 break;
             case PREMIUM_ASC:
-                sourceBuilder.sort(SortBuilders.fieldSort("premiumRate").order(SortOrder.ASC));
+                if (searchCriteria.getSize() == null || searchCriteria.getSize().length > 1) {
+                    sourceBuilder.sort(
+                        SortBuilders.fieldSort("minPremiumRate").order(SortOrder.ASC));
+
+                } else if (searchCriteria.getSize() != null
+                    && searchCriteria.getSize().length == 1) {
+                    String size = searchCriteria.getSize()[0];
+                    sourceBuilder.sort(
+                        SortBuilders.fieldSort("premiumRateBySize." + size).order(SortOrder.ASC));
+                }
                 break;
             case RELEASE_DATE:
                 sourceBuilder.sort(SortBuilders.fieldSort("releaseDate").order(SortOrder.DESC));
@@ -104,6 +124,7 @@ public class ItemSearchService {
                 sourceBuilder.sort(SortBuilders.fieldSort("dealCount").order(SortOrder.DESC));
                 break;
         }
+
         sourceBuilder.sort("id", SortOrder.DESC);
 
         sourceBuilder.timeout(TimeValue.timeValueSeconds(10));
@@ -112,8 +133,8 @@ public class ItemSearchService {
             sourceBuilder.searchAfter(searchCriteria.getSortValue());
         }
         sourceBuilder.size(PAGE_SIZE);
-
         searchRequest.source(sourceBuilder);
+
         SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
 
         SearchHits hits = search.getHits();

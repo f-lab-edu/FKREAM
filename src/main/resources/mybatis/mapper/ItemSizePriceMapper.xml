@@ -6,8 +6,8 @@
     <id property="id" column="id"/>
     <result property="itemId" column="item_id"/>
     <result property="size" column="size"/>
-    <result property="lowestSellingPrice" column="lowest_selling_price"/>
-    <result property="highestPurchasePrice" column="highest_purchase_price"/>
+    <result property="immediatePurchasePrice" column="lowest_selling_price"/>
+    <result property="immediateSalePrice" column="highest_purchase_price"/>
     <result property="modifiedAt" column="modified_at"/>
   </resultMap>
 

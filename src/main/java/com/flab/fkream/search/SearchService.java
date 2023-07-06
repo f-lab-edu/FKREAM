@@ -35,7 +35,7 @@ public class SearchService {
         }
         validateCriteria(searchCriteria);
         if (searchCriteria.getContext() != null && !searchCriteria.getContext().isEmpty()) {
-            messageSender.send(KafkaTopic.search_log.toString(), searchCriteria.getContext());
+            messageSender.send(KafkaTopic.SEARCH_LOG, searchCriteria.getContext());
         }
         return searchMapper.searchByCriteria(searchCriteria);
     }
