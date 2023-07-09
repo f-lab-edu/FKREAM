@@ -26,8 +26,7 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 ## 기술적 이슈 및 고도화
 
 - [매 시간 갱신되는 **실시간 검색 순위 구현**: 엘라스틱서치와 카프카 사용](https://www.notion.so/5bf9a15f8ba9480581e2714928c30bb0?pvs=21)
-- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (2)](https://www.notion.so/DB-2-18906846010f4928b617f9185a6764fa?pvs=21)
-- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (1)](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
+- [상품 시세 그래프를 위한 **통계 작업** : 카프카](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
 - [분산 환경에서 **동시성 문제**를 어떻게 해결할까?](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
 - [**DB 커넥션 풀 사이즈**에 따른 성능 차이](https://www.notion.so/fdae9e0004c94bdf9798d4070346674e?pvs=21)
 - [자동완성 기능 성능 개선: **Trie 알고리즘**](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
