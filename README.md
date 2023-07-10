@@ -41,7 +41,7 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 - [ngrinder **성능 테스트** : 사용자 행동을 시뮬레이션한 시나리오 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
 - [**글로벌 캐시**: 분산 환경일 때 캐시는 어디에 저장될까?](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
 - [**로드밸런싱**: 분산 환경일 때 트래픽을 어떻게 분산할까?](https://www.notion.so/4faea793a72b4e3da968eae5735722d1?pvs=21)
-- [**세션 스토리지 분리**: 분산 환경일 때 세션은 어디에 저장될까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [**세션 스토리지 분리**: 분산 환경일 때 세션은 어디에 저장될까?](https://www.notion.so/64d1059d99054131907e0ddec5e57c4e?pvs=4)
 - [**Scale-Out 적용**: 가용성, 확장성, 성능을 어떻게 개선할까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
 - [**CI/CD** 환경 구성: Jenkins](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
 <br/>
