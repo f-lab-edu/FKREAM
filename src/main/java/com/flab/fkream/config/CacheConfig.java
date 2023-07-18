@@ -1,11 +1,11 @@
 package com.flab.fkream.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -14,14 +14,11 @@ import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 @Configuration
-@Profile("prod")
+@RequiredArgsConstructor
 public class CacheConfig {
 
-    @Autowired
-    RedisConnectionFactory redisCacheConnectionFactory;
-
-    @Autowired
-    public ObjectMapper objectMapper;
+    private final RedisConnectionFactory redisCacheConnectionFactory;
+    private final ObjectMapper objectMapper;
 
     @Bean
     public CacheManager redisCacheManager() {
@@ -31,8 +28,10 @@ public class CacheConfig {
             .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(
                 new GenericJackson2JsonRedisSerializer()));
 
-        RedisCacheManager redisCacheManager = RedisCacheManager.RedisCacheManagerBuilder.fromConnectionFactory(
-            redisCacheConnectionFactory).cacheDefaults(redisCacheConfiguration).build();
-        return redisCacheManager;
+        return RedisCacheManager
+            .RedisCacheManagerBuilder
+            .fromConnectionFactory(redisCacheConnectionFactory)
+            .cacheDefaults(redisCacheConfiguration)
+            .build();
     }
 }
