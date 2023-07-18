@@ -22,6 +22,6 @@ public class MyItem {
     private Long userId;
     @NotNull
     private Long itemSizePriceId;
-    @Min(value = 30000, message = "Purchase price must be at least 30,000")
+    @Min(value = 30000, message = "구매가는 적어도 30,000 이상이어야 합니다.")
     private int purchasePrice;
 }

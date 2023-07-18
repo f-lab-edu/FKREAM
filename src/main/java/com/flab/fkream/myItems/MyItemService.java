@@ -1,11 +1,9 @@
 package com.flab.fkream.myItems;
 
-import com.flab.fkream.error.exception.ForbiddenException;
 import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
 import com.flab.fkream.user.UserMapper;
-import com.flab.fkream.utils.SessionUtil;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +21,6 @@ public class MyItemService {
     private final MyItemMapper myItemMapper;
 
     public int save(MyItem myItemInfo) throws NotFoundException {
-        Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!myItemInfo.getUserId().equals(loggedInUserId)) {
-            throw new ForbiddenException();
-        }
-
         ItemSizePrice itemSizePrice = Optional.ofNullable(
             itemSizePriceMapper.findOne(myItemInfo.getItemSizePriceId())
         ).orElseThrow(() -> new NotFoundException("해당 아이템사이즈가격을 찾을 수 없습니다."));
@@ -37,51 +30,25 @@ public class MyItemService {
 
     public MyItem findOne(Long myItemId) {
         MyItem myItem = myItemMapper.findOne(myItemId);
-
         if (myItem == null) {
-            log.error("MyItem with id {} not found.", myItemId);
             throw new NoDataFoundException();
         }
-
-        Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!myItem.getUserId().equals(loggedInUserId)) {
-            throw new ForbiddenException();
-        }
-
         return myItem;
     }
 
     public List<MyItem> findAllByUserId(Long userId) {
-        Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!userId.equals(loggedInUserId)) {
-            throw new ForbiddenException();
-        }
         return myItemMapper.findAllByUserId(userId);
     }
 
-    public int update(MyItem myItem) throws NotFoundException {
-        Long loggedInUserId = SessionUtil.getLoginUserId();
-        if (!myItem.getUserId().equals(loggedInUserId)) {
-            throw new ForbiddenException();
-        }
-
+    public void update(MyItem myItem) throws NotFoundException {
         ItemSizePrice itemSizePrice = Optional.ofNullable(
             itemSizePriceMapper.findOne(myItem.getItemSizePriceId())
         ).orElseThrow(() -> new NotFoundException("해당 아이템사이즈가격을 찾을 수 없습니다."));
-
-        int result = myItemMapper.update(myItem);
-        if (result == 0) {
-            log.error("Failed to update MyItem with id {}.", myItem.getId());
-            throw new NoDataFoundException();
-        }
-        return result;
+        myItemMapper.update(myItem);
     }
 
     public void delete(Long id) {
-        findOne(id);
-
         myItemMapper.delete(id);
     }
-
 
 }
