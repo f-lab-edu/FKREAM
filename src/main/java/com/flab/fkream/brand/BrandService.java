@@ -15,6 +15,7 @@ public class BrandService {
 
     private final BrandMapper brandMapper;
 
+
     public void addBrand(Brand brandInfo) {
         brandMapper.save(brandInfo);
     }

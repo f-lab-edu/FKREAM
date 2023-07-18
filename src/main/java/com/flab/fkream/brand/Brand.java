@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Brand implements Serializable{
+public class Brand implements Serializable {
 
     private Long id;
     @NotNull
