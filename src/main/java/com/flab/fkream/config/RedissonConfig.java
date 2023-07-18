@@ -13,7 +13,6 @@ public class RedissonConfig {
 
     @Value("${spring.redis.redisson.host}")
     private String redissonHost;
-
     @Value("${spring.redis.redisson.port}")
     private int redissonPort;
 
@@ -23,7 +22,8 @@ public class RedissonConfig {
     public RedissonClient redissonClient() {
         RedissonClient redisson = null;
         Config config = new Config();
-        config.useSingleServer().setAddress(REDISSON_HOST_PREFIX + redissonHost + ":" + redissonPort);
+        config.useSingleServer()
+            .setAddress(REDISSON_HOST_PREFIX + redissonHost + ":" + redissonPort);
         redisson = Redisson.create(config);
         return redisson;
     }

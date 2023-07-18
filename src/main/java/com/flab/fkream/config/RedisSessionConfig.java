@@ -19,7 +19,6 @@ public class RedisSessionConfig {
 
     @Value("${spring.redis.session.host}")
     private String redisSessionHost;
-
     @Value("${spring.redis.session.port}")
     private int redisSessionPort;
 
