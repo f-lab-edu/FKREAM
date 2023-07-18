@@ -1,6 +1,5 @@
 package com.flab.fkream.address;
 
-import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.redis.RedisService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -14,8 +13,8 @@ public class AddressService {
 
     private final AddressMapper addressMapper;
     private final RedisService redisService;
-
     private final AddressRepository addressRepository;
+
 
     public void addAddress(Address address) {
         Long addressId = redisService.getAddressId();
