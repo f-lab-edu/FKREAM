@@ -1,5 +1,6 @@
 package com.flab.fkream.paymentCard;
 
+import com.flab.fkream.error.exception.NotOwnedDataException;
 import com.flab.fkream.salesAccount.SalesAccount;
 import com.flab.fkream.utils.HttpRequestUtils;
 import com.flab.fkream.utils.SessionUtil;
@@ -44,7 +45,11 @@ public class PaymentCardController {
 
     @GetMapping("/{id}")
     public PaymentCard findOne(@PathVariable Long id) {
-        return paymentCardService.findById(id);
+        PaymentCard paymentCard = paymentCardService.findById(id);
+        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()) {
+            return paymentCard;
+        }
+        throw new NotOwnedDataException();
     }
 
 

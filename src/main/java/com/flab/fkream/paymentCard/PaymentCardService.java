@@ -35,10 +35,7 @@ public class PaymentCardService {
         if (paymentCard == null) {
             throw new NoDataFoundException();
         }
-        if (paymentCard.getUserId() == SessionUtil.getLoginUserId()) {
-            return paymentCard;
-        }
-        throw new NotOwnedDataException();
+        return paymentCard;
     }
 
     public void deleteById(Long id) {
