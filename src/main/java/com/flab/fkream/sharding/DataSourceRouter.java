@@ -56,6 +56,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
             return 0;
         }
 
+        // 전체 검색인 경우
         if (sharding.getShardNo() != null) {
             return sharding.getShardNo();
         }
