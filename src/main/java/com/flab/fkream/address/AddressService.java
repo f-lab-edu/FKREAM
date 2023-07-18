@@ -22,19 +22,8 @@ public class AddressService {
         addressRepository.addAddress(addressId, address);
     }
 
-    public Address findOne(Long id) {
-        Address address = addressMapper.findOne(id);
-        if (address == null) {
-            throw new NoDataFoundException();
-        }
-        return address;
-    }
-
     public List<Address> findByUserId(Long userId) {
         List<Address> addresses = addressRepository.findByUserId(userId);
-        if (addresses.size() == 0) {
-            throw new NoDataFoundException();
-        }
         return addresses;
     }
 

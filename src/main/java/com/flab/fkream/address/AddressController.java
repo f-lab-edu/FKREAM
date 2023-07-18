@@ -21,13 +21,10 @@ public class AddressController {
         addressService.addAddress(address);
     }
 
-    @GetMapping("/{id}")
-    public Address findOne(@PathVariable Long id) {
-        return addressService.findOne(id);
-    }
-
-    @GetMapping("/user/{userId}")
-    public PageInfo<Address> findOneByUserID(@PathVariable Long userId, @RequestParam int pageNum, @RequestParam(defaultValue = "10") int pageSize) {
+    @GetMapping()
+    public PageInfo<Address> findOneByUserID(@RequestParam int pageNum,
+        @RequestParam(defaultValue = "10") int pageSize) {
+        Long userId = SessionUtil.getLoginUserId();
         PageHelper.startPage(pageNum, pageSize);
         return PageInfo.of(addressService.findByUserId(userId));
     }
@@ -41,5 +38,4 @@ public class AddressController {
     public void delete(@PathVariable Long id) {
         addressService.delete(id);
     }
-
 }

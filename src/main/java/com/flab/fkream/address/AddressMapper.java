@@ -16,8 +16,10 @@ public interface AddressMapper {
     Address findOne(Long id);
 
     @Transactional(readOnly = true)
+    @Cacheable(cacheNames = "AddressByUserId", key = "#p0")
     List<Address> findByUserId(Long userId);
 
+    @CacheEvict(cacheNames = "AddressByUserId", key = "#p0.userId")
     int update(Address addressInfo);
 
     int delete(Long id);
