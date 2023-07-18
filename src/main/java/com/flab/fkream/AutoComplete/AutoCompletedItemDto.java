@@ -1,4 +1,4 @@
-package com.flab.fkream.search;
+package com.flab.fkream.AutoComplete;
 
 import com.flab.fkream.item.Item;
 import com.flab.fkream.itemImg.ItemImg;
