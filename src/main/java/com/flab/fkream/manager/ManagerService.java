@@ -1,34 +1,32 @@
 package com.flab.fkream.manager;
 
+import com.flab.fkream.error.exception.NoDataFoundException;
 import java.util.List;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
 @RequiredArgsConstructor
 public class ManagerService {
-	private final ManagerMapper managerMapper;
 
-	@Transactional(rollbackFor = RuntimeException.class)
-	public Long addManager(Manager managerInfo) {
-		Long managerId = managerMapper.save(managerInfo);
-		if (managerId == null) {
-			log.error("insert manager error! managerInfo : {}", managerInfo);
-			throw new NullPointerException("insert manager error!" + managerInfo);
-		}
-		return managerId;
-	}
+    private final ManagerMapper managerMapper;
 
-	public Manager findOne(Long managerId) {
-		return managerMapper.findOne(managerId);
-	}
+    public void addManager(Manager managerInfo) {
+        managerMapper.save(managerInfo);
+    }
 
-	public List<Manager> findAll() {
-		return managerMapper.findAll();
-	}
+    public Manager findOne(Long managerId) {
+        Manager manager = managerMapper.findOne(managerId);
+        if (manager == null) {
+            throw new NoDataFoundException();
+        }
+        return manager;
+    }
+
+    public List<Manager> findAll() {
+        List<Manager> managers = managerMapper.findAll();
+        return managers;
+    }
 }
