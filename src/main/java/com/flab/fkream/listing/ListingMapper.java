@@ -1,7 +1,6 @@
 package com.flab.fkream.listing;
 
-import com.flab.fkream.search.SearchItemDto;
-import java.time.LocalDate;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.Cacheable;

@@ -4,7 +4,7 @@
 <mapper namespace="com.flab.fkream.listing.ListingMapper">
 
   <select id="generateRecommendedItemsForMen"
-    resultType="com.flab.fkream.search.SearchItemDto">
+    resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id         as itemId,
            item.item_name  as itemName,
            BR.id           as brandId,
@@ -33,7 +33,7 @@
 
 
   <select id="generateRecommendedItemsForWomen"
-    resultType="com.flab.fkream.search.SearchItemDto">
+    resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id         as itemId,
            item.item_name  as itemName,
            BR.id           as brandId,
@@ -61,7 +61,7 @@
   </select>
 
   <select id="generateItemsBelowReleasedPrice"
-    resultType="com.flab.fkream.search.SearchItemDto">
+    resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id         as itemId,
            item.item_name  as itemName,
            BR.id           as brandId,
@@ -89,7 +89,7 @@
   </select>
 
   <select id="generatePopularLuxuryItems"
-    resultType="com.flab.fkream.search.SearchItemDto">
+    resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id         as itemId,
            item.item_name  as itemName,
            BR.id           as brandId,
@@ -116,7 +116,7 @@
     limit 20
   </select>
 
-  <select id="generateMostPopularItems" resultType="com.flab.fkream.search.SearchItemDto">
+  <select id="generateMostPopularItems" resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id         as itemId,
            item.item_name  as itemName,
            BR.id           as brandId,
@@ -141,7 +141,7 @@
     limit 20
   </select>
 
-  <select id="generatePopularSneakers" resultType="com.flab.fkream.search.SearchItemDto">
+  <select id="generatePopularSneakers" resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id                             as itemId,
            item.item_name                      as itemName,
            BR.id                               as brandId,

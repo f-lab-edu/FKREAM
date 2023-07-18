@@ -9,7 +9,7 @@ import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
 import com.flab.fkream.item.ItemMapper;
 import com.flab.fkream.itemCategory.ItemCategoryMapper;
-import com.flab.fkream.search.SearchItemDto;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;

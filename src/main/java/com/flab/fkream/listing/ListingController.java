@@ -1,6 +1,6 @@
 package com.flab.fkream.listing;
 
-import com.flab.fkream.search.SearchItemDto;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

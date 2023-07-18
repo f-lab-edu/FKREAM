@@ -2,8 +2,7 @@ package com.flab.fkream.listing;
 
 import static org.mockito.BDDMockito.*;
 
-import com.flab.fkream.search.SearchItemDto;
-import java.time.LocalDate;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
