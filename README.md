@@ -4,6 +4,8 @@
 
 클라이언트는 Kakao Oven을 사용한 프로토타입으로 제작하여 RestAPI 서버 개발에 집중하였습니다.
 
+배치 작업을 수행하는  **fkream-batch** 프로젝트는 [여기](https://github.com/f-lab-edu/fkream-batch)에서 볼 수 있습니다.
+
 ### 기술 스택,
 Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elasticsearch, Kibana, Kafka, Jenkins, Naver Cloud Platform, Pinpoint, NGrinder
 
@@ -24,8 +26,7 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 ## 기술적 이슈 및 고도화
 
 - [매 시간 갱신되는 **실시간 검색 순위 구현**: 엘라스틱서치와 카프카 사용](https://www.notion.so/5bf9a15f8ba9480581e2714928c30bb0?pvs=21)
-- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (2)](https://www.notion.so/DB-2-18906846010f4928b617f9185a6764fa?pvs=21)
-- [상품 시세 그래프를 위한 **통계 작업** : 카프카 (1)](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
+- [상품 시세 그래프를 위한 **통계 작업** : 카프카](https://www.notion.so/DB-1-879431763d794401a0e8e3e478c0765e?pvs=21)
 - [분산 환경에서 **동시성 문제**를 어떻게 해결할까?](https://www.notion.so/7f880ffc975d4fcbbb85fa222caaaf66?pvs=21)
 - [**DB 커넥션 풀 사이즈**에 따른 성능 차이](https://www.notion.so/fdae9e0004c94bdf9798d4070346674e?pvs=21)
 - [자동완성 기능 성능 개선: **Trie 알고리즘**](https://www.notion.so/41280b6f6c324a4c9c00a01e3abdf38c?pvs=21)
@@ -40,7 +41,7 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 - [ngrinder **성능 테스트** : 사용자 행동을 시뮬레이션한 시나리오 성능 테스트](https://www.notion.so/Ngrinder-b459741f58d94adf881dcf24f11ff756?pvs=21)
 - [**글로벌 캐시**: 분산 환경일 때 캐시는 어디에 저장될까?](https://www.notion.so/Cache-69103c0308a44e739b6c546d8ec01e68?pvs=21)
 - [**로드밸런싱**: 분산 환경일 때 트래픽을 어떻게 분산할까?](https://www.notion.so/4faea793a72b4e3da968eae5735722d1?pvs=21)
-- [**세션 스토리지 분리**: 분산 환경일 때 세션은 어디에 저장될까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
+- [**세션 스토리지 분리**: 분산 환경일 때 세션은 어디에 저장될까?](https://www.notion.so/64d1059d99054131907e0ddec5e57c4e?pvs=4)
 - [**Scale-Out 적용**: 가용성, 확장성, 성능을 어떻게 개선할까?](https://www.notion.so/Scalability-f3f253c5e2ed41269fa8abf7915d34cd?pvs=21)
 - [**CI/CD** 환경 구성: Jenkins](https://www.notion.so/CI-CD-0ac39bb70aa04e1eb4fc97c429d2bfce?pvs=21)
 <br/>
