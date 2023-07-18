@@ -1,27 +1,17 @@
 package com.flab.fkream.item;
 
 import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandMapper;
 import com.flab.fkream.brand.BrandService;
-import com.flab.fkream.search.Trie;
+import com.flab.fkream.AutoComplete.Trie;
 import java.time.LocalDate;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -37,7 +27,7 @@ class ItemServiceTest {
     @InjectMocks
     ItemService itemService;
 
-    Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
+    Brand brand = Brand.builder().brandName("구찌").luxury(true).build();
 
     Item itemInfo =
         Item.builder()

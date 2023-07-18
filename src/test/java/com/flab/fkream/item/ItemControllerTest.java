@@ -12,7 +12,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.mockito.BDDMockito.*;
@@ -28,7 +27,7 @@ class ItemControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
+    Brand brand = Brand.builder().brandName("구찌").luxury(true).build();
 
     Item itemInfo =
         Item.builder()

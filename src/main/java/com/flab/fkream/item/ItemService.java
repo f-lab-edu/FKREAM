@@ -1,11 +1,14 @@
 package com.flab.fkream.item;
 
+import com.flab.fkream.AutoComplete.AutoCompleteService;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.interestItemCount.InterestItemCount;
+import com.flab.fkream.interestItemCount.InterestItemCountService;
 import com.flab.fkream.kafka.KafkaMessageSender;
 import com.flab.fkream.kafka.KafkaTopic;
-import com.flab.fkream.search.Trie;
+import com.flab.fkream.AutoComplete.Trie;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -19,12 +22,14 @@ public class ItemService {
     private final ItemMapper itemMapper;
     private final BrandService brandService;
     private final KafkaMessageSender messageSender;
-    private final Trie trie;
+    private final AutoCompleteService autoCompleteService;
+    private final InterestItemCountService interestItemCountService;
 
     public void addItem(Item itemInfo) {
         itemInfo.setCreatedAtToNow();
         itemMapper.save(itemInfo);
-        trie.insert(itemInfo);
+        autoCompleteService.addItem(itemInfo);
+        interestItemCountService.save(itemInfo);
         messageSender.send(KafkaTopic.ITEM_TOPIC, itemInfo);
     }
 
@@ -41,9 +46,6 @@ public class ItemService {
 
     public List<Item> findAll() {
         List<Item> items = itemMapper.findAll();
-        if (items.size() == 0) {
-            throw new NoDataFoundException();
-        }
         for (Item item : items) {
             item.setBrand(brandService.findOne(item.getBrand().getId()));
         }
@@ -57,10 +59,6 @@ public class ItemService {
 
     public void delete(Long id) {
         itemMapper.delete(id);
-
     }
 
-    public List<Item> findByBrand(Brand brand) {
-        return itemMapper.findByBrand(brand);
-    }
 }
