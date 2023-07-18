@@ -1,7 +1,5 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
-import java.util.List;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 public interface ItemSearchRepository extends ElasticsearchRepository<ItemDocument, Long> {

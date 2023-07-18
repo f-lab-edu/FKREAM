@@ -1,7 +1,9 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import static com.flab.fkream.search.SortCriteria.POPULAR;
 
+import com.flab.fkream.search.SearchCriteria;
+import com.flab.fkream.search.SearchService;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +14,8 @@ import org.elasticsearch.action.search.SearchRequest;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.client.RequestOptions;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.elasticsearch.client.core.CountRequest;
+import org.elasticsearch.client.core.CountResponse;
 import org.elasticsearch.core.TimeValue;
 import org.elasticsearch.index.query.BoolQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
@@ -27,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class ItemSearchService {
+public class ItemSearchService implements SearchService {
 
     private static final int PAGE_SIZE = 5;
     private final ItemSearchRepository itemSearchRepository;
@@ -43,38 +47,93 @@ public class ItemSearchService {
         itemSearchRepository.saveAll(itemDocumentList);
     }
 
-    public ItemDocumentsDto findBySearchCriteria(ElasticSearchCriteria searchCriteria)
-        throws IOException {
-
-        SearchRequest searchRequest = new SearchRequest("item");
+    @Override
+    public ItemDocumentsDto search(SearchCriteria searchCriteria) throws IOException {
         SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
-        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        buildQuery(searchCriteria, sourceBuilder);
+        sortResults(searchCriteria, sourceBuilder);
 
+        sourceBuilder.timeout(TimeValue.timeValueSeconds(10));
+        sourceBuilder.size(PAGE_SIZE);
+
+        if (searchCriteria.getSortValue() != null) {
+            sourceBuilder.searchAfter(searchCriteria.getSortValue());
+        }
+
+        SearchRequest searchRequest = new SearchRequest("item").source(sourceBuilder);
+        SearchResponse searchResponse = client.search(searchRequest, RequestOptions.DEFAULT);
+
+        return processSearchHits(searchResponse.getHits());
+    }
+    @Override
+    public int findCount(SearchCriteria searchCriteria) throws IOException {
+        SearchSourceBuilder sourceBuilder = new SearchSourceBuilder();
+        buildQuery(searchCriteria, sourceBuilder);
+
+        sourceBuilder.timeout(TimeValue.timeValueSeconds(10));
+
+        CountRequest countRequest = new CountRequest("item").source(sourceBuilder);
+        CountResponse countResponse = client.count(countRequest, RequestOptions.DEFAULT);
+
+        return (int) countResponse.getCount();
+    }
+
+    private void buildQuery(SearchCriteria searchCriteria,
+        SearchSourceBuilder sourceBuilder) {
+        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
+        applyContextSearch(searchCriteria, boolQueryBuilder);
+        applyFilters(searchCriteria, boolQueryBuilder);
+        sourceBuilder.query(boolQueryBuilder);
+    }
+
+    private void applyContextSearch(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
         if (searchCriteria.getContext() != null && !searchCriteria.getContext().isEmpty()) {
-            String context = searchCriteria.getContext();
-            context += "*";
+            String context = searchCriteria.getContext() + "*";
             boolQueryBuilder.should(QueryBuilders.wildcardQuery("itemName", context));
             boolQueryBuilder.should(QueryBuilders.nestedQuery("brand",
                 QueryBuilders.wildcardQuery("brand.brandName", context), ScoreMode.None));
             boolQueryBuilder.should(QueryBuilders.wildcardQuery("modelNumber", context));
         }
+    }
 
-        if (searchCriteria.getGender() != null) {
-            boolQueryBuilder.filter(QueryBuilders.termQuery("gender",
-                searchCriteria.getGender().toString()));
+    private void applyFilters(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
+        applyGenderFilter(searchCriteria, boolQueryBuilder);
+        applyBrandFilter(searchCriteria, boolQueryBuilder);
+        applySizeFilter(searchCriteria, boolQueryBuilder);
+        applyCategoryFilter(searchCriteria, boolQueryBuilder);
+    }
+
+    private void applySizeFilter(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
+        if (searchCriteria.getSize() != null && searchCriteria.getSize().length > 0) {
+            boolQueryBuilder.filter(QueryBuilders.termsQuery("size",
+                searchCriteria.getSize()));
         }
+    }
 
+    private void applyBrandFilter(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
         if (searchCriteria.getBrandId() != null) {
             boolQueryBuilder.filter(QueryBuilders.nestedQuery("brand",
                 QueryBuilders.termQuery("brand.id", searchCriteria.getBrandId().toString()),
                 ScoreMode.None));
         }
 
-        if (searchCriteria.getSize() != null && searchCriteria.getSize().length > 0) {
-            boolQueryBuilder.filter(QueryBuilders.termsQuery("size",
-                searchCriteria.getSize()));
-        }
+    }
 
+    private void applyGenderFilter(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
+        if (searchCriteria.getGender() != null) {
+            boolQueryBuilder.filter(QueryBuilders.termQuery("gender",
+                searchCriteria.getGender().toString()));
+        }
+    }
+
+
+    private void applyCategoryFilter(SearchCriteria searchCriteria,
+        BoolQueryBuilder boolQueryBuilder) {
         if (searchCriteria.getCategoryId() != null && searchCriteria.getCategoryId().length > 0) {
             BoolQueryBuilder filterBoolQuery = QueryBuilders.boolQuery();
             TermsQueryBuilder termsQueryBuilder = QueryBuilders.termsQuery("categoryId",
@@ -88,12 +147,12 @@ public class ItemSearchService {
             }
             boolQueryBuilder.filter(filterBoolQuery);
         }
+    }
 
-        sourceBuilder.query(boolQueryBuilder);
-
+    private void sortResults(SearchCriteria searchCriteria,
+        SearchSourceBuilder sourceBuilder) {
         switch (searchCriteria.getSort() != null ? searchCriteria.getSort() : POPULAR) {
             case PREMIUM_DESC:
-
                 if (searchCriteria.getSize() == null || searchCriteria.getSize().length > 1) {
                     sourceBuilder.sort(
                         SortBuilders.fieldSort("minPremiumRate").order(SortOrder.DESC));
@@ -124,21 +183,10 @@ public class ItemSearchService {
                 sourceBuilder.sort(SortBuilders.fieldSort("dealCount").order(SortOrder.DESC));
                 break;
         }
-
         sourceBuilder.sort("id", SortOrder.DESC);
+    }
 
-        sourceBuilder.timeout(TimeValue.timeValueSeconds(10));
-
-        if (searchCriteria.getSortValue() != null) {
-            sourceBuilder.searchAfter(searchCriteria.getSortValue());
-        }
-        sourceBuilder.size(PAGE_SIZE);
-        searchRequest.source(sourceBuilder);
-
-        SearchResponse search = client.search(searchRequest, RequestOptions.DEFAULT);
-
-        SearchHits hits = search.getHits();
-
+    private ItemDocumentsDto processSearchHits(SearchHits hits) {
         List<ItemDocument> itemDocuments = new ArrayList<>();
         ItemDocumentsDto itemDocumentsDto = new ItemDocumentsDto();
 
@@ -146,6 +194,7 @@ public class ItemSearchService {
             itemDocuments.add(ItemDocument.of(hit));
             itemDocumentsDto.setSortValues(hit.getSortValues());
         }
+
         itemDocumentsDto.setItemDocumentList(itemDocuments);
         return itemDocumentsDto;
     }
