@@ -94,7 +94,7 @@ public class DealService {
         if (deal == null) {
             throw new NoDataFoundException();
         }
-        if (deal.getUserId() != SessionUtil.getLoginUserId()) {
+        if (deal.getUserId().equals(SessionUtil.getLoginUserId())) {
             throw new NotOwnedDataException();
         }
         deal.setItem(itemService.findOne(deal.getItem().getId()));
@@ -122,7 +122,7 @@ public class DealService {
     }
 
     public void update(Deal deal) {
-        if (deal.getUserId() != SessionUtil.getLoginUserId()) {
+        if (deal.getUserId().equals(SessionUtil.getLoginUserId())) {
             throw new NotOwnedDataException();
         }
         dealMapper.update(deal);
@@ -169,20 +169,33 @@ public class DealService {
         return dealMapper.findSaleHistories(userId, dealStatus);
     }
 
+
+    private void validateDealType(Deal deal, DealType type) {
+        if (deal.getDealType() != type) {
+            throw new NoMatchDealTypeException();
+        }
+    }
+
+    private ItemSizePrice findItemSizePrice(Deal deal) {
+        return itemSizePriceService.findByItemIdAndSize(deal.getItem().getId(), deal.getSize());
+    }
+
+    private void handleBiddingSale(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediateSalePrice() == null
+            || deal.getPrice() > itemSizePrice.getImmediateSalePrice()) {
+            bidSale(deal);
+            updatePrice(deal, itemSizePrice);
+            return;
+        }
+        throw new NoRequestLowerPriceThenImmediateSaleException();
+    }
+
+
     private LocalDate getPeriod(DealPeriod period) {
-        if (period == DealPeriod.ONE_YEAR) {
-            return LocalDate.now().minusYears(1);
+        if (period == null) {
+            throw new IllegalArgumentException("잘못된 기간 설정");
         }
-        if (period == DealPeriod.SIX_MONTH) {
-            return LocalDate.now().minusMonths(6);
-        }
-        if (period == DealPeriod.THREE_MONTH) {
-            return LocalDate.now().minusMonths(3);
-        }
-        if (period == DealPeriod.ONE_MONTH) {
-            return LocalDate.now().minusMonths(1);
-        }
-        return null;
+        return period.getPeriodFromNow();
     }
 
     private void immediateSale(Deal saleDeal) {
@@ -201,9 +214,7 @@ public class DealService {
             e.printStackTrace();
             throw new RuntimeException(e);
         } finally {
-            if (rLock != null && rLock.isLocked()) {
-                rLock.unlock();
-            }
+            unlock(rLock);
         }
     }
 

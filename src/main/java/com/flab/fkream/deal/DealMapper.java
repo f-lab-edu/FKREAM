@@ -16,7 +16,6 @@ public interface DealMapper {
     @Transactional(readOnly = true)
     Deal findById(Long id);
 
-
     int update(Deal deal);
 
     int delete(Long id);
@@ -26,20 +25,28 @@ public interface DealMapper {
 
     @Transactional(readOnly = true)
     Deal findSellNowDealByItemIdAndSizeAndPrice(Long id, String size, int price);
+
     @Transactional(readOnly = true)
     Integer findHighestPurchasePriceByItemIdAndSize(Long itemId, String size);
+
     @Transactional(readOnly = true)
     Integer findLowestSalePriceByItemIdAndSize(Long itemId, String size);
+
     @Transactional(readOnly = true)
     List<MarketPriceDto> findMarketPrices(Long itemId, String size);
+
     @Transactional(readOnly = true)
     List<MarketPriceDto> findMarketPricesInGraph(Long itemId, LocalDate period, String size);
+
     @Transactional(readOnly = true)
     List<BiddingPriceDto> findBiddingPrices(Long itemId, String size, DealType dealType);
+
     @Transactional(readOnly = true)
     List<DealHistoryCountDto> findHistoryCount(Long userId, DealType dealType);
+
     @Transactional(readOnly = true)
-    List<DealHistoryDto> findPurchaseHistories(Long userId, Status status);
+    List<DealHistoryDto> findPurchaseHistories(Long userId, DealStatus dealStatus);
+
     @Transactional(readOnly = true)
     List<DealHistoryDto> findSaleHistories(Long userId, DealStatus dealStatus);
 }

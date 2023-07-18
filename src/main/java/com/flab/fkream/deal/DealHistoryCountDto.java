@@ -7,7 +7,6 @@ import lombok.Data;
 @Builder
 public class DealHistoryCountDto {
 
-    private Status status;
-
+    private DealStatus dealStatus;
     private int count;
 }

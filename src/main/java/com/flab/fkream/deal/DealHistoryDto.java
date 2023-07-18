@@ -9,17 +9,11 @@ import lombok.Data;
 public class DealHistoryDto {
 
     private Long dealId;
-
     private Long itemId;
-
     private String itemName;
-
     private int price;
-
     private LocalDate period;
-
     private Long itemImgId;
-
     private String imgUrl;
 
 }
