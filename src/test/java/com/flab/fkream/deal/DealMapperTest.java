@@ -47,7 +47,7 @@ class DealMapperTest {
 
     @BeforeEach
     void setUp() {
-        brandInfo = Brand.builder().brandName("구찌").isLuxury(true).build();
+        brandInfo = Brand.builder().brandName("구찌").luxury(true).build();
         brandMapper.save(brandInfo);
         itemInfo =
             Item.builder()
@@ -80,7 +80,7 @@ class DealMapperTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         purchaseDealInfo = Deal.builder()
@@ -92,7 +92,7 @@ class DealMapperTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
     }
 
@@ -126,7 +126,7 @@ class DealMapperTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
         assertThat(dealMapper.update(dealInfo)).isEqualTo(1);
     }
@@ -165,7 +165,7 @@ class DealMapperTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
         dealMapper.save(otherDeal);
         assertThat(dealMapper.findHighestPurchasePriceByItemIdAndSize(itemInfo.getId(),
@@ -184,7 +184,7 @@ class DealMapperTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
         dealMapper.save(otherDeal);
         assertThat(dealMapper.findLowestSalePriceByItemIdAndSize(itemInfo.getId(),
@@ -233,20 +233,20 @@ class DealMapperTest {
     @Test
     void findPurchaseHistories() {
         List<DealHistoryDto> purchaseHistories = dealMapper.findPurchaseHistories(30L,
-            Status.COMPLETION);
+            DealStatus.COMPLETION);
         Deal deal = dealMapper.findById(purchaseHistories.get(0).getDealId());
         assertThat(deal.getUserId()).isEqualTo(30L);
         assertThat(deal.getDealType()).isEqualTo(DealType.PURCHASE);
-        assertThat(deal.getStatus()).isEqualTo(Status.COMPLETION);
+        assertThat(deal.getDealStatus()).isEqualTo(DealStatus.COMPLETION);
     }
 
     @Test
     void findSaleHistories() {
         List<DealHistoryDto> saleHistories = dealMapper.findSaleHistories(30L,
-            Status.BIDDING);
+            DealStatus.BIDDING);
         Deal deal = dealMapper.findById(saleHistories.get(0).getDealId());
         assertThat(deal.getUserId()).isEqualTo(30L);
         assertThat(deal.getDealType()).isEqualTo(DealType.SALE);
-        assertThat(deal.getStatus()).isEqualTo(Status.BIDDING);
+        assertThat(deal.getDealStatus()).isEqualTo(DealStatus.BIDDING);
     }
 }

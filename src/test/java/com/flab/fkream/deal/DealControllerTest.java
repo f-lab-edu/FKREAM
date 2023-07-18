@@ -31,7 +31,7 @@ class DealControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
+    Brand brand = Brand.builder().brandName("구찌").luxury(true).build();
 
     Item itemInfo =
         Item.builder()
@@ -52,7 +52,7 @@ class DealControllerTest {
         .period(LocalDate.now())
         .utilizationPolicy(true)
         .salesCondition(true)
-        .status(Status.BIDDING)
+        .dealStatus(DealStatus.BIDDING)
         .build();
 
     Deal purchaseDealInfo = Deal.builder()
@@ -64,7 +64,7 @@ class DealControllerTest {
         .period(LocalDate.now())
         .utilizationPolicy(true)
         .salesCondition(true)
-        .status(Status.BIDDING)
+        .dealStatus(DealStatus.BIDDING)
         .build();
 
     MarketPriceDto marketPriceDto = MarketPriceDto.builder().size("260").build();
@@ -167,7 +167,7 @@ class DealControllerTest {
 
     @Test
     void findPurchaseHistory() throws Exception {
-        given(dealService.findPurchaseHistories(Status.BIDDING)).willReturn(
+        given(dealService.findPurchaseHistories(DealStatus.BIDDING)).willReturn(
             List.of(dealHistoryDto));
         mockMvc.perform(get("/deals/purchase-histories").param("status", "BIDDING"))
             .andExpect(status().isOk());
@@ -175,7 +175,7 @@ class DealControllerTest {
 
     @Test
     void findSaleHistory() throws Exception {
-        given(dealService.findSaleHistories(Status.BIDDING)).willReturn(List.of(dealHistoryDto));
+        given(dealService.findSaleHistories(DealStatus.BIDDING)).willReturn(List.of(dealHistoryDto));
         mockMvc.perform(get("/deals/sale-histories").param("status", "BIDDING"))
             .andExpect(status().isOk());
     }

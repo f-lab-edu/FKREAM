@@ -6,7 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flab.fkream.deal.Deal;
 import com.flab.fkream.deal.DealType;
-import com.flab.fkream.deal.Status;
+import com.flab.fkream.deal.DealStatus;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import com.flab.fkream.itemSizePrice.ItemSizePriceService;
@@ -43,22 +43,22 @@ public class DealTest {
 
         Deal deal = Deal.builder().item(Item.builder().id(53L).build())
             .userId(1L).price(1_000_000).size("260").utilizationPolicy(true).dealType(DealType.SALE)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
         Deal deal2 = Deal.builder().item(Item.builder().id(53L).build())
             .userId(1L).price(10_000).size("260").utilizationPolicy(true)
-            .dealType(DealType.PURCHASE).status(Status.BIDDING)
+            .dealType(DealType.PURCHASE).dealStatus(DealStatus.BIDDING)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
         Deal deal3 = Deal.builder().item(Item.builder().id(53L).build())
             .userId(1L).price(1_000_000).size("260").utilizationPolicy(true)
-            .dealType(DealType.PURCHASE).status(Status.PROGRESS)
+            .dealType(DealType.PURCHASE).dealStatus(DealStatus.PROGRESS)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
         Deal deal4 = Deal.builder().item(Item.builder().id(53L).build())
             .userId(1L).price(10_000).size("260").utilizationPolicy(true).dealType(DealType.SALE)
-            .status(Status.PROGRESS)
+            .dealStatus(DealStatus.PROGRESS)
             .salesCondition(true).period(LocalDate.now().plusMonths(1)).build();
 
 //        mockMvc.perform(post("/deals/sales")

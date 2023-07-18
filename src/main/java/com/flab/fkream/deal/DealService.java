@@ -39,38 +39,20 @@ public class DealService {
 
     @Transactional
     public void sale(Deal deal) {
-
-        if (deal.getDealType() != DealType.SALE) {
-            throw new NoMatchDealTypeException();
-        }
-
+        validateDealType(deal, DealType.SALE);
         deal.setCreatedAtToNow();
 
-        ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
-            deal.getItem().getId(), deal.getSize());
+        ItemSizePrice itemSizePrice = findItemSizePrice(deal);
 
-        if (deal.getStatus() == Status.BIDDING) {
-            if (itemSizePrice.getImmediateSalePrice() == null
-                || deal.getPrice() > itemSizePrice.getImmediateSalePrice()) {
-                bidSale(deal);
-                updatePrice(deal, itemSizePrice);
-                return;
-            }
-            if (deal.getPrice() <= itemSizePrice.getImmediateSalePrice()) {
-                throw new NoRequestLowerPriceThenImmediateSaleException();
-            }
-        }
-
-        if (deal.getStatus() == Status.PROGRESS) {
-            if (itemSizePrice.getImmediateSalePrice() == null
-                || deal.getPrice() != itemSizePrice.getImmediateSalePrice()) {
-                throw new NoMatchDealStatusException("즉시 판매 진행 중 에러 발생, 다시 시도해주세요.");
-            }
-            if (deal.getPrice() == itemSizePrice.getImmediateSalePrice()) {
-                immediateSale(deal);
-                updatePrice(deal, itemSizePrice);
-                return;
-            }
+        switch (deal.getDealStatus()) {
+            case BIDDING:
+                handleBiddingSale(deal, itemSizePrice);
+                break;
+            case IMMEDIATE:
+                handleImmediateSale(deal, itemSizePrice);
+                break;
+            default:
+                throw new NoMatchDealStatusException("잘못된 딜 타입입니다.");
         }
 
         messageSender.send(KafkaTopic.ITEM_PURCHASE_PRICE, itemSizePrice);
@@ -78,47 +60,29 @@ public class DealService {
 
     @Transactional
     public void purchase(Deal deal) {
-
-        if (deal.getDealType() != DealType.PURCHASE) {
-            throw new NoMatchDealTypeException();
-        }
-
+        validateDealType(deal, DealType.PURCHASE);
         deal.setCreatedAtToNow();
 
-        ItemSizePrice itemSizePrice = itemSizePriceService.findByItemIdAndSize(
-            deal.getItem().getId(), deal.getSize());
+        ItemSizePrice itemSizePrice = findItemSizePrice(deal);
 
-        if (deal.getStatus() == Status.BIDDING) {
-            if (itemSizePrice.getImmediatePurchasePrice() == null
-                || deal.getPrice() < itemSizePrice.getImmediatePurchasePrice()) {
-                bidPurchase(deal);
-                updatePrice(deal, itemSizePrice);
-                return;
-            }
-            if (deal.getPrice() >= itemSizePrice.getImmediateSalePrice()) {
-                throw new NoRequestHigherPriceThenImmediatePurchaseException();
-            }
+        switch (deal.getDealStatus()) {
+            case BIDDING:
+                handleBiddingPurchase(deal, itemSizePrice);
+                break;
+            case IMMEDIATE:
+                handleImmediatePurchase(deal, itemSizePrice);
+                break;
+            default:
+                throw new NoMatchDealStatusException("잘못된 딜 타입입니다.");
         }
 
-        if (deal.getStatus() == Status.PROGRESS) {
-            if (itemSizePrice.getImmediateSalePrice() == null
-                || deal.getPrice() != itemSizePrice.getImmediateSalePrice()) {
-                throw new NoMatchDealStatusException("즉시 구매 진행중 에러 발생, 다시 시도해주세요.");
-            }
-            if (deal.getPrice() == itemSizePrice.getImmediatePurchasePrice()) {
-                immediatePurchase(deal);
-                updatePrice(deal, itemSizePrice);
-            }
-            messageSender.send(KafkaTopic.ITEM_PURCHASE_PRICE, itemSizePrice);
-        }
+        messageSender.send(KafkaTopic.ITEM_PURCHASE_PRICE, itemSizePrice);
     }
 
     public List<Deal> findByUserId() {
         Long userId = SessionUtil.getLoginUserId();
         List<Deal> deals = dealMapper.findByUserId(userId);
-        if (deals.size() == 0) {
-            throw new NoDataFoundException();
-        }
+
         for (Deal deal : deals) {
             deal.setItem(itemService.findOne(deal.getItem().getId()));
         }
@@ -140,9 +104,9 @@ public class DealService {
     @Transactional
     public void completeDeal(Long id) {
         Deal deal = findById(id);
-        deal.setStatus(Status.COMPLETION);
+        deal.setDealStatus(DealStatus.COMPLETION);
         Deal otherDeal = findById(deal.getOtherId());
-        otherDeal.setStatus(Status.COMPLETION);
+        otherDeal.setDealStatus(DealStatus.COMPLETION);
         deal.setTradingDayToNow();
         otherDeal.setTradingDayToNow();
         update(deal);
@@ -153,11 +117,8 @@ public class DealService {
     @Transactional
     public void cancelDeal(Long id) {
         Deal deal = findById(id);
-        deal.setStatus(Status.CANCEL);
-        Deal otherDeal = findById(deal.getOtherId());
-        otherDeal.setStatus(Status.CANCEL);
+        deal.setDealStatus(DealStatus.CANCEL);
         update(deal);
-        update(otherDeal);
     }
 
     public void update(Deal deal) {
@@ -187,25 +148,25 @@ public class DealService {
         return dealMapper.findBiddingPrices(itemId, size, dealType);
     }
 
-    public Map<Status, Integer> findHistoryCount(DealType dealType) {
+    public Map<DealStatus, Integer> findHistoryCount(DealType dealType) {
         Long userId = SessionUtil.getLoginUserId();
         List<DealHistoryCountDto> historyCountDtos = dealMapper.findHistoryCount(userId,
             dealType);
-        Map<Status, Integer> historyCounts = new HashMap<>();
+        Map<DealStatus, Integer> historyCounts = new HashMap<>();
         for (DealHistoryCountDto historyCountDto : historyCountDtos) {
-            historyCounts.put(historyCountDto.getStatus(), historyCountDto.getCount());
+            historyCounts.put(historyCountDto.getDealStatus(), historyCountDto.getCount());
         }
         return historyCounts;
     }
 
-    public List<DealHistoryDto> findPurchaseHistories(Status status) {
+    public List<DealHistoryDto> findPurchaseHistories(DealStatus dealStatus) {
         Long userId = SessionUtil.getLoginUserId();
-        return dealMapper.findPurchaseHistories(userId, status);
+        return dealMapper.findPurchaseHistories(userId, dealStatus);
     }
 
-    public List<DealHistoryDto> findSaleHistories(Status status) {
+    public List<DealHistoryDto> findSaleHistories(DealStatus dealStatus) {
         Long userId = SessionUtil.getLoginUserId();
-        return dealMapper.findSaleHistories(userId, status);
+        return dealMapper.findSaleHistories(userId, dealStatus);
     }
 
     private LocalDate getPeriod(DealPeriod period) {
@@ -225,20 +186,17 @@ public class DealService {
     }
 
     private void immediateSale(Deal saleDeal) {
-        Deal purchaseDeal = findBuyNowDeal(saleDeal);
-        String lockName = purchaseDeal.getClass().getName() + purchaseDeal.getId().toString();
+        Deal purchaseDeal = findImmediatePurchaseDeal(saleDeal);
+
+        String lockName = generateLockName(purchaseDeal);
         RLock rLock = redissonClient.getLock(lockName);
         try {
             if (!rLock.tryLock(0, TimeUnit.MILLISECONDS)) {
-                log.info("락 획득 실패");
                 throw new NoDataFoundException();
             }
-            log.info("락 획득 성공");
-            purchaseDeal.setStatus(Status.PROGRESS);
-            saleDeal.setOtherId(purchaseDeal.getId());
-            dealMapper.save(saleDeal);
-            purchaseDeal.setOtherId(saleDeal.getId());
-            dealMapper.update(purchaseDeal);
+            setDealTypeToProgress(saleDeal, purchaseDeal);
+            linkDeals(saleDeal, purchaseDeal);
+            updateDeals(saleDeal, purchaseDeal);
         } catch (InterruptedException e) {
             e.printStackTrace();
             throw new RuntimeException(e);
@@ -250,80 +208,127 @@ public class DealService {
     }
 
     private void immediatePurchase(Deal purchaseDeal) {
-        Deal saleDeal = findSellNowDeal(purchaseDeal);
-        final String lockName =
-            saleDeal.getClass().getName() + saleDeal.getId().toString();
+        Deal saleDeal = findImmediateSaleDeal(purchaseDeal);
+
+        String lockName = generateLockName(saleDeal);
         RLock rLock = redissonClient.getLock(lockName);
         try {
             if (!rLock.tryLock(0, TimeUnit.MILLISECONDS)) {
                 throw new NoDataFoundException();
             }
-            saleDeal.setStatus(Status.PROGRESS);
-            purchaseDeal.setOtherId(saleDeal.getId());
-            dealMapper.save(purchaseDeal);
-            saleDeal.setOtherId(purchaseDeal.getId());
-            dealMapper.update(saleDeal);
+            setDealTypeToProgress(purchaseDeal, saleDeal);
+            linkDeals(purchaseDeal, saleDeal);
+            updateDeals(purchaseDeal, saleDeal);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
-            if (rLock != null && rLock.isLocked()) {
-                rLock.unlock();
-            }
+            unlock(rLock);
         }
     }
 
+    private void unlock(RLock rLock) {
+        if (rLock != null && rLock.isLocked()) {
+            rLock.unlock();
+        }
+    }
+
+    private void updateDeals(Deal deal1, Deal deal2) {
+        dealMapper.save(deal1);
+        dealMapper.update(deal2);
+    }
+
+    private static void linkDeals(Deal saleDeal, Deal purchaseDeal) {
+        saleDeal.setOtherId(purchaseDeal.getId());
+        purchaseDeal.setOtherId(saleDeal.getId());
+    }
+
+    private static void setDealTypeToProgress(Deal saleDeal, Deal purchaseDeal) {
+        saleDeal.setDealStatus(DealStatus.PROGRESS);
+        purchaseDeal.setDealStatus(DealStatus.PROGRESS);
+    }
+
+    private String generateLockName(Deal deal) {
+        return deal.getClass().getName() + deal.getId().toString();
+    }
+
     private void bidSale(Deal deal) {
-        deal.setStatus(Status.BIDDING);
+        deal.setDealStatus(DealStatus.BIDDING);
         dealMapper.save(deal);
     }
 
     private void bidPurchase(Deal deal) {
-        deal.setStatus(Status.BIDDING);
+        deal.setDealStatus(DealStatus.BIDDING);
         dealMapper.save(deal);
     }
 
     private void updatePrice(Deal deal, ItemSizePrice itemSizePrice) {
-        final String lockName =
-            itemSizePrice.getClass().getName() + itemSizePrice.getId().toString();
-        RLock rLock = redissonClient.getLock(lockName);
+        String lockName = generateLockName(itemSizePrice);
+        RLock rLock = getLock(lockName);
 
         try {
-            if (!rLock.tryLock(1, 3, TimeUnit.MINUTES)) {
+            if (!tryLock(rLock)) {
                 return;
             }
-
-            if (deal.getStatus() == Status.BIDDING) {
-                if (deal.getDealType() == DealType.PURCHASE) {
-                    if (itemSizePrice.getImmediateSalePrice() == null
-                        || deal.getPrice() > itemSizePrice.getImmediateSalePrice()) {
-                        itemSizePrice.setImmediateSalePrice(deal.getPrice());
-                    }
-                }
-                if (deal.getDealType() == DealType.SALE) {
-                    if (itemSizePrice.getImmediatePurchasePrice() == null
-                        || deal.getPrice() < itemSizePrice.getImmediatePurchasePrice()) {
-                        itemSizePrice.setImmediatePurchasePrice(deal.getPrice());
-                    }
-                }
-            }
-            if (deal.getStatus() == Status.PROGRESS) {
-                Integer highestPurchasePrice = dealMapper.findHighestPurchasePriceByItemIdAndSize(
-                    itemSizePrice.getItemId(), itemSizePrice.getSize());
-                Integer lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(
-                    itemSizePrice.getItemId(), itemSizePrice.getSize());
-                itemSizePrice.changePrice(highestPurchasePrice, lowestSalePrice);
-            }
-            itemSizePriceService.update(itemSizePrice);
+            updatePriceBasedOnDealStatus(deal, itemSizePrice);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Error while trying to acquire lock: " + e.getMessage(), e);
         } finally {
-            if (rLock != null && rLock.isLocked()) {
-                rLock.unlock();
-            }
+            unlock(rLock);
         }
     }
 
-    private Deal findBuyNowDeal(Deal deal) {
+    private String generateLockName(ItemSizePrice itemSizePrice) {
+        return itemSizePrice.getClass().getName() + itemSizePrice.getId().toString();
+    }
+
+    private RLock getLock(String lockName) {
+        return redissonClient.getLock(lockName);
+    }
+
+    private boolean tryLock(RLock rLock) throws InterruptedException {
+        return rLock.tryLock(1, 3, TimeUnit.MINUTES);
+    }
+
+    private void updatePriceBasedOnDealStatus(Deal deal, ItemSizePrice itemSizePrice) {
+        if (deal.getDealStatus() == DealStatus.BIDDING) {
+            updatePriceForBiddingDeal(deal, itemSizePrice);
+        } else if (deal.getDealStatus() == DealStatus.PROGRESS) {
+            updatePriceForProgressDeal(deal, itemSizePrice);
+        }
+        itemSizePriceService.update(itemSizePrice);
+    }
+
+    private void updatePriceForBiddingDeal(Deal deal, ItemSizePrice itemSizePrice) {
+        if (deal.getDealType() == DealType.PURCHASE) {
+            updatePriceForPurchaseDeal(deal, itemSizePrice);
+        } else if (deal.getDealType() == DealType.SALE) {
+            updatePriceForSaleDeal(deal, itemSizePrice);
+        }
+    }
+
+    private void updatePriceForPurchaseDeal(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediateSalePrice() == null
+            || deal.getPrice() > itemSizePrice.getImmediateSalePrice()) {
+            itemSizePrice.setImmediateSalePrice(deal.getPrice());
+        }
+    }
+
+    private void updatePriceForSaleDeal(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediatePurchasePrice() == null
+            || deal.getPrice() < itemSizePrice.getImmediatePurchasePrice()) {
+            itemSizePrice.setImmediatePurchasePrice(deal.getPrice());
+        }
+    }
+
+    private void updatePriceForProgressDeal(Deal deal, ItemSizePrice itemSizePrice) {
+        Integer highestPurchasePrice = dealMapper.findHighestPurchasePriceByItemIdAndSize(
+            itemSizePrice.getItemId(), itemSizePrice.getSize());
+        Integer lowestSalePrice = dealMapper.findLowestSalePriceByItemIdAndSize(
+            itemSizePrice.getItemId(), itemSizePrice.getSize());
+        itemSizePrice.changePrice(highestPurchasePrice, lowestSalePrice);
+    }
+
+    private Deal findImmediatePurchaseDeal(Deal deal) {
         Deal purchaseHistory = dealMapper.findBuyNowDealByItemIdAndSizeAndPrice(
             deal.getItem().getId(), deal.getSize(), deal.getPrice());
         if (purchaseHistory == null) {
@@ -333,7 +338,7 @@ public class DealService {
         return purchaseHistory;
     }
 
-    private Deal findSellNowDeal(Deal deal) {
+    private Deal findImmediateSaleDeal(Deal deal) {
         Deal saleHistory = dealMapper.findSellNowDealByItemIdAndSizeAndPrice(deal.getItem().getId(),
             deal.getSize(), deal.getPrice());
         if (saleHistory == null) {
@@ -341,5 +346,36 @@ public class DealService {
         }
         saleHistory.setItem(itemService.findOne(deal.getItem().getId()));
         return saleHistory;
+    }
+
+    private void handleImmediatePurchase(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediateSalePrice() == null
+            || deal.getPrice() != itemSizePrice.getImmediateSalePrice()) {
+            throw new NoMatchDealStatusException("즉시 구매 진행중 에러 발생, 다시 시도해주세요.");
+        }
+        if (deal.getPrice() == itemSizePrice.getImmediatePurchasePrice()) {
+            immediatePurchase(deal);
+            updatePrice(deal, itemSizePrice);
+        }
+    }
+
+    private void handleBiddingPurchase(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediatePurchasePrice() == null
+            || deal.getPrice() < itemSizePrice.getImmediatePurchasePrice()) {
+            bidPurchase(deal);
+            updatePrice(deal, itemSizePrice);
+        }
+        if (deal.getPrice() >= itemSizePrice.getImmediateSalePrice()) {
+            throw new NoRequestHigherPriceThenImmediatePurchaseException();
+        }
+    }
+
+    private void handleImmediateSale(Deal deal, ItemSizePrice itemSizePrice) {
+        if (itemSizePrice.getImmediateSalePrice() == null
+            || deal.getPrice() != itemSizePrice.getImmediateSalePrice()) {
+            throw new NoMatchDealStatusException("즉시 판매 진행 중 에러 발생, 다시 시도해주세요.");
+        }
+        immediateSale(deal);
+        updatePrice(deal, itemSizePrice);
     }
 }

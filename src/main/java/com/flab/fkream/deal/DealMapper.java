@@ -41,5 +41,5 @@ public interface DealMapper {
     @Transactional(readOnly = true)
     List<DealHistoryDto> findPurchaseHistories(Long userId, Status status);
     @Transactional(readOnly = true)
-    List<DealHistoryDto> findSaleHistories(Long userId, Status status);
+    List<DealHistoryDto> findSaleHistories(Long userId, DealStatus dealStatus);
 }

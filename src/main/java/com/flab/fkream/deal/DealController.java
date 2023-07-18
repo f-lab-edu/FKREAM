@@ -22,6 +22,7 @@ public class DealController {
 
     private final DealService dealService;
 
+
     @PostMapping("/sales")
     public void sales(@Valid @RequestBody Deal deal) {
         dealService.sale(deal);
@@ -79,18 +80,18 @@ public class DealController {
     }
 
     @GetMapping("/history-counts")
-    public Map<Status, Integer> findHistoryCount(@RequestParam DealType dealType) {
+    public Map<DealStatus, Integer> findHistoryCount(@RequestParam DealType dealType) {
         return dealService.findHistoryCount(dealType);
     }
 
     @GetMapping("/purchase-histories")
-    public List<DealHistoryDto> findPurchaseHistories(@RequestParam Status status) {
-        return dealService.findPurchaseHistories(status);
+    public List<DealHistoryDto> findPurchaseHistories(@RequestParam DealStatus dealStatus) {
+        return dealService.findPurchaseHistories(dealStatus);
     }
 
     @GetMapping("/sale-histories")
-    public List<DealHistoryDto> findSaleHistories(@RequestParam Status status) {
-        return dealService.findSaleHistories(status);
+    public List<DealHistoryDto> findSaleHistories(@RequestParam DealStatus dealStatus) {
+        return dealService.findSaleHistories(dealStatus);
     }
 
 

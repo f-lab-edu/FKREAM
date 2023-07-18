@@ -13,7 +13,7 @@
     <result property="period" column="period"/>
     <result property="utilizationPolicy" column="utilization_policy"/>
     <result property="salesCondition" column="sales_condition"/>
-    <result property="status" column="status"/>
+    <result property="dealStatus" column="dealStatus"/>
     <result property="otherId" column="other_id"/>
     <result property="createdAt" column="created_at"/>
   </resultMap>
@@ -22,7 +22,7 @@
     insert into deal (ITEM_ID, deal_type, USER_ID, PRICE, SIZE, PERIOD, UTILIZATION_POLICY,
                       SALES_CONDITION, STATUS, other_id, CREATED_AT)
     VALUES (#{item.id}, #{dealType}, #{userId}, #{price}, #{size}, #{period},
-            #{utilizationPolicy}, #{salesCondition}, #{status}, #{otherId}, #{createdAt})
+            #{utilizationPolicy}, #{salesCondition}, #{dealStatus}, #{otherId}, #{createdAt})
   </insert>
 
   <select id="findByUserId" resultMap="DealResultMap">
@@ -41,7 +41,7 @@
     select *
     from deal
     where deal_type = 'PURCHASE'
-      and status = 'BIDDING'
+      and dealStatus = 'BIDDING'
       and item_id = #{param1}
       and size = #{param2}
       and price = #{param3}
@@ -52,7 +52,7 @@
     select *
     from deal
     where deal_type = 'SALE'
-      and status = 'BIDDING'
+      and dealStatus = 'BIDDING'
       and item_id = #{param1}
       and size = #{param2}
       and price = #{param3}
@@ -65,7 +65,7 @@
     where deal_type = 'PURCHASE'
       and item_id = #{param1}
       and size = #{param2}
-      and status = 'BIDDING'
+      and dealStatus = 'BIDDING'
     order by price DESC
       limit 1
   </select>
@@ -76,7 +76,7 @@
     where deal_type = 'SALE'
       and item_id = #{param1}
       and size = #{param2}
-      and status = 'BIDDING'
+      and dealStatus = 'BIDDING'
     order by price ASC
       limit 1
   </select>
@@ -90,7 +90,7 @@
     <if test="param2 != null">
       and size = #{param2}
     </if>
-    and status = 'COMPLETION'
+    and dealStatus = 'COMPLETION'
     order by trading_day DESC
   </select>
 
@@ -100,7 +100,7 @@
     trading_day as tradingDay
     from deal
     where item_id = #{param1}
-    and status = 'COMPLETION'
+    and dealStatus = 'COMPLETION'
     <if test="param2 != null ">
       and trading_day >= #{param2}
     </if>
@@ -116,7 +116,7 @@
     count(*) as count
     from deal
     where item_id = #{param1}
-    and status = 'BIDDING'
+    and dealStatus = 'BIDDING'
     and deal_type = #{param3}
     <if test="param2 != null">
       and size = #{param2}
@@ -133,12 +133,12 @@
   </select>
 
   <select id="findHistoryCount" resultType="com.flab.fkream.deal.DealHistoryCountDto">
-    select status as status,
+    select dealStatus as dealStatus,
            count(*) as count
     from deal
     where user_id = #{param1}
       and deal_type = #{param2}
-    group by status
+    group by dealStatus
   </select>
 
   <select id="findPurchaseHistories" resultType="com.flab.fkream.deal.DealHistoryDto">
@@ -154,7 +154,7 @@
            join ITEM_IMG img on deal.item_id = img.item_id
     where deal.deal_type = 'PURCHASE'
       and deal.user_id = #{param1}
-      and deal.status = #{param2}
+      and deal.dealStatus = #{param2}
       and img.is_representative_img = true
     order by deal.id DESC
   </select>
@@ -172,7 +172,7 @@
            join ITEM_IMG img on deal.item_id = img.item_id
     where deal.deal_type = 'SALE'
       and deal.user_id = #{param1}
-      and deal.status = #{param2}
+      and deal.dealStatus = #{param2}
       and img.is_representative_img = true
     order by deal.id DESC
   </select>
@@ -188,7 +188,7 @@
         utilization_policy = #{utilizationPolicy},
         sales_condition    = #{salesCondition},
         other_id           = #{otherId},
-        status             = #{status},
+        dealStatus             = #{dealStatus},
         created_at         = #{createdAt}
     where id = #{id}
   </update>

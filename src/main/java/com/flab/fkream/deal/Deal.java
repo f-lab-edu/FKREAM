@@ -37,7 +37,6 @@ public class Deal {
     private int price;
     @NotNull
     private String size;
-
     @NotNull
     @JsonSerialize(using = LocalDateSerializer.class)
     @JsonDeserialize(using = LocalDateDeserializer.class)
@@ -46,8 +45,7 @@ public class Deal {
     private boolean utilizationPolicy;
     @AssertTrue
     private boolean salesCondition;
-    private Status status;
-
+    private DealStatus dealStatus;
     @Setter
     private Long otherId;
     @JsonSerialize(using = LocalDateSerializer.class)
@@ -57,16 +55,8 @@ public class Deal {
     @JsonDeserialize(using = LocalDateDeserializer.class)
     private LocalDate tradingDay;
 
-    public void setKindOfDealToSale() {
-        dealType = DealType.SALE;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
-    public void setKindOfDealToPurchase() {
-        dealType = DealType.PURCHASE;
+    public void setDealStatus(DealStatus dealStatus) {
+        this.dealStatus = dealStatus;
     }
 
     public void setCreatedAtToNow() {

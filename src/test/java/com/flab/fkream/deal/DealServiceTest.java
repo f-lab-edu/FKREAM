@@ -48,7 +48,7 @@ class DealServiceTest {
         sessionUtilities.close();
     }
 
-    Brand brand = Brand.builder().brandName("구찌").isLuxury(true).build();
+    Brand brand = Brand.builder().brandName("구찌").luxury(true).build();
 
     Item itemInfo =
         Item.builder()
@@ -79,14 +79,14 @@ class DealServiceTest {
         .period(LocalDate.now())
         .utilizationPolicy(true)
         .salesCondition(true)
-        .status(Status.BIDDING)
+        .dealStatus(DealStatus.BIDDING)
         .build();
 
     MarketPriceDto marketPriceDto = MarketPriceDto.builder().size("260").build();
     BiddingPriceDto biddingPriceDto = BiddingPriceDto.builder().build();
     DealHistoryDto dealHistoryDto = DealHistoryDto.builder().build();
     DealHistoryCountDto dealHistoryCountDto = DealHistoryCountDto.builder()
-        .status(Status.COMPLETION).count(5).build();
+        .dealStatus(DealStatus.COMPLETION).count(5).build();
 
     @Test
     void saveSale_입찰() {
@@ -100,7 +100,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         given(dealMapper.save(saleDealInfo)).willReturn(1);
@@ -124,7 +124,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         given(dealMapper.save(purchaseDealInfo)).willReturn(1);
@@ -148,7 +148,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         Deal otherDeal = Deal.builder()
@@ -161,7 +161,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         given(dealMapper.save(saleDealInfo)).willReturn(1);
@@ -193,7 +193,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         Deal otherDeal = Deal.builder()
@@ -206,7 +206,7 @@ class DealServiceTest {
             .period(LocalDate.now())
             .utilizationPolicy(true)
             .salesCondition(true)
-            .status(Status.BIDDING)
+            .dealStatus(DealStatus.BIDDING)
             .build();
 
         given(dealMapper.save(purchaseDealInfo)).willReturn(1);
@@ -308,7 +308,7 @@ class DealServiceTest {
         sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
         given(dealMapper.findHistoryCount(1L, DealType.SALE)).willReturn(
             List.of(dealHistoryCountDto));
-        assertThat(dealService.findHistoryCount(DealType.SALE)).containsEntry(Status.COMPLETION,
+        assertThat(dealService.findHistoryCount(DealType.SALE)).containsEntry(DealStatus.COMPLETION,
             5);
         then(dealMapper).should().findHistoryCount(1L, DealType.SALE);
     }
@@ -316,18 +316,18 @@ class DealServiceTest {
     @Test
     void findPurchaseHistory() {
         sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
-        given(dealMapper.findPurchaseHistories(1L, Status.COMPLETION)).willReturn(
+        given(dealMapper.findPurchaseHistories(1L, DealStatus.COMPLETION)).willReturn(
             List.of(dealHistoryDto));
-        assertThat(dealService.findPurchaseHistories(Status.COMPLETION)).contains(dealHistoryDto);
-        then(dealMapper).should().findPurchaseHistories(1L, Status.COMPLETION);
+        assertThat(dealService.findPurchaseHistories(DealStatus.COMPLETION)).contains(dealHistoryDto);
+        then(dealMapper).should().findPurchaseHistories(1L, DealStatus.COMPLETION);
     }
 
     @Test
     void findSaleHistory() {
         sessionUtilities.when(SessionUtil::getLoginUserId).thenReturn(1L);
-        given(dealMapper.findSaleHistories(1L, Status.COMPLETION)).willReturn(
+        given(dealMapper.findSaleHistories(1L, DealStatus.COMPLETION)).willReturn(
             List.of(dealHistoryDto));
-        assertThat(dealService.findSaleHistories(Status.COMPLETION)).contains(dealHistoryDto);
-        then(dealMapper).should().findSaleHistories(1L, Status.COMPLETION);
+        assertThat(dealService.findSaleHistories(DealStatus.COMPLETION)).contains(dealHistoryDto);
+        then(dealMapper).should().findSaleHistories(1L, DealStatus.COMPLETION);
     }
 }
