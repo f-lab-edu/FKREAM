@@ -1,4 +1,4 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
@@ -136,7 +136,7 @@ public class ItemDocument {
         Brand brand = Brand.builder()
             .id(((Number) brandMap.get("id")).longValue())
             .brandName((String) brandMap.get("brandName"))
-            .isLuxury((boolean) brandMap.get("isLuxury"))
+            .luxury((boolean) brandMap.get("isLuxury"))
             .build();
         return brand;
     }
