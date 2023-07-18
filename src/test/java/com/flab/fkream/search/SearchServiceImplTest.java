@@ -3,7 +3,12 @@ package com.flab.fkream.search;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.AutoComplete.AutoCompletedItemDto;
+import com.flab.fkream.AutoComplete.Trie;
 import com.flab.fkream.itemCategory.ItemCategoryService;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
+import com.flab.fkream.search.dbSearch.SearchMapper;
+import com.flab.fkream.search.dbSearch.SearchServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,7 +17,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
-class SearchServiceTest {
+class SearchServiceImplTest {
 
     @Mock
     SearchMapper searchMapper;
@@ -22,7 +27,7 @@ class SearchServiceTest {
     @Mock
     ItemCategoryService itemCategoryService;
     @InjectMocks
-    SearchService searchService;
+    SearchServiceImpl searchService;
 
     private static final String CONTEXT = "nike";
 

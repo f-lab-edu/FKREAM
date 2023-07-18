@@ -1,4 +1,4 @@
-package com.flab.fkream.search;
+package com.flab.fkream.search.dbSearch;
 
 import java.io.Serializable;
 import lombok.AllArgsConstructor;

@@ -1,9 +1,10 @@
-package com.flab.fkream.search;
+package com.flab.fkream.search.dbSearch;
 
+import com.flab.fkream.AutoComplete.AutoCompletedItemDto;
+import com.flab.fkream.search.SearchCriteria;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.cache.annotation.Cacheable;
 
 @Mapper
 public interface SearchMapper {

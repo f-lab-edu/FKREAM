@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flab.fkream.search.SearchMapper">
+<mapper namespace="com.flab.fkream.search.dbSearch.SearchMapper">
 
-  <select id="searchAll" resultType="com.flab.fkream.search.SearchItemDto">
+  <select id="searchAll" resultType="com.flab.fkream.search.dbSearch.SearchItemDto">
     select item.id        as itemId,
            item.item_name as itemName,
            BR.id          as brandId,
@@ -33,7 +33,7 @@
            join BRAND BR on item.BRAND_ID = BR.id
   </select>
 
-  <select id="autoComplete" resultType="com.flab.fkream.search.AutoCompletedItemDto">
+  <select id="autoComplete" resultType="com.flab.fkream.AutoComplete.AutoCompletedItemDto">
     select item.id as itemId,
            item.item_name as itemName,
            img.id as itemImgId,
@@ -48,7 +48,7 @@
     limit 10
   </select>
 
-  <select id="searchByCriteria" resultType="com.flab.fkream.search.SearchItemDto" parameterType="com.flab.fkream.search.SearchCriteria">
+  <select id="searchByCriteria" resultType="com.flab.fkream.search.dbSearch.SearchItemDto" parameterType="com.flab.fkream.search.SearchCriteria">
     select
         item.id        as itemId,
         item.item_name as itemName,

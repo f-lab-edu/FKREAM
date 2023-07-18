@@ -4,7 +4,11 @@ import static org.mockito.BDDMockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+import com.flab.fkream.AutoComplete.AutoCompletedItemDto;
 import com.flab.fkream.item.ItemGender;
+import com.flab.fkream.search.dbSearch.SearchController;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
+import com.flab.fkream.search.dbSearch.SearchServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +17,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
 
 @WebMvcTest(SearchController.class)
@@ -22,7 +24,7 @@ import org.springframework.util.MultiValueMap;
 class SearchControllerTest {
 
     @MockBean
-    SearchService searchService;
+    SearchServiceImpl searchService;
 
     @Autowired
     MockMvc mockMvc;
@@ -80,13 +82,6 @@ class SearchControllerTest {
     void searchItemCountByCriteria() throws Exception {
         given(searchService.findCount(criteria)).willReturn(20);
         mockMvc.perform(get("/search/count?context=nike&gender=male")).andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON));
-    }
-
-    @Test
-    void searchAutoCompletedItem() throws Exception {
-        given(searchService.autoComplete(CONTEXT)).willReturn(List.of(autoCompletedItemDto));
-        mockMvc.perform(get("/search/count?context=nike")).andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON));
     }
 }

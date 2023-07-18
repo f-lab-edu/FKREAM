@@ -16,11 +16,13 @@ public class SearchCriteria implements Serializable {
     private String context;
     private ItemGender gender;
     private Long brandId;
-    private String size;
+    private String[] size;
     private Integer minPrice;
     private Integer maxPrice;
     private Long[] categoryId;
+    private Long[] detailedCategoryId;
     private SortCriteria sort;
+    private Object[] sortValue;
 
     private static final String BAD_REQUEST_CRITERIA = "필터 기준을 잘못 입력했습니다";
 
@@ -38,3 +40,13 @@ public class SearchCriteria implements Serializable {
         }
     }
 }
+/**
+ *     private String context;
+ *     private ItemGender gender;
+ *     private Long brandId;
+ *     private String size;
+ *     private Integer minPrice;
+ *     private Integer maxPrice;
+ *     private Long[] categoryId;
+ *     private SortCriteria sort;
+ */
