@@ -23,7 +23,7 @@ class ItemMapperTest {
     @Autowired
     BrandMapper brandMapper;
 
-    Brand brandInfo = Brand.builder().brandName("구찌").isLuxury(true).build();
+    Brand brandInfo = Brand.builder().brandName("구찌").luxury(true).build();
 
     Item itemInfo =
         Item.builder()

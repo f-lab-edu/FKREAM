@@ -22,9 +22,6 @@ public class ItemImgService {
 
     public List<ItemImg> findImagesByItemId(Long itemId) {
         List<ItemImg> itemImages = itemImgMapper.findImagesByItemId(itemId);
-        if (itemImages.size() == 0) {
-            throw new NoDataFoundException();
-        }
         return itemImages;
     }
 

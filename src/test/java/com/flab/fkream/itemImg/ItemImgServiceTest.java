@@ -5,15 +5,12 @@ import com.flab.fkream.item.Item;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,7 +24,7 @@ class ItemImgServiceTest {
     Brand brand =
         Brand.builder()
             .brandName("구찌")
-            .isLuxury(true)
+            .luxury(true)
             .build();
 
     Item itemInfo =
