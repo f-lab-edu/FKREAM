@@ -1,14 +1,9 @@
-package com.flab.fkream.search;
+package com.flab.fkream.AutoComplete;
 
-import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.item.Item;
-import com.flab.fkream.item.ItemService;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
