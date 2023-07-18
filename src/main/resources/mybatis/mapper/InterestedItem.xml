@@ -15,15 +15,24 @@
         VALUES (#{userId}, #{itemSizePriceId})
     </insert>
 
-    <select id="findAllByUserId" resultMap="InterestedItemResultMap">
-        select *
-        from INTERESTED_ITEM
-        where USER_ID = #{userId}
-    </select>
+  <select id="findAllByUserId" resultMap="InterestedItemResultMap">
+    select *
+    from INTERESTED_ITEM
+    where USER_ID = #{userId}
+  </select>
 
-    <delete id="deleteById">
-        DELETE from INTERESTED_ITEM
-        where USER_ID = #{userId}
-          and ITEM_SIZE_PRICE_ID = #{itemSizePriceId}
-    </delete>
+  <select id="findByUserIdAndItemSizePriceId"
+    resultMap="InterestedItemResultMap">
+    select *
+    from INTERESTED_ITEM
+    where USER_ID = #{userId}
+      and ITEM_SIZE_PRICE_ID = #{itemSizePriceId}
+  </select>
+
+  <delete id="deleteById">
+    DELETE
+    from INTERESTED_ITEM
+    where USER_ID = #{userId}
+      and ITEM_SIZE_PRICE_ID = #{itemSizePriceId}
+  </delete>
 </mapper>
