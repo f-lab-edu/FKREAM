@@ -1,17 +1,10 @@
 package com.flab.fkream.brand;
 
-import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -25,7 +18,7 @@ class BrandServiceTest {
     @InjectMocks
     BrandService brandService;
 
-    Brand brandInfo = Brand.builder().brandName("샤넬").isLuxury(true).build();
+    Brand brandInfo = Brand.builder().brandName("샤넬").luxury(true).build();
 
     @Test
     void 브랜드_추가() throws Exception {

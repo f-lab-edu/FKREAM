@@ -17,5 +17,5 @@ public class Brand implements Serializable{
     @NotNull
     private String brandName;
     @JsonProperty("luxury")
-    private boolean isLuxury;
+    private boolean luxury;
 }

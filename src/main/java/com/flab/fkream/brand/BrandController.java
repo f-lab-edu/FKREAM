@@ -10,14 +10,14 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/brands")
 public class BrandController {
 
     private final BrandService brandService;
 
-    @PostMapping("/brands")
-    public HttpStatus addBrand(@Valid @RequestBody Brand brandInfo) {
+    @PostMapping("")
+    public void addBrand(@Valid @RequestBody Brand brandInfo) {
         brandService.addBrand(brandInfo);
-        return HttpStatus.CREATED;
     }
 
     @GetMapping("/brands")
@@ -25,19 +25,17 @@ public class BrandController {
         return brandService.findAll();
     }
 
-    @GetMapping("/brands/{id}")
+    @GetMapping("/{id}")
     public Brand findOne(@PathVariable Long id) {
         return brandService.findOne(id);
     }
 
-    @PatchMapping("/brands/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @PatchMapping("/{id}")
     public void update(@Valid @RequestBody Brand brandInfo) {
         brandService.update(brandInfo);
     }
 
-    @DeleteMapping("/brands/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         brandService.delete(id);
     }

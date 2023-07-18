@@ -27,25 +27,12 @@ public class BrandService {
         return brand;
     }
 
-    public Brand findByBrandName(String brandName){
-        Brand brand = brandMapper.findByBrandName(brandName);
-        if (brand == null) {
-            throw new NoDataFoundException();
-        }
-        return brand;
-    }
-
     public List<Brand> findAll() {
-        List<Brand> brands = brandMapper.findAll();
-        if (brands.size() == 0) {
-            throw new NoDataFoundException();
-        }
-        return brands;
+        return brandMapper.findAll();
     }
 
     public void update(Brand brandInfo) {
         brandMapper.update(brandInfo);
-        brandMapper.findOne(brandInfo.getId());
     }
 
     public void delete(Long id) {

@@ -17,7 +17,7 @@ class BrandMapperTest {
     @Autowired
     BrandMapper brandMapper;
 
-    Brand brandInfo = Brand.builder().brandName("샤넬").isLuxury(true).build();
+    Brand brandInfo = Brand.builder().brandName("샤넬").luxury(true).build();
 
     @Test
     void 브랜드_추가() throws Exception {
@@ -41,7 +41,7 @@ class BrandMapperTest {
     void 브랜드_업데이트() {
         brandMapper.save(brandInfo);
         Long id = brandInfo.getId();
-        Brand BrandUpdated = Brand.builder().id(id).brandName("나이키").isLuxury(false).build();
+        Brand BrandUpdated = Brand.builder().id(id).brandName("나이키").luxury(false).build();
         brandMapper.update(BrandUpdated);
         assertThat(brandMapper.findOne(brandInfo.getId())).isEqualTo(BrandUpdated);
     }

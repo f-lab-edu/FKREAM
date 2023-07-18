@@ -2,8 +2,6 @@ package com.flab.fkream.brand;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.flab.fkream.item.Item;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -14,7 +12,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -31,7 +28,7 @@ class BrandControllerTest {
     @Autowired
     MockMvc mockMvc;
 
-    Brand brandInfo = Brand.builder().brandName("샤넬").isLuxury(true).build();
+    Brand brandInfo = Brand.builder().brandName("샤넬").luxury(true).build();
 
     @Test
     void addBrand() throws Exception {
