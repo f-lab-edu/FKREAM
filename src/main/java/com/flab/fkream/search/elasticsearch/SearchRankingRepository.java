@@ -1,4 +1,4 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import java.time.LocalDateTime;
 import java.util.List;

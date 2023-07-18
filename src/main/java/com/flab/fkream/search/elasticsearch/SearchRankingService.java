@@ -1,27 +1,16 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class SearchRankingService {
 
     private final SearchRankingRepository searchRankingRepository;
-
-    public void saveSearchDocument(SearchDocument searchDocument) {
-        searchRankingRepository.save(searchDocument);
-    }
-
-
-    @Transactional
-    public void saveAllSearchDocuments(List<SearchDocument> searchDocumentList) {
-        searchRankingRepository.saveAll(searchDocumentList);
-    }
 
     public List<SearchDocument> getSearchRanking() {
         LocalDateTime now = LocalDateTime.now();
@@ -35,5 +24,15 @@ public class SearchRankingService {
         }
     }
 
+    /*
+    public void saveSearchDocument(SearchDocument searchDocument) {
+        searchRankingRepository.save(searchDocument);
+    }
+
+    @Transactional
+    public void saveAllSearchDocuments(List<SearchDocument> searchDocumentList) {
+        searchRankingRepository.saveAll(searchDocumentList);
+    }
+    */
 }
 
