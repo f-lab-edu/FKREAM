@@ -33,4 +33,6 @@ public class InterestItemCount {
     public void increaseCount() {
         this.count++;
     }
+
+    public void decreaseCount() { this.count--;}
 }

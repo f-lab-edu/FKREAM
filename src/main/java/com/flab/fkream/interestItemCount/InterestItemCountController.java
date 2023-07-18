@@ -17,18 +17,18 @@ public class InterestItemCountController {
 
     private final InterestItemCountService interestItemCountService;
 
-    @PostMapping
-    public void save(@RequestBody InterestItemCount interestItemCount) {
-        interestItemCountService.save(interestItemCount);
-    }
-
     @GetMapping("/{itemId}")
     public InterestItemCount findByItemId(@PathVariable Long itemId) {
         return interestItemCountService.findByItemId(itemId);
     }
 
     @PostMapping("/increase")
-    public void increaseCount(@RequestBody InterestItemCount interestItemCount) {
-        interestItemCountService.increaseCount(interestItemCount);
+    public void increaseCount(@RequestBody Long itemId) {
+        interestItemCountService.increaseCount(itemId);
+    }
+
+    @PostMapping("/decrease")
+    public void decreaseCount(@RequestBody Long itemId) {
+        interestItemCountService.decreaseCount(itemId);
     }
 }
