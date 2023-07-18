@@ -1,7 +1,6 @@
 package com.flab.fkream.itemCategory;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
