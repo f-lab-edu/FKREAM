@@ -9,6 +9,8 @@ public interface InterestedItemMapper {
 
     int save(InterestedItem interestedItem);
 
+    InterestedItem findByUserIdAndItemSizePriceId(Long userId, Long itemSizePriceId);
+
     List<InterestedItem> findAllByUserId(Long userId);
 
     int deleteById(@Param("userId") Long userId, @Param("itemSizePriceId") Long itemSizePriceId);

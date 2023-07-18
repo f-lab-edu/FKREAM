@@ -4,7 +4,6 @@ import com.flab.fkream.error.exception.ForbiddenException;
 import com.flab.fkream.utils.SessionUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +24,10 @@ public class InterestedItemController {
     @PostMapping("/interested-items")
     @ResponseStatus(HttpStatus.CREATED)
     public void save(@RequestBody InterestedItem interestedItemInfo) {
+        Long loginUserId = SessionUtil.getLoginUserId();
+        if (!Objects.equals(loginUserId, interestedItemInfo.getUserId())) {
+            throw new ForbiddenException();
+        }
         interestedItemService.save(interestedItemInfo);
     }
 

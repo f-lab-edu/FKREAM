@@ -14,16 +14,32 @@ public class InterestedItemService {
     private final InterestedItemMapper interestedItemMapper;
     private final InterestItemCountService interestItemCountService;
 
-    public int save(InterestedItem interestedItem) {
-        return interestedItemMapper.save(interestedItem);
+    public void save(InterestedItem interestedItem) {
+        InterestedItem foundInterestedItem = interestedItemMapper.findByUserIdAndItemSizePriceId(
+            interestedItem.getUserId(),
+            interestedItem.getItemSizePriceId());
+
+        if (foundInterestedItem != null) {
+            throw new IllegalArgumentException();
+        }
+
+        interestedItemMapper.save(interestedItem);
     }
 
     public List<InterestedItem> findAllByUserId(Long userId) {
         return interestedItemMapper.findAllByUserId(userId);
     }
 
-    public int delete(Long userId, Long itemSizePriceId) {
-        return interestedItemMapper.deleteById(userId, itemSizePriceId);
+    public void delete(Long userId, Long itemSizePriceId) {
+        InterestedItem foundInterestedItem = interestedItemMapper.findByUserIdAndItemSizePriceId(
+            userId, itemSizePriceId);
+
+        if (foundInterestedItem == null) {
+            throw new IllegalArgumentException();
+        }
+
+        interestedItemMapper.deleteById(userId, itemSizePriceId);
+        interestItemCountService.decreaseCount(foundInterestedItem.getItemSizePriceId());
     }
 
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.flab.fkream.interestedItem.InterestedItemMapper">
-    <resultMap id="InterestedItemResultMap" type="com.flab.fkream.interestedItem.InterestedItem">
-        <id property="id" column="id"/>
-        <result property="userId" column="user_id"/>
-        <result property="itemSizePriceId" column="item_size_price_id"/>
-    </resultMap>
+  <resultMap id="InterestedItemResultMap" type="com.flab.fkream.interestedItem.InterestedItem">
+    <id property="id" column="id"/>
+    <result property="userId" column="user_id"/>
+    <result property="itemSizePriceId" column="item_size_price_id"/>
+  </resultMap>
 
-    <insert id="save" parameterType="com.flab.fkream.interestedItem.InterestedItem"
-        useGeneratedKeys="true"
-        keyProperty="id">
-        INSERT INTO interested_item(user_id, item_size_price_id)
-        VALUES (#{userId}, #{itemSizePriceId})
-    </insert>
+  <insert id="save" parameterType="com.flab.fkream.interestedItem.InterestedItem"
+    useGeneratedKeys="true"
+    keyProperty="id">
+    INSERT INTO interested_item(user_id, item_size_price_id)
+    VALUES (#{userId}, #{itemSizePriceId})
+  </insert>
 
   <select id="findAllByUserId" resultMap="InterestedItemResultMap">
     select *
