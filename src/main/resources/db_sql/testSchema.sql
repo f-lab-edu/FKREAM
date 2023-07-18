@@ -131,7 +131,7 @@ CREATE TABLE deal
     period              timestamp,
     utilization_policy boolean,
     sales_condition    boolean,
-    status             varchar(255),
+    dealStatus             varchar(255),
     other_id           int,
     created_at         timestamp,
     trading_day        timestamp
