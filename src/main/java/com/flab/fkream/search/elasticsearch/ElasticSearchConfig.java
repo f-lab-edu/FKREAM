@@ -1,4 +1,4 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;

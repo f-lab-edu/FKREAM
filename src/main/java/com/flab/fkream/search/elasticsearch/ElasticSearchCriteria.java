@@ -1,4 +1,4 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import com.flab.fkream.item.ItemGender;
 import com.flab.fkream.search.SortCriteria;
