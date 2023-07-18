@@ -33,19 +33,15 @@ public class ItemSizePriceService {
     }
 
     public ItemSizePrice findByItemIdAndSize(Long itemId, String size) {
-        return itemSizePriceMapper.findByItemIdAndSize(itemId, size);
-
+        ItemSizePrice itemSizePrice = itemSizePriceMapper.findByItemIdAndSize(itemId, size);
+        if (itemSizePrice == null) {
+            throw new NoDataFoundException();
+        }
+        return itemSizePrice;
     }
 
     public void delete(Long id) {
         itemSizePriceMapper.delete(id);
-    }
-
-    public void compareLowestSellingPrice(ItemSizePrice itemSizePrice, int price) {
-        if (itemSizePrice.getImmediatePurchasePrice() > price) {
-            itemSizePrice.setImmediatePurchasePrice(price);
-            itemSizePriceMapper.update(itemSizePrice);
-        }
     }
 
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
@@ -25,19 +26,19 @@ public class ItemSizePriceController {
 		return HttpStatus.CREATED;
 	}
 
-	@GetMapping("/byItem/{itemId}")
+	@GetMapping("/{id}")
+	public ItemSizePrice findOne(@PathVariable Long id) {
+		return itemSizePriceService.findOne(id);
+	}
+
+	@GetMapping("/byItemId/{itemId}")
 	public List<ItemSizePrice> findAllByItemId(@PathVariable Long itemId) {
 		return itemSizePriceService.findAllByItemId(itemId);
 	}
 
-	@GetMapping("/{itemId}/{size}")
-	public ItemSizePrice findByItemIdAndSize(@PathVariable Long itemId, @PathVariable String size) {
+	@GetMapping("/byItemIdAndSize")
+	public ItemSizePrice findByItemIdAndSize(@RequestParam Long itemId, @RequestParam String size) {
 		return itemSizePriceService.findByItemIdAndSize(itemId, size);
-	}
-
-	@GetMapping("/{id}")
-	public ItemSizePrice findOne(@PathVariable Long id) {
-		return itemSizePriceService.findOne(id);
 	}
 
 	@DeleteMapping("/{id}")
