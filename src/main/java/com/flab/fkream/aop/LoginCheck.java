@@ -8,9 +8,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface LoginCheck {
-	UserType type();
 
-	enum UserType {
-		USER, MANAGER
-	}
+    UserType type();
+
+    enum UserType {
+        USER, MANAGER
+    }
 }
