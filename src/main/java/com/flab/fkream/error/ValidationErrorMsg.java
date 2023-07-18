@@ -1,12 +1,11 @@
 package com.flab.fkream.error;
 
 import com.flab.fkream.utils.HttpRequestUtils;
-import lombok.Builder;
+import java.util.List;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import java.util.List;
 
 @SuperBuilder
 @Getter
