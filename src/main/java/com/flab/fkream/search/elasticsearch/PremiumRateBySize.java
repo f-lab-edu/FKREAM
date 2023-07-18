@@ -1,4 +1,4 @@
-package com.flab.fkream.elasticsearch;
+package com.flab.fkream.search.elasticsearch;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
