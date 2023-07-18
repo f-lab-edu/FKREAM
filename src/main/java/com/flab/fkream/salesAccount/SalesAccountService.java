@@ -1,12 +1,10 @@
 package com.flab.fkream.salesAccount;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+import com.flab.fkream.utils.SessionUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.stereotype.Service;
 
 @Service
 @Log4j2
@@ -17,33 +15,26 @@ public class SalesAccountService {
 
     public void save(SalesAccount salesAccount) {
         salesAccount.setCreatedAtToNow();
-
         SalesAccount existingAccount = salesAccountMapper.findByUserId(salesAccount.getUserId());
-
         if (existingAccount != null) {
             return;
         }
-
         salesAccountMapper.save(salesAccount);
     }
 
-    public SalesAccount findById(Long id) {
-        SalesAccount salesAccount = salesAccountMapper.findByUserId(id);
+    public SalesAccount findByUserId() {
+        SalesAccount salesAccount = salesAccountMapper.findByUserId(SessionUtil.getLoginUserId());
         if (salesAccount == null) {
             throw new NoDataFoundException();
         }
         return salesAccount;
     }
 
-    public List<SalesAccount> findAll() {
-        return salesAccountMapper.findAll();
-    }
-
     public void update(SalesAccount salesAccount) {
         salesAccountMapper.update(salesAccount);
     }
 
-    public void deleteById(Long id) {
-        salesAccountMapper.deleteByUserId(id);
+    public void deleteById() {
+        salesAccountMapper.deleteByUserId(SessionUtil.getLoginUserId());
     }
 }
