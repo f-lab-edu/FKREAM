@@ -22,7 +22,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 @Configuration
 @ConfigurationProperties(prefix = "datasource")
-@MapperScan("com.flab.fkream.*")
+@MapperScan("com.flab.fkream.mapper" )
 @Setter
 public class ShardingDataSourceConfig {
 

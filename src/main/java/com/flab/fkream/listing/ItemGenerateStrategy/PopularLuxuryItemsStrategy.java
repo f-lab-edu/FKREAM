@@ -2,10 +2,9 @@ package com.flab.fkream.listing.ItemGenerateStrategy;
 
 import com.flab.fkream.listing.ItemGenerationStrategy;
 import com.flab.fkream.listing.ListingCriteria;
-import com.flab.fkream.listing.ListingMapper;
+import com.flab.fkream.mapper.ListingMapper;
 import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
