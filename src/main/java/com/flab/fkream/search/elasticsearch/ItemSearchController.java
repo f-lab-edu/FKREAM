@@ -1,5 +1,6 @@
 package com.flab.fkream.search.elasticsearch;
 
+import com.flab.fkream.brand.Brand;
 import com.flab.fkream.kafka.KafkaMessageSender;
 import com.flab.fkream.kafka.KafkaTopic;
 import com.flab.fkream.search.SearchCriteria;
@@ -27,6 +28,21 @@ public class ItemSearchController {
     private final KafkaMessageSender messageSender;
 
 
+    @GetMapping("/make_item")
+    public void makeSearchRanking() {
+        Brand brand = Brand.builder().id(1L).brandName("nike").luxury(false).build();
+        for (int i=1; i<100001; i++ ){
+            itemSearchService.saveItem(ItemDocument
+                .builder()
+                .id(Long.valueOf(i))
+                .itemName("item"+i)
+                .brand(brand)
+                .dealCount(i)
+                .build());
+        }
+    }
+
+
     @GetMapping("/search_rankings")
     public List<SearchDocument> getSearchRanking() {
         return searchRankingService.getSearchRanking();
@@ -47,7 +63,10 @@ public class ItemSearchController {
             ipHistory.put(key, LocalDateTime.now().plusMinutes(10));
         }
 
-        return itemSearchService.search(searchCriteria);
+        log.info("test");
+        ItemDocumentsDto search = itemSearchService.search(searchCriteria);
+
+        return search;
     }
 
     /*
