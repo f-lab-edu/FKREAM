@@ -1,5 +1,6 @@
-package com.flab.fkream.itemImg;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.itemImg.ItemImg;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

@@ -1,6 +1,7 @@
 package com.flab.fkream.itemImg;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.mapper.ItemImgMapper;
 import java.util.List;
 
 import org.springframework.stereotype.Service;

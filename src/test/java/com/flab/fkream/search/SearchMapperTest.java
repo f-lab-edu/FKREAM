@@ -2,18 +2,18 @@ package com.flab.fkream.search;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.flab.fkream.brand.BrandMapper;
-import com.flab.fkream.deal.DealMapper;
+import com.flab.fkream.mapper.BrandMapper;
+import com.flab.fkream.mapper.DealMapper;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
-import com.flab.fkream.item.ItemMapper;
-import com.flab.fkream.itemCategory.ItemCategoryMapper;
-import com.flab.fkream.itemImg.ItemImgMapper;
+import com.flab.fkream.mapper.ItemMapper;
+import com.flab.fkream.mapper.ItemCategoryMapper;
+import com.flab.fkream.mapper.ItemImgMapper;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
-import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
+import com.flab.fkream.mapper.ItemSizePriceMapper;
 import com.flab.fkream.search.dbSearch.SearchItemDto;
-import com.flab.fkream.search.dbSearch.SearchMapper;
-import com.flab.fkream.user.UserMapper;
+import com.flab.fkream.mapper.SearchMapper;
+import com.flab.fkream.mapper.UserMapper;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;

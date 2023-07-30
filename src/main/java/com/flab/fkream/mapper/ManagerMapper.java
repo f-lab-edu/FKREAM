@@ -1,5 +1,6 @@
-package com.flab.fkream.manager;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.manager.Manager;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

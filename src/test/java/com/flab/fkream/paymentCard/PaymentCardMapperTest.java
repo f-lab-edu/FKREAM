@@ -2,8 +2,9 @@ package com.flab.fkream.paymentCard;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.flab.fkream.mapper.PaymentCardMapper;
 import com.flab.fkream.user.User;
-import com.flab.fkream.user.UserMapper;
+import com.flab.fkream.mapper.UserMapper;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

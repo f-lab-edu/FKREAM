@@ -1,6 +1,7 @@
 package com.flab.fkream.interestedItem;
 
 import com.flab.fkream.interestItemCount.InterestItemCountService;
+import com.flab.fkream.mapper.InterestedItemMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

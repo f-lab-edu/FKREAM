@@ -1,5 +1,6 @@
 package com.flab.fkream.brand;
 
+import com.flab.fkream.mapper.BrandMapper;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

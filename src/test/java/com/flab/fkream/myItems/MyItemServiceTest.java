@@ -3,23 +3,8 @@ package com.flab.fkream.myItems;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
 
-import com.flab.fkream.error.exception.NoDataFoundException;
-import com.flab.fkream.itemSizePrice.ItemSizePrice;
-import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
-import com.flab.fkream.user.User;
-import com.flab.fkream.user.UserMapper;
-import java.util.List;
-import org.apache.ibatis.javassist.NotFoundException;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)

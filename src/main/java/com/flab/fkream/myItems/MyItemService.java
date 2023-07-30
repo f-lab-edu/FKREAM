@@ -2,8 +2,9 @@ package com.flab.fkream.myItems;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
-import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
-import com.flab.fkream.user.UserMapper;
+import com.flab.fkream.mapper.ItemSizePriceMapper;
+import com.flab.fkream.mapper.MyItemMapper;
+import com.flab.fkream.mapper.UserMapper;
 import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;

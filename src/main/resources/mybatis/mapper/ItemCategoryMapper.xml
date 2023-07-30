@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.flab.fkream.itemCategory.ItemCategoryMapper">
+<mapper namespace="com.flab.fkream.mapper.ItemCategoryMapper">
 
   <resultMap id="ItemCategoryMap" type="com.flab.fkream.itemCategory.ItemCategory">
     <id property="id" column="id"/>

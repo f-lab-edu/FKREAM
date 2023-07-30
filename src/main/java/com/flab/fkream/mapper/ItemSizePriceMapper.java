@@ -1,5 +1,6 @@
-package com.flab.fkream.itemSizePrice;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.itemSizePrice.ItemSizePrice;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

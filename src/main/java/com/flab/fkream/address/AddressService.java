@@ -1,5 +1,6 @@
 package com.flab.fkream.address;
 
+import com.flab.fkream.mapper.AddressMapper;
 import com.flab.fkream.redis.RedisService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

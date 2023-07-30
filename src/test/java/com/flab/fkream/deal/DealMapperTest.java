@@ -3,12 +3,13 @@ package com.flab.fkream.deal;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandMapper;
+import com.flab.fkream.mapper.BrandMapper;
 import com.flab.fkream.item.Item;
-import com.flab.fkream.item.ItemMapper;
-import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
+import com.flab.fkream.mapper.ItemMapper;
+import com.flab.fkream.mapper.ItemSizePriceMapper;
+import com.flab.fkream.mapper.DealMapper;
 import com.flab.fkream.user.User;
-import com.flab.fkream.user.UserMapper;
+import com.flab.fkream.mapper.UserMapper;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

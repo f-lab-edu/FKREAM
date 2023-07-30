@@ -1,14 +1,11 @@
 package com.flab.fkream.paymentCard;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
-import com.flab.fkream.error.exception.NotOwnedDataException;
-import com.flab.fkream.utils.HttpRequestUtils;
+import com.flab.fkream.mapper.PaymentCardMapper;
 import com.flab.fkream.utils.SessionUtil;
 import java.util.List;
-import javax.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.apache.catalina.util.RequestUtil;
 import org.springframework.stereotype.Service;
 
 @Service

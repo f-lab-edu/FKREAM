@@ -2,6 +2,7 @@ package com.flab.fkream.listing;
 
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.mapper.ListingMapper;
 import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
 import org.junit.jupiter.api.Test;

@@ -1,5 +1,6 @@
-package com.flab.fkream.salesAccount;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.salesAccount.SalesAccount;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;

@@ -2,6 +2,7 @@ package com.flab.fkream.itemCategory;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.flab.fkream.mapper.ItemCategoryMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;

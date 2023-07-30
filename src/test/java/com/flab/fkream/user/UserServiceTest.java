@@ -1,8 +1,8 @@
 package com.flab.fkream.user;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.As;
 import com.flab.fkream.error.exception.DuplicatedEmailException;
 import com.flab.fkream.error.exception.LoginFailureException;
+import com.flab.fkream.mapper.UserMapper;
 import com.flab.fkream.utils.SHA256Util;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,6 @@ import org.mockito.Mock;
 import static org.mockito.BDDMockito.*;
 
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import com.flab.fkream.login.LoginForm;
 

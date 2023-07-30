@@ -64,7 +64,7 @@ public class ItemDocument {
         ItemDocument itemDocument = ItemDocument.builder()
             .id(Long.parseLong(hit.getId()))
             .itemName((String) sourceAsMap.get("itemName"))
-            .size((List<String>) sourceAsMap.get("size"))
+          /*  .size((List<String>) sourceAsMap.get("size"))
             .immediatePurchasePriceBySize(
                 (Map<String, Integer>) sourceAsMap.get("immediatePurchasePriceBySize"))
             .modelNumber((String) sourceAsMap.get("modelNumber"))
@@ -72,12 +72,12 @@ public class ItemDocument {
             .detailedCategoryId(((Number) sourceAsMap.get("detailedCategoryId")).longValue())
             .releaseDate(parseLocalDate(sourceAsMap.get("releaseDate")))
             .releasedPrice((int) sourceAsMap.get("releasedPrice"))
-            .gender(ItemGender.valueOf((String) sourceAsMap.get("gender")))
+            .gender(ItemGender.valueOf((String) sourceAsMap.get("gender")))*/
             .brand(parseBrand((Map<String, Object>) sourceAsMap.get("brand")))
             .dealCount((int) sourceAsMap.get("dealCount"))
-            .premiumRateBySize(
+           /* .premiumRateBySize(
                 (Map<String, Integer>) sourceAsMap.get("premiumRateBySize"))
-            .minPremiumRate((int) sourceAsMap.get("minPremiumRate"))
+            .minPremiumRate((int) sourceAsMap.get("minPremiumRate"))*/
             .build();
         return itemDocument;
     }
@@ -136,7 +136,7 @@ public class ItemDocument {
         Brand brand = Brand.builder()
             .id(((Number) brandMap.get("id")).longValue())
             .brandName((String) brandMap.get("brandName"))
-            .luxury((boolean) brandMap.get("isLuxury"))
+            .luxury((boolean) brandMap.get("luxury"))
             .build();
         return brand;
     }

@@ -4,6 +4,7 @@ import com.flab.fkream.error.exception.DuplicatedEmailException;
 import com.flab.fkream.error.exception.LoginFailureException;
 import com.flab.fkream.error.exception.NoDataFoundException;
 import com.flab.fkream.login.LoginForm;
+import com.flab.fkream.mapper.UserMapper;
 import com.flab.fkream.utils.SHA256Util;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;

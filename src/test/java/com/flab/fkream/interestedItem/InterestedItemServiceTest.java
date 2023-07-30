@@ -6,8 +6,8 @@ import static org.mockito.BDDMockito.then;
 
 import com.flab.fkream.item.Item;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
+import com.flab.fkream.mapper.InterestedItemMapper;
 import com.flab.fkream.user.User;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;

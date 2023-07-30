@@ -1,6 +1,7 @@
-package com.flab.fkream.notification;
+package com.flab.fkream.mapper;
 
 
+import com.flab.fkream.notification.Notification;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,4 +1,4 @@
-package com.flab.fkream.listing;
+package com.flab.fkream.mapper;
 
 import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;

@@ -1,5 +1,6 @@
-package com.flab.fkream.address;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.address.Address;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheEvict;

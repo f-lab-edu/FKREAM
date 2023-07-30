@@ -1,6 +1,7 @@
 package com.flab.fkream.search.dbSearch;
 
 import com.flab.fkream.itemCategory.ItemCategoryService;
+import com.flab.fkream.mapper.SearchMapper;
 import com.flab.fkream.search.SearchCriteria;
 import com.flab.fkream.search.SearchService;
 import java.util.List;

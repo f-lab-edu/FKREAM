@@ -3,6 +3,7 @@ package com.flab.fkream.item;
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.brand.BrandService;
 import com.flab.fkream.AutoComplete.Trie;
+import com.flab.fkream.mapper.ItemMapper;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

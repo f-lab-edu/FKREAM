@@ -1,6 +1,7 @@
 package com.flab.fkream.manager;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.mapper.ManagerMapper;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

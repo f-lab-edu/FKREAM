@@ -1,6 +1,7 @@
 package com.flab.fkream.address;
 
 
+import com.flab.fkream.mapper.AddressMapper;
 import com.flab.fkream.sharding.AllShardQuery;
 import com.flab.fkream.sharding.Sharding;
 import com.flab.fkream.sharding.ShardingTarget;

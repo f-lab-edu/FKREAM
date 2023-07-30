@@ -2,6 +2,7 @@ package com.flab.fkream.brand;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.flab.fkream.mapper.BrandMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.boot.test.autoconfigure.MybatisTest;

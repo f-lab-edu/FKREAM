@@ -1,5 +1,6 @@
-package com.flab.fkream.itemCategory;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.itemCategory.ItemCategory;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheEvict;

@@ -1,5 +1,6 @@
-package com.flab.fkream.myItems;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.myItems.MyItem;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 

@@ -1,5 +1,6 @@
-package com.flab.fkream.paymentCard;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.paymentCard.PaymentCard;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 

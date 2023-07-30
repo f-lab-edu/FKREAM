@@ -3,6 +3,7 @@ package com.flab.fkream.itemCategory;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.mapper.ItemCategoryMapper;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

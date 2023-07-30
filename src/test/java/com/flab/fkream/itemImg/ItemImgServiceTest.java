@@ -2,6 +2,7 @@ package com.flab.fkream.itemImg;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
+import com.flab.fkream.mapper.ItemImgMapper;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

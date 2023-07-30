@@ -2,6 +2,7 @@ package com.flab.fkream.address;
 
 import static org.mockito.BDDMockito.*;
 
+import com.flab.fkream.mapper.AddressMapper;
 import java.util.List;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;

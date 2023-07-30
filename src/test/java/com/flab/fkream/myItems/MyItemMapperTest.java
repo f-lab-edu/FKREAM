@@ -3,11 +3,12 @@ package com.flab.fkream.myItems;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.item.Item;
-import com.flab.fkream.item.ItemMapper;
+import com.flab.fkream.mapper.ItemMapper;
 import com.flab.fkream.itemSizePrice.ItemSizePrice;
-import com.flab.fkream.itemSizePrice.ItemSizePriceMapper;
+import com.flab.fkream.mapper.ItemSizePriceMapper;
+import com.flab.fkream.mapper.MyItemMapper;
 import com.flab.fkream.user.User;
-import com.flab.fkream.user.UserMapper;
+import com.flab.fkream.mapper.UserMapper;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

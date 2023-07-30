@@ -1,7 +1,8 @@
-package com.flab.fkream.search.dbSearch;
+package com.flab.fkream.mapper;
 
 import com.flab.fkream.AutoComplete.AutoCompletedItemDto;
 import com.flab.fkream.search.SearchCriteria;
+import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

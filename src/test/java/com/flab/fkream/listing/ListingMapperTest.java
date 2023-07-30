@@ -3,12 +3,13 @@ package com.flab.fkream.listing;
 import static org.assertj.core.api.Assertions.*;
 
 import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandMapper;
-import com.flab.fkream.deal.DealMapper;
+import com.flab.fkream.mapper.BrandMapper;
+import com.flab.fkream.mapper.DealMapper;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.item.ItemGender;
-import com.flab.fkream.item.ItemMapper;
-import com.flab.fkream.itemCategory.ItemCategoryMapper;
+import com.flab.fkream.mapper.ItemMapper;
+import com.flab.fkream.mapper.ItemCategoryMapper;
+import com.flab.fkream.mapper.ListingMapper;
 import com.flab.fkream.search.dbSearch.SearchItemDto;
 import java.time.LocalDate;
 import java.util.List;
@@ -24,7 +25,8 @@ import org.springframework.test.context.ActiveProfiles;
 @ActiveProfiles({"test"})
 class ListingMapperTest {
 
-    @Autowired ListingMapper listingMapper;
+    @Autowired
+    ListingMapper listingMapper;
 
     @Autowired
     DealMapper dealMapper;

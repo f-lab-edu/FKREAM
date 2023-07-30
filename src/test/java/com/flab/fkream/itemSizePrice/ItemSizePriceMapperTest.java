@@ -4,7 +4,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
 import com.flab.fkream.item.Item;
-import com.flab.fkream.item.ItemMapper;
+import com.flab.fkream.mapper.ItemMapper;
+import com.flab.fkream.mapper.ItemSizePriceMapper;
 import java.time.LocalDate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

@@ -7,7 +7,7 @@ import com.flab.fkream.AutoComplete.AutoCompletedItemDto;
 import com.flab.fkream.AutoComplete.Trie;
 import com.flab.fkream.itemCategory.ItemCategoryService;
 import com.flab.fkream.search.dbSearch.SearchItemDto;
-import com.flab.fkream.search.dbSearch.SearchMapper;
+import com.flab.fkream.mapper.SearchMapper;
 import com.flab.fkream.search.dbSearch.SearchServiceImpl;
 import java.util.List;
 import org.junit.jupiter.api.Test;

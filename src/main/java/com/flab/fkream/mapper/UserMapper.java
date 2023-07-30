@@ -1,6 +1,7 @@
-package com.flab.fkream.user;
+package com.flab.fkream.mapper;
 
 import com.flab.fkream.login.LoginForm;
+import com.flab.fkream.user.User;
 import org.apache.ibatis.annotations.*;
 
 @Mapper

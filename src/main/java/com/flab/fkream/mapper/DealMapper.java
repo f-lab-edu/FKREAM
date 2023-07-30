@@ -1,5 +1,12 @@
-package com.flab.fkream.deal;
+package com.flab.fkream.mapper;
 
+import com.flab.fkream.deal.BiddingPriceDto;
+import com.flab.fkream.deal.Deal;
+import com.flab.fkream.deal.DealHistoryCountDto;
+import com.flab.fkream.deal.DealHistoryDto;
+import com.flab.fkream.deal.DealStatus;
+import com.flab.fkream.deal.DealType;
+import com.flab.fkream.deal.MarketPriceDto;
 import java.time.LocalDate;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;

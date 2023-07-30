@@ -3,7 +3,8 @@ package com.flab.fkream.item;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.flab.fkream.brand.Brand;
-import com.flab.fkream.brand.BrandMapper;
+import com.flab.fkream.mapper.BrandMapper;
+import com.flab.fkream.mapper.ItemMapper;
 import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

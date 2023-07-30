@@ -1,6 +1,7 @@
 package com.flab.fkream.itemCategory;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.mapper.ItemCategoryMapper;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

@@ -1,12 +1,14 @@
 package com.flab.fkream.brand;
 
 import com.flab.fkream.error.exception.NoDataFoundException;
+import com.flab.fkream.mapper.BrandMapper;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Log4j2
