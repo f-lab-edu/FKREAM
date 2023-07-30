@@ -18,7 +18,8 @@ Java 11, Spring Boot 2.7., Gradle, MyBatis, Redis, Docker, MySql, MongoDB, Elast
 
 - 객체 지향 원리를 토대로 올바른 코드 작성
 - 대용량 트래픽 처리를 고려하여 서비스 기능 구현
-- 병목 지점 파악 및 성능 개선
+- 병목 지점 파악
+- 응답속도 성능 개선
 - 새로운 기술을 학습하고 프로젝트 적재적소에 적용
 
 <br>
