@@ -19,8 +19,8 @@ public class AutoCompleteController {
         return autoCompleteService.autoComplete(context);
     }
 
-    @GetMapping("/auto-complete-init")
+    /*@GetMapping("/auto-complete-init")
     public void initTrie() {
         autoCompleteService.initTrie();
-    }
+    }*/
 }

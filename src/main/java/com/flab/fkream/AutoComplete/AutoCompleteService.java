@@ -21,7 +21,7 @@ public class AutoCompleteService {
 
     @Resource(name = "redisValueOperations")
     private ValueOperations<String, Object> valueOps;
-    private final ItemService itemService;
+    //private final ItemService itemService;
     private final ItemImgService itemImgService;
 
     public List<AutoCompletedItemDto> autoComplete(String word) {
@@ -47,13 +47,13 @@ public class AutoCompleteService {
         valueOps.set(REDIS_AUTO_COMPLETE_KEY, trie);
     }
 
-    public void initTrie() {
+    /*public void initTrie() {
         List<Item> all = itemService.findAll();
         Trie trie = new Trie();
         for (Item item : all) {
             trie.insert(item);
         }
         valueOps.set(REDIS_AUTO_COMPLETE_KEY, trie);
-    }
+    }*/
 }
 

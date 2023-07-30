@@ -41,6 +41,7 @@ public class SearchCriteria implements Serializable {
     }
 }
 /**
+ *     [RDBMS]
  *     private String context;
  *     private ItemGender gender;
  *     private Long brandId;
@@ -49,4 +50,18 @@ public class SearchCriteria implements Serializable {
  *     private Integer maxPrice;
  *     private Long[] categoryId;
  *     private SortCriteria sort;
+ *
+ *     ##########################################################
+ *
+ *     [Elastic Search]
+ *     private String context;
+ *     private ItemGender gender;
+ *     private Long brandId;
+ *     private String[] size;
+ *     private Integer minPrice;
+ *     private Integer maxPrice;
+ *     private Long[] categoryId;
+ *     private Long[] detailedCategoryId;
+ *     private SortCriteria sort;
+ *     private Object[] sortValue;
  */
