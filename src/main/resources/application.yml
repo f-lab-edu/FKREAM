@@ -6,7 +6,7 @@ spring:
     active: prod
   data:
     mongodb:
-      host: localhost
+      host: 115.85.182.97
       port: 27017
       authentication-database: admin
       database: fkream
@@ -58,8 +58,8 @@ datasource:
     shards:
       - master:
           url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${DB_NAME}
-          username: ${DB_USERNAME}
-          password: ${DB_PASSWORD}
+          username: root
+          password: root
           name: master1
         slave:
           url: jdbc:mysql://49.50.161.215:3306/fkream
