@@ -12,7 +12,7 @@ public interface BrandMapper {
 
     int save(Brand brand);
 
-    @Cacheable(cacheNames = "Brand", key = "#p0")
+    //@Cacheable(cacheNames = "Brand", key = "#p0")
     Brand findOne(Long id);
 
     List<Brand> findAll();
