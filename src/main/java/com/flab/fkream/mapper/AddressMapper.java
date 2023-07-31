@@ -12,7 +12,7 @@ public interface AddressMapper {
 
     int save(Address address);
 
-    @Transactional(readOnly = true)
+    //@Transactional(readOnly = true)
     Address findOne(Long id);
 
     @Transactional(readOnly = true)
