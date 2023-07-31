@@ -20,6 +20,12 @@ public class AddressController {
         addressService.addAddress(address);
     }
 
+    @GetMapping("/{id}")
+    public Address findById(@PathVariable Long id) {
+        return addressService.findById(id);
+    }
+
+
     @GetMapping()
     public PageInfo<Address> findOneByUserID(@RequestParam int pageNum,
         @RequestParam(defaultValue = "10") int pageSize) {

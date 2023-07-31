@@ -67,7 +67,7 @@ datasource:
           password: root
           name: slave1
       - master:
-          url: jdbc:mysql://${MYSQL_HOST}:3307/${DB_NAME}
+          url: jdbc:mysql://115.85.182.97:3306/${DB_NAME}
           username: root
           password: root
           name: master2
@@ -83,11 +83,11 @@ sharding:
     rules:
       - shard_no: 0
         range_min: 0
-        range_max: 100
+        range_max: 100000
 
       - shard_no: 1
-        range_min: 101
-        range_max: 200 #최댓값을 안했다.
+        range_min: 100001
+        range_max: 1000000 #최댓값을 안했다.
 
 ###########################################################################
 

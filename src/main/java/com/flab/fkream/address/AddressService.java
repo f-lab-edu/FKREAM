@@ -19,8 +19,14 @@ public class AddressService {
 
     public void addAddress(Address address) {
         Long addressId = redisService.getAddressId();
+        address.setId(addressId);
         addressRepository.addAddress(addressId, address);
     }
+
+    public Address findById(Long id) {
+        return addressRepository.findOne(id);
+    }
+
 
     public List<Address> findByUserId(Long userId) {
         List<Address> addresses = addressRepository.findByUserId(userId);
