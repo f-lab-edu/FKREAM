@@ -1,6 +1,7 @@
 package com.flab.fkream.AutoComplete;
 
 import com.flab.fkream.item.Item;
+import java.io.Serializable;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import lombok.Setter;
 public class TrieNode {
 
     private boolean end;
-    private List<Item> items = new ArrayList<>();
+    private Item item;
     private Map<Character, TrieNode> children = new TreeMap<>();
 
 

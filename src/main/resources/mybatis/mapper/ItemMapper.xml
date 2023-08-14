@@ -49,19 +49,28 @@
 
     <select id="findOne" resultMap="ItemResultMap">
         select *
-        from ITEM i
+        from item i
         where i.id = #{id}
     </select>
 
     <select id="findAll" resultMap="ItemResultMap">
         select *
-        from ITEM
+        from item
     </select>
 
   <select id="findByBrand" resultType="com.flab.fkream.item.Item">
     select *
     from ITEM
     where brand_id = #{param1.id}
+  </select>
+
+  <select id="findByPrefix" resultMap="ItemResultMap">
+    select *
+    from ITEM i
+    join item_count ic on i.id = ic.item_id
+    where i.item_name like CONCAT( #{content}, '%')
+    order by ic.count DESC
+    limit 5
   </select>
 
   <update id="update">

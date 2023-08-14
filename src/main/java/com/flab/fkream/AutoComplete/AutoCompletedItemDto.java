@@ -3,6 +3,9 @@ package com.flab.fkream.AutoComplete;
 import com.flab.fkream.item.Item;
 import com.flab.fkream.itemImg.ItemImg;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +15,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AutoCompletedItemDto implements Serializable {
+public class AutoCompletedItemDto implements Comparable<AutoCompletedItemDto> {
 
     private Long itemId;
 
     private String itemName;
+
+    private int count;
 
     private Long itemImgId;
 
@@ -24,8 +29,16 @@ public class AutoCompletedItemDto implements Serializable {
 
     private String imgUrl;
 
-    public static AutoCompletedItemDto of(Item item, ItemImg itemImg) {
-        return new AutoCompletedItemDto(item.getId(), item.getItemName(), itemImg.getId(),
-            itemImg.getImgName(), itemImg.getImgUrl());
+    public static AutoCompletedItemDto of(Item item) {
+        return AutoCompletedItemDto.builder().itemId(item.getId()).itemName(item.getItemName()).build();
+    }
+
+    public static List<AutoCompletedItemDto> of(List<Item> items) {
+        return new ArrayList<>();
+    }
+
+    @Override
+    public int compareTo(AutoCompletedItemDto o) {
+        return Integer.compare(this.count, o.getCount());
     }
 }

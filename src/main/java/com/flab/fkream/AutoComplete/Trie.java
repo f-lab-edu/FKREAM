@@ -1,14 +1,17 @@
 package com.flab.fkream.AutoComplete;
 
 import com.flab.fkream.item.Item;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
-@Component
-@RequiredArgsConstructor
+@Getter
+@Setter
 public class Trie {
 
     private TrieNode root = new TrieNode();
@@ -26,7 +29,7 @@ public class Trie {
         }
         node.setEnd(true);
         if (node.isEnd()) {
-            node.getItems().add(item);
+            node.setItem(item);
         }
     }
 
@@ -46,10 +49,7 @@ public class Trie {
 
     private void findAllWords(TrieNode node, String prefix, List<Item> result) {
         if (node.isEnd()) {
-            result.addAll(node.getItems());
-        }
-        if (result.size() > 10) {
-            return;
+            result.add(node.getItem());
         }
         for (Map.Entry<Character, TrieNode> entry : node.getChildren().entrySet()) {
             char ch = entry.getKey();

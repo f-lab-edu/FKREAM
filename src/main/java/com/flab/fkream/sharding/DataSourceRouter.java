@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 
+@Log4j2
 public class DataSourceRouter extends AbstractRoutingDataSource {
 
     private Map<Integer, MhaDataSource> shards;
@@ -47,6 +49,7 @@ public class DataSourceRouter extends AbstractRoutingDataSource {
         Sharding sharding = UserHolder.getSharding();
         int shardNo = getShardNo(sharding);
         MhaDataSource dataSource = shards.get(shardNo);
+        if (TransactionSynchronizationManager.isCurrentTransactionReadOnly()) log.info("readOnly");
         return TransactionSynchronizationManager.isCurrentTransactionReadOnly()
             ? dataSource.getSlaveName() : dataSource.getMasterName();
     }

@@ -36,16 +36,16 @@ public class RedisCacheConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> redisCacheTemplate() {
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    public RedisTemplate<String, String> redisCacheTemplate() {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisCacheConnectionFactory());
         redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
 
     @Bean(name = "redisValueOperations")
-    public ValueOperations<String, Object> redisValueOperations() {
+    public ValueOperations<String, String> redisValueOperations() {
         return redisCacheTemplate().opsForValue();
     }
 }

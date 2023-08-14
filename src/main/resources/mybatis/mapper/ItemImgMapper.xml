@@ -7,7 +7,7 @@
         <result property="imgName" column="img_name"/>
         <result property="imgUrl" column="img_url"/>
         <result property="originName" column="origin_name"/>
-        <result property="isRepresentativeImg" column="is_representative_img"/>
+        <result property="representativeImg" column="is_representative_img"/>
         <result property="createdAt" column="created_at"/>
         <association property="item" javaType="com.flab.fkream.item.Item"
             resultMap="ItemResultMap"/>
