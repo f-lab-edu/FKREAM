@@ -218,11 +218,11 @@ gradle-app.setting
 
 
 # docker volumns
-db
-elasticsearch
-kibana
-logstash
-mongo-data
-mysql-root
+db/
+elasticsearch/
+kibana/
+logstash/
+mongo-data/
+mysql-root/
 
 # End of https://www.toptal.com/developers/gitignore/api/gradle,git,windows,macos,java,intellij+all
