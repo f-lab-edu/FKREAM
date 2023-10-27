@@ -1,0 +1,56 @@
+version: "3"
+services:
+  mysql:
+    container_name: mysql
+    # M1에서만 platform 추가
+    platform: linux/x86_64
+    image: library/mysql:8.0.22
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: fkream
+      MYSQL_PASSWORD: fkream
+      MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Seoul
+    # 명령어 설정
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --lower_case_table_names=1
+    volumes:
+      - ./db/mysql/data:/var/lib/mysql
+      - ./mysql-root:/root
+
+  redis:
+    container_name: redis
+    image: redis
+    user: root
+    ports:
+      - 6379:6379
+
+#  elasticsearch:
+#    image: docker.elastic.co/elasticsearch/elasticsearch:7.15.0
+#    container_name: elasticsearch
+#    ports:
+#      - "9200:9200"
+#    environment:
+#      - discovery.type=single-node
+#
+#  logstash:
+#    image: docker.elastic.co/logstash/logstash:7.15.0
+#    container_name: logstash
+#    volumes:
+#      - ./logstash-config:/usr/share/logstash/pipeline
+#    ports:
+#      - "5000:5000"
+#
+#  kibana:
+#    image: docker.elastic.co/kibana/kibana:7.15.0
+#    container_name: kibana
+#    ports:
+#      - "5601:5601"
+#    environment:
+#      - ELASTICSEARCH_URL=http://elasticsearch:9200
+#
+#volumes:
+#  elasticsearch-data:

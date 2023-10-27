@@ -1,0 +1,19 @@
+spring:
+  # Database
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fkream?characterEncoding=UTF-8
+    username: root
+    password: root
+
+  #JPA
+  jpa:
+    properties:
+      hibernate:
+        format_sql: true
+        show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+logging.level:
+  org.hibernate.SQL: debug
+  org.hibernate.type: trace
