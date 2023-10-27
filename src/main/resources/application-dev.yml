@@ -14,6 +14,7 @@ spring:
         show-sql: true
     hibernate:
       ddl-auto: create-drop
+
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
