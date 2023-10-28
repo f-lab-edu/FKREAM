@@ -18,6 +18,23 @@ import org.springframework.web.filter.CorsFilter;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private static final String[] PERMIT_URL_ARRAY = {
+        "/auth/register",
+        "/auth/login",
+        /* swagger v2 */
+        "/v2/api-docs",
+        "/swagger-resources",
+        "/swagger-resources/**",
+        "/configuration/ui",
+        "/configuration/security",
+        "/swagger-ui.html",
+        "/webjars/**",
+        /* swagger v3 */
+        "/v3/api-docs/**",
+        "/swagger-ui/**",
+        "/swagger-resources/**"
+    };
+
     private final TokenProvider tokenProvider;
     private final CorsFilter corsFilter;
     private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
@@ -55,7 +72,7 @@ public class SecurityConfig {
             // 로그인, 회원가입 API 는 토큰이 없는 상태에서 요청이 들어오기 때문에 permitAll 설정
             .and()
             .authorizeRequests()
-            .antMatchers("/auth/register", "auth/login").permitAll()
+            .antMatchers(PERMIT_URL_ARRAY).permitAll()
             // 나머지 API 는 전부 인증 필요
             .anyRequest().authenticated()
 
