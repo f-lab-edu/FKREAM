@@ -1,6 +1,6 @@
 package com.flab.fkream.service;
 
-import com.flab.fkream.dto.MemberResponseDto;
+import com.flab.fkream.dto.MemberDto;
 import com.flab.fkream.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,15 +14,15 @@ public class MemberService {
     private final MemberRepository memberRepository;
 
 
-    public MemberResponseDto findMemberById(Long memberId) {
+    public MemberDto findMemberById(Long memberId) {
         return memberRepository.findById(memberId)
-            .map(MemberResponseDto::of)
+            .map(MemberDto::of)
             .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
 
-    public MemberResponseDto findMemberByUsername(String username) {
+    public MemberDto findMemberByUsername(String username) {
         return memberRepository.findByUsername(username)
-            .map(MemberResponseDto::of)
+            .map(MemberDto::of)
             .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
 }

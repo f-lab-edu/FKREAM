@@ -1,7 +1,7 @@
 package com.flab.fkream.controller;
 
 
-import com.flab.fkream.dto.MemberResponseDto;
+import com.flab.fkream.dto.MemberDto;
 import com.flab.fkream.service.MemberService;
 import com.flab.fkream.util.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +20,13 @@ public class MemberController {
 
 
     @GetMapping("/me")
-    public ResponseEntity<MemberResponseDto> findMemberInfoById() {
+    public ResponseEntity<MemberDto> findMemberInfoById() {
         return ResponseEntity.ok(
             memberService.findMemberById(SecurityUtil.getCurrentMemberId()));
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<MemberResponseDto> findMemberInfoByUsername(
+    public ResponseEntity<MemberDto> findMemberInfoByUsername(
         @PathVariable String username) {
         return ResponseEntity.ok(memberService.findMemberByUsername(username));
     }
