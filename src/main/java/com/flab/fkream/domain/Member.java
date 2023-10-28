@@ -59,6 +59,7 @@ public class Member extends BaseEntity {
     }
 
     public MemberDto toMemberDto() {
-        return new MemberDto(this.username, this.name, this.phoneNumber, this.birthday, this.gender);
+        return new MemberDto(this.username, this.name, this.phoneNumber, this.birthday,
+            this.gender);
     }
 }
