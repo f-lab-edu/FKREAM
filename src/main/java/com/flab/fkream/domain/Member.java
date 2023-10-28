@@ -1,6 +1,7 @@
 package com.flab.fkream.domain;
 
 
+import com.flab.fkream.dto.MemberDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -25,13 +26,13 @@ public class Member extends BaseEntity {
     private Long id;
 
     @Column(nullable = false, length = 50, unique = true)
-    private String email;
+    private String username;
 
     @Column(length = 128)
     private String password;
 
     @Column(length = 20)
-    private String username;
+    private String name;
 
     @Column(length = 20)
     private String phoneNumber;
@@ -47,4 +48,14 @@ public class Member extends BaseEntity {
 
     private boolean deleted;
 
+    public static Member of(MemberDto memberDto) {
+        return Member.builder()
+            .username(memberDto.username())
+            .password(memberDto.password())
+            .name(memberDto.name())
+            .phoneNumber(memberDto.phoneNumber())
+            .birthday(memberDto.birthday())
+            .gender(memberDto.gender())
+            .deleted(false).build();
+    }
 }
