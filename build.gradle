@@ -22,10 +22,23 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-parent:2.5.3'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
     // Spring Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JWT
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+    // Swagger
+//    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+//    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.8'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
     implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'

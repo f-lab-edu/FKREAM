@@ -6,15 +6,21 @@ spring:
     username: root
     password: 1234
 
-  #JPA
+  # JPA
   jpa:
     properties:
       hibernate:
         format_sql: true
         show-sql: true
+        # dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     hibernate:
       ddl-auto: create-drop
+
 
 logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
+
+
+jwt:
+  secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHktand0LXR1dG9yaWFsLWppd29vbi1zcHJpbmctYm9vdC1zZWN1cml0eS1qd3QtdHV0b3JpYWwK

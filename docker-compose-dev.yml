@@ -10,7 +10,7 @@ services:
     environment:
       MYSQL_USER: fkream
       MYSQL_PASSWORD: fkream
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: 1234
       TZ: Asia/Seoul
     # 명령어 설정
     command:

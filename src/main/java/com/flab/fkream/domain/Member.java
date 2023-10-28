@@ -3,6 +3,8 @@ package com.flab.fkream.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Member extends BaseEntity{
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +42,8 @@ public class Member extends BaseEntity{
     @Column(length = 20)
     private String gender;
 
-    private String refreshToken;
+    @Enumerated(EnumType.STRING)
+    private Authority authority;
 
     private boolean deleted;
 
