@@ -19,7 +19,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-parent:2.5.3'
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
@@ -36,8 +35,8 @@ dependencies {
 
 
     // Swagger
-//    implementation 'io.springfox:springfox-boot-starter:3.0.0'
-//    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.8'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
