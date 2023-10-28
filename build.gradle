@@ -6,11 +6,11 @@ plugins {
 
 group = 'com.flab'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '17'
 
 configurations {
     compileOnly {
-        extendsFrom annotationProcessor가
+        extendsFrom annotationProcessor
     }
 }
 
@@ -19,40 +19,63 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-parent:2.5.3'
+
+    // Spring
     implementation 'org.springframework.boot:spring-boot-starter-validation'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.3.0'
-    // JPA
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-aop:2.7.8'
     implementation 'org.springframework.boot:spring-boot-starter-cache'
-    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
-    implementation 'com.oracle.database.jdbc:ojdbc11-production:21.9.0.0'
-    implementation 'org.springframework.session:spring-session-data-redis'
-    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-    implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.4.2'
-    implementation 'com.fasterxml.jackson.core:jackson-databind'
-    implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
-    // redisson
-    implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
-    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-    implementation 'org.springframework.boot:spring-boot-starter-parent'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    implementation 'org.springframework.kafka:spring-kafka'
-    testImplementation 'org.springframework.kafka:spring-kafka-test'
+    //DB
+    implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Spring Security
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // JWT
+    implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+    runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
+
+
+    // redis
+    // implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    // redisson
+    // implementation 'org.redisson:redisson-spring-boot-starter:3.17.4'
+
+    // jackson - databind
+    // implementation 'com.fasterxml.jackson.core:jackson-databind'
+    // implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+
+    // mongo
+    // implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    // kafka
+    // implementation 'org.springframework.kafka:spring-kafka'
+    // testImplementation 'org.springframework.kafka:spring-kafka-test'
 
     // elasticsearch
-    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+    // implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
+
+    // Swagger
+    implementation 'io.springfox:springfox-boot-starter:3.0.0'
+    implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+
     compileOnly 'org.springframework.boot:spring-boot-configuration-processor:2.7.12'
     compileOnly 'org.projectlombok:lombok'
+
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor:2.7.12'
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.0'
     testImplementation 'org.mockito:mockito-inline'
 }
 

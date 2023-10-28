@@ -1,8 +1,0 @@
-package com.flab.fkream.listing;
-
-public enum ListingCriteria {
-
-    RECOMMENDED_ITEM_FOR_MEN, RECOMMENDED_ITEM_FOR_WOMEN, MOST_POPULAR,
-    POPULAR_SNEAKERS, ITEMS_BELOW_RELEASED_PRICE, POPULAR_LUXURY_ITEMS
-
-}
