@@ -16,6 +16,6 @@ public record MemberDto(String username, String password, String name, String ph
             .birthday(this.birthday())
             .gender(this.gender())
             .authority(Authority.ROLE_USER)
-            .deleted(false).build();
+            .build();
     }
 }
