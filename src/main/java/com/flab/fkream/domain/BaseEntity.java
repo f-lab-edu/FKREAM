@@ -15,6 +15,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @MappedSuperclass
 public class BaseEntity {
 
+    private boolean activated;
+
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;

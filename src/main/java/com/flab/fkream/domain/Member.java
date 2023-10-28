@@ -46,8 +46,6 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    private boolean deleted;
-
     public static Member of(MemberDto memberDto) {
         return Member.builder()
             .username(memberDto.username())
@@ -56,6 +54,6 @@ public class Member extends BaseEntity {
             .phoneNumber(memberDto.phoneNumber())
             .birthday(memberDto.birthday())
             .gender(memberDto.gender())
-            .deleted(false).build();
+            .build();
     }
 }
