@@ -6,6 +6,7 @@ import com.flab.fkream.dto.MemberDto;
 import com.flab.fkream.dto.TokenDto;
 import com.flab.fkream.dto.TokenRequestDto;
 import com.flab.fkream.service.AuthService;
+import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<MemberDto> register(
-        @RequestBody RegisteredMemberDto memberRequestDto) {
+        @Valid @RequestBody RegisteredMemberDto memberRequestDto) {
         MemberDto memberDto = authService.register(memberRequestDto);
         return ResponseEntity.ok(memberDto);
     }
