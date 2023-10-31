@@ -3,8 +3,8 @@ package com.flab.fkream.service;
 import com.flab.fkream.domain.Member;
 import com.flab.fkream.domain.RefreshToken;
 import com.flab.fkream.dto.LoginRequestDto;
+import com.flab.fkream.dto.RegisteredMemberDto;
 import com.flab.fkream.dto.MemberDto;
-import com.flab.fkream.dto.MemberResponseDto;
 import com.flab.fkream.dto.TokenDto;
 import com.flab.fkream.dto.TokenRequestDto;
 import com.flab.fkream.jwt.TokenProvider;
@@ -29,14 +29,13 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
 
 
-    public MemberResponseDto register(MemberDto memberRequestDto) {
+    public MemberDto register(RegisteredMemberDto memberRequestDto) {
         if (memberRepository.existsByUsername(memberRequestDto.username())) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다");
         }
 
         Member member = memberRequestDto.toMember(passwordEncoder);
-
-        return MemberResponseDto.of(memberRepository.save(member));
+        return MemberDto.of(memberRepository.save(member));
     }
 
 

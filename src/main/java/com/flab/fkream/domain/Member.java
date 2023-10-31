@@ -2,6 +2,7 @@ package com.flab.fkream.domain;
 
 
 import com.flab.fkream.dto.MemberDto;
+import com.flab.fkream.dto.RegisteredMemberDto;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -46,14 +47,19 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Authority authority;
 
-    public static Member of(MemberDto memberDto) {
+    public static Member of(RegisteredMemberDto registeredMemberDto) {
         return Member.builder()
-            .username(memberDto.username())
-            .password(memberDto.password())
-            .name(memberDto.name())
-            .phoneNumber(memberDto.phoneNumber())
-            .birthday(memberDto.birthday())
-            .gender(memberDto.gender())
+            .username(registeredMemberDto.username())
+            .password(registeredMemberDto.password())
+            .name(registeredMemberDto.name())
+            .phoneNumber(registeredMemberDto.phoneNumber())
+            .birthday(registeredMemberDto.birthday())
+            .gender(registeredMemberDto.gender())
             .build();
+    }
+
+    public MemberDto toMemberDto() {
+        return new MemberDto(this.username, this.name, this.phoneNumber, this.birthday,
+            this.gender);
     }
 }
