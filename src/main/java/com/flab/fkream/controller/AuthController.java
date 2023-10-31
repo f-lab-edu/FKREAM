@@ -1,11 +1,12 @@
 package com.flab.fkream.controller;
 
 import com.flab.fkream.dto.LoginRequestDto;
-import com.flab.fkream.dto.RegisteredMemberDto;
 import com.flab.fkream.dto.MemberDto;
+import com.flab.fkream.dto.RegisteredMemberDto;
 import com.flab.fkream.dto.TokenDto;
 import com.flab.fkream.dto.TokenRequestDto;
 import com.flab.fkream.service.AuthService;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,16 +24,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
 
     private final AuthService authService;
+    private final HttpServletRequest request;
 
     @PostMapping("/register")
     public ResponseEntity<MemberDto> register(
         @Valid @RequestBody RegisteredMemberDto memberRequestDto) {
         MemberDto memberDto = authService.register(memberRequestDto);
+        String ipAddress = request.getRemoteAddr();
+        log.info("회원가입 성공, member: {}, ip : {}", memberDto, ipAddress);
         return ResponseEntity.ok(memberDto);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<TokenDto> login(@RequestBody LoginRequestDto loginRequestDto) {
+    public ResponseEntity<TokenDto> login(@Valid @RequestBody LoginRequestDto loginRequestDto) {
         return ResponseEntity.ok(authService.login(loginRequestDto));
     }
 
