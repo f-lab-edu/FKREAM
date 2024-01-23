@@ -1,8 +1,8 @@
 # FKREAM
 
-리셀 서비스 ***KREAM*** 을 클론한 프로젝트입니다.
+**KREAM**을 모티브로 한 리셀 중고 거래 플랫폼 프로젝트입니다. 
 
-클라이언트는 Kakao Oven을 사용한 프로토타입으로 제작하여 RestAPI 서버 개발에 집중하였습니다.
+클라이언트는 Kakao Oven을 활용한 프로토타입을 제작하여, REST API 서버 개발에 중점을 두었습니다.
 
 배치 작업을 수행하는  **fkream-batch** 프로젝트는 [여기](https://github.com/f-lab-edu/fkream-batch)에서 볼 수 있습니다.
 
